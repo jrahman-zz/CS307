@@ -1,0 +1,21 @@
+# These values are constant for each database.
+default: &default
+  adapter: mysql2
+  username: cs307
+  password: guestpasswordisbestpassword
+  timeout: 5000
+
+development:
+  <<: *default
+  database: cs307_appserver_dev
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: cs307_appserver_test
+
+production:
+  <<: *default
+  database: cs307_appserver
