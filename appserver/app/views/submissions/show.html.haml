@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @submission.user_id
+%p
+  %b Course:
+  = @submission.course_id
+%p
+  %b Code:
+  = @submission.code
+%p
+  %b Passed:
+  = @submission.passed
+%p
+  %b Score:
+  = @submission.score
+%p
+  %b Score:
+  = @submission.score
+%p
+  %b Submitted at:
+  = @submission.submitted_at
+
+= link_to 'Edit', edit_submission_path(@submission)
+\|
+= link_to 'Back', submissions_path

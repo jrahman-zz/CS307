@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @level.name
+%p
+  %b Course:
+  = @level.course_id
+%p
+  %b Tilemap:
+  = @level.tilemap
+
+= link_to 'Edit', edit_level_path(@level)
+\|
+= link_to 'Back', levels_path
