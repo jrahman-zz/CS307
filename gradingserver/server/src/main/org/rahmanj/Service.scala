@@ -1,4 +1,4 @@
-package org.rahma`nj
+package org.rahmanj
 
 import akka.actor._
 import scala.concurrent.ExecutionContext.Implicits.global
