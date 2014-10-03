@@ -1,0 +1,23 @@
+%h1 Listing levels
+
+%table
+  %tr
+    %th Name
+    %th Course
+    %th Tilemap
+    %th
+    %th
+    %th
+
+  - @levels.each do |level|
+    %tr
+      %td= level.name
+      %td= level.course_id
+      %td= level.tilemap
+      %td= link_to 'Show', level
+      %td= link_to 'Edit', edit_level_path(level)
+      %td= link_to 'Destroy', level, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Level', new_level_path

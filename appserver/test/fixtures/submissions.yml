@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id_id: 
+  course_id_id: 
+  code: MyText
+  passed: false
+  score: 
+  score: 
+  submitted_at: 2014-10-01 19:30:05
+
+two:
+  user_id_id: 
+  course_id_id: 
+  code: MyText
+  passed: false
+  score: 
+  score: 
+  submitted_at: 2014-10-01 19:30:05
