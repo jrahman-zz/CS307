@@ -30,6 +30,8 @@ GEM
     acts_as_list (0.4.0)
       activerecord (>= 3.0)
     arel (5.0.1.20140414130214)
+    autoprefixer-rails (3.1.0.20140911)
+      execjs
     bcrypt (3.1.7)
     better_errors (2.0.0)
       coderay (>= 1.0.0)
@@ -112,7 +114,7 @@ GEM
       sass (~> 3.2.0)
       sprockets (~> 2.8, <= 2.11.0)
       sprockets-rails (~> 2.0)
-    simple_form (3.0.2)
+    simple_form (3.1.0.rc2)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
     spring (1.1.3)
@@ -145,6 +147,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_list
+  autoprefixer-rails
   better_errors
   binding_of_caller
   bootstrap-sass
@@ -157,7 +160,7 @@ DEPENDENCIES
   rolify
   rspec
   sass-rails (~> 4.0.3)
-  simple_form
+  simple_form (~> 3.1.0.rc2)
   spring
   thin
   uglifier (>= 1.3.0)
