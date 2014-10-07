@@ -30,3 +30,7 @@ config/database.yml
 /vendor/assets/bower_components
 *.bowerrc
 bower.json
+
+# Remove Mac-only index files
+*.DS_Store
+*._.DS_Store

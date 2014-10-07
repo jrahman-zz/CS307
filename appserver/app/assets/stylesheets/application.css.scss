@@ -17,3 +17,7 @@
 /* Import the Bootstrap stylesheets */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.table.vertical-aligned td {
+  vertical-align: middle;
+}

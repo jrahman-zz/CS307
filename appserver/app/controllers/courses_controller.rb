@@ -3,7 +3,8 @@ class CoursesController < ApplicationController
 
   # GET /courses
   def index
-    @courses = Course.all
+    @q = Course.search(params[:q])
+    @courses = @q.result(distinct: true)
   end
 
   # GET /courses/1

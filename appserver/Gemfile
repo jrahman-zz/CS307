@@ -24,6 +24,9 @@ gem 'autoprefixer-rails'
 # Improved form generators that automatically format for Bootstrap.
 gem 'simple_form', '~> 3.1.0.rc2'
 
+# Enhanced and simplified searching.
+gem 'ransack'
+
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

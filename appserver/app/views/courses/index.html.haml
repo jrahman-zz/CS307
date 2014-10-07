@@ -1,21 +1,26 @@
-%h1 Listing courses
+.page-header
+  .pull-right.col-md-4
+    = search_form_for @q do |f|
+      .input-group
+        = f.search_field :name_cont, placeholder: 'Search Courses', class: 'form-control'
+        .input-group-btn= f.submit 'Search', class: 'btn btn-default'
+  %h1 Courses
 
-%table
-  %tr
-    %th Name
-    %th Start date
-    %th
-    %th
-    %th
-
-  - @courses.each do |course|
+%table.table.table-striped.vertical-aligned
+  %thead
     %tr
-      %td= course.name
-      %td= course.start_date
-      %td= link_to 'Show', course
-      %td= link_to 'Edit', edit_course_path(course)
-      %td= link_to 'Destroy', course, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %th= sort_link @q, :name
+      %th= sort_link @q, :start_date
+      %th Options
 
-%br
+  %tbody
+    - @courses.each do |course|
+      %tr
+        %td= link_to course.name, course
+        %td= course.start_date
+        %td
+          = link_to 'Edit', edit_course_path(course), class: 'btn btn-default btn-sm'
+          = link_to 'Destroy', course, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-sm'
 
-= link_to 'New Course', new_course_path
+.form-actions
+  = link_to 'New Course', new_course_path, class: 'btn btn-primary'
