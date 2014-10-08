@@ -8,6 +8,10 @@ class Settings(config: Config, extendedSystem: ExtendedActorSystem) extends Exte
     val Port = config.getInt("server.http.port")
     val Interface = config.getString("server.http.interface")
   }
+  
+  object Container {
+    val PingInterval = config.getDouble("server.container.ping-interval")
+  }
 }
 
 object Settings extends ExtensionId[Settings] with ExtensionIdProvider {

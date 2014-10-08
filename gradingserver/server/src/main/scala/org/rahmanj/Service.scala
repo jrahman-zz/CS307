@@ -5,6 +5,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import spray.routing._
 import spray.http._
 
+
 // Separate the route structure from the actual actor
 class ServiceActor extends Actor with Service {
 
@@ -15,36 +16,34 @@ class ServiceActor extends Actor with Service {
   def receive = runRoute(serviceRoute)
 }
 
-case class DeadContainer(id: Int)
-
-class CometActor extends Actor {
-
-  def receive = {
-          case DeadContainer(id) => "test"
-  }
-}
-
 trait Service extends HttpService {
 	
-val cometActor = actorRefFactory.actorOf(Props[CometActor])
+  val sessionRouter = actorRefFactory.actorOf(Props[SessionRoutingActor])
 
-val serviceRoute = 
-  path("") {
-    get {
-          complete("")
+  val serviceRoute = 
+    path("") {
+      get {
+            complete("")
+      }
+    } ~
+    path("submission") {
+      post {
+        ctx =>
+
+      }
+    } ~
+    path("session") {
+      post { // TODO, need authentication
+        ctx =>
+          sessionRouter ! CreateSession(ctx, LoginSession("TODO, create params here"))
+      }
+      get {
+        complete("TODO")
+      }	
+    } ~
+    path("ping") {
+      get {
+        complete("TODO, ping docker, and return reply")
+      }
     }
-  } ~
-  path("submission") {
-    post {
-            complete("TODO")
-    }
-  }
-  path("session") {
-    post {
-            complete("TODO")
-    }
-    get {
-            complete("TODO")
-    }	
-  }
 }
