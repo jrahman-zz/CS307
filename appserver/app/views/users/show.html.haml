@@ -1,8 +1,15 @@
 %p#notice= notice
 
-%p
-  %b Name:
-  = @user.name
+%table.table.table-striped.vertical-aligned
+  %tr
+    %th Name 
+    %th Email Address
+    %th Last Sign in
+
+    %tr
+      %td= @user.name
+      %td= @user.email
+      %td= @user.last_sign_in_at
 
 = link_to 'Edit', edit_user_path(@user)
 \|
