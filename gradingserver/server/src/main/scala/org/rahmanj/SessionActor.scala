@@ -24,14 +24,32 @@ case class Ping(success: Boolean)
 case class SubmissionSuccess(res: String) // TODO, create proper type for res
 case class SubmissionFailure(res: String) // TODO, create proper type for res
 
-class SessionActor(language: Any, hostname: String, port: Int) extends Actor {
+class SessionActor(language: Any, hostname: String, port: Int) extends Actor with ActorLogging {
   
   implicit val system = ActorSystem()
   
-  val logger = Logging(context.system, this)
-  
   // Start in the initial state to receive a submission
-  def receive: Receive = receivePing orElse receiveSubmission
+  def receive: Receive = receiveSubmission orElse receiveCommon
+  
+  
+  def receivePing: Receive = {
+    case Ping(result) =>
+      result match {
+        case true =>
+          log.debug("Successful ping received")
+          schedulePing
+          
+        case false =>
+          log.debug("Ping failed")
+          // TODO, scram, fail hard
+      }
+  }
+  
+  def receiveUnknown: Receive = {
+    case _ => log.warning("Known message received by actor")
+  }
+  
+  def receiveCommon = receivePing orElse receiveUnknown
   
   def receiveResult: Receive = {
     case Result(ctx, result) =>
@@ -41,32 +59,13 @@ class SessionActor(language: Any, hostname: String, port: Int) extends Actor {
         case SubmissionFailure(res) =>
           "Send error to user, then add submission to database"
       }
-      context.become(receiveSubmission orElse receivePing)
-    case _ =>
-      logger.warning("Warning, receiveResult matched unknown")
-      "TODO, error"
+      context.become(receiveSubmission orElse receiveCommon)
   }
   
   def receiveSubmission: Receive = {
     case Submission(ctx, code) =>
       sendSubmission(code) // TODO, create a closure over self
-      context.become(receivePing orElse receiveResult)
-    case _ =>
-      "TODO, error condition"
-  }
-  
-  def receivePing: Receive = {
-    case Ping(result) =>
-      
-      result match {
-        case true =>
-          logger.debug("Successful ping received")
-          schedulePing
-          
-        case false =>
-          logger.debug("Ping failed")
-          // TODO, scram, fail hard
-      }
+      context.become(receiveResult orElse receiveCommon)
   }
   
   def schedulePing() {
@@ -78,7 +77,6 @@ class SessionActor(language: Any, hostname: String, port: Int) extends Actor {
     
     system.scheduler.scheduleOnce(interval) {
       val uri = Uri("http://" + hostname + ":" + port + "/ping")
-      
       val response = (IO(Http) ? HttpRequest(GET, uri)).mapTo[HttpResponse] map {
         response => response.status match {
           case Success(_) => self ! Ping(true)
@@ -91,7 +89,6 @@ class SessionActor(language: Any, hostname: String, port: Int) extends Actor {
   }
   
   def sendSubmission(code: String) = {
-    
-    
+  
   }
 }
