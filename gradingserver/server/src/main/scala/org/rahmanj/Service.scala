@@ -35,7 +35,7 @@ trait Service extends HttpService {
     path("session") {
       post { // TODO, need authentication
         ctx =>
-          sessionRouter ! CreateSession(ctx, LoginSession("TODO, create params here"))
+          sessionRouter ! CreateSession(ctx, "TODO")
       }
       get {
         complete("TODO")
