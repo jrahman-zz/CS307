@@ -23,3 +23,5 @@ libraryDependencies ++= Seq(
 
 libraryDependencies += "com.github.mauricio" %% "mysql-async" % "0.2.15"
 
+libraryDepenencies += "" %% "reactive-docker" % ""
+

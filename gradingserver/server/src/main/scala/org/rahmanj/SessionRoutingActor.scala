@@ -20,21 +20,37 @@ class SessionRoutingActor extends Actor with ActorLogging {
       createSession(ctx, loginSession)
     case DeleteSession(ctx, levelSession) =>
       deleteSession(ctx, levelSession)
+    case ResetSession(ctx, levelSession) =>
+      resetSession(ctx, levelSession)
     case Terminated(sessionActor) =>
       terminateSession(sessionActor)
       
   }
   
   def createSession(ctx: RequestContext, loginSession: LoginSession) = {
-    //TODO, create level session
     log.info("Creating new session")
+    
+    val levelSession = LevelSession("TODO, create unique token", -1, -1, new Python())
+    
+    // TODO, inject level session into sessionActor
     val sessionActor = context.actorOf(Props[SessionActor])
     context.watch(sessionActor)
+    
+    sessionActors.add(levelSession, sessionActor)
+    actorSessions.add(sessionActor, levelSession)
+    userSessions.get(loginSession) match {
+      case Some(list) => userSessions.get(loginSession).add()
+      case None => userSessions.add(loginSession, List(levelSession))
+    }
   }
   
   def deleteSession(ctx: RequestContext, levelSession: LevelSession) = {
     //TODO, delete session here
     log.info("Deleting session")
+  }
+  
+  def resetSession(ctx: RequestContext, levelSession: LevelSession) = {
+    log.info("Resetting session")
   }
   
   def terminateSession(sessionActor: ActorRef) = {

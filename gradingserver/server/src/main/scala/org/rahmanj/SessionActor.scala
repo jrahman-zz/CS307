@@ -2,9 +2,6 @@ package org.rahmanj
 
 import akka.actor._
 import akka.event.Logging
-import akka.pattern.ask
-import akka.util.Timeout
-import akka.io.IO
 
 import scala.concurrent.Future
 import scala.concurrent.duration._
@@ -18,8 +15,15 @@ import StatusCodes._
 import com.github.mauricio.async.db.mysql.MySQLConnection
 import com.github.mauricio.async.db.{Connection,Configuration}
 
+import session.LoginSession
+
+import tugboat.Client
+import tugboat.Build
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
+case class InitializeSession(ctx: RequestContext)
+case class SessionInitialized(ctx: RequestContext)
 case class Submission(ctx: RequestContext, code: String)
 case class Result(ctx: RequestContext, result: Any)
 case class Ping(success: Boolean)
@@ -27,12 +31,31 @@ case class Ping(success: Boolean)
 case class SubmissionSuccess(res: String) // TODO, create proper type for res
 case class SubmissionFailure(res: String) // TODO, create proper type for res
 
-class SessionActor(language: Any, hostname: String, port: Int) extends Actor with ActorLogging {
+class SessionActor(language: Any, hostname: String, port: Int) extends Actor with ActorLogging with Stash {
   
   implicit val system = ActorSystem()
   
+  val tb = tugboat.Client()
+  
   // Start in the initial state to receive a submission
-  def receive: Receive = receiveSubmission orElse receiveCommon
+  def receive: Receive = prepareInitialization
+    
+  def prepareInitialization: Receive = {
+    case InitializeSession(ctx, levelSession) =>
+      // TODO, start initialization
+      val containerName = levelSession.language.containerName
+      val containerPath = "/resources/containers/" + containerName 
+      val containerStream = getClass.getResourceAsStream(containerPath)
+      
+    case _ => stash()
+  }
+
+  def finishInitialization: Receive = {
+    case SessionInitialized(ctx) =>
+      // TODO, finished initialization
+    case _ => stash()
+  }
+    
   
   def receivePing: Receive = {
     case Ping(result) =>
