@@ -15,6 +15,9 @@ import spray.routing.RequestContext
 import HttpMethods._
 import StatusCodes._
 
+import com.github.mauricio.async.db.mysql.MySQLConnection
+import com.github.mauricio.async.db.{Connection,Configuration}
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
 case class Submission(ctx: RequestContext, code: String)
@@ -31,14 +34,12 @@ class SessionActor(language: Any, hostname: String, port: Int) extends Actor wit
   // Start in the initial state to receive a submission
   def receive: Receive = receiveSubmission orElse receiveCommon
   
-  
   def receivePing: Receive = {
     case Ping(result) =>
       result match {
         case true =>
           log.debug("Successful ping received")
           schedulePing
-          
         case false =>
           log.debug("Ping failed")
           // TODO, scram, fail hard
@@ -55,7 +56,7 @@ class SessionActor(language: Any, hostname: String, port: Int) extends Actor wit
     case Result(ctx, result) =>
       result match {
         case SubmissionSuccess(res) =>
-          "Send to database, then send to client (Or otherway?)"
+          ctx.complete(saveResult(res))
         case SubmissionFailure(res) =>
           "Send error to user, then add submission to database"
       }
@@ -76,8 +77,8 @@ class SessionActor(language: Any, hostname: String, port: Int) extends Actor wit
     implicit val timeout: Timeout = Timeout(interval)
     
     system.scheduler.scheduleOnce(interval) {
-      val uri = Uri("http://" + hostname + ":" + port + "/ping")
-      val response = (IO(Http) ? HttpRequest(GET, uri)).mapTo[HttpResponse] map {
+      
+      val response = (IO(Http) ? HttpRequest(GET, getUri)).mapTo[HttpResponse] map {
         response => response.status match {
           case Success(_) => self ! Ping(true)
           case _ => self ! Ping(false)
@@ -88,7 +89,28 @@ class SessionActor(language: Any, hostname: String, port: Int) extends Actor wit
     }
   }
   
-  def sendSubmission(code: String) = {
+  def sendSubmission(code: String): Future[HttpResponse] = {
+    // TODO, send submission to container
+    Future {
+      HttpResponse()
+    }
+  }
   
+  // TODO, define correct return type
+  def saveResult(result: Any): Future[String] = {
+    // TODO, store result into database
+    Future {
+      "TODO"
+    }
+  }
+  
+  def getDatabaseConnection: Future[Connection] = {
+    val configuration = Configuration(Settings(system).Database.Username)
+    val connection = new MySQLConnection(configuration)
+    connection.connect
+  }
+  
+  def getUri(): Uri = {
+    Uri("http://" + hostname + ":" + port + "/ping")
   }
 }

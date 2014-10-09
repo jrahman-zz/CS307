@@ -5,10 +5,11 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import spray.routing._
 import spray.http._
 
+import session.LoginSession
 
 // Separate the route structure from the actual actor
 class ServiceActor extends Actor with Service {
-
+  
   // The HTTP Service trait only requires this abstract member
   def actorRefFactory = context
 
@@ -20,6 +21,8 @@ trait Service extends HttpService {
 	
   val sessionRouter = actorRefFactory.actorOf(Props[SessionRoutingActor])
 
+  val system = ActorSystem()
+  
   val serviceRoute = 
     path("") {
       get {
@@ -33,12 +36,19 @@ trait Service extends HttpService {
       }
     } ~
     path("session") {
-      post { // TODO, need authentication
-        ctx =>
-          sessionRouter ! CreateSession(ctx, "TODO")
-      }
-      get {
-        complete("TODO")
+      authenticate(BasicDeviseAuthenticator(
+          Settings(system).AppServer.Hostname,
+          Settings(system).AppServer.Port)
+        ) {
+        loginSession =>
+        post { // TODO, need authentication
+          ctx =>
+            sessionRouter ! CreateSession(ctx, new LoginSession("jason", "test"))
+        }
+        get {
+          ctx =>
+            complete("TODO")
+        }
       }	
     } ~
     path("ping") {
