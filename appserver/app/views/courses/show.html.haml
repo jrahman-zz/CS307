@@ -6,6 +6,9 @@
 %p
   %b Start date:
   = @course.start_date
+%p
+  %b Description:
+  = @course.description  
 
 = link_to 'Edit', edit_course_path(@course)
 \|
