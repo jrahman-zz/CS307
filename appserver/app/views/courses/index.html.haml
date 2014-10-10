@@ -19,7 +19,7 @@
         %td= link_to course.name, course
         %td= course.start_date
         %td
-          = link_to 'Edit', edit_course_path(course), class: 'btn btn-default btn-sm'
+          = link_to 'Edit', edit_course_path(course), class: 'btn btn-warning btn-sm'
           = link_to 'Destroy', course, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-sm'
 
 .form-actions
