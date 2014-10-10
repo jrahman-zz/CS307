@@ -17,6 +17,9 @@ gem 'haml-rails' # Using haml-rails changes the default template engine to use h
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass'
 
+# Javascript library gems
+gem 'phaser-rails'
+
 # Automatically add vendor prefixes (-moz, -webkit, -o, etc...) to CSS rules
 gem 'autoprefixer-rails'
 
