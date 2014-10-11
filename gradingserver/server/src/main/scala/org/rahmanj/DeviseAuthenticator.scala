@@ -8,7 +8,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 import session.LoginSession
 
-trait DeviseAuthenticator extends ContextAuthenticator[LoginSession] {
+trait RemoteAuthenticator extends ContextAuthenticator[LoginSession] {
   implicit def executionContext: ExecutionContext
   
   def apply(ctx: RequestContext): Future[Authentication[LoginSession]] = {
@@ -18,16 +18,18 @@ trait DeviseAuthenticator extends ContextAuthenticator[LoginSession] {
   def authenticate(ctx: RequestContext): Future[Authentication[LoginSession]]
 }
 
-class BasicDeviseAuthenticator(hostname: String, port: Int)(implicit val executionContext: ExecutionContext) extends DeviseAuthenticator {
+class DeviseAuthenticator(hostname: String, port: Int, token: String)(implicit val executionContext: ExecutionContext) extends RemoteAuthenticator {
   def authenticate(ctx: RequestContext): Future[Authentication[LoginSession]] = {
     future {
-      Right(new LoginSession("jason", "test"))
+      // TODO, return a future from a request to the app server
+      // TODO, use the token
+      Right(LoginSession("jason", "test"))
     }
   }
 }
 
-object BasicDeviseAuthenticator {
-  def apply(hostname: String, port: Int)(implicit settings: RoutingSettings, ec: ExecutionContext): BasicDeviseAuthenticator = {
-    new BasicDeviseAuthenticator(hostname, port)
+object DeviseAuthenticator {
+  def apply(hostname: String, port: Int, token: String)(implicit settings: RoutingSettings, ec: ExecutionContext): DeviseAuthenticator = {
+    new DeviseAuthenticator(hostname, port, token)
   }
 }

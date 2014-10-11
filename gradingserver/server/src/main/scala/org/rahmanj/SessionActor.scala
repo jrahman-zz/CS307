@@ -2,21 +2,26 @@ package org.rahmanj
 
 import akka.actor._
 import akka.event.Logging
+import akka.io.IO
 
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
-import spray.can.Http
 import spray.http._
+
+import spray.can.Http
 import spray.routing.RequestContext
 import HttpMethods._
 import StatusCodes._
 
+
 import com.github.mauricio.async.db.mysql.MySQLConnection
 import com.github.mauricio.async.db.{Connection,Configuration}
 
-import session.LoginSession
+import session._
+import gameplay._
 
+import tugboat._
 import tugboat.Client
 import tugboat.Build
 
@@ -24,12 +29,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 case class InitializeSession(ctx: RequestContext)
 case class SessionInitialized(ctx: RequestContext)
-case class Submission(ctx: RequestContext, code: String)
-case class Result(ctx: RequestContext, result: Any)
-case class Ping(success: Boolean)
-
-case class SubmissionSuccess(res: String) // TODO, create proper type for res
-case class SubmissionFailure(res: String) // TODO, create proper type for res
+case class ContainerPing(success: Boolean)
 
 class SessionActor(language: Any, hostname: String, port: Int) extends Actor with ActorLogging with Stash {
   
@@ -47,6 +47,9 @@ class SessionActor(language: Any, hostname: String, port: Int) extends Actor wit
       val containerPath = "/resources/containers/" + containerName 
       val containerStream = getClass.getResourceAsStream(containerPath)
       
+      // TODO, create container
+      
+      
     case _ => stash()
   }
 
@@ -58,7 +61,7 @@ class SessionActor(language: Any, hostname: String, port: Int) extends Actor wit
     
   
   def receivePing: Receive = {
-    case Ping(result) =>
+    case ContainerPing(result) =>
       result match {
         case true =>
           log.debug("Successful ping received")
@@ -75,21 +78,23 @@ class SessionActor(language: Any, hostname: String, port: Int) extends Actor wit
   
   def receiveCommon = receivePing orElse receiveUnknown
   
-  def receiveResult: Receive = {
-    case Result(ctx, result) =>
-      result match {
-        case SubmissionSuccess(res) =>
-          ctx.complete(saveResult(res))
-        case SubmissionFailure(res) =>
-          "Send error to user, then add submission to database"
-      }
-      context.become(receiveSubmission orElse receiveCommon)
-  }
+//  def receiveResult: Receive = {
+//    case ExecutorLevelResult(ctx, result) =>
+//      // TODO
+//      context.become(receiveSubmission orElse receiveCommon)
+//    case ExecutorChallengeResult(ctx, result) =>
+//      // TODO
+//      context.become(receiveSubmission orElse receiveCommon)
+//  }
   
   def receiveSubmission: Receive = {
-    case Submission(ctx, code) =>
-      sendSubmission(code) // TODO, create a closure over self
-      context.become(receiveResult orElse receiveCommon)
+    case Submission(ctx, submission) =>
+      submission match {
+        case levelSubmission: ClientLevelSubmission =>
+          // TODO, pull level information
+        case challengeSubmission: ClientChallengeSubmission =>
+          // TODO, pull challenge information
+      }
   }
   
   def schedulePing() {
@@ -100,30 +105,14 @@ class SessionActor(language: Any, hostname: String, port: Int) extends Actor wit
     implicit val timeout: Timeout = Timeout(interval)
     
     system.scheduler.scheduleOnce(interval) {
-      
       val response = (IO(Http) ? HttpRequest(GET, getUri)).mapTo[HttpResponse] map {
         response => response.status match {
-          case Success(_) => self ! Ping(true)
-          case _ => self ! Ping(false)
+          case Success(_) => self ! ContainerPing(true)
+          case _ => self ! ContainerPing(false)
         }
       } recover {
-        case _ => self ! Ping(false)
+        case _ => self ! ContainerPing(false)
       }
-    }
-  }
-  
-  def sendSubmission(code: String): Future[HttpResponse] = {
-    // TODO, send submission to container
-    Future {
-      HttpResponse()
-    }
-  }
-  
-  // TODO, define correct return type
-  def saveResult(result: Any): Future[String] = {
-    // TODO, store result into database
-    Future {
-      "TODO"
     }
   }
   

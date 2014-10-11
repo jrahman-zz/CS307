@@ -1,13 +1,13 @@
 package org.rahmanj.session
 
-case class Python {
-  val containerName = "PythonContainer"
-}
+import akka.actor.ActorRef
 
 case class LevelSession(
-  token: String,
+  token: SessionToken,
   levelID: Int,
   classID: Int,
+  sessionActor: ActorRef,
+  lastAccessed: Any, // TODO, add datetime type
   language: Any)
 
 
