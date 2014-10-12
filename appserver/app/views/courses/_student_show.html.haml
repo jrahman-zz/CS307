@@ -1,0 +1,28 @@
+%p#notice= notice
+
+%h1{:align => "left"}
+  = @course.name
+%h2{:align => "left"}
+  = "Student View"
+
+.row
+  .col-xs-6
+    %p
+      %b Description:
+      = @course.description 
+    %p
+      %b Language Taught:
+      = "Langauge"
+    %p
+      %b Start date:
+      = @course.start_date 
+
+  .col-xs-6
+    %p
+      %b Badges:
+      = "List of Badges"
+
+
+.row
+  = link_to 'Back to Courses', courses_path, class: 'btn btn-primary btn-sm'
+
