@@ -19,7 +19,7 @@ import com.github.mauricio.async.db.mysql.MySQLConnection
 import com.github.mauricio.async.db.{Connection,Configuration}
 
 import session._
-import gameplay._
+import messages._
 
 import tugboat._
 import tugboat.Client
@@ -27,7 +27,7 @@ import tugboat.Build
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-case class InitializeSession(ctx: RequestContext)
+case class InitializeSession(ctx: RequestContext, level: LevelSession)
 case class SessionInitialized(ctx: RequestContext)
 case class ContainerPing(success: Boolean)
 
@@ -47,8 +47,16 @@ class SessionActor(language: Any, hostname: String, port: Int) extends Actor wit
       val containerPath = "/resources/containers/" + containerName 
       val containerStream = getClass.getResourceAsStream(containerPath)
       
-      // TODO, create container
       
+      val newContainer = createContainer(/* TODO, params */)
+      val levelInfo = loadLevelInformation(/* TODO, params*/)
+      val finishedContainer = for {
+        level <- levelInfo
+        container <- newContainer
+        finishedContainer <- initializeContainer(container, level)
+  } yield finishedContainer
+      
+      // TODO, finishedContainer.map
       
     case _ => stash()
   }
@@ -122,6 +130,18 @@ class SessionActor(language: Any, hostname: String, port: Int) extends Actor wit
     connection.connect
   }
   
+  def createContainer(): Future[Option[LevelSession]] = {
+    // TODO
+  }
+  
+  def initializeContainer() = {
+    // TODO
+  }
+  
+  def loadLevelInformation() = {
+    // TODO
+  }
+      
   def getUri(): Uri = {
     Uri("http://" + hostname + ":" + port + "/ping")
   }

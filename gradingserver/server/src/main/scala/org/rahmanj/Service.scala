@@ -9,7 +9,10 @@ import spray.httpx.SprayJsonSupport.sprayJsonMarshaller
 import spray.httpx.SprayJsonSupport.sprayJsonUnmarshaller
 
 import session._
-import gameplay._
+import messages._
+import routing._
+
+case class ClientDeleteSession() // TODO, find better place for this
 
 // Separate the route structure from the actual actor
 class ServiceActor extends Actor with Service {
@@ -41,32 +44,41 @@ trait Service extends HttpService {
             }
           } ~
           pathPrefix("level/submit" / RestPath) { sessionToken =>
-            val token = SessionToken(sessionToken.toString)
-            post { ctx =>
-              entity(as[ClientLevelSubmission]) { submission =>
-                sessionRouter ! Routable(ctx, login, token, submission)
+            val token: SessionToken = sessionToken.toString
+            post {
+              import ClientLevelSubmissionProtocol._
+              entity(as[ClientLevelSubmission]) { submission => {
+                  ctx: RequestContext =>
+                    sessionRouter ! Routable(ctx, login, token, submission)
+                }
               }
             }
           } ~
           pathPrefix("challenge/submit" / RestPath) { sessionToken =>
             val token = sessionToken.toString
-            post { ctx =>
-              entity(as[ClientChallengeSubmission]) { submission =>
-                sessionRouter ! Routable(ctx, login, token, submission)
+            post {
+              import ClientChallengeSubmissionProtocol._
+              entity(as[ClientChallengeSubmission]) { submission => {
+                  ctx: RequestContext => 
+                    sessionRouter ! Routable(ctx, login, token, submission)
+                }
               }
             }
           } ~
           path("session/delete" / RestPath) { sessionToken =>
             val token = sessionToken.toString
             post { ctx =>
-              sessionRouter ! Routable(ctx, login, ClientDeleteSession())
+              sessionRouter ! Routable(ctx, login, token, ClientDeleteSession())
             }
           } ~
           path("session/create") {
             // TODO, do we want to define the class and langauge when doing this
-            post { ctx =>
-              entity(as[ClientCreateSession]) { sessionInfo =>
-                sessionRouter ! CreateSession(ctx, login, sessionInfo)
+            post {
+              import ClientCreateSessionProtocol._
+              entity(as[ClientCreateSession]) { sessionInfo => {
+                  ctx: RequestContext =>
+                    sessionRouter ! CreateSession(ctx, login, sessionInfo)
+                }
               }
             }
           }

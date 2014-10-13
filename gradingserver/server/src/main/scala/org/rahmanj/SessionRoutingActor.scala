@@ -4,7 +4,8 @@ import akka.actor._
 import spray.routing.RequestContext
 
 import session._
-import gameplay._
+import messages._
+import routing._
 
 case class CreateSession(ctx: RequestContext, login: LoginSession, command: ClientCreateSession)
 case class DeleteSession(ctx: RequestContext, level: LevelSession)
@@ -14,7 +15,7 @@ class SessionRoutingActor extends Actor with ActorLogging {
   val router = new Router()
   
   def receive = {
-    case msg: Routable[Any] =>
+    case msg: Routable =>
       router.routeMessage(msg)
     case CreateSession(ctx, loginSession, command) =>
       createSession(ctx, loginSession)
@@ -33,7 +34,7 @@ class SessionRoutingActor extends Actor with ActorLogging {
     val sessionActor = context.actorOf(Props[SessionActor])
     context.watch(sessionActor)
     
-    val levelSession = LevelSession(token, -1, -1, Python(), sessionActor)
+    val levelSession = LevelSession(token, -1, -1, Python(), sessionActor, "TODO")
     
     router.addRoute((login, token), levelSession)
   }
