@@ -9,9 +9,10 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-    "io.spray" % "spray-can" % "1.3.1",
-    "io.spray" % "spray-routing" % "1.3.1",
-    "io.spray" % "spray-client" % "1.3.1"
+    "io.spray" %% "spray-can" % "1.3.1",
+    "io.spray" %% "spray-routing" % "1.3.1",
+    "io.spray" %% "spray-client" % "1.3.1",
+    "io.spray" %% "spray-json" % "1.3.0"
 )
 
 libraryDependencies += "com.typesafe" % "config" % "1.2.0"
@@ -23,3 +24,4 @@ libraryDependencies ++= Seq(
 
 libraryDependencies += "com.github.mauricio" %% "mysql-async" % "0.2.15"
 
+libraryDependencies += "me.lessis" %% "tugboat" % "0.1.0-SNAPSHOT"
