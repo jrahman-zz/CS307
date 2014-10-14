@@ -37,47 +37,53 @@ trait Service extends HttpService {
     headerValueByName("devise_token") { authToken =>
       authenticate(DeviseAuthenticator(appserverHostname, appserverPort, authToken)) { login =>
         decompressRequest() {
-          pathPrefix("level/reset" / RestPath) { sessionToken =>
-            val token = sessionToken.toString
-            post { ctx =>
-              sessionRouter ! Routable(ctx, login, token, ClientResetLevel())
-            }
-          } ~
-          pathPrefix("level/submit" / RestPath) { sessionToken =>
-            val token: SessionToken = sessionToken.toString
-            post {
-              import ClientLevelSubmissionProtocol._
-              entity(as[ClientLevelSubmission]) { submission => {
-                  ctx: RequestContext =>
-                    sessionRouter ! Routable(ctx, login, token, submission)
+          pathPrefix("level" /) {
+            path("reset" / RestPath) { sessionToken =>
+              val token = sessionToken.toString
+              post { ctx =>
+                sessionRouter ! Routable(ctx, login, token, ClientResetLevel())
+              }
+            } ~
+            path("submit" / RestPath) { sessionToken =>
+              val token: SessionToken = sessionToken.toString
+              post {
+                import ClientLevelSubmissionProtocol._
+                entity(as[ClientLevelSubmission]) { submission => {
+                    ctx: RequestContext =>
+                      sessionRouter ! Routable(ctx, login, token, submission)
+                  }
                 }
               }
             }
           } ~
-          pathPrefix("challenge/submit" / RestPath) { sessionToken =>
-            val token = sessionToken.toString
-            post {
-              import ClientChallengeSubmissionProtocol._
-              entity(as[ClientChallengeSubmission]) { submission => {
-                  ctx: RequestContext => 
-                    sessionRouter ! Routable(ctx, login, token, submission)
+          pathPrefix("challenge" /) {
+            path("submit" / RestPath) { sessionToken =>
+              val token = sessionToken.toString
+              post {
+                import ClientChallengeSubmissionProtocol._
+                entity(as[ClientChallengeSubmission]) { submission => {
+                    ctx: RequestContext => 
+                      sessionRouter ! Routable(ctx, login, token, submission)
+                  }
                 }
               }
             }
-          } ~
-          path("session/delete" / RestPath) { sessionToken =>
-            val token = sessionToken.toString
-            post { ctx =>
-              sessionRouter ! Routable(ctx, login, token, ClientDeleteSession())
-            }
-          } ~
-          path("session/create") {
-            // TODO, do we want to define the class and langauge when doing this
-            post {
-              import ClientCreateSessionProtocol._
-              entity(as[ClientCreateSession]) { sessionInfo => {
-                  ctx: RequestContext =>
-                    sessionRouter ! CreateSession(ctx, login, sessionInfo)
+          }~
+          pathPrefix("session" /) {
+            path("delete" / RestPath) { sessionToken =>
+              val token = sessionToken.toString
+              post { ctx =>
+                sessionRouter ! Routable(ctx, login, token, ClientDeleteSession())
+              }
+            } ~
+            path("create") {
+              // TODO, do we want to define the class and langauge when doing this
+              post {
+                import ClientCreateSessionProtocol._
+                entity(as[ClientCreateSession]) { sessionInfo => {
+                    ctx: RequestContext =>
+                      sessionRouter ! CreateSession(ctx, login, sessionInfo)
+                  }
                 }
               }
             }

@@ -9,5 +9,5 @@ case class ClientLevelResult(
 )
 
 object ClientLevelResultProtocol extends DefaultJsonProtocol {
-  implicit val clientLevelResultFormat = jsonFormat2(ClientLevelResult)
+  implicit val clientLevelResultFormat = jsonFormat3(ClientLevelResult)
 }
