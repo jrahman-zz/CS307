@@ -13,7 +13,7 @@ function preload() {
 }
 
 var map;
-var layer;
+var layer_bg, layer_objs;
 
 function create() {
   game.stage.backgroundColor = '#000000';
@@ -21,7 +21,8 @@ function create() {
   map = game.add.tilemap('sample-tilemap');
   map.addTilesetImage('RPGpack_sheet', 'tiles');
 
-  layer = map.createLayer('MainLayer');
+  layer_bg = map.createLayer('BackgroundLayer');
+  layer_objs = map.createLayer('ObjectsLayer');
 }
 
 function update() {
