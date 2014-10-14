@@ -25,6 +25,7 @@ class Ability
     else
       can :read, Course
       can :read, User
+      can :manage, Course
     end
   end
 end

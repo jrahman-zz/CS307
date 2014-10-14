@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :enroll, :withdraw, :approve_enrollment]
 
   authorize_resource
 
@@ -46,6 +46,18 @@ class CoursesController < ApplicationController
   def destroy
     @course.destroy
     redirect_to courses_url, notice: 'Course was successfully destroyed.'
+  end
+
+  def withdraw
+    @user = User.find(params[:user_id])
+
+    @user.revoke :student, @course
+  end
+
+  def enroll
+  end
+
+  def approve_enrollment
   end
 
   private
