@@ -25,3 +25,7 @@ libraryDependencies ++= Seq(
 libraryDependencies += "com.github.mauricio" %% "mysql-async" % "0.2.15"
 
 libraryDependencies += "me.lessis" %% "tugboat" % "0.1.0-SNAPSHOT"
+
+resolvers += "RoundEights" at "http://maven.spikemark.net/roundeights"
+
+libraryDependencies += "com.roundeights" %% "hasher" % "1.0.0"

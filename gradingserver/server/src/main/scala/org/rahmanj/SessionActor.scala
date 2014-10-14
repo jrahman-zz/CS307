@@ -2,77 +2,76 @@ package org.rahmanj
 
 import akka.actor._
 import akka.event.Logging
+import akka.pattern.Patterns.ask
 import akka.io.IO
 
+import scala.util.{Success,Failure}
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
 import spray.http._
 
-import spray.can.Http
 import spray.routing.RequestContext
-import HttpMethods._
-import StatusCodes._
-
 
 import com.github.mauricio.async.db.mysql.MySQLConnection
 import com.github.mauricio.async.db.{Connection,Configuration}
 
 import session._
 import messages._
-
-import tugboat._
-import tugboat.Client
-import tugboat.Build
+import container._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-case class InitializeSession(ctx: RequestContext, level: LevelSession)
-case class SessionInitialized(ctx: RequestContext)
+case class InitializeSession(ctx: RequestContext, level: ClientCreateSession)
+case class SessionInitialized(ctx: RequestContext, container: Container)
 case class ContainerPing(success: Boolean)
 
-class SessionActor(language: Any, hostname: String, port: Int) extends Actor with ActorLogging with Stash {
+class SessionActor extends Actor with ActorLogging with Stash {
   
   implicit val system = ActorSystem()
   
-  val tb = tugboat.Client()
+  var sessionContainer: Option[Container] = None
   
-  // Start in the initial state to receive a submission
+  // Start in the initial state to receive an initialization 
   def receive: Receive = prepareInitialization
     
   def prepareInitialization: Receive = {
-    case InitializeSession(ctx, levelSession) =>
-      // TODO, start initialization
-      val containerName = levelSession.language.containerName
-      val containerPath = "/resources/containers/" + containerName 
-      val containerStream = getClass.getResourceAsStream(containerPath)
+    case InitializeSession(ctx, levelInfo) =>
+      val futureContainer = createContainer(ContainerConfig())
+      val futureConnection = getDatabaseConnection()
       
-      
-      val newContainer = createContainer(/* TODO, params */)
-      val levelInfo = loadLevelInformation(/* TODO, params*/)
+      // This is a Monad!
       val finishedContainer = for {
-        level <- levelInfo
-        container <- newContainer
-        finishedContainer <- initializeContainer(container, level)
-  } yield finishedContainer
+        connection <- futureConnection
+        container <- futureContainer
+        level <- getLevelInfo(levelInfo, connection)
+        newContainer <- initializeContainer(container, level)
+      } yield newContainer
       
-      // TODO, finishedContainer.map
-      
+      finishedContainer.onComplete {
+        case Success(container) => 
+            self ! SessionInitialized
+            context.become(finishInitialization)
+        case Failure(throwable) =>
+            // TODO, fail, fail hard and fast
+      }
+    // Hideaway, everything else until we are ready
     case _ => stash()
   }
 
   def finishInitialization: Receive = {
-    case SessionInitialized(ctx) =>
-      // TODO, finished initialization
+    case SessionInitialized(ctx, container) =>
+      sessionContainer = Some(container)
+      schedulePing()
+      context.become(receiveSubmission orElse receiveCommon)
     case _ => stash()
   }
-    
-  
+   
   def receivePing: Receive = {
     case ContainerPing(result) =>
       result match {
         case true =>
-          log.debug("Successful ping received")
+          log.debug("Successful ping returned")
           schedulePing
         case false =>
           log.debug("Ping failed")
@@ -106,43 +105,38 @@ class SessionActor(language: Any, hostname: String, port: Int) extends Actor wit
   }
   
   def schedulePing() {
-    val hostname = this.hostname
-    val port = this.port
 
     val interval = Settings(system).Container.PingInterval seconds
     implicit val timeout: Timeout = Timeout(interval)
     
     system.scheduler.scheduleOnce(interval) {
-      val response = (IO(Http) ? HttpRequest(GET, getUri)).mapTo[HttpResponse] map {
-        response => response.status match {
-          case Success(_) => self ! ContainerPing(true)
-          case _ => self ! ContainerPing(false)
-        }
-      } recover {
-        case _ => self ! ContainerPing(false)
+      sessionContainer match {
+        case Some(container) =>
+          container.ping.onComplete {
+            case Success(result) => // TODO
+            case Failure(throwable) => // TODO
+          }
       }
     }
   }
   
   def getDatabaseConnection: Future[Connection] = {
-    val configuration = Configuration(Settings(system).Database.Username)
+    val configuration = Configuration(Settings(system).Database.Username) // TODO, add password, hostname, port, and database option
     val connection = new MySQLConnection(configuration)
     connection.connect
   }
   
-  def createContainer(): Future[Option[LevelSession]] = {
-    // TODO
+  def createContainer(config: ContainerConfig): Future[Container] = {
+    DummyContainer(ContainerConfig())
   }
   
-  def initializeContainer() = {
-    // TODO
+  def initializeContainer(container: Container, level: ExecutorCreateSession) = {
+    container.sendMessage(level)
   }
   
-  def loadLevelInformation() = {
-    // TODO
-  }
-      
-  def getUri(): Uri = {
-    Uri("http://" + hostname + ":" + port + "/ping")
+  def loadLevelInformation(level: ClientCreateSession, connection: Connection) = { 
+    Future {
+      "TODO"
+    }
   }
 }

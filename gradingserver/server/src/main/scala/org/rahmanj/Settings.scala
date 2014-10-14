@@ -15,6 +15,9 @@ class Settings(config: Config, extendedSystem: ExtendedActorSystem) extends Exte
   
   object Database {
     val Username = config.getString("server.database.username")
+    val Password = config.getString("server.database.password")
+    val Hostname = config.getString("server.database.hostname")
+    val Port     = config.getInt("server.database.port")
   }
   
   object AppServer {
