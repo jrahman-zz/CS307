@@ -1,6 +1,8 @@
 class LevelsController < ApplicationController
   before_action :set_level, only: [:show, :edit, :update, :destroy]
 
+  authorize_resource
+
   # GET /levels
   def index
     @levels = Level.all

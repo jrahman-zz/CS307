@@ -16,6 +16,9 @@ config/initializers/secret_token.rb
 config/secrets.yml
 config/database.yml
 
+# Ignore the schema file to avoid conflicts with pending migrations
+db/schema.rb
+
 ## Environment normalisation:
 /.bundle
 /vendor/bundle
