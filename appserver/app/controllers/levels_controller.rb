@@ -8,6 +8,7 @@ class LevelsController < ApplicationController
 
   # GET /levels/1
   def show
+    render 'game/play', layout: 'game_page'
   end
 
   # GET /levels/new
