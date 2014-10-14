@@ -13,6 +13,11 @@ class Router {
     reverseRoutes + (dest -> src)
   }
   
+  def +=(that: Tuple2[RouteSource, RouteDestination]) = {
+    this.addRoute(that._1, that._2)
+    this
+  }
+  
   def getRoute(src: RouteSource): Option[RouteDestination] = {
     routes get src
   }
@@ -21,20 +26,20 @@ class Router {
     routes get src match {
       case Some(dest) =>
         reverseRoutes - dest
-        routes - src
+        routes -= src
     }
   }
   
   def removeRoute(dest: RouteDestination) = {
     reverseRoutes get dest match {
       case Some(src) =>
-        routes - src
+        routes -= src
         reverseRoutes - dest
     }
   }
   
   def routeMessage(msg: Routable) = {
-    getRoute((msg.login, msg.token)) match {
+    getRoute(msg.token) match {
       case Some(sessionActor) =>
         sessionActor ! msg.payload
       case _ =>

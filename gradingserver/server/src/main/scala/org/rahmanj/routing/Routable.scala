@@ -9,25 +9,3 @@ case class Routable (
   token: SessionToken,
   payload: Any
 )
-
-//case class UnroutedLevelSubmission(
-//  ctx: RequestContext,
-//  login: LoginSession,
-//  token: SessionToken,
-//  code: String) extends Routable
-//  
-//case class UnroutedChallengeSubmission(
-//  ctx: RequestContext,
-//  login: LoginSession,
-//  token: SessionToken,
-//  code: String) extends Routable
-//  
-//case class UnroutedResetLevel(
-//  ctx: RequestContext,
-//  login: LoginSession,
-//  token: SessionToken) extends Routable
-//  
-//case class UnroutedDeleteSession(
-//  ctx: RequestContext,
-//  login: LoginSession,
-//  token: SessionToken) extends Routable
