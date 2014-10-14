@@ -11,9 +11,9 @@
       %td= link_to user.name, user
       %td= user.email
       %td
-        = link_to 'Edit', edit_user_path(user), class: 'btn btn-warning btn-sm'
+        = link_to 'Edit', edit_user_registration_path(@user), class: 'btn btn-warning btn-sm'
         = link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-sm'
 
 %br
 .form-actions
-  = link_to 'New User', new_user_path, class: 'btn btn-primary'
+  = link_to 'New User', new_user_registration_path, class: 'btn btn-primary'

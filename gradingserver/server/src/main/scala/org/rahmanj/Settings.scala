@@ -12,6 +12,18 @@ class Settings(config: Config, extendedSystem: ExtendedActorSystem) extends Exte
   object Container {
     val PingInterval = config.getDouble("server.container.ping-interval")
   }
+  
+  object Database {
+    val Username = config.getString("server.database.username")
+    val Password = config.getString("server.database.password")
+    val Hostname = config.getString("server.database.hostname")
+    val Port     = config.getInt("server.database.port")
+  }
+  
+  object AppServer {
+    val Hostname = config.getString("server.appserver.hostname")
+    val Port = config.getInt("server.appserver.port")
+  }
 }
 
 object Settings extends ExtensionId[Settings] with ExtensionIdProvider {
