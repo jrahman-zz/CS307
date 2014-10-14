@@ -1,1 +1,18 @@
 //= require application
+//= require_self
+
+canvas {
+  display: block;
+  margin: auto;
+  border: 2px solid;
+  border-color: #D0D0D0;
+  border-radius: 20px;
+}
+
+body {
+  background-color: black;
+}
+
+p {
+  color: white;
+}
