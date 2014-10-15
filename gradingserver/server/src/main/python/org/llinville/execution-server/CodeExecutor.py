@@ -2,16 +2,16 @@ from RestrictedPython.Guards import safe_builtins
 from RestrictedPython import compile_restricted
 import sys
 import linecache
+import traceback
+import re
 
 
-def exceptiondetails():
+def exceptiondetails(code):
     exc_type, exc_obj, tb = sys.exc_info()
-    f = tb.tb_frame
-    lineno = tb.tb_lineno
-    filename = f.f_code.co_filename
-    linecache.checkcache(filename)
-    line = linecache.getline(filename, lineno, f.f_globals)
-    return exc_type, lineno, line.strip(), exc_obj
+    tb_string = traceback.format_exc()
+    lineno = int(re.findall("line [0-9]+", tb_string)[-1][5:]) #get the last line number mentioned in the traceback
+    line = code.splitlines()[lineno-1] #get the line where we
+    return exc_type, exc_obj, lineno, line
 
 
 def execute(code):
@@ -24,7 +24,8 @@ def execute(code):
     try:
         exec compiled_code in execution_context
         print(execution_context['y'])
-    except ImportError:
-        return exceptiondetails()
-    return False
-print(execute("import sys"))
+    except Exception as e:
+        print exceptiondetails(code)
+
+        return False
+    return True
