@@ -1,7 +1,6 @@
 from RestrictedPython.Guards import safe_builtins
 from RestrictedPython import compile_restricted
 import sys
-import linecache
 import traceback
 import re
 
