@@ -1,16 +1,19 @@
 package org.rahmanj.routing
 
+import akka.event.Logging
+
 import scala.collection.mutable.Map
+
 import org.rahmanj.session._
 
-class Router {
+class Router[RouteSource, RouteDestination, RoutableContext](routeAction: RouteSource => RouteDestination => Routable[RoutableContext, RouteSource] => Unit) {
   
   val routes: Map[RouteSource, RouteDestination] = Map[RouteSource, RouteDestination]()
   val reverseRoutes: Map[RouteDestination, RouteSource] = Map[RouteDestination, RouteSource]()
   
   def addRoute(src: RouteSource, dest: RouteDestination) = {
-    routes + (src -> dest)
-    reverseRoutes + (dest -> src)
+    routes += (src -> dest)
+    reverseRoutes += (dest -> src)
   }
   
   def +=(that: Tuple2[RouteSource, RouteDestination]) = {
@@ -22,28 +25,32 @@ class Router {
     routes get src
   }
   
-  def removeRoute(src: RouteSource) = {
+  def removeRouteBySource(src: RouteSource): Boolean = {
     routes get src match {
       case Some(dest) =>
         reverseRoutes - dest
         routes -= src
+        true
+      case None => false
     }
   }
   
-  def removeRoute(dest: RouteDestination) = {
+  def removeRouteByDestination(dest: RouteDestination): Boolean = {
     reverseRoutes get dest match {
       case Some(src) =>
         routes -= src
-        reverseRoutes - dest
+        reverseRoutes -= dest
+        true
+      case None => false
     }
   }
   
-  def routeMessage(msg: Routable) = {
-    getRoute(msg.token) match {
-      case Some(sessionActor) =>
-        sessionActor ! msg.payload
-      case _ =>
-        msg.ctx.complete("404") // TODO, send correct error
+  def routeMessage(msg: Routable[RoutableContext, RouteSource]): Boolean = {
+    getRoute(msg.source) match {
+      case Some(destination) =>
+        routeAction(msg.source)(destination)(msg)
+        true
+      case None => false
     } 
   }
 }

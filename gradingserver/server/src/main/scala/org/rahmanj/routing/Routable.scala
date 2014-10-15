@@ -3,9 +3,8 @@ package org.rahmanj.routing
 import spray.routing.RequestContext
 import org.rahmanj.session._
 
-case class Routable (
-  ctx: RequestContext,
-  login: LoginSession,
-  token: SessionToken,
+case class Routable[RoutableContext, RouteSource] (
+  source: RouteSource,
+  context: RoutableContext,
   payload: Any
 )

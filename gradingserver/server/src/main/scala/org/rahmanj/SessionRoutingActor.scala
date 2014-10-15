@@ -17,24 +17,23 @@ case class DeleteSession(ctx: RequestContext, login: LoginSession, token: Sessio
 
 class SessionRoutingActor extends Actor with ActorLogging {
 
-  val router = new Router()
+  val router = new Router[SessionToken, ActorRef, RequestCtx](token => sessionActor => msg => sessionActor ! msg.payload)
   val sessionMap = Map[SessionToken, LoginSession]()
   
   def receive = {
-    case msg: Routable =>
-      sessionMap get msg.token match {
-        case Some(session) if session == msg.login => router.routeMessage(msg)
-        case Some(session) => msg.ctx.complete((403, "Not allowed to access that session"))
-        case None => msg.ctx.complete((404, "No such session exists"))
+    case msg: Routable[RequestCtx, SessionToken] =>
+      sessionMap get msg.source match {
+        case Some(session) if session == msg.context.login => 
+          router.routeMessage(msg)
+        case Some(session) => 
+          msg.context.ctx.complete((403, "Not allowed to access that session"))
+        case None => 
+          msg.context.ctx.complete((404, "No such session exists"))
       }
     case CreateSession(ctx, loginSession, levelInfo) =>
       createSession(ctx, loginSession, levelInfo)
     case DeleteSession(ctx, loginSession, token) =>
-      sessionMap get token match {
-        case Some(session) if session == loginSession => deleteSession(ctx, token)
-        case Some(session) => ctx.complete((403, "Not allowed to access that session"))
-        case None => ctx.complete((404, "No such session exists"))
-      }
+      deleteSession(ctx, loginSession, token)
     case Terminated(sessionActor) =>
       terminateSession(sessionActor)
   }
@@ -55,12 +54,21 @@ class SessionRoutingActor extends Actor with ActorLogging {
     sessionActor ! InitializeSession(ctx, levelInfo)
   }
   
-  
-  def deleteSession(ctx: RequestContext, token: SessionToken) = {
+  def deleteSession(ctx: RequestContext, loginSession: LoginSession, token: SessionToken) = {
     log.info("Deleting session")
-    // TODO
-    
-    
+    sessionMap get token match {
+        case Some(session) if session == loginSession =>
+          deleteSessionActor(token) match {
+            case true => ctx.complete((200, "Deleted session")) // TODO, add new message
+            case false => ctx.complete((500, "Failed to delete session"))
+          }
+        case Some(session) => ctx.complete((403, "Not allowed to access that session"))
+        case None => ctx.complete((404, "No such session exists"))
+      }
+  }
+  
+  def deleteSessionActor(token: SessionToken): Boolean = {
+    true // TODO
   }
   
   def terminateSession(sessionActor: ActorRef) = {

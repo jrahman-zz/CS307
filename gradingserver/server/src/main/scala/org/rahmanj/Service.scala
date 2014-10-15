@@ -41,7 +41,7 @@ trait Service extends HttpService {
             path("reset" / RestPath) { sessionToken =>
               val token = sessionToken.toString
               post { ctx =>
-                sessionRouter ! Routable(ctx, login, token, ClientResetLevel())
+                sessionRouter ! Routable(token, RequestCtx(ctx, login), ClientResetLevel())
               }
             } ~
             path("submit" / RestPath) { sessionToken =>
@@ -50,7 +50,7 @@ trait Service extends HttpService {
                 import ClientLevelSubmissionProtocol._
                 entity(as[ClientLevelSubmission]) { submission => {
                     ctx: RequestContext =>
-                      sessionRouter ! Routable(ctx, login, token, submission)
+                      sessionRouter ! Routable(token, RequestCtx(ctx, login), submission)
                   }
                 }
               }
@@ -63,7 +63,7 @@ trait Service extends HttpService {
                 import ClientChallengeSubmissionProtocol._
                 entity(as[ClientChallengeSubmission]) { submission => {
                     ctx: RequestContext => 
-                      sessionRouter ! Routable(ctx, login, token, submission)
+                      sessionRouter ! Routable(token, RequestCtx(ctx, login), submission)
                   }
                 }
               }
@@ -73,7 +73,7 @@ trait Service extends HttpService {
             path("delete" / RestPath) { sessionToken =>
               val token = sessionToken.toString
               post { ctx =>
-                sessionRouter ! Routable(ctx, login, token, ClientDeleteSession())
+                sessionRouter ! Routable(token, RequestCtx(ctx, login), ClientDeleteSession())
               }
             } ~
             path("create") {
