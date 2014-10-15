@@ -49,8 +49,8 @@ class SessionActor extends Actor with ActorLogging with Stash {
         container <- futureContainer
         level <- loadLevelInformation(levelInfo, connection)
         newContainer <- initializeContainer(container, level)
-      } yield (container match {
-          case Some(newContainer) => newContainer
+      } yield (newContainer match {
+          case Some(container) => Future { Some(container) }
           case None => Future { None }
       })
       
@@ -122,6 +122,7 @@ class SessionActor extends Actor with ActorLogging with Stash {
             case Success(result) => // TODO
             case Failure(throwable) => // TODO
           }
+        case None => log.warning("Attempted to ping empty container")
       }
     }
   }
@@ -138,9 +139,10 @@ class SessionActor extends Actor with ActorLogging with Stash {
   
   def initializeContainer(container: Option[Container], level: ExecutorCreateSession): Future[Option[Container]] = {
     container match {
-      case Some(container) => container.sendMessage(level)
-      case None => Future { None }
+      case Some(container) =>
+        container.sendMessage(level)
     }
+    Future { container }
   }
   
   def loadLevelInformation(level: ClientCreateSession, connection: Connection) = { 

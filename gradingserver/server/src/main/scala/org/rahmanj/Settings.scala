@@ -18,6 +18,8 @@ class Settings(config: Config, extendedSystem: ExtendedActorSystem) extends Exte
       val Name            = config.getString("server.container.python.name")
       val VolumePath      = config.getString("server.container.python.volume-path")
     }
+    
+    // Additional languages go here
   }
   
   object Database {
