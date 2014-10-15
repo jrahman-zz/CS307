@@ -2,7 +2,7 @@ package org.rahmanj.container
 
 import akka.actor.ActorSystem
 
-import scala.concurrent.Future
+import scala.concurrent.{Future, Promise}
 import scala.concurrent.ExecutionContext.Implicits.global
 
 import tugboat.Client
@@ -30,7 +30,14 @@ object DockerContainer {
   }
   
   private class DockerContainer(hostname: String, port: Int) extends Container {
-    def sendMessage[Req <: ExecutorRequest](message: Req): Future[message.Response]
-    def ping(): Future[Boolean]
+    def sendMessage[Req <: ExecutorRequest](message: Req): Future[message.Response] = {
+      val p = Promise[message.Response] // TODO
+      p.future
+    }
+    def ping(): Future[Boolean] = {
+      Future {
+        true // TODO
+      }
+    }
   }
 }

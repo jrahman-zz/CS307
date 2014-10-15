@@ -1,7 +1,9 @@
 package org.rahmanj.container
 
-import scala.concurrent.Future
+import scala.concurrent.{Future, Promise}
 import scala.concurrent.ExecutionContext.Implicits.global
+
+import scala.util.Failure
 
 import org.rahmanj.messages.{ExecutorResponse, ExecutorRequest, ExecutorLevelResult}
 
@@ -15,9 +17,11 @@ object DummyContainer {
   
   private class DummyContainer() extends Container {
     def sendMessage[Req <: ExecutorRequest](message: Req): Future[message.Response] = {
-      Future {
-        new ExecutorResponse {}
-      }
+      
+      // TODO, case statement with dummy results
+      
+      val p = Promise[message.Response]
+      p.future
     }
     def ping(): Future[Boolean] = {
       Future {
