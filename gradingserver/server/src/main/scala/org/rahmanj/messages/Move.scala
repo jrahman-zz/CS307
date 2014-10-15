@@ -2,10 +2,8 @@ package org.rahmanj.messages
 
 import spray.json._
 
-case class Move {
+case class Move(timestep: Int)
 
-}
-
-object MoveProtocol {
-  implicit val moveFormat = jsonFormat0(Move)
+object MoveProtocol extends DefaultJsonProtocol {
+  implicit val moveFormat = jsonFormat1(Move)
 }

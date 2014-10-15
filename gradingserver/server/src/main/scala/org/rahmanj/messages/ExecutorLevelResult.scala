@@ -7,7 +7,7 @@ case class ExecutorLevelResult(
   feedback: String,
   time: Double,
   movelist: List[Move]
-)
+) extends ExecutorResponse
 
 object ExecutorLevelResultProtocol extends DefaultJsonProtocol {
   import MoveProtocol._

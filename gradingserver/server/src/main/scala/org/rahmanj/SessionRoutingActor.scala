@@ -18,7 +18,7 @@ case class DeleteSession(ctx: RequestContext, login: LoginSession, token: Sessio
 class SessionRoutingActor extends Actor with ActorLogging {
 
   val router = new Router()
-  val sessionMap = new Map[SessionToken, LoginSession]()
+  val sessionMap = Map[SessionToken, LoginSession]()
   
   def receive = {
     case msg: Routable =>
@@ -42,7 +42,7 @@ class SessionRoutingActor extends Actor with ActorLogging {
   def createSession(ctx: RequestContext, login: LoginSession, levelInfo: ClientCreateSession) = {
     log.info("Creating new session")
     
-    val token = (login.toString + Random.alphanumeric.take(20).mkString).sha512
+    val token = (login.toString + Random.alphanumeric.take(20).mkString).sha512.toString
     
     val sessionActor = context.actorOf(Props[SessionActor])
     context.watch(sessionActor)

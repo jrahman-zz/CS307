@@ -1,10 +1,11 @@
 package org.rahmanj.messages
 
-/*
- * Defines a level as used to initialize a level session
- * 
- */
+import spray.json._
 
-class ExecutorLevel {
+case class ExecutorLevel {
   // TODO, define level format,
+}
+
+object ExecutorLevelProtocol extends DefaultJsonProtocol {
+  implicit val executorLevelFormat = jsonFormat0(ExecutorLevel)
 }

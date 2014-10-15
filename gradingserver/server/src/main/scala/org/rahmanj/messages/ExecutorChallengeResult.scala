@@ -6,7 +6,7 @@ case class ExecutorChallengeResult(
   success: Boolean,
   feedback: String,
   time: Double
-)
+) extends ExecutorResponse
 
 object ExecutorChallengeResultProtocol extends DefaultJsonProtocol {
   implicit val executorChallengeResultFormat = jsonFormat3(ExecutorChallengeResult)
