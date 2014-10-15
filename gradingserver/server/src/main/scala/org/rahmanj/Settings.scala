@@ -10,7 +10,14 @@ class Settings(config: Config, extendedSystem: ExtendedActorSystem) extends Exte
   }
   
   object Container {
-    val PingInterval = config.getDouble("server.container.ping-interval")
+    val PingInterval      = config.getDouble("server.container.ping-interval")
+    val ContainerBindPort = config.getInt("server.container.container-bind-port")
+    val HostBindPort      = config.getInt("server.container.host-bind-port")
+    
+    object Python {
+      val Name            = config.getString("server.container.python.name")
+      val VolumePath      = config.getString("server.container.python.volume-path")
+    }
   }
   
   object Database {
