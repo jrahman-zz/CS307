@@ -4,6 +4,7 @@ import akka.actor._
 import akka.event.Logging
 import akka.pattern.Patterns.ask
 import akka.io.IO
+import akka.util.Timeout
 
 import scala.util.{Success,Failure}
 import scala.concurrent.Future
@@ -24,6 +25,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 case class InitializeSession(ctx: RequestContext, level: ClientCreateSession)
 case class SessionInitialized(ctx: RequestContext, container: Container)
+// TODO, handle failed initialization
+
 case class ContainerPing(success: Boolean)
 
 class SessionActor extends Actor with ActorLogging with Stash {
@@ -38,15 +41,18 @@ class SessionActor extends Actor with ActorLogging with Stash {
   def prepareInitialization: Receive = {
     case InitializeSession(ctx, levelInfo) =>
       val futureContainer = createContainer(ContainerConfig())
-      val futureConnection = getDatabaseConnection()
+      val futureConnection = getDatabaseConnection
       
       // This is a Monad!
       val finishedContainer = for {
         connection <- futureConnection
         container <- futureContainer
-        level <- getLevelInfo(levelInfo, connection)
+        level <- loadLevelInformation(levelInfo, connection)
         newContainer <- initializeContainer(container, level)
-      } yield newContainer
+      } yield (container match {
+          case Some(newContainer) => newContainer
+          case None => Future { None }
+      })
       
       finishedContainer.onComplete {
         case Success(container) => 
@@ -126,17 +132,20 @@ class SessionActor extends Actor with ActorLogging with Stash {
     connection.connect
   }
   
-  def createContainer(config: ContainerConfig): Future[Container] = {
+  def createContainer(config: ContainerConfig): Future[Option[Container]] = {
     DummyContainer(ContainerConfig())
   }
   
-  def initializeContainer(container: Container, level: ExecutorCreateSession) = {
-    container.sendMessage(level)
+  def initializeContainer(container: Option[Container], level: ExecutorCreateSession): Future[Option[Container]] = {
+    container match {
+      case Some(container) => container.sendMessage(level)
+      case None => Future { None }
+    }
   }
   
   def loadLevelInformation(level: ClientCreateSession, connection: Connection) = { 
     Future {
-      "TODO"
+      ExecutorCreateSession(ExecutorLevel()) // TODO
     }
   }
 }
