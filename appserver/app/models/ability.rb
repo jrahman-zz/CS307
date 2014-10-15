@@ -5,6 +5,8 @@ class Ability
     # Initialize guest user if not logged in
     user ||= User.new
 
+    can :read, Level
+
     # Admins
     if user.has_role? :admin
       can :manage, :all
@@ -21,7 +23,6 @@ class Ability
       Course.with_role(:student, user).each do |course|
         can [:read, :submit], course
       end
-
     else
       can :read, Course
       can :read, User
