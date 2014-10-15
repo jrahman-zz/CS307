@@ -3,18 +3,20 @@ package org.rahmanj.container
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
+import org.rahmanj.messages.{ExecutorResponse, ExecutorRequest, ExecutorLevelResult}
+
 object DummyContainer {
   
-  def apply(config: ContainerConfig) = {
+  def apply(config: ContainerConfig): Future[Option[Container]] = {
     Future {
-      new DummyContainer()
+      Some(new DummyContainer())
     }
   }
   
-  class DummyContainer() extends Container {
-    def sendMessage[T](message: T): Future[Any] = {
+  private class DummyContainer() extends Container {
+    def sendMessage[Req <: ExecutorRequest](message: Req): Future[message.Response] = {
       Future {
-        "Empty"
+        new ExecutorResponse {}
       }
     }
     def ping(): Future[Boolean] = {
