@@ -14,12 +14,15 @@ def run_code(levelid):
     print('received request to run level: '+levelid)
     try:
         loadedjson = json.loads(request.form['jsondata'])
-        print("Codelines: " + loadedjson['codelines'])
+        print("Codelines: " + '\n'.join(loadedjson['codelines']))
+        #print("Context: " + loadedjson['context'])
     except Exception as e:
         print e
-    code = '\n'.join(loadedjson['codelines'])
 
-    status = execute(code)
+    code = '\n'.join(loadedjson['codelines'])
+    context = loadedjson['context']
+    status = execute(code, context)
+
     if status:
         return jsonify({'response':'Ran code'})
     else:

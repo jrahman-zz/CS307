@@ -13,10 +13,10 @@ def exceptiondetails(code):
     return exc_type, exc_obj, lineno, line
 
 
-def execute(code):
+def execute(code, context):
     returned_errors = []
     restricted_globals = dict(__builtins__ = safe_builtins)
-    game_context = dict({'y':2}) #TODO: Add game context variables here
+    game_context = context
     execution_context = dict(list(restricted_globals.items()) + list(game_context.items()))
     try:
         compiled_code = compile_restricted(code, '<string>', 'exec')
