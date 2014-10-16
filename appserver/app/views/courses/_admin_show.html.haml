@@ -8,12 +8,19 @@
 %p
   %b Student List:
   = "The list of students"
+
+
 %p
   %b Description:
   = @course.description 
+
 %p
-  %b Language Taught:
-  = "Python"
+  %b Lanauge Taught:
+%p
+  %select{ :name => "Language" }
+    %option{:value => 1}= "Python"
+    %option{:value => 2}= "Scala"      
+
 %p
   %b Start date:
   = @course.start_date 
