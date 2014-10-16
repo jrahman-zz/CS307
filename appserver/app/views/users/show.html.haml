@@ -1,18 +1,27 @@
 %p#notice= notice
 
-%table.table.table-striped.vertical-aligned
-  %tr
-    %th Name 
-    %th Email Address
-    %th Courses
-    %th Last Sign in
+%p
+  %b Name:
+  = @user.name 
+%p
+  %b Email Address:
+  = @user.email
+%p
+  %b Last Sign in:
+  = @user.last_sign_in_at
 
-    %tr
-      %td= @user.name
-      %td= @user.email
-      %td= "TBD"
-      %td= @user.last_sign_in_at
+.row
+  .col-xs-6
+    %table.table.table-striped.vertical-aligned
+      %tr
+        %th Name
+        %th Start Date
 
-= link_to 'Edit', edit_user_registration_path(@users)
-\|
-= link_to 'Back', users_path
+      - Course.with_role(:student, current_user).each do |course|
+        %tr
+          %td= course.name
+          %td= course.start_date
+
+%p
+  = link_to 'Edit', edit_user_registration_path(@users), class: "btn btn-primary btn-sm"
+  = link_to 'Back', users_path, class: "btn btn-warning btn-sm"
