@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, json
 from codeexecutor import execute
 
 app = Flask(__name__)
@@ -12,8 +12,14 @@ def get_health():
 @app.route('/level/<levelid>/submit', methods=['POST'])
 def run_code(levelid):
     print('received request to run level: '+levelid)
-    print('code: ' + request.form['code'])
-    status = execute(request.form['code'])
+    try:
+        loadedjson = json.loads(request.form['jsondata'])
+        print("Codelines: " + loadedjson['codelines'])
+    except Exception as e:
+        print e
+    code = '\n'.join(loadedjson['codelines'])
+
+    status = execute(code)
     if status:
         return jsonify({'response':'Ran code'})
     else:

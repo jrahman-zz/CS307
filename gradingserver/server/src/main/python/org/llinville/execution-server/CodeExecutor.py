@@ -1,7 +1,6 @@
 from RestrictedPython.Guards import safe_builtins
 from RestrictedPython import compile_restricted
 import sys
-import linecache
 import traceback
 import re
 
@@ -19,9 +18,8 @@ def execute(code):
     restricted_globals = dict(__builtins__ = safe_builtins)
     game_context = dict({'y':2}) #TODO: Add game context variables here
     execution_context = dict(list(restricted_globals.items()) + list(game_context.items()))
-
-    compiled_code = compile_restricted(code, '<string>', 'exec')
     try:
+        compiled_code = compile_restricted(code, '<string>', 'exec')
         exec compiled_code in execution_context
         print(execution_context['y'])
     except Exception as e:
