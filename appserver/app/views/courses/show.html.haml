@@ -21,6 +21,7 @@
 
 .row
   = link_to 'Back to Courses', courses_path, class: 'btn btn-primary btn-sm'
-%p
-.row
-  = link_to 'Enroll in Course', courses_approve_enrollment_path(@course, current_user), class: 'btn btn-danger btn-sm'
+- if user_signed_in?
+  %p
+  .row
+    =link_to 'Enroll in Course', courses_approve_enrollment_path(@course, current_user), class: 'btn btn-danger btn-sm'
