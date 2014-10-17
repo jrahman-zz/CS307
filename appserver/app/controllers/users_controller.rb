@@ -47,6 +47,10 @@ class UsersController < ApplicationController
     redirect_to users_url, notice: 'User was successfully destroyed.'
   end
 
+  #Admin view for editing password reroutes
+  def admin_edit
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

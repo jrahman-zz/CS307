@@ -3,7 +3,9 @@
 %h1{:align => "left"}
   = @course.name
 %h2{:align => "left"}
-  = "Student View"
+  = "<Instructors List>"
+%h3{:align => "left"}
+  = "Enrolled Student View"
 
 .row
   .col-xs-6
@@ -12,7 +14,7 @@
       = @course.description 
     %p
       %b Language Taught:
-      = "Langauge"
+      = "Language"
     %p
       %b Start date:
       = @course.start_date 
@@ -25,4 +27,7 @@
 
 .row
   = link_to 'Back to Courses', courses_path, class: 'btn btn-primary btn-sm'
-
+- if user_signed_in?
+  %p
+  .row
+    = link_to 'Withdraw from Course', courses_withdraw_path(@course, current_user), class: 'btn btn-danger btn-sm'

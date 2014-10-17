@@ -52,15 +52,20 @@ class CoursesController < ApplicationController
     @user = User.find(params[:user_id])
 
     @user.revoke :student, @course
+
+    redirect_to @course
   end
 
   def enroll
+    redirect_to @course
   end
 
   def approve_enrollment
   	@user = User.find(params[:user_id]);
 
-	@user.grant :student, @course
+	 @user.grant :student, @course
+
+   redirect_to @course
   end
 
   private
