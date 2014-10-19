@@ -1,4 +1,4 @@
-FROM scratch
+FROM ubuntu
 MAINTAINER Jason P. Rahman &lt;rahmanj@purdue.edu&gt;
 
 RUN useradd -M executor
