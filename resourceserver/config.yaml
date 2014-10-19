@@ -1,9 +1,15 @@
 
-username: 'rahmanj'
-password: 'secret'
-hostname: 'localhost'
-port: 1234
-database: 'resources'
+db:
+ username: 'rahmanj'
+ password: 'secret'
+ hostname: 'localhost'
+ port: 1234
+ name: 'resources'
 
-log_level: 'debug'
-log_file: 'resource_server.log'
+log:
+ level: 'debug'
+ file: 'resource_server.log'
+
+server:
+ port: 8080
+ hostname: '0.0.0.0'

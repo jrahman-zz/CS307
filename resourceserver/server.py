@@ -9,17 +9,19 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 
 def get_config():
-	return yaml.load('config.yaml')
+	with open('config.yaml') as f:
+		res = yaml.load(f)
+	return res
 
 config = get_config()
 
 # Init logger
 def config_logging(config):
-	if config['log_level'].lower() == 'debug':
+	if config['log']['level'].lower() == 'debug':
 		level = logging.DEBUG
 	else:
 		level = logging.INFO
-	logging.basicConfig(filename=config['log_file'], level=level)
+	logging.basicConfig(filename=config['log']['file'], level=level)
 	logging.info('Logging initialized')
 
 class Resource:
@@ -29,11 +31,11 @@ class Resource:
 		self.resource_type = resource_type
 
 def get_connection(config):
-	username 	= config['username']
-	password 	= config['password']
-	hostname 	= config['hostname']
-	port 		= config['port']
-	database 	= config['database']	
+	username 	= config['db']['username']
+	password 	= config['db']['password']
+	hostname 	= config['db']['hostname']
+	port 		= config['db']['port']
+	database 	= config['db']['name']	
 
 	connection = mysql.connector.connect(user=username,\
 					password=password,\
@@ -79,4 +81,6 @@ def handle_request(resource_id):
 
 
 if __name__ == "__main__":
-	app.run(port=8080, debug=True)
+	app.run(host=config['server']['hostname'],\
+		port=config['server']['port'],\
+		debug=True)
