@@ -1,0 +1,9 @@
+
+username: 'rahmanj'
+password: 'secret'
+hostname: 'localhost'
+port: 1234
+database: 'resources'
+
+log_level: 'debug'
+log_file: 'resource_server.log'
