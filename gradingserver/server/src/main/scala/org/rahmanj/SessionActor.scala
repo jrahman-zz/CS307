@@ -29,7 +29,22 @@ case class SessionInitialized(ctx: RequestContext, container: Container)
 
 case class ContainerPing(success: Boolean)
 
-class SessionActor extends Actor with ActorLogging with Stash {
+object SessionActor {
+  
+  /**
+   * Create Props for an actor of this type
+   * @param containerFactory A factory to create suitable container objects
+   * @return A Props for creating this actor
+   */
+  def props(containerFactory: ContainerFactory): Props = Props(new SessionActor(containerFactory))
+}
+
+/** An actor representing a level session
+ * 
+ * @constructor Create a session with the given factory object
+ * @param containerFactory
+ */
+class SessionActor(containerFactory: ContainerFactory) extends Actor with ActorLogging with Stash {
   
   implicit val system = ActorSystem()
   
@@ -134,15 +149,17 @@ class SessionActor extends Actor with ActorLogging with Stash {
   }
   
   def createContainer(config: ContainerConfig): Future[Option[Container]] = {
-    DummyContainer(ContainerConfig())
+    containerFactory(ContainerConfig())
   }
   
   def initializeContainer(container: Option[Container], level: ExecutorCreateSession): Future[Option[Container]] = {
-    container match {
-      case Some(container) =>
-        container.sendMessage(level)
+    Future { container match {
+        case Some(container) =>
+          container.sendMessage(level)
+          Some(container)
+        case None => None
+      }
     }
-    Future { container }
   }
   
   def loadLevelInformation(level: ClientCreateSession, connection: Connection) = { 

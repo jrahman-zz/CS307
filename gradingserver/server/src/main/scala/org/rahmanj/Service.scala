@@ -11,11 +11,14 @@ import spray.httpx.SprayJsonSupport.sprayJsonUnmarshaller
 import session._
 import messages._
 import routing._
+import container._
 
 case class ClientDeleteSession() // TODO, find better place for this
 
 // Separate the route structure from the actual actor
 class ServiceActor extends Actor with Service {
+  
+  val sessionRouter = actorRefFactory.actorOf(SessionRoutingActor.props(new DummyContainerFactory()))
   
   // The HTTP Service trait only requires this abstract member
   def actorRefFactory = context
@@ -26,7 +29,8 @@ class ServiceActor extends Actor with Service {
 
 trait Service extends HttpService {
 	
-  val sessionRouter = actorRefFactory.actorOf(Props[SessionRoutingActor])
+  
+  val sessionRouter: ActorRef
 
   val system = ActorSystem()
   
@@ -92,6 +96,6 @@ trait Service extends HttpService {
     path("ping") {
       get {
         complete("TODO, ping docker, and return reply")
-      }
+      } ~ complete((405, "Invalid method, only get allowed"))
     } ~ complete((404, "This is not the page you are looking for"))
 }
