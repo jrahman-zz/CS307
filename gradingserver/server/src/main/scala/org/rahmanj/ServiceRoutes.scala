@@ -24,8 +24,6 @@ trait ServiceRoutes extends HttpService {
 	
   val sessionRouter: ActorRef  
   def authenticatorFactory(token: SessionToken): (RequestContext => Future[Authentication[LoginSession]])
-
-  val system = ActorSystem()
   
   val serviceRoute =
     headerValueByName("devise_token") { authToken =>

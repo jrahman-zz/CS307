@@ -16,24 +16,37 @@ import authentication._
 
 case class ClientDeleteSession() // TODO, find better place for this
 
-/**
- * 
+/** Represents the core functionality being the service
+ *
+ *  Implements abstract functionality in ServiceRoutes through dependency injection
+ *  of the authenticatorFactory, actorRefFactory, and sessionRouter dependencies 
  */
 class ServiceActor extends Actor with ServiceRoutes {
   
   val appserverHostname = Settings(system).AppServer.Hostname
   val appserverPort = Settings(system).AppServer.Port
   
+  val system = ActorSystem()
+  
+  /** Implements abstract method in ServiceRoutes
+   * 
+   *  Builds the appropriate authenticator using our own environment
+   */
   def authenticatorFactory(token: SessionToken): (RequestContext => Future[Authentication[LoginSession]]) = {
-    DeviseAuthenticator(appserverHostname, appserverPort, token)
+    DummyAuthenticator(true, token) // TODO, update with DeviseAuthenticator when ready
   }
   
   val sessionRouter = actorRefFactory.actorOf(SessionRoutingActor.props(new DummyContainerFactory()))
   
-  // The HTTP Service trait only requires this abstract member
+  /** The [[spray.routing.HttpServer]] trait only requires this member be implemented
+   *
+   */
   def actorRefFactory = context
 
-  // This actor only runs routes for the service
+  /** This actor only runs routes for the service
+   *
+   *  Invoke the route upon receiving a message
+   */
   def receive = runRoute(serviceRoute)
 }
 

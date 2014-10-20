@@ -26,6 +26,11 @@ object SessionRoutingActor {
   def props(containerFactory: ContainerFactory): Props = Props(new SessionRoutingActor(containerFactory))
 }
 
+/** Actor that routes requests to the appropriate [[SessionActor]]
+ * 
+ * @constructor Creates a new instance of the [[SessionRoutingActor]]
+ * @param containerFactory The [[org.rahmanj.container.ContainerFactory]] to create new instances
+ */
 class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with ActorLogging {
 
   val router = new Router[SessionToken, ActorRef, RequestCtx](token => sessionActor => msg => sessionActor ! msg.payload)

@@ -7,8 +7,10 @@ import spray.routing.authentication.{Authentication,ContextAuthenticator}
 
 import org.rahmanj.sessions.LoginSession
 
-/**
- * TODO
+/** [[RemoteAuthenticator]] represents a remote source of authentication information
+ * 
+ * @required executionContext Must be supplied in extending class
+ * @required authenticate Must be implemented in extending class
  */
 trait RemoteAuthenticator extends ContextAuthenticator[LoginSession] {
   implicit def executionContext: ExecutionContext

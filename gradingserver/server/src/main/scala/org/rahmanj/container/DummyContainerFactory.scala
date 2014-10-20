@@ -7,6 +7,9 @@ import scala.util.Failure
 
 import org.rahmanj.messages.{ExecutorResponse, ExecutorRequest, ExecutorLevelResult}
 
+/** [[ContainerFactory]] to create [[DummyContainer]] instances for testing
+ * 
+ */
 class DummyContainerFactory extends ContainerFactory {
   
   def apply(config: ContainerConfig): Future[Option[Container]] = {

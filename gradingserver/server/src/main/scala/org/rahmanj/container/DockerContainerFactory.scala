@@ -10,6 +10,9 @@ import tugboat.Client
 import org.rahmanj.messages.{ExecutorResponse, ExecutorRequest}
 import org.rahmanj.Settings
 
+/** [[ContainerFactory]] to create [[DockerContainer]] instances
+ * 
+ */
 class DockerContainerFactory extends ContainerFactory {
   
   implicit val system = ActorSystem()
