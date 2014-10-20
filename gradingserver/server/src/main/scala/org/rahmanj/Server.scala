@@ -7,7 +7,8 @@ import spray.can.Http.Bind
 
 import akka.io.IO
 
-object Server extends App {
+/** Bootstrap object to start the server. */
+object Bootstrap extends App {
   
   implicit val system = ActorSystem("server")
   

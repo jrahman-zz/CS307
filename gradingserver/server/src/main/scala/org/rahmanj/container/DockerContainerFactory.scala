@@ -10,7 +10,10 @@ import tugboat.Client
 import org.rahmanj.messages.{ExecutorResponse, ExecutorRequest}
 import org.rahmanj.Settings
 
-object DockerContainer {
+/** [[ContainerFactory]] to create [[DockerContainer]] instances
+ * 
+ */
+class DockerContainerFactory extends ContainerFactory {
   
   implicit val system = ActorSystem()
   
@@ -30,11 +33,19 @@ object DockerContainer {
   }
   
   private class DockerContainer(hostname: String, port: Int) extends Container {
+    
     def sendMessage[Req <: ExecutorRequest](message: Req): Future[message.Response] = {
       val p = Promise[message.Response] // TODO
       p.future
     }
+    
     def ping(): Future[Boolean] = {
+      Future {
+        true // TODO
+      }
+    }
+    
+    def shutdown(): Future[Boolean] = {
       Future {
         true // TODO
       }

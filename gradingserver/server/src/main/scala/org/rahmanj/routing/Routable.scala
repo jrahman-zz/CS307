@@ -1,7 +1,7 @@
 package org.rahmanj.routing
 
 import spray.routing.RequestContext
-import org.rahmanj.session._
+import org.rahmanj.sessions._
 
 case class Routable[RoutableContext, RouteSource] (
   source: RouteSource,

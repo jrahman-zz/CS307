@@ -4,9 +4,19 @@ import akka.event.Logging
 
 import scala.collection.mutable.Map
 
-import org.rahmanj.session._
+import org.rahmanj.sessions._
 
-class Router[RouteSource, RouteDestination, RoutableContext](routeAction: RouteSource => RouteDestination => Routable[RoutableContext, RouteSource] => Unit) {
+/** Routes messages from a [[RouteSource]] to a [[RouteDestination]]
+ * 
+ *  Routes messages from a [[RouteSource]] to a [[RouteDestination]] and
+ *  applies the given action to perform the actual routing operation
+ * 
+ * @constructor Creates a new instance of the [[Router]]
+ * @param routeAction Actually performs the task of routing the message to the final destination
+ */
+class Router[RouteSource, RouteDestination, RoutableContext](
+  routeAction: RouteSource => RouteDestination => Routable[RoutableContext, RouteSource] => Unit
+) {
   
   val routes: Map[RouteSource, RouteDestination] = Map[RouteSource, RouteDestination]()
   val reverseRoutes: Map[RouteDestination, RouteSource] = Map[RouteDestination, RouteSource]()
