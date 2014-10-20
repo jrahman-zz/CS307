@@ -67,6 +67,7 @@ def get_resource(connection, resource_id):
 @app.route('/resource/<int:resource_id>', methods=['GET'])
 def handle_request(resource_id):
 	try:	
+		logging.debug('Fetching resource %d', resource_id)
 		connection = get_connection(config)
 		resource = get_resource(connection, resouce_id)
 	except Exception as e:
@@ -79,8 +80,19 @@ def handle_request(resource_id):
 	logging.debug('Returning resource %d', resource_id)
 	return make_response(resource.data, 200, mimetype=resource.mime_type)
 
+@app.route('/ping', methods=['GET'])
+def ping():
+	try:
+		logging.debug('Responding to ping')
+		connection = get_connection(config)
+	except:
+		logging.exception('Failed to handle ping request')
+		abort(500)
+	
+	return make_response(200, "Pong")
 
 if __name__ == "__main__":
+	config_logging(config)
 	app.run(host=config['server']['hostname'],\
 		port=config['server']['port'],\
 		debug=True)
