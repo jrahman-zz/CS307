@@ -8,7 +8,7 @@ import spray.routing.RequestContext
 import scala.collection.mutable.Map
 import com.roundeights.hasher.Implicits._
 
-import session._
+import sessions._
 import messages._
 import routing._
 import container._

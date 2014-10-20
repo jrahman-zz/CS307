@@ -1,6 +1,6 @@
 package org.rahmanj
 
-import org.rahmanj.session._
+import org.rahmanj.sessions._
 import akka.actor.ActorRef
 
 package object routing {

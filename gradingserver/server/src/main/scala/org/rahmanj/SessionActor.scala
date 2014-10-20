@@ -17,7 +17,7 @@ import spray.routing.RequestContext
 import com.github.mauricio.async.db.mysql.MySQLConnection
 import com.github.mauricio.async.db.{Connection,Configuration}
 
-import session._
+import sessions._
 import messages._
 import container._
 

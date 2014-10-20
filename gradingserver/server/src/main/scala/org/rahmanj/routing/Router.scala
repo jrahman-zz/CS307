@@ -4,7 +4,7 @@ import akka.event.Logging
 
 import scala.collection.mutable.Map
 
-import org.rahmanj.session._
+import org.rahmanj.sessions._
 
 class Router[RouteSource, RouteDestination, RoutableContext](routeAction: RouteSource => RouteDestination => Routable[RoutableContext, RouteSource] => Unit) {
   

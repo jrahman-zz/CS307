@@ -1,5 +1,5 @@
 package org.rahmanj
 
-package object session {
+package object sessions {
   type SessionToken = String
 }
