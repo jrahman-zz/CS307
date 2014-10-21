@@ -155,6 +155,9 @@ class SessionActor(containerFactory: ContainerFactory) extends Actor with ActorL
   def initializeContainer(container: Option[Container], level: ExecutorCreateSession): Future[Option[Container]] = {
     Future { container match {
         case Some(container) =>
+          import spray.httpx.SprayJsonSupport._
+          import messages.ExecutorSessionCreatedProtocol._
+          
           container.sendMessage(level)
           Some(container)
         case None => None

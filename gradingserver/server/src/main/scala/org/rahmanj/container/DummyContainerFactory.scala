@@ -2,8 +2,9 @@ package org.rahmanj.container
 
 import scala.concurrent.{Future, Promise}
 import scala.concurrent.ExecutionContext.Implicits.global
-
 import scala.util.Failure
+
+import spray.httpx.unmarshalling._
 
 import org.rahmanj.messages.{ExecutorResponse, ExecutorRequest, ExecutorLevelResult}
 
@@ -20,7 +21,7 @@ class DummyContainerFactory extends ContainerFactory {
   
   private class DummyContainer() extends Container {
     
-    def sendMessage[Req <: ExecutorRequest](message: Req): Future[message.Response] = {
+    def sendMessage[A <: ExecutorRequest](message: A)(implicit f: Unmarshaller[message.Response]): Future[message.Response] = {
       
       // TODO, case statement with dummy results
       

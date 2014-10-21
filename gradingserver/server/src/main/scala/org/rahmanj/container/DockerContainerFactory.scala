@@ -1,9 +1,23 @@
 package org.rahmanj.container
 
 import akka.actor.ActorSystem
+import akka.util.Timeout
+import akka.pattern.ask
+import akka.io.IO
 
 import scala.concurrent.{Future, Promise}
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration._
+
+import spray.can.Http
+import spray.http._
+import HttpMethods._
+
+import spray.httpx.unmarshalling._
+import spray.httpx.ResponseTransformation._
+import spray.httpx.SprayJsonSupport
+
+import spray.json._
 
 import tugboat.Client
 
@@ -32,11 +46,23 @@ class DockerContainerFactory extends ContainerFactory {
     }
   }
   
-  private class DockerContainer(hostname: String, port: Int) extends Container {
+  /** [[DockerContainer]] 
+   * 
+   * @constructor Create a new instance of the DockerContainer
+   * @param hostname Hostname for the given container
+   * @param port Port number for the given container
+   */
+  private class DockerContainer(hostname: String, port: Int) extends Container with SprayJsonSupport {
     
-    def sendMessage[Req <: ExecutorRequest](message: Req): Future[message.Response] = {
-      val p = Promise[message.Response] // TODO
-      p.future
+    def sendMessage[A <: ExecutorRequest](message: A)(implicit f: Unmarshaller[message.Response]): Future[message.Response] = {
+      
+      implicit val timeout = Timeout(60.seconds)
+      val uri = "http://" + hostname + ":" + port
+      // TODO, create rest endpoint from message
+      
+      val send = (req: HttpRequest) => (IO(Http) ? req).mapTo[HttpResponse]
+      val pipeline = send ~> unmarshal[message.Response]
+      pipeline(HttpRequest(GET, Uri(uri)))
     }
     
     def ping(): Future[Boolean] = {
