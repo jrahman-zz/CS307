@@ -35,10 +35,8 @@ class DummyContainerFactory extends ContainerFactory {
       }
     }
     
-    def shutdown(): Future[Boolean] = {
-      Future {
-        true // We're very optimistic
-      }
+    def shutdown() = {
+        // NOOP
     }
   }
 }

@@ -25,9 +25,9 @@ trait Container {
    */
   def ping(): Future[Boolean]
   
-  /** Shuts the container down
-   * @returns [[scala.concurrent.Future]] containing a [[Boolean]] indicating the outcome
+  /** Shut the container down
+   *
    */
-  def shutdown(): Future[Boolean]
+  def shutdown()
 
 }

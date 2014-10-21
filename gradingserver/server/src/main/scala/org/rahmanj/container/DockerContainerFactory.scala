@@ -34,15 +34,17 @@ class DockerContainerFactory extends ContainerFactory {
   def apply(config: ContainerConfig): Future[Option[Container]] = {
     val client = tugboat.Client()
     for {
-      container <- client.containers.create("TODO, container name here from config").volumes("TODO, volumes from config")()
+      container <- client.containers.create("TODO, container name here from config")()
       run       <- client.containers.get(container.id).start.bind(
                   tugboat.Port.Tcp(Settings(system).Container.HostBindPort),
                   tugboat.PortBinding.local(Settings(system).Container.ContainerBindPort)
                 )()
-      info   <- client.containers.get(container.id)()
-    } yield info match {
-        case Some(settings) => Some(new DockerContainer(settings.networkSettings.ipAddr, 8080))
-        case None => None
+      info <- client.containers.get(container.id)()
+    } yield {
+      (info, container) match {
+        case (Some(info), c) => Some(new DockerContainer(info.networkSettings.ipAddr, 8080, c.id))
+        case (None, c) => None
+      }
     }
   }
   
@@ -52,12 +54,14 @@ class DockerContainerFactory extends ContainerFactory {
    * @param hostname Hostname for the given container
    * @param port Port number for the given container
    */
-  private class DockerContainer(hostname: String, port: Int) extends Container with SprayJsonSupport {
+  private class DockerContainer(hostname: String, port: Int, containerID: String) extends Container with SprayJsonSupport {
+    
+    val uri = "http://" + hostname + ":" + port
     
     def sendMessage[A <: ExecutorRequest](message: A)(implicit f: Unmarshaller[message.Response]): Future[message.Response] = {
       
       implicit val timeout = Timeout(60.seconds)
-      val uri = "http://" + hostname + ":" + port
+      
       // TODO, create rest endpoint from message
       
       val send = (req: HttpRequest) => (IO(Http) ? req).mapTo[HttpResponse]
@@ -66,15 +70,24 @@ class DockerContainerFactory extends ContainerFactory {
     }
     
     def ping(): Future[Boolean] = {
-      Future {
-        true // TODO
+      implicit val timeout = Timeout(1.seconds)
+      
+      def checkResponse(response: HttpResponse): Boolean = {
+        response.status match {
+          case StatusCodes.OK => true
+          case _ => false
+        }
       }
+      
+      val request = (IO(Http) ? HttpRequest(GET, Uri(uri))).mapTo[HttpResponse]
+      for {
+        response <- request
+      } yield (checkResponse(response))
     }
     
-    def shutdown(): Future[Boolean] = {
-      Future {
-        true // TODO
-      }
+    def shutdown() = {
+      val client = tugboat.Client()
+      client.containers.get(containerID).stop(1.seconds)()
     }
   }
 }
