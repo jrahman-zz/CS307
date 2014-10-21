@@ -1,18 +1,18 @@
 FROM ubuntu
 MAINTAINER Jason P. Rahman &lt;rahmanj@purdue.edu&gt;
 
-RUN useradd -M executor
-
 RUN mkdir -p /srv/scripts
 
-ADD *.py /srv/scripts/
+COPY run.sh /srv/scripts/
+COPY CodeExecutor.py /srv/scripts/
+COPY __init__.py /srv/scripts/
+COPY restserver.py /srv/scripts/
+COPY response_templates /srv/scripts/
 
-WORKDIR /srv
+WORKDIR /srv/scripts
+
+RUN chmod u+x run.sh
 
 EXPOSE 8888
 
-RUN chown -R executor /srv
-
-ENV ENTRYPOINT restserver.py
-
-CMD su executor && python /srv/scripts/${ENTRYPOINT}
+ENTRYPOINT ["/srv/scripts/run.sh"]
