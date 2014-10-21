@@ -7,9 +7,9 @@
 
       .col-md-5
         = simple_form_for @user, url: session_path(@user) do |f|
-          = f.input :email, required: false, autofocus: true
-          = f.input :password, required: false
-          = f.input :remember_me, as: :boolean
+          = f.input :email, required: false, autofocus: true, placeholder: 'me@example.com'
+          = f.input :password, required: false, placeholder: 'password'
+          = f.input :remember_me, label: 'Remember?', as: :boolean
 
           .col-sm-offset-3
-            = f.button :submit, "Sign in"
+            = f.button :submit, "Sign in", class: 'btn btn-primary'

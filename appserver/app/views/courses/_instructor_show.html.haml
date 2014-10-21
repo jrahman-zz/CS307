@@ -1,8 +1,9 @@
-%p#notice= notice
+.page-header
+  %h1
+    = @course.name
+    %small= "Instructor View"
 
-%h1{:align => "left"}
-  = @course.name
-%h2{:align => "left"}
+%h2
   = "<Instructors_list>"
 
 %p
@@ -10,13 +11,13 @@
   = "<The list of students>"
 %p
   %b Description:
-  = @course.description 
+  = @course.description
 %p
   %b Language Taught:
   = "Python"
 %p
   %b Start date:
-  = @course.start_date 
+  = @course.start_date
 
 %p
 = link_to 'Back to Courses', courses_path, class: 'btn btn-primary btn-sm'

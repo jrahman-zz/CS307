@@ -8,14 +8,30 @@ import spray.routing.RequestContext
 import scala.collection.mutable.Map
 import com.roundeights.hasher.Implicits._
 
-import session._
+import sessions._
 import messages._
 import routing._
+import container._
 
 case class CreateSession(ctx: RequestContext, login: LoginSession, levelInfo: ClientCreateSession)
 case class DeleteSession(ctx: RequestContext, login: LoginSession, token: SessionToken)
 
-class SessionRoutingActor extends Actor with ActorLogging {
+object SessionRoutingActor {
+  
+  /**
+   * Create Props for an actor of this type
+   * @param containerFactory A factory to create suitable container objects
+   * @return A Props for creating this actor
+   */
+  def props(containerFactory: ContainerFactory): Props = Props(new SessionRoutingActor(containerFactory))
+}
+
+/** Actor that routes requests to the appropriate [[SessionActor]]
+ * 
+ * @constructor Creates a new instance of the [[SessionRoutingActor]]
+ * @param containerFactory The [[org.rahmanj.container.ContainerFactory]] to create new instances
+ */
+class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with ActorLogging {
 
   val router = new Router[SessionToken, ActorRef, RequestCtx](token => sessionActor => msg => sessionActor ! msg.payload)
   val sessionMap = Map[SessionToken, LoginSession]()

@@ -3,7 +3,7 @@
 %table.table.table-striped.vertical-aligned
   %tr
     %th Name
-    %th Email Address 
+    %th Email Address
     %th Options
 
   - @users.each do |user|
@@ -11,10 +11,10 @@
       %td= link_to user.name, user
       %td= user.email
       %td
-        -if current_user.has_role? :admin
-          = link_to 'Admin Edit', edit_user_registration_path(@user), class: 'btn btn-warning btn-sm'
-        -else
-          = link_to 'Default Edit', edit_user_registration_path(@user), class: 'btn btn-warning btn-sm'
+        - if current_user && current_user.has_role?(:admin)
+          = link_to 'Edit', edit_user_registration_path(@user), class: 'btn btn-warning btn-sm'
+        - else
+          = link_to 'No', users_path, class: 'btn btn-primary'
 
         = link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-sm'
 

@@ -1,0 +1,15 @@
+
+db:
+ username: 'rahmanj'
+ password: 'secret'
+ hostname: 'localhost'
+ port: 1234
+ name: 'game_resources'
+
+log:
+ level: 'debug'
+ file: 'resource_server.log'
+
+server:
+ port: 8080
+ hostname: '0.0.0.0'

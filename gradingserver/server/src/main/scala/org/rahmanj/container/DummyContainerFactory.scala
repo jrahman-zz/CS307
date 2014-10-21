@@ -7,7 +7,10 @@ import scala.util.Failure
 
 import org.rahmanj.messages.{ExecutorResponse, ExecutorRequest, ExecutorLevelResult}
 
-object DummyContainer {
+/** [[ContainerFactory]] to create [[DummyContainer]] instances for testing
+ * 
+ */
+class DummyContainerFactory extends ContainerFactory {
   
   def apply(config: ContainerConfig): Future[Option[Container]] = {
     Future {
@@ -16,6 +19,7 @@ object DummyContainer {
   }
   
   private class DummyContainer() extends Container {
+    
     def sendMessage[Req <: ExecutorRequest](message: Req): Future[message.Response] = {
       
       // TODO, case statement with dummy results
@@ -23,7 +27,14 @@ object DummyContainer {
       val p = Promise[message.Response]
       p.future
     }
+    
     def ping(): Future[Boolean] = {
+      Future {
+        true // We're very optimistic
+      }
+    }
+    
+    def shutdown(): Future[Boolean] = {
       Future {
         true // We're very optimistic
       }

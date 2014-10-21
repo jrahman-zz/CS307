@@ -1,8 +1,9 @@
-%p#notice= notice
+.page-header
+  %h1
+    = @course.name
+    %small= "Admin View"
 
-%h1{:align => "left"}
-  = @course.name
-%h2{:align => "left"}
+%h2
   = "Instructors_list"
 
 %p
@@ -11,18 +12,18 @@
 
 %p
   %b Description:
-  = @course.description 
+  = @course.description
 
 %p
   %b Language Taught:
 %p
   %select{ :name => "Language" }
     %option{:value => 1}= "Python"
-    %option{:value => 2}= "Scala"      
+    %option{:value => 2}= "Scala"
 
 %p
   %b Start date:
-  = @course.start_date 
+  = @course.start_date
 
 %p
 = link_to 'Back to Courses', courses_path, class: 'btn btn-primary btn-sm'

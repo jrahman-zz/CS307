@@ -1,7 +1,11 @@
 .page-header
   %h1
     = @course.name
-    %small= "Student View"
+    %small= "Guest View"
+
+%h2
+  = "<Instructors List>"
+%h3
 
 .row
   .col-xs-6
@@ -10,20 +14,14 @@
       = @course.description
     %p
       %b Language Taught:
-      = "Language"
+      = "Langauge"
     %p
       %b Start date:
       = @course.start_date
-
-  .col-xs-6
-    %p
-      %b Badges:
-      = "List of Badges"
-
 
 .row
   = link_to 'Back to Courses', courses_path, class: 'btn btn-primary btn-sm'
 - if user_signed_in?
   %p
   .row
-    = link_to 'Withdraw from Course', courses_withdraw_path(@course, current_user), class: 'btn btn-danger btn-sm'
+    =link_to 'Enroll in Course', courses_approve_enrollment_path(@course, current_user), class: 'btn btn-danger btn-sm'

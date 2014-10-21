@@ -21,3 +21,14 @@
 .table.vertical-aligned td {
   vertical-align: middle;
 }
+
+.static .form-control, .form-control:focus {
+  background: none;
+  outline: none;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  border: none;
+  border-bottom: 1px solid #aaa;
+  border-radius: 0;
+  font-size: 22px;
+}

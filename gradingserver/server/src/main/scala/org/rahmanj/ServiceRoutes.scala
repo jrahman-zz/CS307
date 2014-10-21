@@ -1,41 +1,33 @@
 package org.rahmanj
 
 import akka.actor._
+
+import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+
+import spray.routing.authentication.{Authentication,ContextAuthenticator}
 import spray.routing._
 import spray.http._
 
 import spray.httpx.SprayJsonSupport.sprayJsonMarshaller
 import spray.httpx.SprayJsonSupport.sprayJsonUnmarshaller
 
-import session._
-import messages._
+import sessions._
 import routing._
+import messages._
 
-case class ClientDeleteSession() // TODO, find better place for this
-
-// Separate the route structure from the actual actor
-class ServiceActor extends Actor with Service {
-  
-  // The HTTP Service trait only requires this abstract member
-  def actorRefFactory = context
-
-  // This actor only runs routes for the service
-  def receive = runRoute(serviceRoute)
-}
-
-trait Service extends HttpService {
+/** Provides the routes for our services
+ * @requires sessionRouter An ActorRef for a message routing actor
+ * @requires authenticatorFactory A function returning a [[spray.routing.authentication.ContextAuthenticator]]
+ */
+trait ServiceRoutes extends HttpService {
 	
-  val sessionRouter = actorRefFactory.actorOf(Props[SessionRoutingActor])
-
-  val system = ActorSystem()
-  
-  val appserverHostname = Settings(system).AppServer.Hostname
-  val appserverPort = Settings(system).AppServer.Port
+  val sessionRouter: ActorRef  
+  def authenticatorFactory(token: SessionToken): (RequestContext => Future[Authentication[LoginSession]])
   
   val serviceRoute =
     headerValueByName("devise_token") { authToken =>
-      authenticate(DeviseAuthenticator(appserverHostname, appserverPort, authToken)) { login =>
+      authenticate(authenticatorFactory(authToken)) { login =>
         pathPrefix("level") {
           path("reset" / RestPath) { sessionToken =>
             val token = sessionToken.toString
@@ -92,6 +84,6 @@ trait Service extends HttpService {
     path("ping") {
       get {
         complete("TODO, ping docker, and return reply")
-      }
+      } ~ complete((405, "Invalid method, only get allowed"))
     } ~ complete((404, "This is not the page you are looking for"))
 }
