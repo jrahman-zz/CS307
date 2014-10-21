@@ -13,9 +13,6 @@ import messages._
 import routing._
 import container._
 
-case class CreateSession(ctx: RequestContext, login: LoginSession, levelInfo: ClientCreateSession)
-case class DeleteSession(ctx: RequestContext, login: LoginSession, token: SessionToken)
-
 object SessionRoutingActor {
   
   /**
@@ -84,11 +81,12 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
   }
   
   def deleteSessionActor(token: SessionToken): Boolean = {
-    true // TODO
+    // TODO, destroy container
+    router.removeRouteBySource(token)
   }
   
   def terminateSession(sessionActor: ActorRef) = {
     log.info("Session terminated")
-    // TODO
+    router.removeRouteByDestination(sessionActor)
   }
 }

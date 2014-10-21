@@ -143,7 +143,11 @@ class SessionActor(containerFactory: ContainerFactory) extends Actor with ActorL
   }
   
   def getDatabaseConnection: Future[Connection] = {
-    val configuration = Configuration(Settings(system).Database.Username) // TODO, add password, hostname, port, and database option
+    val username = Settings(system).Database.Username
+    val password = Settings(system).Database.Password
+    val hostname = Settings(system).Database.Hostname
+    val port     = Settings(system).Database.Port
+    val configuration = Configuration(username, hostname, port, Some(password))
     val connection = new MySQLConnection(configuration)
     connection.connect
   }
