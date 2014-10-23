@@ -1,5 +1,6 @@
 #include "game_state.h"
 
+#include <stdio.h>
 #include <string.h>
 #include "hero_actor.h"
 
@@ -15,7 +16,8 @@ GameState::~GameState() {
   actors.clear();
 }
 
-bool retrieve_update_json(char *update_json_buf, int buf_size) {
+int GameState::retrieve_update_json(char *update_json_buf, int buf_size) {
+  printf("copying it\n");
   strcpy(update_json_buf, "1234");
   return true;
 }
