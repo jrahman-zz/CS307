@@ -11,5 +11,5 @@ class GameState {
     GameState(const char *tilemap_json);
     ~GameState();
 
-    bool retrieve_update_json(char *update_json_buf, int buf_size);
+    int retrieve_update_json(char *update_json_buf, int buf_size);
 };
