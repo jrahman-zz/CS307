@@ -1,7 +1,7 @@
 package org.rahmanj
 
 import spray.routing.RequestContext
-import org.rahmanj.sessions.LoginSession
+import org.rahmanj.sessions.SessionToken
 
 /** A context for a given request being routed
  * 
@@ -11,5 +11,5 @@ import org.rahmanj.sessions.LoginSession
  */
 case class RequestCtx(
   ctx: RequestContext,
-  login: LoginSession
+  login: SessionToken
 )

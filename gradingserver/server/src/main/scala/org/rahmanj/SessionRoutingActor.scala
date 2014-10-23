@@ -31,7 +31,7 @@ object SessionRoutingActor {
 class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with ActorLogging {
 
   val router = new Router[SessionToken, ActorRef, RequestCtx](token => sessionActor => msg => sessionActor ! msg.payload)
-  val sessionMap = Map[SessionToken, LoginSession]()
+  val sessionMap = Map[SessionToken, SessionToken]() // Map LevelSession to LoginSession
   
   def receive = {
     case msg: Routable[RequestCtx, SessionToken] =>
@@ -51,7 +51,7 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
       terminateSession(sessionActor)
   }
   
-  def createSession(ctx: RequestContext, login: LoginSession, levelInfo: ClientCreateSession) = {
+  def createSession(ctx: RequestContext, login: SessionToken, levelInfo: SessionCreateRequest) = {
     log.info("Creating new session")
     
     val token = (login.toString + Random.alphanumeric.take(20).mkString).sha512.toString

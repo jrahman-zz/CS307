@@ -4,7 +4,7 @@ import scala.concurrent.Future
 
 import spray.httpx.unmarshalling._
 
-import org.rahmanj.messages.{ExecutorResponse, ExecutorRequest}
+import org.rahmanj.messages.{Response, Request}
 
 /** Represents an generic execution container
  * 
@@ -18,7 +18,7 @@ trait Container {
    * @param message The message to be sent to the container
    * @returns [[scala.concurrent.Future]] containing the Response
    */
-  def sendMessage[A <: ExecutorRequest](message: A)(implicit f: Unmarshaller[message.Response]): Future[message.Response]
+  def sendMessage[A <: Request](message: A)(implicit f: Unmarshaller[message.ResponseType]): Future[message.ResponseType]
   
   /** Checks the health of the container
    * @returns [[scala.concurrent.Future]] containing a [[Boolean]] indicating the outcome

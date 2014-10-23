@@ -23,7 +23,7 @@ import container._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-case class InitializeSession(ctx: RequestContext, level: ClientCreateSession)
+case class InitializeSession(ctx: RequestContext, request: SessionCreateRequest)
 case class SessionInitialized(ctx: RequestContext, container: Container)
 // TODO, handle failed initialization
 
@@ -56,14 +56,11 @@ class SessionActor(containerFactory: ContainerFactory) extends Actor with ActorL
   def prepareInitialization: Receive = {
     case InitializeSession(ctx, levelInfo) =>
       val futureContainer = createContainer(ContainerConfig())
-      val futureConnection = getDatabaseConnection
       
       // This is a Monad!
       val finishedContainer = for {
-        connection <- futureConnection
         container <- futureContainer
-        level <- loadLevelInformation(levelInfo, connection)
-        newContainer <- initializeContainer(container, level)
+        newContainer <- initializeContainer(container, levelInfo)
       } yield (newContainer match {
           case Some(container) => Future { Some(container) }
           case None => Future { None }
@@ -118,9 +115,9 @@ class SessionActor(containerFactory: ContainerFactory) extends Actor with ActorL
   def receiveSubmission: Receive = {
     case Submission(ctx, submission) =>
       submission match {
-        case levelSubmission: ClientLevelSubmission =>
+        case levelSubmission: LevelSubmissionRequest =>
           // TODO, pull level information
-        case challengeSubmission: ClientChallengeSubmission =>
+        case challengeSubmission: ChallengeSubmissionRequest =>
           // TODO, pull challenge information
       }
   }
@@ -142,36 +139,20 @@ class SessionActor(containerFactory: ContainerFactory) extends Actor with ActorL
     }
   }
   
-  def getDatabaseConnection: Future[Connection] = {
-    val username = Settings(system).Database.Username
-    val password = Settings(system).Database.Password
-    val hostname = Settings(system).Database.Hostname
-    val port     = Settings(system).Database.Port
-    val configuration = Configuration(username, hostname, port, Some(password))
-    val connection = new MySQLConnection(configuration)
-    connection.connect
-  }
-  
   def createContainer(config: ContainerConfig): Future[Option[Container]] = {
     containerFactory(ContainerConfig())
   }
   
-  def initializeContainer(container: Option[Container], level: ExecutorCreateSession): Future[Option[Container]] = {
+  def initializeContainer(container: Option[Container], level: SessionCreateRequest): Future[Option[Container]] = {
     Future { container match {
         case Some(container) =>
           import spray.httpx.SprayJsonSupport._
-          import messages.ExecutorSessionCreatedProtocol._
+          import messages.SessionCreateResponseProtocol._
           
           container.sendMessage(level)
           Some(container)
         case None => None
       }
-    }
-  }
-  
-  def loadLevelInformation(level: ClientCreateSession, connection: Connection) = { 
-    Future {
-      ExecutorCreateSession(ExecutorLevel()) // TODO
     }
   }
 }

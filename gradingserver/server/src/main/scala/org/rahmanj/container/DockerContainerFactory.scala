@@ -21,7 +21,7 @@ import spray.json._
 
 import tugboat.Client
 
-import org.rahmanj.messages.{ExecutorResponse, ExecutorRequest}
+import org.rahmanj.messages.{Response, Request}
 import org.rahmanj.Settings
 
 /** [[ContainerFactory]] to create [[DockerContainer]] instances
@@ -58,14 +58,14 @@ class DockerContainerFactory extends ContainerFactory {
     
     val uri = "http://" + hostname + ":" + port
     
-    def sendMessage[A <: ExecutorRequest](message: A)(implicit f: Unmarshaller[message.Response]): Future[message.Response] = {
+    def sendMessage[A <: Request](message: A)(implicit f: Unmarshaller[message.ResponseType]): Future[message.ResponseType] = {
       
       implicit val timeout = Timeout(60.seconds)
       
       // TODO, create rest endpoint from message
       
       val send = (req: HttpRequest) => (IO(Http) ? req).mapTo[HttpResponse]
-      val pipeline = send ~> unmarshal[message.Response]
+      val pipeline = send ~> unmarshal[message.ResponseType]
       pipeline(HttpRequest(GET, Uri(uri)))
     }
     

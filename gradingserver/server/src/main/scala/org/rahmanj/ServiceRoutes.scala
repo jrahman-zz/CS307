@@ -26,60 +26,58 @@ trait ServiceRoutes extends HttpService {
   def authenticatorFactory(token: SessionToken): (RequestContext => Future[Authentication[LoginSession]])
   
   val serviceRoute =
-    headerValueByName("devise_token") { authToken =>
-      authenticate(authenticatorFactory(authToken)) { login =>
-        pathPrefix("level") {
-          path("reset" / RestPath) { sessionToken =>
-            val token = sessionToken.toString
-            post { ctx =>
-              sessionRouter ! Routable(token, RequestCtx(ctx, login), ClientResetLevel())
-            } ~
-            complete((405, "Invalid method, only post allowed"))
+    headerValueByName("user:token") { loginToken =>
+      pathPrefix("level") {
+        path("reset" / RestPath) { sessionToken =>
+          val token = sessionToken.toString
+          post { ctx =>
+            sessionRouter ! Routable(token, RequestCtx(ctx, loginToken), SessionResetRequest())
           } ~
-          path("/submit" / RestPath) { sessionToken =>
-            val token: SessionToken = sessionToken.toString
-            post {
-              import ClientLevelSubmissionProtocol._
-              entity(as[ClientLevelSubmission]) { submission => {
-                  ctx: RequestContext =>
-                    sessionRouter ! Routable(token, RequestCtx(ctx, login), submission)
-                }
-              }  ~ complete((400, "Incorrect request body"))
-            } ~ complete((405, "Invalid method, only post allowed"))
-          }
+          complete((405, "Invalid method, only post allowed"))
         } ~
-        pathPrefix("challenge") {
-          path("submit" / RestPath) { sessionToken =>
-            val token = sessionToken.toString
-            post {
-              import ClientChallengeSubmissionProtocol._
-              entity(as[ClientChallengeSubmission]) { submission => {
-                  ctx: RequestContext => 
-                    sessionRouter ! Routable(token, RequestCtx(ctx, login), submission)
-                }
-              }  ~ complete((400, "Incorrect request body"))
-            } ~ complete((405, "Invalid method, only post allowed"))
-          }
-        }~
-        pathPrefix("session") {
-          path("delete" / RestPath) { sessionToken =>
-            val token = sessionToken.toString
-            post { ctx =>
-              sessionRouter ! Routable(token, RequestCtx(ctx, login), ClientDeleteSession())
-            } ~ complete((405, "Invalid method, only post allowed"))
-          } ~
-          path("create") {
-            post {
-              import ClientCreateSessionProtocol._
-              entity(as[ClientCreateSession]) { sessionInfo => {
-                  ctx: RequestContext =>
-                    sessionRouter ! CreateSession(ctx, login, sessionInfo)
-                }
-              } ~ complete((400, "Incorrect request body"))
-            } ~ complete((405, "Invalid method, only post allowed"))
-          }
-        } ~ complete((404, "This is not the page you are looking for"))
-      } ~ complete((401, "Who are you?"))
+        path("/submit" / RestPath) { sessionToken =>
+          val token: SessionToken = sessionToken.toString
+          post {
+            import LevelSubmissionRequestProtocol._
+            entity(as[LevelSubmissionRequest]) { submission => {
+                ctx: RequestContext =>
+                  sessionRouter ! Routable(token, RequestCtx(ctx, loginToken), submission)
+              }
+            }  ~ complete((400, "Incorrect request body"))
+          } ~ complete((405, "Invalid method, only post allowed"))
+        }
+      } ~
+      pathPrefix("challenge") {
+        path("submit" / RestPath) { sessionToken =>
+          val token = sessionToken.toString
+          post {
+            import ChallengeSubmissionRequestProtocol._
+            entity(as[ChallengeSubmissionRequest]) { submission => {
+                ctx: RequestContext => 
+                  sessionRouter ! Routable(token, RequestCtx(ctx, loginToken), submission)
+              }
+            }  ~ complete((400, "Incorrect request body"))
+          } ~ complete((405, "Invalid method, only post allowed"))
+        }
+      }~
+      pathPrefix("session") {
+        path("delete" / RestPath) { sessionToken =>
+          val token = sessionToken.toString
+          post { ctx =>
+            sessionRouter ! Routable(token, RequestCtx(ctx, loginToken), SessionDeleteRequest())
+          } ~ complete((405, "Invalid method, only post allowed"))
+        } ~
+        path("create") {
+          post {
+            import SessionCreateRequestProtocol._
+            entity(as[SessionCreateRequest]) { sessionInfo => {
+                ctx: RequestContext =>
+                  sessionRouter ! CreateSession(ctx, loginToken, sessionInfo)
+              }
+            } ~ complete((400, "Incorrect request body"))
+          } ~ complete((405, "Invalid method, only post allowed"))
+        }
+      } 
     } ~
     path("ping") {
       get {

@@ -6,7 +6,7 @@ import scala.util.Failure
 
 import spray.httpx.unmarshalling._
 
-import org.rahmanj.messages.{ExecutorResponse, ExecutorRequest, ExecutorLevelResult}
+import org.rahmanj.messages.{Response, Request, LevelResultResponse}
 
 /** [[ContainerFactory]] to create [[DummyContainer]] instances for testing
  * 
@@ -21,11 +21,11 @@ class DummyContainerFactory extends ContainerFactory {
   
   private class DummyContainer() extends Container {
     
-    def sendMessage[A <: ExecutorRequest](message: A)(implicit f: Unmarshaller[message.Response]): Future[message.Response] = {
+    def sendMessage[A <: Request](message: A)(implicit f: Unmarshaller[message.ResponseType]): Future[message.ResponseType] = {
       
       // TODO, case statement with dummy results
       
-      val p = Promise[message.Response]
+      val p = Promise[message.ResponseType]
       p.future
     }
     
