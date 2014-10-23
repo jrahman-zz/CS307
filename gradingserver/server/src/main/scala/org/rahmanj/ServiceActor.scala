@@ -14,8 +14,6 @@ import routing._
 import container._
 import authentication._
 
-case class ClientDeleteSession() // TODO, find better place for this
-
 /** Represents the core functionality being the service
  *
  *  Implements abstract functionality in ServiceRoutes through dependency injection
