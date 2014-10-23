@@ -1,0 +1,8 @@
+= simple_form_for Submission.new, url: grade_submission_path, class: 'submission-form', html: { onsubmit: "return injectCode('.code-editor')" } do |f|
+  = f.error_notification
+  = f.text_area :code, class: 'code-editor'
+
+  .form-actions
+    .pull-right
+      = link_to 'Test', grade_submission_path, class: 'btn btn-warning'
+      = f.submit 'Run', class: 'btn btn-primary'

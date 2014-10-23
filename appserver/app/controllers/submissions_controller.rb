@@ -1,22 +1,33 @@
 class SubmissionsController < ApplicationController
-  before_action :set_submission, only: [:show, :edit, :update, :destroy]
+  # Allow submissions to be handled asynchronously
+  include AsyncController
 
-  # GET /submissions
-  def index
-    @submissions = Submission.all
-  end
+  def submit
+    # Only allow submissions from users who are signed in
+    if user_signed_in?
+      code = submission_params[:code]
+      level_id = params[:level_id]
+      course_id = params[:course_id]
+      user_id = current_user.id
 
-  # GET /submissions/1
-  def show
-  end
+      @info = { code: code, level_id: level_id, course_id: course_id, user_id: user_id }
+      render json: @info
 
-  # GET /submissions/new
-  def new
-    @submission = Submission.new
-  end
 
-  # GET /submissions/1/edit
-  def edit
+    #   uri = 'http://klamath.dnsdynamic.com' #TODO replace with grading server location
+    #   http = EM::HttpRequest.new(uri).post body: @info
+
+    #   http.callback do
+    #     finish_request do
+    #       render json: http.response
+    #     end
+    #   end
+
+    #   self.response_body = ''
+    #   self.status = -1
+    # else
+      # render status: 403 # Forbidden
+    end
   end
 
   # POST /submissions
@@ -30,29 +41,19 @@ class SubmissionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /submissions/1
-  def update
-    if @submission.update(submission_params)
-      redirect_to @submission, notice: 'Submission was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
   # DELETE /submissions/1
   def destroy
     @submission.destroy
     redirect_to submissions_url, notice: 'Submission was successfully destroyed.'
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_submission
-      @submission = Submission.find(params[:id])
-    end
+  def new
+    render layout: 'containerless'
+  end
 
+  private
     # Only allow a trusted parameter "white list" through.
     def submission_params
-      params.require(:submission).permit(:user_id_id, :course_id_id, :code, :passed, :score, :score, :submitted_at)
+      params.require(:submission).permit(:user_id, :course_id, :code, :passed, :score, :score, :submitted_at)
     end
 end
