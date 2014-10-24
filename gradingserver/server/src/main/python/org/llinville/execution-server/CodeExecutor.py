@@ -8,10 +8,14 @@ import re
 def exceptiondetails(code):
     exc_type, exc_obj, tb = sys.exc_info()
     tb_string = traceback.format_exc()
-    lineno = int(re.findall("line [0-9]+", tb_string)[-1][5:]) #get the last line number mentioned in the traceback
-    line = code.splitlines()[lineno-1] #get the line where we
+    lineno = -1
+    line = ''
+    try:
+        lineno = int(re.findall("line [0-9]+", tb_string)[-1][5:]) #get the last line number mentioned in the traceback
+        line = code.splitlines()[lineno-1] #get the line where we
+    except Exception as e:
+        print("Unable to get a line number for the error")
     return exc_type, exc_obj, lineno, line
-
 
 def execute(code, context):
     returned_errors = []
