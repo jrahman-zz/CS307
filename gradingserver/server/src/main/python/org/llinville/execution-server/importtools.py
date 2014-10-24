@@ -8,11 +8,15 @@ def importfromfile(filename):
             continue
         words = line.split()
         if len(words) is 1:
-            exec('import ' + words[0]) in context
+            try:
+                exec('import ' + words[0]) in context
+            except ImportError as e:
+                print(e)
         elif len(words) >= 2:
             for word in words[1:]:
-                exec('from ' + words[0] + ' import ' + word) in context
-    return context
+                try:
+                    exec('from ' + words[0] + ' import ' + word) in context
+                except ImportError as e:
+                    print(e)
 
-con = importfromfile('module_whitelist.txt')
-print 'done'
+    return context
