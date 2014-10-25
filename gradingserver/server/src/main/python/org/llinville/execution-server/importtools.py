@@ -21,10 +21,4 @@ def importfromfile(filename):
 
     return context
 
-import urllib
-import re
-page = urllib.urlopen('https://docs.python.org/2/py-modindex.html')
-matches = re.findall('<tt class="xref">\w+</tt>', page.read())
-matches = [match[17:-5] for match in matches]
-for match in matches:
-    print(match)
+importfromfile("allmodules.txt")
