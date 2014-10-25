@@ -3,5 +3,5 @@
 #For example, "antigravity" on a line will import the antigravity module
 #To statically import functions from a module, such as the factorial and cosine functions in math, use "math factorial cosine"
 
-math factorial cos
+math
 random
