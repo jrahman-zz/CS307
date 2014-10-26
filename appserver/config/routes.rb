@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   
   get '/courses/:id/approve_enrollment/:user_id' => 'courses#approve_enrollment', as: :courses_approve_enrollment #change to post later
 
-  get '/users/:id/admin_edit/:user_id' => 'users#admin_edit', as: :admin_edit
+  get '/users/:id/admin' => 'users#admin', as: :admin
 
   get '/pages/home' => 'pages#home'
   root to: 'pages#home'
