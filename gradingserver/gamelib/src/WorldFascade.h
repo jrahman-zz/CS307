@@ -12,10 +12,10 @@
  *
  *
  */
-class World {
+class WorldFascade {
 
 	public:
-		World(std::shared_ptr<GameLevel> level);
+		WorldFascade(std::shared_ptr<GameLevel> level);
 		~World();
 
 		bool isNPC(Direction direction);
@@ -34,8 +34,6 @@ class World {
 		bool isLevelExit(unsigned int x, unsigned int y);
 
 	private:
-
-
 
 }
 
