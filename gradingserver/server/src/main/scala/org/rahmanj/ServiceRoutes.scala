@@ -26,22 +26,22 @@ trait ServiceRoutes extends HttpService {
   def authenticatorFactory(token: SessionToken): (RequestContext => Future[Authentication[LoginSession]])
   
   val serviceRoute =
-    headerValueByName("user:token") { loginToken =>
+    headerValueByName("user_token") { loginToken =>
       pathPrefix("level") {
         path("reset" / RestPath) { sessionToken =>
           val token = sessionToken.toString
           post { ctx =>
-            sessionRouter ! Routable(token, RequestCtx(ctx, loginToken), SessionResetRequest())
+            sessionRouter ! RequestRoutable(token, RequestCtx(ctx, loginToken), SessionResetRequest())
           } ~
           complete((405, "Invalid method, only post allowed"))
         } ~
-        path("/submit" / RestPath) { sessionToken =>
+        path("submit" / RestPath) { sessionToken =>
           val token: SessionToken = sessionToken.toString
           post {
             import LevelSubmissionRequestProtocol._
             entity(as[LevelSubmissionRequest]) { submission => {
                 ctx: RequestContext =>
-                  sessionRouter ! Routable(token, RequestCtx(ctx, loginToken), submission)
+                  sessionRouter ! RequestRoutable(token, RequestCtx(ctx, loginToken), submission)
               }
             }  ~ complete((400, "Incorrect request body"))
           } ~ complete((405, "Invalid method, only post allowed"))
@@ -54,7 +54,7 @@ trait ServiceRoutes extends HttpService {
             import ChallengeSubmissionRequestProtocol._
             entity(as[ChallengeSubmissionRequest]) { submission => {
                 ctx: RequestContext => 
-                  sessionRouter ! Routable(token, RequestCtx(ctx, loginToken), submission)
+                  sessionRouter ! RequestRoutable(token, RequestCtx(ctx, loginToken), submission)
               }
             }  ~ complete((400, "Incorrect request body"))
           } ~ complete((405, "Invalid method, only post allowed"))
@@ -64,7 +64,7 @@ trait ServiceRoutes extends HttpService {
         path("delete" / RestPath) { sessionToken =>
           val token = sessionToken.toString
           post { ctx =>
-            sessionRouter ! Routable(token, RequestCtx(ctx, loginToken), SessionDeleteRequest())
+            sessionRouter ! RequestRoutable(token, RequestCtx(ctx, loginToken), SessionDeleteRequest())
           } ~ complete((405, "Invalid method, only post allowed"))
         } ~
         path("create") {

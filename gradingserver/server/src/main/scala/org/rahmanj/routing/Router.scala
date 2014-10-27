@@ -1,10 +1,12 @@
 package org.rahmanj.routing
 
+import akka.actor.ActorRef
 import akka.event.Logging
 
 import scala.collection.mutable.Map
 
 import org.rahmanj.sessions._
+
 
 /** Routes messages from a [[RouteSource]] to a [[RouteDestination]]
  * 
@@ -14,9 +16,12 @@ import org.rahmanj.sessions._
  * @constructor Creates a new instance of the [[Router]]
  * @param routeAction Actually performs the task of routing the message to the final destination
  */
-class Router[RouteSource, RouteDestination, RoutableContext](
-  routeAction: RouteSource => RouteDestination => Routable[RoutableContext, RouteSource] => Unit
-) {
+trait Router {
+  
+  val routeAction: RouteSource => RouteDestination => Routable => Unit
+  type RouteSource
+  type RouteDestination
+  type Message <: Routable
   
   val routes: Map[RouteSource, RouteDestination] = Map[RouteSource, RouteDestination]()
   val reverseRoutes: Map[RouteDestination, RouteSource] = Map[RouteDestination, RouteSource]()
@@ -55,7 +60,7 @@ class Router[RouteSource, RouteDestination, RoutableContext](
     }
   }
   
-  def routeMessage(msg: Routable[RoutableContext, RouteSource]): Boolean = {
+  def routeMessage(msg: Message): Boolean = {
     getRoute(msg.source) match {
       case Some(destination) =>
         routeAction(msg.source)(destination)(msg)
@@ -63,4 +68,10 @@ class Router[RouteSource, RouteDestination, RoutableContext](
       case None => false
     } 
   }
+}
+
+class MessageRouter(routeAction: RouteSource => RouteDestination => Routable => Unit) extends Router {
+  type RouteSource = SessionToken
+  type RouteDestination = ActorRef
+  type Message = RequestRoutable
 }
