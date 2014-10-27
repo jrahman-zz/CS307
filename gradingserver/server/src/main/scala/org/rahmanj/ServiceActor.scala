@@ -21,9 +21,6 @@ import authentication._
  */
 class ServiceActor extends Actor with ServiceRoutes {
   
-  val appserverHostname = Settings(system).AppServer.Hostname
-  val appserverPort = Settings(system).AppServer.Port
-  
   val system = ActorSystem()
   
   /** Implements abstract method in ServiceRoutes

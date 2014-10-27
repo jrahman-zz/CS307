@@ -2,7 +2,7 @@ name := "gradingserver"
 
 version := "SNAPSHOT"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.10.4"
 
 libraryDependencies ++= Seq(
     "com.typesafe.akka" %% "akka-actor" % "2.3.6"
@@ -21,8 +21,6 @@ libraryDependencies ++= Seq(
     "org.slf4j" % "slf4j-api" % "1.7.7",
     "org.slf4j" % "slf4j-simple" % "1.7.7"
 )
-
-libraryDependencies += "com.github.mauricio" %% "mysql-async" % "0.2.15"
 
 libraryDependencies += "me.lessis" %% "tugboat" % "0.1.0-SNAPSHOT"
 
