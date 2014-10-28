@@ -4,7 +4,7 @@
 
 CXX=g++
 CXXFLAGS= -Wall -pedantic -std=c++11
-SRCS=game_state.cpp actor.cpp hero_actor.cpp public.cpp
+SRCS=$(wildcard *.cpp)
 OBJS=$(SRCS:.cpp=.o)
 
 GAME_LIB_NAME=libgame.so
