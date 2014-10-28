@@ -30,7 +30,7 @@ object SessionRoutingActor {
  */
 class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with ActorLogging {
 
-  val router = new MessageRouter(token => sessionActor => msg => sessionActor ! msg.payload)
+  val router = new Router[ActorRef, RequestRoutable](token => sessionActor => msg => sessionActor ! msg.payload)
   val sessionMap = Map[SessionToken, SessionToken]() // Map LevelSession to LoginSession
   
   def receive = {
