@@ -5,28 +5,24 @@ class Ability
     # Initialize guest user if not logged in
     user ||= User.new
 
-    can :read, Level
-
-    # Admins
+    # Admin role?
     if user.has_role? :admin
       can :manage, :all
-
-    # Instructors
-    elsif user.has_role? :instructor
-      Course.with_role(:instructor, user).each do |course|
-        can :manage, course
-      end
-
-
-    # Students
-    elsif user.has_role? :student
-      Course.with_role(:student, user).each do |course|
-        can [:read, :submit], course
-      end
-    else
-      can :read, Course
-      can :read, User
-      can :manage, Course
     end
+
+    # Instructor roles
+    Course.with_role(:instructor, user).each do |course|
+      can :manage, course
+    end
+
+
+    # Student Roles
+    Course.with_role(:student, user).each do |course|
+      can [:read, :submit, :withdraw], course
+    end
+
+
+    # Guest rolls
+    can [:read, :approve_enrollment], Course
   end
 end

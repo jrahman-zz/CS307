@@ -57,15 +57,19 @@ class CoursesController < ApplicationController
   end
 
   def enroll
+    @user = User.find(params[:user_id]);
+
+    @user.grant :student, @course
+
     redirect_to @course
   end
 
   def approve_enrollment
   	@user = User.find(params[:user_id]);
 
-	 @user.grant :student, @course
+ 	  @user.grant :student, @course
 
-   redirect_to @course
+    redirect_to @course
   end
 
   private
