@@ -10,6 +10,6 @@ public:
 	virtual ~Enemy();
 
 protected:
-}
+};
 
 #endif // ENEMY_H

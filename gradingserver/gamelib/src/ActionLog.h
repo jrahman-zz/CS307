@@ -14,6 +14,6 @@
 class ActionLog {
 
 
-}
+};
 
 #endif // ACTION_LOG_H
