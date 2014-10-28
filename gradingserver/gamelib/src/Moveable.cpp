@@ -1,5 +1,6 @@
 #include "Moveable.h"
 
+
 Moveable::Moveable(unsigned int x, unsigned int y, unsigned int actorID, State state = State.ALIVE) :
 	Interactable(x, y, actorId, state) {
 
