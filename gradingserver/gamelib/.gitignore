@@ -9,3 +9,9 @@
 
 # Build dependency files
 .depend
+
+# Binary library folder
+lib/*
+
+# Ignore generated executabels
+bin/*

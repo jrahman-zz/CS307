@@ -4,8 +4,10 @@
 #include <memory>
 #include <string>
 
-#include "GameLevel.h"
 #include "ActionLog.h"
+#include "GameLevel.h"
+#include "HeroFascade.h"
+#include "WorldFascade.h"
 
 /*
  * Core class for game engine
@@ -14,7 +16,7 @@
  */
 class Engine {
 public:
-	Engine(std::shared_ptr<GameLevel> gameLevel) : level(gameLevel) {}; // TODO, add scripting, etc
+	Engine(std::shared_ptr<GameLevel> gameLevel); // TODO, add scripting, etc
 	~Engine();
 
 	std::shared_ptr<WorldFascade> getWorld() const;
@@ -28,6 +30,6 @@ protected:
 private:
 	std::shared_ptr<GameLevel> level;
 	std::shared_ptr<ActionLog> actions;
-}
+};
 
 #endif // ENGINE_H
