@@ -2,11 +2,12 @@
 #define MOVEABLE_H
 
 #include "Interactable.h"
+#include "Util.h"
 
 class Moveable : public Interactable {
 	
 public:
-	Moveable();
+	Moveable(unsigned int x, unsigned int y, unsigned int actorID, State state = State.ALIVE);
 	virtual ~Moveable();
 	
 

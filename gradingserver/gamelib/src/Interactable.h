@@ -7,21 +7,15 @@
 class Interactable {
 
 public:
-	Interactable();
-	~Interactable();
-
-	template<class T>
-	bool 
-
-	enum class State { ALIVE, DEAD, INACTIVE };
+	Interactable(unsigned int x, unsigned int y, unsigned int actorID, State startState);
+	virtual ~Interactable();
 
 protected:
 	unsigned int ID;
-	struct Position position;
 	State currentState;
 	
 	template<class T>
-	void interact(std::shared_ptr<T> target);
+	virtual void interact(std::shared_ptr<T> source) = 0;
 
 private:
 	
