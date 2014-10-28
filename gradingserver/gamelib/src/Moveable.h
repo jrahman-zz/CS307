@@ -7,7 +7,7 @@
 class Moveable : public Interactable {
 	
 public:
-	Moveable(unsigned int x, unsigned int y, unsigned int actorID, State state = State.ALIVE);
+	Moveable(unsigned int x, unsigned int y, unsigned int actorID, State state = State::ALIVE);
 	virtual ~Moveable();
 	
 
@@ -25,7 +25,7 @@ protected:
 
 private:
 
-}
+};
 
 
 #endif // MOVEABLE_H
