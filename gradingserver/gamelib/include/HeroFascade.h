@@ -16,7 +16,7 @@ class Engine;
  */
 class HeroFascade {
 public:
-	HeroFascade(std::shared_ptr<Engine> engineRef);
+	HeroFascade(std::shared_ptr<Engine> engineRef, unsigned int heroID);
 	~HeroFascade();
 	
 	bool moveUp(unsigned int distance = 1);
@@ -24,12 +24,18 @@ public:
 	bool moveLeft(unsigned int distance = 1);
 	bool moveRight(unsigned int distance = 1);
 
-	// TODO IMPLEMENT THIS
+protected:
+		
+	/*
+	 * Primary movement implementation
+	 */	
 	bool move(Direction direction, unsigned int distance = 1);
 
-protected:
+	/*
+	 * Reference to the game engine object
+	 */
 	std::shared_ptr<Engine> engine;
-
+	unsigned int heroID;
 private:	
 };
 
