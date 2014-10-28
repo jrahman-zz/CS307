@@ -9,7 +9,7 @@
 class GameLevel {
 
 
-}
+};
 
 
 #endif // GAME_LEVEL_H

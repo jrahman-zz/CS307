@@ -1,7 +1,8 @@
 #ifndef INTERACTABLE_H
 #define INTERACTABLE_H
 
-#include "Position.h"
+#include <memory>
+
 #include "Util.h"
 
 class Interactable {
@@ -12,15 +13,16 @@ public:
 
 protected:
 	unsigned int ID;
+	unsigned int x, y;
 	State currentState;
 	
 	template<class T>
-	virtual void interact(std::shared_ptr<T> source) = 0;
+	void interact(std::shared_ptr<T> source);
 
 private:
 	
 
-}
+};
 
 
 #endif // INTERACTABLE_H
