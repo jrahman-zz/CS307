@@ -12,6 +12,18 @@ class Command {
 public:
 	Command();
 	virtual ~Command();
+	
+	/*
+	 * Execute the given command
+ 	 */
+	void operator()(Interactable& actor) {
+		this->execute(actor);
+	}
+
+protected:
+	/*
+	 * Command implementation is provided here
+ 	 */
 	virtual void execute(Interactable& actor) = 0;
 };
 
