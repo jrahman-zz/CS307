@@ -7,6 +7,7 @@
 #include "MoveCommand.h"
 #include "Util.h"
 
+class Engine;
 
 /*
  * Define a interface for executing commands against your hero character
@@ -15,20 +16,21 @@
  */
 class HeroFascade {
 public:
-	HeroFascade(std::shared_ptr<Engine> engineRef) : engine(engineRef) {}
-	~HeroFascade()
+	HeroFascade(std::shared_ptr<Engine> engineRef);
+	~HeroFascade();
 	
-	bool moveUp(unsigned int distance = 1) { move(Direction.UP, distance); }
-	bool moveDown(unsigned int distance = 1) { move(Direction.DOWN, distance); };
-	bool moveLeft(unsigned int distance = 1) { move(Direction.LEFT, distance); };
-	bool moveRight(unsigned int distance = 1) { move(Direction.RIGHT, distance); };
+	bool moveUp(unsigned int distance = 1);
+	bool moveDown(unsigned int distance = 1);
+	bool moveLeft(unsigned int distance = 1);
+	bool moveRight(unsigned int distance = 1);
 
 	// TODO IMPLEMENT THIS
 	bool move(Direction direction, unsigned int distance = 1);
 
 protected:
+	std::shared_ptr<Engine> engine;
 
 private:	
-}
+};
 
 #endif // HERO_FASCADE_H
