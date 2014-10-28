@@ -24,12 +24,17 @@ public:
 	
 	std::shared_ptr<ActionLog> getActionLog() const;
 	void resetEngine();
-
 protected:
 
 private:
 	std::shared_ptr<GameLevel> level;
 	std::shared_ptr<ActionLog> actions;
+
+	/*
+	 * Flag controlling if engine should continue to accept
+	 * commands controlling the character
+ 	 */
+	bool isActive;
 };
 
 #endif // ENGINE_H

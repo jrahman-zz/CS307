@@ -7,7 +7,11 @@
  * 
  */
 class GameLevel {
+public:
 
+protected:
+
+private:
 
 };
 
