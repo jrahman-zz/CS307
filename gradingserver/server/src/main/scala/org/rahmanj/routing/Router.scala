@@ -16,31 +16,28 @@ import org.rahmanj.sessions._
  * @constructor Creates a new instance of the [[Router]]
  * @param routeAction Actually performs the task of routing the message to the final destination
  */
-trait Router {
+class Router[Destination, Message <: Routable](routeAction: Message#RouteSource => Destination => Message => Unit) {
   
-  val routeAction: RouteSource => RouteDestination => Routable => Unit
-  type RouteSource
-  type RouteDestination
-  type Message <: Routable
+  type Source = Message#RouteSource
   
-  val routes: Map[RouteSource, RouteDestination] = Map[RouteSource, RouteDestination]()
-  val reverseRoutes: Map[RouteDestination, RouteSource] = Map[RouteDestination, RouteSource]()
+  val routes: Map[Source, Destination] = Map[Source, Destination]()
+  val reverseRoutes: Map[Destination, Source] = Map[Destination, Source]()
   
-  def addRoute(src: RouteSource, dest: RouteDestination) = {
+  def addRoute(src: Source, dest: Destination) = {
     routes += (src -> dest)
     reverseRoutes += (dest -> src)
   }
   
-  def +=(that: Tuple2[RouteSource, RouteDestination]) = {
+  def +=(that: Tuple2[Source, Destination]) = {
     this.addRoute(that._1, that._2)
     this
   }
   
-  def getRoute(src: RouteSource): Option[RouteDestination] = {
+  def getRoute(src: Source): Option[Destination] = {
     routes get src
   }
   
-  def removeRouteBySource(src: RouteSource): Boolean = {
+  def removeRouteBySource(src: Source): Boolean = {
     routes get src match {
       case Some(dest) =>
         reverseRoutes - dest
@@ -50,7 +47,7 @@ trait Router {
     }
   }
   
-  def removeRouteByDestination(dest: RouteDestination): Boolean = {
+  def removeRouteByDestination(dest: Destination): Boolean = {
     reverseRoutes get dest match {
       case Some(src) =>
         routes -= src
@@ -68,10 +65,4 @@ trait Router {
       case None => false
     } 
   }
-}
-
-class MessageRouter(routeAction: RouteSource => RouteDestination => Routable => Unit) extends Router {
-  type RouteSource = SessionToken
-  type RouteDestination = ActorRef
-  type Message = RequestRoutable
 }

@@ -6,18 +6,19 @@ import org.rahmanj.sessions._
 
 trait Routable {
   type RouteSource
+
   type RoutableContext
   
-  val source: RouteSource
+  def source: RouteSource
   
-  val context: RoutableContext
+  def context: RoutableContext
   
-  val payload: Any
+  def payload: Any
 }
 
 case class RequestRoutable(
-  source: RouteSource,
-  context: RoutableContext,
+  source: RequestRoutable#RouteSource,
+  context: RequestRoutable#RoutableContext,
   payload: Any
 ) extends Routable {
   type RouteSource = SessionToken
