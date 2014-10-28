@@ -7,7 +7,8 @@
 #include "GameLevel.h"
 
 
-/* The World class provides a mechanism for the player to examine the state of the world
+/*
+ * The World class provides a mechanism for the player to examine the state of the world
  *
  *
  *

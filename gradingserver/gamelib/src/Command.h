@@ -11,6 +11,6 @@ public:
 	Command();
 	virtual ~Command() {}
 	virtual void execute(Interactable& actor) = 0;
-}
+};
 
 #endif // COMMAND_H

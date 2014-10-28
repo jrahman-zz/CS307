@@ -17,6 +17,6 @@ protected:
 
 private:
 	std::shared_ptr<Interactable> actionActor;
-}
+};
 
 #endif // ACTION_H
