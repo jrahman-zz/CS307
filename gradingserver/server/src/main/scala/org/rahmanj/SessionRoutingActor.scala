@@ -56,7 +56,7 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
     
     val token = (login.toString + Random.alphanumeric.take(20).mkString).sha512.toString
     
-    val sessionActor = context.actorOf(Props[SessionActor])
+    val sessionActor = context.actorOf(SessionActor.props(new DockerContainerFactory()))
     context.watch(sessionActor)
     
     // Update out state with the new route and session
@@ -64,6 +64,7 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
     router.addRoute(token, sessionActor)
     
     // Send message to kick-start initialization proceedure
+    log.info("Sending initialization message...")
     sessionActor ! InitializeSession(ctx, levelInfo)
   }
   

@@ -42,6 +42,12 @@ def run_code(levelid):
                         'error_line_text':str(status['line']),
                         'error_message':str(status['message'])})
 
+@app.route('/initialize', methods=[POST])
+def init_engine():
+    # Create game engine instance from the game library
+    # And create initial context only containing a copy
+    # Of the world and hero fascade objects
+    pass
 
 # Run
 if __name__ == '__main__':
