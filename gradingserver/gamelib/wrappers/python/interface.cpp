@@ -8,7 +8,7 @@
 using namespace boost::python
 
 /*
- * See http://boost.cppll.jp/BDTJ_1_29/libs/python/doc/tutorial/index.html
+ * http://www-spires.slac.stanford.edu/BFROOT/www/doc/workbook_backup_010108/examples/ex1/workdir/PARENT/boost/libs/python/doc/tutorial/index.html
  */
 
 BOOST_PYTHON_MODULE(gamelib) {
@@ -18,7 +18,7 @@ BOOST_PYTHON_MODULE(gamelib) {
 		.def("reset", &Engine::resetEngine)
 		.def("getLog", &Engine::getEngine);
 
-	class_<HeroFascade>("Hero")
+	class_<HeroFascade>("Hero", no_init)
 		.def("moveUp", &HeroFascade::moveUp)
 		.def("moveDown", &HeroFascade::moveDown)
 		.def("moveLeft", &HeroFascade::moveLeft)
