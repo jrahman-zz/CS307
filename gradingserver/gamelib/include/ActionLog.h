@@ -13,12 +13,12 @@ class ActionLog {
 public:
 	ActionLog();
 	~ActionLog();
-	void log(LogEntry entry);
+	void log(LogEntry& entry);
 
 protected:
 
 private:
-	
+	// TODO, add data structures here	
 };
 
 #endif // ACTION_LOG_H

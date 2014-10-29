@@ -3,17 +3,18 @@
 
 #include <memory>
 
+#include "Position.h"
 #include "Util.h"
 
 class Interactable {
 
 public:
-	Interactable(unsigned int x, unsigned int y, unsigned int actorID, State startState);
+	Interactable(Position position, unsigned int actorID, State startState);
 	virtual ~Interactable();
 
 protected:
 	unsigned int ID;
-	unsigned int x, y;
+	Position position;
 	State currentState;
 	
 	template<class T>
