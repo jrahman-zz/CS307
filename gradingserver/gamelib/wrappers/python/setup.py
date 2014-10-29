@@ -8,9 +8,9 @@ import sys
 
 # https://wiki.python.org/moin/boost.python/BuildingExtensions
 
-include_dirs = ["/usr/include/boost-VERSION_INFO_HERE_TODO", .]
-libraries = ['gamelib', 'boost_python-gcc']
-library_dirs = ['/usr/local/lib', 'custom_lib_path_here']
+include_dirs = ["/usr/include/boost", "../include"]
+libraries = ['boost_python-gcc']
+library_dirs = ['/usr/local/lib']
 
 module = Extension('gamelib',
 			sources=['interface.cpp'],
