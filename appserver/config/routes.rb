@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   # Static pages
   get '/pages/home' => 'pages#home'
+  get '/pages/tutorial' => 'pages#tutorial'
 
   root to: 'pages#home'
 end
