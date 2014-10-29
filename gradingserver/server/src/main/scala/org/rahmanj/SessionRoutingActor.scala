@@ -13,6 +13,7 @@ import messages._
 import routing._
 import container._
 
+
 object SessionRoutingActor {
   
   /**
@@ -54,9 +55,9 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
   def createSession(ctx: RequestContext, login: SessionToken, levelInfo: SessionCreateRequest) = {
     log.info("Creating new session")
     
-    val token = (login.toString + Random.alphanumeric.take(20).mkString).sha512.toString
+    val token: SessionToken = (login.toString + Random.alphanumeric.take(20).mkString).sha512.toString
     
-    val sessionActor = context.actorOf(SessionActor.props(new DockerContainerFactory()))
+    val sessionActor = context.actorOf(SessionActor.props(new DockerContainerFactory(), token))
     context.watch(sessionActor)
     
     // Update out state with the new route and session

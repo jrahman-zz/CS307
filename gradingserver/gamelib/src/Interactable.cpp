@@ -1,10 +1,13 @@
 #include "Interactable.h"
 
-Interactable::Interactable(Position position, unsigned int actorID, State startState) :
+Interactable::Interactable(
+	Position position,
+	unsigned int actorID,
+	std::weak_ptr<Engine> engineRef,
+	State startState) :
 	position(position),
 	currentState(startState),
-	ID(actorID) {}
+	ID(actorID),
+	engine(engineRef) {}
 
 Interactable::~Interactable() {}
-
-

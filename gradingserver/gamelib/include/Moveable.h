@@ -1,13 +1,19 @@
 #ifndef MOVEABLE_H
 #define MOVEABLE_H
 
+#include <memory>
+
 #include "Interactable.h"
 #include "Util.h"
 
 class Moveable : public Interactable {
 	
 public:
-	Moveable(unsigned int x, unsigned int y, unsigned int actorID, State state = State::ALIVE);
+	Moveable(
+		Position position,
+		unsigned int actorID,
+		State state = State::ALIVE,
+		std::weak_ptr<Engine> engine);
 	virtual ~Moveable();
 	
 	/*

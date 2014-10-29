@@ -1,10 +1,11 @@
 #include "Moveable.h"
 
-
-Moveable::Moveable(unsigned int x, unsigned int y, unsigned int actorID, State state = State.ALIVE) :
-	Interactable(x, y, actorId, state) {
-
-}
+Moveable::Moveable(
+		Position position,
+		unsigned int actorID,
+		std::weak_ptr<Engine> engineRef,
+		State state) :
+	Interactable(position, actorId, engineRef, state, engineRef) {}
 
 
 Moveable::~Moveable() {

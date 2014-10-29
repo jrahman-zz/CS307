@@ -13,6 +13,4 @@ WORKDIR /srv/scripts
 
 RUN chmod u+x run.sh
 
-EXPOSE 8888
-
 ENTRYPOINT ["/srv/scripts/run.sh"]

@@ -20,7 +20,7 @@ std::shared_ptr<HeroFascade> Engine::getHero() const {
 bool Engine::executeCommand(unsigned int actorID, std::shared_ptr<Command> cmd) {
 	// TODO, how will this integrate with the logging mechanism
 	
-	Interactable i(Position(0, 0), 0, State::ALIVE); // TODO, lookup interactable
+	Interactable i(Position(0, 0), 0, std::weak_ptr<Engine>(this), State::ALIVE); // TODO, lookup interactable
 	return (*cmd)(i);
 }
 
