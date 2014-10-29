@@ -33,7 +33,7 @@ object SessionActor {
    * @param containerFactory A factory to create suitable container objects
    * @return A Props for creating this actor
    */
-  def props(containerFactory: ContainerFactory): Props = Props(new SessionActor(containerFactory))
+  def props(containerFactory: ContainerFactory, sessionID: SessionToken): Props = Props(new SessionActor(containerFactory, sessionID))
 }
 
 /** An actor representing a level session
@@ -41,7 +41,7 @@ object SessionActor {
  * @constructor Create a session with the given factory object
  * @param containerFactory
  */
-class SessionActor(containerFactory: ContainerFactory) extends Actor with ActorLogging with Stash {
+class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) extends Actor with ActorLogging with Stash {
   
   implicit val system = ActorSystem()
   
@@ -69,8 +69,8 @@ class SessionActor(containerFactory: ContainerFactory) extends Actor with ActorL
       finishedContainer.onComplete {
         case Success(container) => 
             log.info("Container initialized")
-            self ! SessionInitialized
             context.become(finishInitialization)
+            self ! SessionInitialized
         case Failure(throwable) =>
             log.error(throwable, "Failed to initialize container")
             // TODO, fail, fail hard and fast
@@ -116,12 +116,15 @@ class SessionActor(containerFactory: ContainerFactory) extends Actor with ActorL
   
   def receiveSubmission: Receive = {
     case Submission(ctx, submission) =>
-      submission match {
-        case levelSubmission: LevelSubmissionRequest =>
-          // TODO, pull level information
-        case challengeSubmission: ChallengeSubmissionRequest =>
-          // TODO, pull challenge information
+      sessionContainer match {
+        case Some(container) => submission match {
+          case levelSubmission: LevelSubmissionRequest =>
+            ctx.complete(container.sendMessage(levelSubmission, s"/level/submit/$sessionid"))
+          case challengeSubmission: ChallengeSubmissionRequest =>
+            ctx.complete(container.sendMessage(challengeSubmission, s"/challenge/submit/$sessionid"))
+        case None => ctx.complete((500, "No session container available"))
       }
+    }
   }
   
   def schedulePing() {
@@ -145,7 +148,7 @@ class SessionActor(containerFactory: ContainerFactory) extends Actor with ActorL
     containerFactory(ContainerConfig())
   }
   
-  def initializeContainer(container: Option[Container], level: SessionCreateRequest): Future[Option[Container]] = {
+  def initializeContainer(container: Option[Container], req: SessionCreateRequest): Future[Option[Container]] = {
     Future { container match {
         case Some(container) =>
           import spray.httpx.SprayJsonSupport._
