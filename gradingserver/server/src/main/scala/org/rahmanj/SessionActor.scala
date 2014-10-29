@@ -151,7 +151,7 @@ class SessionActor(containerFactory: ContainerFactory) extends Actor with ActorL
           import spray.httpx.SprayJsonSupport._
           import messages.SessionCreateResponseProtocol._
           
-          container.sendMessage(level)
+          container.sendMessage(level, "/initialize")
           Some(container)
         case None => None
       }
