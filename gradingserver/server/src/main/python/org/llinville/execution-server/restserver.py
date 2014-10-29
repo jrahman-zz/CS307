@@ -12,6 +12,8 @@ def get_health():
 @app.route('/level/<levelid>/submit', methods=['POST'])
 def run_code(levelid):
     print('received request to run level: '+levelid)
+    for item in request.form.items():
+        print('form data item: '+str(item))
     try:
         loadedjson = json.loads(request.form['jsondata'])
         print("Codelines: " + '\n'.join(loadedjson['codelines']))
@@ -20,13 +22,24 @@ def run_code(levelid):
         print e
 
     code = '\n'.join(loadedjson['codelines'])
-    context = loadedjson['context']
-    status = execute(code, context)
+    context = {}
+    if 'context' in loadedjson:
+        print("Found a context")
+        context = loadedjson['context']
+    try:
+        status = execute(code, context)
+    except Exception as e:
+        print(e)
 
-    if status:
+    print('status:' + str(status))
+    if len(status) == 0:
         return jsonify({'response':'Ran code'})
     else:
-        return jsonify({'response':'Error running code'})
+        return jsonify({'response':'Error running code',
+                        'error_name':str(status['exc_type']),
+                        'error_line_number':str(status['lineno']),
+                        'error_line_text':str(status['line']),
+                        'error_message':str(status['message'])})
 
 
 # Run

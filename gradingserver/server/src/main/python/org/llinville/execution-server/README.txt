@@ -5,5 +5,6 @@ key: jsondata
 value:
 {
     "codelines":[<line 1>, <line 2>, <line 3>, ... ]
+    #Optional context
     "context":{<name>:<value>, <name>:<value>, ...}
 }
