@@ -1,0 +1,17 @@
+# Object files
+*.o
+
+# Static libraries
+*.a
+
+# Dynamic libraries
+*.so
+
+# Build dependency files
+.depend
+
+# Binary library folder
+lib/*
+
+# Ignore generated executabels
+bin/*
