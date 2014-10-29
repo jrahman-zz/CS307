@@ -52,6 +52,9 @@ class SessionActor(containerFactory: ContainerFactory) extends Actor with ActorL
     
   def prepareInitialization: Receive = {
     case InitializeSession(ctx, levelInfo) =>
+      
+      log.info("Received initialization message, starting initialization procedure...")
+      
       val futureContainer = createContainer(ContainerConfig())
       
       // This is a Monad!
@@ -65,9 +68,11 @@ class SessionActor(containerFactory: ContainerFactory) extends Actor with ActorL
       
       finishedContainer.onComplete {
         case Success(container) => 
+            log.info("Container initialized")
             self ! SessionInitialized
             context.become(finishInitialization)
         case Failure(throwable) =>
+            log.error(throwable, "Failed to initialize container")
             // TODO, fail, fail hard and fast
       }
     // Hideaway, everything else until we are ready
