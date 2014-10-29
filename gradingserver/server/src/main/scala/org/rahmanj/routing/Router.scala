@@ -1,10 +1,12 @@
 package org.rahmanj.routing
 
+import akka.actor.ActorRef
 import akka.event.Logging
 
 import scala.collection.mutable.Map
 
 import org.rahmanj.sessions._
+
 
 /** Routes messages from a [[RouteSource]] to a [[RouteDestination]]
  * 
@@ -14,28 +16,28 @@ import org.rahmanj.sessions._
  * @constructor Creates a new instance of the [[Router]]
  * @param routeAction Actually performs the task of routing the message to the final destination
  */
-class Router[RouteSource, RouteDestination, RoutableContext](
-  routeAction: RouteSource => RouteDestination => Routable[RoutableContext, RouteSource] => Unit
-) {
+class Router[Destination, Message <: Routable](routeAction: Message#RouteSource => Destination => Message => Unit) {
   
-  val routes: Map[RouteSource, RouteDestination] = Map[RouteSource, RouteDestination]()
-  val reverseRoutes: Map[RouteDestination, RouteSource] = Map[RouteDestination, RouteSource]()
+  type Source = Message#RouteSource
   
-  def addRoute(src: RouteSource, dest: RouteDestination) = {
+  val routes: Map[Source, Destination] = Map[Source, Destination]()
+  val reverseRoutes: Map[Destination, Source] = Map[Destination, Source]()
+  
+  def addRoute(src: Source, dest: Destination) = {
     routes += (src -> dest)
     reverseRoutes += (dest -> src)
   }
   
-  def +=(that: Tuple2[RouteSource, RouteDestination]) = {
+  def +=(that: Tuple2[Source, Destination]) = {
     this.addRoute(that._1, that._2)
     this
   }
   
-  def getRoute(src: RouteSource): Option[RouteDestination] = {
+  def getRoute(src: Source): Option[Destination] = {
     routes get src
   }
   
-  def removeRouteBySource(src: RouteSource): Boolean = {
+  def removeRouteBySource(src: Source): Boolean = {
     routes get src match {
       case Some(dest) =>
         reverseRoutes - dest
@@ -45,7 +47,7 @@ class Router[RouteSource, RouteDestination, RoutableContext](
     }
   }
   
-  def removeRouteByDestination(dest: RouteDestination): Boolean = {
+  def removeRouteByDestination(dest: Destination): Boolean = {
     reverseRoutes get dest match {
       case Some(src) =>
         routes -= src
@@ -55,7 +57,7 @@ class Router[RouteSource, RouteDestination, RoutableContext](
     }
   }
   
-  def routeMessage(msg: Routable[RoutableContext, RouteSource]): Boolean = {
+  def routeMessage(msg: Message): Boolean = {
     getRoute(msg.source) match {
       case Some(destination) =>
         routeAction(msg.source)(destination)(msg)

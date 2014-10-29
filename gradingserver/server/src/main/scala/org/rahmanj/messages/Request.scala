@@ -7,14 +7,15 @@ sealed trait Request {
 }
 
 case class SessionCreateRequest(
-  level: Level
+  levelId: Int,
+  classId: Int
 ) extends Request {
   type ResponseType = SessionCreateResponse
 }
 
 object SessionCreateRequestProtocol extends DefaultJsonProtocol {
   import LevelProtocol._
-  implicit val sessionCreateRequestFormat = jsonFormat1(SessionCreateRequest)
+  implicit val sessionCreateRequestFormat = jsonFormat2(SessionCreateRequest)
 }
 
 case class SessionResetRequest()

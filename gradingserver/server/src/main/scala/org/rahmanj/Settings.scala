@@ -20,18 +20,6 @@ class Settings(config: Config, extendedSystem: ExtendedActorSystem) extends Exte
       val ContainerName   = config.getString("server.language.python.container-name")
     }
   }
-  
-  object Database {
-    val Username = config.getString("server.database.username")
-    val Password = config.getString("server.database.password")
-    val Hostname = config.getString("server.database.hostname")
-    val Port     = config.getInt("server.database.port")
-  }
-  
-  object AppServer {
-    val Hostname = config.getString("server.appserver.hostname")
-    val Port = config.getInt("server.appserver.port")
-  }
 }
 
 object Settings extends ExtensionId[Settings] with ExtensionIdProvider {
