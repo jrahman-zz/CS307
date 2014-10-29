@@ -29,7 +29,11 @@ public:
 protected:
 
 	unsigned int getHeroID() const;
-
+	
+	/*
+	 * Return string representation of the JSON log
+ 	 */
+	std::string getLog();
 private:
 	std::shared_ptr<GameLevel> level;
 	std::shared_ptr<ActionLog> actions;
