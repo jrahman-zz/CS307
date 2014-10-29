@@ -24,5 +24,8 @@ class Ability
 
     # Guest rolls
     can [:read, :approve_enrollment], Course
+
+    # Users can manage themselves
+    can :manage, user
   end
 end
