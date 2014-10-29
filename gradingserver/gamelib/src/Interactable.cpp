@@ -1,11 +1,10 @@
 #include "Interactable.h"
 
-Interactable::Interactable(unsigned int x, unsigned int y, unsigned int actorID, State startState) :
+Interactable::Interactable(Position position, unsigned int actorID, State startState) :
+	position(position),
 	currentState(startState),
-	ID(actorID) {
-}
+	ID(actorID) {}
 
-Interactable::~Interactable() {
-}
+Interactable::~Interactable() {}
 
 

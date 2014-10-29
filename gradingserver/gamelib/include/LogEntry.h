@@ -1,5 +1,5 @@
-#ifndef ACTION_H
-#define ACTION_H
+#ifndef LOG_ENTRY_H
+#define LOG_ENTRY_H
 
 #include <memory>
 #include "Interactable.h"
@@ -12,9 +12,12 @@
 class LogEntry {
 public:
 	
-	LogEntry(unsigned int timestep) : 
-		timestep(timestep) {}
-	virtual ~Action();
+	LogEntry(unsigned int timestep); 
+	virtual ~LogEntry();
+	
+	/*
+	 * Serialize the log entry into JSON
+ 	 */
 	Json::Value toJson();
 protected:
 	
@@ -31,4 +34,4 @@ private:
 	unsigned int timestep;
 };
 
-#endif // ACTION_H
+#endif // LOG_ENTRY_H

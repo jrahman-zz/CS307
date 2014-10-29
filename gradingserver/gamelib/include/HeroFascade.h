@@ -7,6 +7,7 @@
 #include "MoveCommand.h"
 #include "Util.h"
 
+/* Forward delcaration */
 class Engine;
 
 /*

@@ -16,15 +16,15 @@ public:
 	/*
 	 * Execute the given command
  	 */
-	void operator()(Interactable& actor) {
-		this->execute(actor);
+	bool operator()(Interactable& actor) {
+		return this->execute(actor);
 	}
 
 protected:
 	/*
 	 * Command implementation is provided here
  	 */
-	virtual void execute(Interactable& actor) = 0;
+	virtual bool execute(Interactable& actor) = 0;
 };
 
 #endif // COMMAND_H

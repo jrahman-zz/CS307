@@ -10,10 +10,11 @@ public:
 	/*
 	 *
 	 */
-	MoveCommand(Direction dir, distance);
+	MoveCommand(Direction dir, unsigned int distance);
 	
 	virtual ~MoveCommand();
 protected:
+
 	/*
 	 * Direction the move is taking place in
 	 */

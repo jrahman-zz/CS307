@@ -22,13 +22,19 @@ public:
 	std::shared_ptr<WorldFascade> getWorld() const;
 	std::shared_ptr<HeroFascade> getHero() const;
 	
+	bool executeCommand(unsigned int actorID, std::shared_ptr<Command> cmd);
+
 	std::shared_ptr<ActionLog> getActionLog() const;
 	void resetEngine();
 protected:
 
+	unsigned int getHeroID() const;
+
 private:
 	std::shared_ptr<GameLevel> level;
 	std::shared_ptr<ActionLog> actions;
+
+	unsigned int heroID;
 
 	/*
 	 * Flag controlling if engine should continue to accept
