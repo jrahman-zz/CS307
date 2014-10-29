@@ -38,7 +38,7 @@ def execute(code, context):
     try:
         compiled_code = compile_restricted(code, '<string>', 'exec')
         exec compiled_code in execution_context
-        print(execution_context['y'])
+        print('After execution, y is: '+execution_context['y'])
     except Exception as e:
         returned_errors = exceptiondetails(code)
 

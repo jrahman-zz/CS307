@@ -37,6 +37,7 @@ def run_code(levelid):
     else:
         return jsonify({'response':'Error running code',
                         'error_name':str(status['exc_type']),
+                        'error_obj':str(status['exc_obj']),
                         'error_line_number':str(status['lineno']),
                         'error_line_text':str(status['line']),
                         'error_message':str(status['message'])})
