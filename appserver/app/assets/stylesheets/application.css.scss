@@ -32,3 +32,27 @@
   border-radius: 0;
   font-size: 22px;
 }
+
+body {
+  padding-top: 50px;
+}
+
+ul.member-list {
+  border-radius: 4px;
+
+  .options {
+    display: none;
+  }
+
+  &:hover {
+    background-color: #f7f7f7;
+
+    .options {
+      display: block;
+    }
+  }
+
+  li {
+    padding: 4px 10px;
+  }
+}

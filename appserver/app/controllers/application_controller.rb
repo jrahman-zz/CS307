@@ -10,5 +10,4 @@ class ApplicationController < ActionController::Base
    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :password_confirmation, :current_password) }
   end
 
-  protect_from_forgery with: :exception
 end

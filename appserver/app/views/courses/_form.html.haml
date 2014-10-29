@@ -5,7 +5,7 @@
       %ul
         - @course.errors.full_messages.each do |msg|
           %li= msg
-          
+
 
   .field
     = f.label :name
@@ -15,6 +15,7 @@
     = f.datetime_select :start_date
   .field
     = f.label :description
-    = f.text_field :description
-  .actions
+    = f.text_area :description 
+
+  .form-actions
     = f.submit 'Save'
