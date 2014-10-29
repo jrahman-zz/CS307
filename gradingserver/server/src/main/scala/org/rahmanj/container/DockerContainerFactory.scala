@@ -34,7 +34,7 @@ class DockerContainerFactory extends ContainerFactory {
   def apply(config: ContainerConfig): Future[Option[Container]] = {
     val client = tugboat.Client()
     for {
-      container <- client.containers.create("TODO, container name here from config")()
+      container <- client.containers.create("python")()
       run       <- client.containers.get(container.id).start.bind(
                   tugboat.Port.Tcp(Settings(system).Container.HostBindPort),
                   tugboat.PortBinding.local(Settings(system).Container.ContainerBindPort)

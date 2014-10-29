@@ -48,7 +48,8 @@ class UsersController < ApplicationController
   end
 
   #Admin view for editing password reroutes
-  def admin_edit
+  def admin
+    render '_admin_edit_users'
   end
 
   private

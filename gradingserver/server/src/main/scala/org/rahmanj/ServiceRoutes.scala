@@ -9,8 +9,7 @@ import spray.routing.authentication.{Authentication,ContextAuthenticator}
 import spray.routing._
 import spray.http._
 
-import spray.httpx.SprayJsonSupport.sprayJsonMarshaller
-import spray.httpx.SprayJsonSupport.sprayJsonUnmarshaller
+import spray.httpx.SprayJsonSupport._
 
 import sessions._
 import routing._
