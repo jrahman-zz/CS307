@@ -66,7 +66,7 @@ class DockerContainerFactory extends ContainerFactory {
     val logger = LoggerFactory.getLogger(classOf[DockerContainer])
     val uri = "http://" + hostname + ":" + port
     
-    def sendMessage[A <: Request](message: A, endpoint: String)(implicit f: Unmarshaller[message.ResponseType]): Future[message.ResponseType] = {
+    def sendMessage[A <: Request](message: A, endpoint: String)(implicit f: Unmarshaller[A#ResponseType]): Future[A#ResponseType] = {
       
       implicit val timeout = Timeout(60.seconds)
       
@@ -75,7 +75,7 @@ class DockerContainerFactory extends ContainerFactory {
       logger.info(s"Sending request to $container_endpoint")
       
       val send = (req: HttpRequest) => (IO(Http) ? req).mapTo[HttpResponse]
-      val pipeline = send ~> unmarshal[message.ResponseType]
+      val pipeline = send ~> unmarshal[A#ResponseType]
       pipeline(HttpRequest(GET, Uri(container_endpoint)))
     }
     

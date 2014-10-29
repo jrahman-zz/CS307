@@ -61,29 +61,24 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
       val finishedContainer = for {
         container <- futureContainer
         newContainer <- initializeContainer(container, levelInfo)
-      } yield (newContainer match {
-          case Some(container) => Future { Some(container) }
-          case None => Future { None }
-      })
+      } yield newContainer
       
       finishedContainer.onComplete {
         case Success(container) => 
             log.info("Container initialized")
-            context.become(finishInitialization)
-            self ! SessionInitialized
+            sessionContainer = container
+            schedulePing()
+            context.become(receiveSubmission orElse receiveCommon)
+            
+            import spray.httpx.SprayJsonSupport._
+            import messages.SessionCreateResponseProtocol._
+            ctx.complete((200, SessionCreateResponse(true, sessionID)))
         case Failure(throwable) =>
             log.error(throwable, "Failed to initialize container")
-            // TODO, fail, fail hard and fast
+            ctx.complete((500, "Failed to create container"))
+            // Indicate failure to the router
       }
-    // Hideaway, everything else until we are ready
-    case _ => stash()
-  }
-
-  def finishInitialization: Receive = {
-    case SessionInitialized(ctx, container) =>
-      sessionContainer = Some(container)
-      schedulePing()
-      context.become(receiveSubmission orElse receiveCommon)
+    // Hideaway everything else until we are ready
     case _ => stash()
   }
    
@@ -100,30 +95,28 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
   }
   
   def receiveUnknown: Receive = {
-    case _ => log.warning("Known message received by actor")
+    case _ => log.warning("Unknown message received by actor")
   }
   
   def receiveCommon = receivePing orElse receiveUnknown
   
-//  def receiveResult: Receive = {
-//    case ExecutorLevelResult(ctx, result) =>
-//      // TODO
-//      context.become(receiveSubmission orElse receiveCommon)
-//    case ExecutorChallengeResult(ctx, result) =>
-//      // TODO
-//      context.become(receiveSubmission orElse receiveCommon)
-//  }
-  
   def receiveSubmission: Receive = {
-    case Submission(ctx, submission) =>
-      sessionContainer match {
-        case Some(container) => submission match {
-          case levelSubmission: LevelSubmissionRequest =>
-            ctx.complete(container.sendMessage(levelSubmission, s"/level/submit/$sessionid"))
-          case challengeSubmission: ChallengeSubmissionRequest =>
-            ctx.complete(container.sendMessage(challengeSubmission, s"/challenge/submit/$sessionid"))
-        case None => ctx.complete((500, "No session container available"))
+    case Submission(ctx, submission) => sessionContainer match {
+      case Some(container) => submission match {
+        case levelSubmission: LevelSubmissionRequest =>
+            
+          log.info(s"Session $sessionID received level submission")
+          import spray.httpx.SprayJsonSupport._
+          import messages.LevelResultResponseProtocol._
+          ctx.complete(container.sendMessage(levelSubmission, s"/level/submit/$sessionID"))
+        case challengeSubmission: ChallengeSubmissionRequest =>
+            
+          log.info(s"Session $sessionID received challenge submission")
+          import spray.httpx.SprayJsonSupport._
+          import messages.ChallengeResultResponseProtocol._
+          ctx.complete(container.sendMessage(challengeSubmission, s"/challenge/submit/$sessionID"))
       }
+      case None => ctx.complete((500, "No session container available"))
     }
   }
   
@@ -131,6 +124,8 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
 
     val interval = Settings(system).Container.PingInterval seconds
     implicit val timeout: Timeout = Timeout(interval)
+    
+    log.debug(s"Scheduling ping in $interval seconds")
     
     system.scheduler.scheduleOnce(interval) {
       sessionContainer match {
@@ -153,10 +148,9 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
         case Some(container) =>
           import spray.httpx.SprayJsonSupport._
           import messages.SessionCreateResponseProtocol._
-          
-          container.sendMessage(level, "/initialize")
+          container.sendMessage(req, "/initialize")
           Some(container)
-        case None => None
+        case None => None // TODO
       }
     }
   }

@@ -21,7 +21,7 @@ class DummyContainerFactory extends ContainerFactory {
   
   private class DummyContainer() extends Container {
     
-    def sendMessage[A <: Request](message: A, endpoint: String)(implicit f: Unmarshaller[message.ResponseType]): Future[message.ResponseType] = {
+    def sendMessage[A <: Request](message: A, endpoint: String)(implicit f: Unmarshaller[A#ResponseType]): Future[message.ResponseType] = {
       
       // TODO, case statement with dummy results
       
