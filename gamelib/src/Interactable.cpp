@@ -3,7 +3,7 @@
 Interactable::Interactable(
 	Position position,
 	unsigned int actorID,
-	std::weak_ptr<Engine> engineRef,
+	Engine* engineRef,
 	State startState) :
 	position(position),
 	currentState(startState),

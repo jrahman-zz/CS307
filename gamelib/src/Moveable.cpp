@@ -3,7 +3,7 @@
 Moveable::Moveable(
 		Position position,
 		unsigned int actorID,
-		std::weak_ptr<Engine> engineRef,
+		Engine* engineRef,
 		State state) :
 	Interactable(position, actorId, engineRef, state, engineRef) {}
 
@@ -29,7 +29,12 @@ virtual bool Moveable::moveRight() {
 }
 
 virtual bool Moveable::move(Direction direction) {
-	// TODO Implement
-	return false;
+	unsigned int timestep = engine->getTimestep();
+
+	// TODO, update position
+
+	std::shared_ptr<MoveLogEntry> entry(new MoveLogEntry(timestep, ID, position));
+	engine->getActionLog()->log(entry);
+	return true;
 }
 
