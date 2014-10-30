@@ -18,8 +18,13 @@ public:
 	GameLevel(TileMap tileMap);
 	~GameLevel(TileMap);
 
-	shared_ptr<Interactable> operator[](Position position);
-protected:
+	shared_ptr<Interactable>& operator[](Position position) {
+		unsigned int index = pos.getX() + pos.getY() * m_width;
+		if (index >= m_width * m_height) {
+			throw std::exception;
+		}
+        	return m_actorMap[i];
+	}
 
 private:
 
