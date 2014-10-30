@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, json
-from codeexecutor import execute
+from CodeExecutor import execute
 
 app = Flask(__name__)
 
@@ -19,7 +19,7 @@ def run_code(levelid):
         print("Codelines: " + '\n'.join(loadedjson['codelines']))
         #print("Context: " + loadedjson['context'])
     except Exception as e:
-        print e
+        print(e)
 
     code = '\n'.join(loadedjson['codelines'])
     context = {}
@@ -47,7 +47,8 @@ def init_engine():
     # Create game engine instance from the game library
     # And create initial context only containing a copy
     # Of the world and hero fascade objects
-    pass
+    # TODO
+    return jsonify({'success': true, 'sessionID': ''})
 
 # Run
 if __name__ == '__main__':

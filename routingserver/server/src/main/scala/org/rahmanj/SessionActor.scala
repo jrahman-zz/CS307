@@ -51,28 +51,29 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
   def receive: Receive = prepareInitialization
     
   def prepareInitialization: Receive = {
-    case InitializeSession(ctx, levelInfo) =>
+    case InitializeSession(ctx, req) =>
       
       log.info("Received initialization message, starting initialization procedure...")
       
       val futureContainer = createContainer(ContainerConfig())
       
-      // This is a Monad!
-      val finishedContainer = for {
-        container <- futureContainer
-        newContainer <- initializeContainer(container, levelInfo)
-      } yield newContainer
-      
-      finishedContainer.onComplete {
-        case Success(container) => 
-            log.info("Container initialized")
+      futureContainer.onComplete {
+        case Success(container) =>
             sessionContainer = container
-            schedulePing()
-            context.become(receiveSubmission orElse receiveCommon)
-            
-            import spray.httpx.SprayJsonSupport._
-            import messages.SessionCreateResponseProtocol._
-            ctx.complete((200, SessionCreateResponse(true, sessionID)))
+            sessionContainer match {
+              case Some(container) =>
+                log.info("Container initialized")
+                
+                schedulePing()
+                context.become(receiveSubmission orElse receiveCommon)
+
+                import spray.httpx.SprayJsonSupport._
+                import messages.SessionCreateResponseProtocol._
+                ctx.complete((200, container.sendMessage(req, "initialize")))
+              case None =>
+                log.info("Failed to crate container")
+                ctx.complete((500, "Failed to create container"))
+            }
         case Failure(throwable) =>
             log.error(throwable, "Failed to initialize container")
             ctx.complete((500, "Failed to create container"))
@@ -141,17 +142,5 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
   
   def createContainer(config: ContainerConfig): Future[Option[Container]] = {
     containerFactory(ContainerConfig())
-  }
-  
-  def initializeContainer(container: Option[Container], req: SessionCreateRequest): Future[Option[Container]] = {
-    Future { container match {
-        case Some(container) =>
-          import spray.httpx.SprayJsonSupport._
-          import messages.SessionCreateResponseProtocol._
-          container.sendMessage(req, "/initialize")
-          Some(container)
-        case None => None // TODO
-      }
-    }
   }
 }
