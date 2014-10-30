@@ -3,9 +3,11 @@
 
   = f.input :name
 
-  = f.input :start_date, as: :string, placeholder: 'YYYY-MM-DD HH:MM:SS'
+  = f.input :start_date
 
   = f.input :description
+
+  = f.input :open, label: 'Open Enrollment?'
 
   .form-actions
     = f.submit 'Save', class: 'btn btn-primary'
