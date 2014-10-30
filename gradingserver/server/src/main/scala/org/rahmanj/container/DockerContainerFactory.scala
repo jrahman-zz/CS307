@@ -21,6 +21,8 @@ import spray.json._
 
 import tugboat.Client
 
+import org.slf4j.{Logger,LoggerFactory}
+
 import org.rahmanj.messages.{Response, Request}
 import org.rahmanj.Settings
 
@@ -42,7 +44,12 @@ class DockerContainerFactory extends ContainerFactory {
       info <- client.containers.get(container.id)()
     } yield {
       (info, container) match {
-        case (Some(info), c) => Some(new DockerContainer(info.networkSettings.ipAddr, 8080, c.id))
+        case (Some(info), c) => Some(
+                new DockerContainer(
+                    info.networkSettings.ipAddr,
+                    Settings(system).Container.ContainerBindPort,
+                    c.id)
+                  )
         case (None, c) => None
       }
     }
@@ -56,21 +63,28 @@ class DockerContainerFactory extends ContainerFactory {
    */
   private class DockerContainer(hostname: String, port: Int, containerID: String) extends Container with SprayJsonSupport {
     
+    val logger = LoggerFactory.getLogger(classOf[DockerContainer])
     val uri = "http://" + hostname + ":" + port
     
-    def sendMessage[A <: Request](message: A)(implicit f: Unmarshaller[message.ResponseType]): Future[message.ResponseType] = {
+    def sendMessage[A <: Request](message: A, endpoint: String)(implicit f: Unmarshaller[A#ResponseType]): Future[A#ResponseType] = {
       
       implicit val timeout = Timeout(60.seconds)
       
-      // TODO, create rest endpoint from message
+      val container_endpoint = uri + s"/$endpoint"
+      
+      logger.info(s"Sending request to $container_endpoint")
       
       val send = (req: HttpRequest) => (IO(Http) ? req).mapTo[HttpResponse]
-      val pipeline = send ~> unmarshal[message.ResponseType]
-      pipeline(HttpRequest(GET, Uri(uri)))
+      val pipeline = send ~> unmarshal[A#ResponseType]
+      pipeline(HttpRequest(GET, Uri(container_endpoint)))
     }
     
     def ping(): Future[Boolean] = {
       implicit val timeout = Timeout(1.seconds)
+      
+      val endpoint = uri + "/health"
+      
+      logger.info(s"Sending pint to $endpoint")
       
       def checkResponse(response: HttpResponse): Boolean = {
         response.status match {
@@ -79,7 +93,7 @@ class DockerContainerFactory extends ContainerFactory {
         }
       }
       
-      val request = (IO(Http) ? HttpRequest(GET, Uri(uri))).mapTo[HttpResponse]
+      val request = (IO(Http) ? HttpRequest(GET, Uri(endpoint))).mapTo[HttpResponse]
       for {
         response <- request
       } yield (checkResponse(response))

@@ -18,7 +18,7 @@ trait Container {
    * @param message The message to be sent to the container
    * @returns [[scala.concurrent.Future]] containing the Response
    */
-  def sendMessage[A <: Request](message: A)(implicit f: Unmarshaller[message.ResponseType]): Future[message.ResponseType]
+  def sendMessage[A <: Request](message: A, endpoint: String)(implicit f: Unmarshaller[A#ResponseType]): Future[A#ResponseType]
   
   /** Checks the health of the container
    * @returns [[scala.concurrent.Future]] containing a [[Boolean]] indicating the outcome
