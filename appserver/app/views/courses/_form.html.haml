@@ -1,9 +1,9 @@
-= simple_form_for @course do |f|
+rao;ss= simple_form_for @course do |f|
   = f.error_notification
 
   = f.input :name
 
-  = f.input :start_date
+  = f.input :start_date, as: :string, placeholder: 'YYYY-MM-DD HH:MM:SS'
 
   = f.input :description
 

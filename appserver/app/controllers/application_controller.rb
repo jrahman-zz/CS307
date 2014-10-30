@@ -14,5 +14,4 @@ class ApplicationController < ActionController::Base
   	flash[:error] = "Access Denied!"
   	redirect_to :back
   end
-
 end
