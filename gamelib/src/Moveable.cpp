@@ -1,7 +1,6 @@
 #include "Moveable.h"
 
 Moveable::Moveable(
-		Position position,
 		unsigned int actorID,
 		Engine* engineRef,
 		State state) :
