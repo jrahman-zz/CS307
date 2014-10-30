@@ -8,12 +8,9 @@ GameLevel::GameLevel(shared_ptr<TileMap> tileMap)
 {
 	unsigned int totalSize = m_height * m_width;
 	m_actorMap = new shared_ptr<Interactable>[totalSize];
-	for (auto i = 0; i < totalSize; i++) {
-		m_actorMap[i] = nullptr;
-	}
 }
 
-shared_ptr<Interactable> GameLevel::operator[](Position pos) {
+shared_ptr<Interactable>& GameLevel::operator[](Position pos) {
 	unsigned int index = pos.getX() + pos.getY() * m_width;
 	return m_actorMap[i];
 }
