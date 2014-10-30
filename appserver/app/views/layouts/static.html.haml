@@ -10,4 +10,12 @@
   %body.static
     = render 'layouts/nav'
 
+    .container
+      - flash.each do |name, msg|
+        - if msg.is_a?(String)
+          %div{ class: 'alert alert-dismissable alert-'+(name.to_s == 'notice' ? 'success' : 'danger') }
+            %button.close{ 'data-dismiss' => 'alert' }
+              %span{ 'aria-hidden' => 'true' } &times;
+            = content_tag :div, msg, :id => 'flash_'+name
+            
     = yield

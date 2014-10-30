@@ -11,17 +11,22 @@
   = @user.last_sign_in_at
 
 .row
-  .col-xs-6
+  .col
     %table.table.table-striped.vertical-aligned
       %tr
         %th Name
         %th Start Date
+        %th Progress
 
       - Course.with_role(:student, current_user).each do |course|
         %tr
           %td= course.name
           %td= course.start_date
-
+          %td
+            .progress
+              .progress-bar.progress-bar-success.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "60", :role => "progressbar", :style => "width: 60%;"}
+                %span 60% 
+                // add if statements later
 %p
   = link_to 'Edit', edit_user_registration_path(@users), class: "btn btn-primary btn-sm"
   = link_to 'Back', users_path, class: "btn btn-warning btn-sm"
