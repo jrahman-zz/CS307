@@ -31,7 +31,7 @@
         {
          "draworder":"topdown",
          "height":10,
-         "name":"TriggerLayer",
+         "name":"Object Layer 1",
          "objects":[
                 {
                  "height":64,
