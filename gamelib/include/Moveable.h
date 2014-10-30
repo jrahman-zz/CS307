@@ -12,8 +12,8 @@ public:
 	Moveable(
 		Position position,
 		unsigned int actorID,
-		State state = State::ALIVE,
-		std::weak_ptr<Engine> engine);
+		Engine* engineRef,
+		State state = State::ALIVE);
 	virtual ~Moveable();
 	
 	/*

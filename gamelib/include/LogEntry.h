@@ -19,6 +19,11 @@ public:
 	 * Serialize the log entry into JSON
  	 */
 	Json::Value toJson();
+
+	/*
+ 	 * Return the timestep for this entry
+ 	 */
+	unsigned int getTimestep();
 protected:
 	
 	/*
