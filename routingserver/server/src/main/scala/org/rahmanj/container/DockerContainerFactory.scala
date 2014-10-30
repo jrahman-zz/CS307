@@ -38,8 +38,8 @@ class DockerContainerFactory extends ContainerFactory {
     for {
       container <- client.containers.create("python")()
       run       <- client.containers.get(container.id).start.bind(
-                  tugboat.Port.Tcp(Settings(system).Container.HostBindPort),
-                  tugboat.PortBinding.local(Settings(system).Container.ContainerBindPort)
+                  tugboat.Port.Tcp(Settings(system).Container.ContainerBindPort),
+                  tugboat.PortBinding.local(Settings(system).Container.HostBindPort)
                 )()
       info <- client.containers.get(container.id)()
     } yield {
@@ -47,7 +47,7 @@ class DockerContainerFactory extends ContainerFactory {
         case (Some(info), c) => Some(
                 new DockerContainer(
                     info.networkSettings.ipAddr,
-                    Settings(system).Container.ContainerBindPort,
+                    Settings(system).Container.HostBindPort,
                     c.id)
                   )
         case (None, c) => None
