@@ -26,4 +26,4 @@
 - if user_signed_in?
   %p
   .row
-    = link_to 'Withdraw from Course', courses_withdraw_path(@course, current_user), class: 'btn btn-danger btn-sm'
+    = link_to 'Withdraw from Course', enrollment_withdraw_path(@course, current_user), class: 'btn btn-danger btn-sm', method: :post

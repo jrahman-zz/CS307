@@ -24,7 +24,7 @@ class Ability
 
 
     # Guest roles
-    can [:read, :approve_enrollment], Course
+    can [:read, :enroll], Course
 
     # Users can manage themselves
     can :manage, user
