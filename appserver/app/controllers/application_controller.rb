@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :password_confirmation, :current_password) }
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+  	flash[:error] = "Access Denied!"
+  	redirect_to :back
+  end
 end

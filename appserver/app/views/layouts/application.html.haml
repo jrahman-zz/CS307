@@ -8,38 +8,14 @@
     = csrf_meta_tags
 
   %body
-    %nav.navbar.navbar-default.navbar-fixed-top
-      .container
-        .navbar-header
-          %button.navbar-toggle.collapsed{ 'data-toggle' => 'collapse', 'data-target' => 'navbar-collapse' }
-            %span.sr-only Toggle navigation
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          = link_to 'GAME NAME', root_path, class: 'navbar-brand'
+    = render 'layouts/nav'
 
-        .collapse.navbar-collapse#navbar-collapse
-          %ul.nav.navbar-nav
-            %li= link_to 'Courses', courses_path
-            %li= link_to 'Badges', root_path #TODO: Add badges model
-            %li= link_to 'Users', users_path
-            %li= link_to 'Tutorial', pages_tutorial_path
+    .container
+      - flash.each do |name, msg|
+        - if msg.is_a?(String)
+          %div{ class: 'alert alert-dismissable alert-'+(name.to_s == 'notice' ? 'success' : 'danger') }
+            %button.close{ 'data-dismiss' => 'alert' }
+              %span{ 'aria-hidden' => 'true' } &times;
+            = content_tag :div, msg, :id => 'flash_'+name
 
-          %ul.nav.navbar-nav.navbar-right
-            - if user_signed_in?
-              %li.navbar-text= "Hi, "+current_user.name
-              %li=link_to 'My Account', current_user
-              %li=link_to 'Log out', destroy_user_session_path, method: :delete
-            - else
-              %li=link_to 'Log in', new_user_session_path
-              %li=link_to 'Sign up', new_user_registration_path
-
-  .container
-    - flash.each do |name, msg|
-      - if msg.is_a?(String)
-        %div{ class: 'alert alert-dismissable alert-'+(name.to_s == 'notice' ? 'success' : 'danger') }
-          %button.close{ 'data-dismiss' => 'alert' }
-            %span{ 'aria-hidden' => 'true' } &times;
-          = content_tag :div, msg, :id => 'flash_'+name
-
-    = yield
+      = yield

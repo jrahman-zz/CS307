@@ -12,3 +12,9 @@
     = @level.name
 
 #canvas-container
+
+
+%script{ type: 'text/javascript' }
+  function get_level_tile_map() {
+  = "return #{@level.tilemap}".html_safe
+  }

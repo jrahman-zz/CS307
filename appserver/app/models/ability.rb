@@ -13,6 +13,7 @@ class Ability
     # Instructor roles
     Course.with_role(:instructor, user).each do |course|
       can :manage, course
+      can :manage, Level, course_id: course.id
     end
 
 
@@ -22,10 +23,13 @@ class Ability
     end
 
 
-    # Guest rolls
+    # Guest roles
     can [:read, :approve_enrollment], Course
 
     # Users can manage themselves
     can :manage, user
+
+    # TODO: TEMP FIX
+    can :manage, Level
   end
 end
