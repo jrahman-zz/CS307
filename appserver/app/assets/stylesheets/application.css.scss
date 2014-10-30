@@ -18,6 +18,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.side-note {
+  margin-left: 0.4em;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  color: #aaa;
+}
+
 .table.vertical-aligned td {
   vertical-align: middle;
 }
@@ -37,8 +44,9 @@ body {
   padding-top: 50px;
 }
 
-ul.member-list {
+ul.member-list li {
   border-radius: 4px;
+  padding: 4px 10px;
 
   .options {
     display: none;
@@ -50,9 +58,5 @@ ul.member-list {
     .options {
       display: block;
     }
-  }
-
-  li {
-    padding: 4px 10px;
   }
 }

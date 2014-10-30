@@ -52,21 +52,27 @@ class CoursesController < ApplicationController
     @user = User.find(params[:user_id])
 
     @user.revoke :student, @course
+    @user.revoke :pending_student, @course
 
     redirect_to @course
   end
 
   def enroll
-    @user = User.find(params[:user_id]);
+    @user = User.find(params[:user_id])
 
-    @user.grant :student, @course
+    if @course.open?
+      @user.grant :student, @course
+    else
+      @user.grant :pending_student, @course
+    end
 
     redirect_to @course
   end
 
   def approve_enrollment
-  	@user = User.find(params[:user_id]);
+  	@user = User.find(params[:user_id])
 
+    @user.revoke :pending_student, @course
  	  @user.grant :student, @course
 
     redirect_to @course
@@ -80,6 +86,6 @@ class CoursesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def course_params
-      params.require(:course).permit(:name, :start_date, :description)
+      params.require(:course).permit(:name, :start_date, :description, :open)
     end
 end
