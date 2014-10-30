@@ -1,5 +1,5 @@
 class LevelsController < ApplicationController
-  before_action :set_level, only: [:show, :edit, :update, :destroy]
+  before_action :set_level, only: [:show, :edit, :update, :destroy, :play]
 
   authorize_resource
 
@@ -10,6 +10,10 @@ class LevelsController < ApplicationController
 
   # GET /levels/1
   def show
+  end
+
+  # GET /levels/1/play
+  def play
     render 'game/play', layout: 'game_page'
   end
 
@@ -56,6 +60,6 @@ class LevelsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def level_params
-      params.require(:level).permit(:name, :course_id_id, :tilemap)
+      params.require(:level).permit(:name, :course_id_id, :tilemap, :prompt)
     end
 end

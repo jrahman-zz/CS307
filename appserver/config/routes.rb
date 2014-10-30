@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   resources :levels, :submissions, :courses, :users
 
+  # Levels
+  get '/levels/:id/play' => 'levels#play', as: :play_level
+
   # Courses
   post '/courses/:id/withdraw/:user_id' => 'courses#withdraw', as: :enrollment_withdraw
   post '/courses/:id/enroll/:user_id' => 'courses#enroll', as: :enrollment_create

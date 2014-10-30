@@ -1,17 +1,21 @@
-.container
-  - flash.each do |name, msg|
-    - if msg.is_a?(String)
-      %div{ class: 'alert alert-dismissable alert-'+(name.to_s == 'notice' ? 'success' : 'danger') }
-        %button.close{ 'data-dismiss' => 'alert' }
-          %span{ 'aria-hidden' => 'true' } &times;
-        = content_tag :div, msg, :id => 'flash_'+name
-  %p#notice= notice
+.row
+  .col-md-3
+    = simple_form_for Submission.new, url: grade_submission_path, class: 'submission-form', html: { onsubmit: "return injectCode('.code-editor')" } do |f|
+      = f.error_notification
+      .prompt=@level.prompt
+      = f.text_area :code, class: 'code-editor'
 
-  %p
-    %b Level:
-    = @level.name
+      .form-actions
+        .pull-right
+          = link_to 'Test', grade_submission_path, class: 'btn btn-warning'
+          = f.submit 'Run', class: 'btn btn-primary'
 
-#canvas-container
+  .col-md-9
+    %p
+      %b Level:
+      = @level.name
+
+    #canvas-container
 
 
 %script{ type: 'text/javascript' }
