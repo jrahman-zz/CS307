@@ -24,4 +24,4 @@
 - if user_signed_in?
   %p
   .row
-    =link_to 'Enroll in Course', courses_approve_enrollment_path(@course, current_user), class: 'btn btn-danger btn-sm'
+    =link_to 'Enroll in Course', enrollment_create_path(@course, current_user), class: 'btn btn-danger btn-sm', method: :post
