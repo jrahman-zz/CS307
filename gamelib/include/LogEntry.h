@@ -36,7 +36,7 @@ protected:
 	 */
 	virtual std::string getType() = 0;
 private:
-	unsigned int timestep;
+	unsigned int m_timestep;
 };
 
 #endif // LOG_ENTRY_H

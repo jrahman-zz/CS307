@@ -10,7 +10,6 @@ class Moveable : public Interactable {
 	
 public:
 	Moveable(
-		Position position,
 		unsigned int actorID,
 		Engine* engineRef,
 		State state = State::ALIVE);

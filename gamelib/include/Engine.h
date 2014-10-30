@@ -4,6 +4,9 @@
 #include <memory>
 #include <string>
 
+#include "BaseMessage.h"
+#include "BaseManager.h"
+
 #include "ActionLog.h"
 #include "GameLevel.h"
 #include "HeroFascade.h"
@@ -14,14 +17,15 @@
  *
  *
  */
-class Engine {
+class Engine : public BaseManager {
 public:
-	Engine(std::shared_ptr<GameLevel> gameLevel); // TODO, add scripting, etc
+	Engine(std::string jsonLevel); // TODO, add scripting, etc
 	~Engine();
 
 	std::shared_ptr<WorldFascade> getWorld() const;
 	std::shared_ptr<HeroFascade> getHero() const;
 	
+	bool sendMessage(BaseMessage* msg);
 	bool executeCommand(unsigned int actorID, std::shared_ptr<Command> cmd);
 
 	std::shared_ptr<ActionLog> getActionLog() const;

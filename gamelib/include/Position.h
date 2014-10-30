@@ -16,7 +16,7 @@ public:
 	void setY(unsigned int y);
 
 protected:
-	unsigned int x, y;
+	unsigned int m_x, m_y;
 };
 
 #endif
