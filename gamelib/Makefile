@@ -8,6 +8,7 @@ CXXFLAGS 	:= -Wall -pedantic -std=c++11
 SRCDIR 	 	:= src
 TESTDIR  	:= test
 BUILDDIR 	:= build
+LIBDIR		:= lib
 TBUILDDIR 	:= test_build
 SOURCES 	:= $(shell find $(SRCDIR) -type f -name *.cpp)
 OBJECTS 	:= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.cpp=.o))
@@ -15,16 +16,17 @@ TESTS		:= $(shell find $(TESTDIR) -type f -name *.cpp)
 TESTBIN 	:= $(patsubst $(TESTDIR)/%,$(TBUILDDIR)/%,$(TESTS:.cpp=.out))
 
 INC := -I include
-GAME_LIB_NAME=libgame.so
+LIBGAME_SHARED=libgame.so
+LIBGAME_STATIC=libgame.a
 
-all: game_lib
+all: $(LIBDIR)/$(LIBGAME_STATIC) $(LIBDIR)/$(LIBGAME_SHARED)
 
 test: $(TESTBIN)
 	@echo "Ran tests"
 
 $(TBUILDDIR)/%.o: $(TESTDIR)/%.cpp
 	@mkdir -p $(TBUILDDIR)
-	@echo " $(CXX) $(CXXFLAGS) $(INC) -c -o $@ $<"; $(CXX) $(CXXFLAGS) $(INC) -c -o $@ $<
+	@echo " $(CXX) $(CXXFLAGS) $(INC) -fPIC -c -o $@ $<"; $(CXX) $(CXXFLAGS) $(INC) -fPIC -c -o $@ $<
 
 $(TBUILDDIR)/%.out: $(TBUILDDIR)/%.o $(OBJECTS)
 	$(CXX) $^ -o $@
@@ -32,14 +34,17 @@ $(TBUILDDIR)/%.out: $(TBUILDDIR)/%.o $(OBJECTS)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
 	@mkdir -p $(BUILDDIR)
-	@echo " $(CXX) $(CXXFLAGS) $(INC) -c -o $@ $<"; $(CXX) $(CXXFLAGS) $(INC) -c -o $@ $<
+	@echo " $(CXX) $(CXXFLAGS) $(INC) -fPIC -c -o $@ $<"; $(CXX) $(CXXFLAGS) $(INC) -fPIC -c -o $@ $<
 
-game_lib: $(OBJECTS)
-	$(CXX) -shared -Wl,-soname,$(GAME_LIB_NAME) -o $(GAME_LIB_NAME) $^
+$(LIBDIR)/$(LIBGAME_SHARED): $(OBJECTS)
+	$(CXX) -shared -Wl,-soname,$@ -o $(LIBGAME_SHARED) $^
+
+$(LIBDIR)/$(LIBGAME_STATIC): $(OBJECTS)
+	ar rcs $@ $^
 
 object:
 	echo "$(SOURCES):$(SOURCES:.cpp=.o)"
 
 clean:
-	@echo "$(RM) -r $(BUILDDIR) $(GAME_LIB_NAME)"; $(RM) -r $(BUILDDIR) $(GAME_LIB_NAME)
+	@echo "$(RM) -r $(BUILDDIR) $(LIBGAME_STATIC) $(LIBGAME_SHARED)"; $(RM) -r $(BUILDDIR) $(LIBGAME_SHARED) $(LIBGAME_STATIC)
 	@echo "$(RM) -r $(TBUILDDIR)"; $(RM) -r $(TBUILDDIR)

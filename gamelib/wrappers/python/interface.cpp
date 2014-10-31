@@ -1,22 +1,24 @@
 #include <boost/python.hpp>
 
+#include <string>
+
 #include "Engine.h"
 #include "WorldFascade.h"
 #include "HeroFascade.h"
 #include "Util.h"
 
-using namespace boost::python
+using namespace std;
+using namespace boost::python;
 
 /*
  * http://www-spires.slac.stanford.edu/BFROOT/www/doc/workbook_backup_010108/examples/ex1/workdir/PARENT/boost/libs/python/doc/tutorial/index.html
  */
 
 BOOST_PYTHON_MODULE(gamelib) {
-	class_<Engine>("Engine", init<std::string>)
+	class_<Engine>("Engine", init<string>())
 		.def("getWorld", &Engine::getWorld)
 		.def("getHero", &Engine::getHero)
-		.def("reset", &Engine::resetEngine)
-		.def("getLog", &Engine::getEngine);
+		.def("reset", &Engine::resetEngine);
 
 	class_<HeroFascade>("Hero", no_init)
 		.def("moveUp", &HeroFascade::moveUp)
@@ -24,12 +26,9 @@ BOOST_PYTHON_MODULE(gamelib) {
 		.def("moveLeft", &HeroFascade::moveLeft)
 		.def("moveRight", &HeroFascade::moveRight);
 
-	class_<WorldFascade>("World")
-		.def("isOpen", &WorldFascade::isOpen);
-
 	enum_<Direction>("direction")
-		.value("up", UP)
-		.value("down", DOWN)
-		.value("right", RIGHT)
-		.value("left", LEFT)
-}
+		.value("up", Direction::UP)
+		.value("down", Direction::DOWN)
+		.value("right", Direction::RIGHT)
+		.value("left", Direction::LEFT);
+};
