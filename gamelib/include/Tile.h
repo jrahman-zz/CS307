@@ -2,13 +2,13 @@
 
 #include <json/json.h>
 
-typedef enum {
-  TileTypeNone,
-  TileTypeBlank,
-  TileTypeTerrain,
-  TileTypeWater,
-  TileTypeBuilding
-} TileType;
+enum class TileType {
+	None,
+	Blank,
+	Terrain,
+	Water,
+	Building
+};
 
 class Tile {
   public:

@@ -3,9 +3,13 @@
 
 #include <memory>
 
-#include "Interactable.h"
-
 using namespace std;
+
+#include "Tile.h"
+#include "TileLayer.h"
+#include "Interactable.h"
+#include "Util.h"
+
 
 /* Game level holds the game state
  *
@@ -15,21 +19,25 @@ using namespace std;
 class GameLevel {
 public:
 
-	GameLevel(TileMap tileMap);
-	~GameLevel(TileMap);
+	GameLevel(shared_ptr<TileLayer> tileMap);
+	~GameLevel();
 
 	shared_ptr<Interactable>& operator[](Position position) {
-		unsigned int index = pos.getX() + pos.getY() * m_width;
+		unsigned int index = position.getX() + position.getY() * m_width;
 		if (index >= m_width * m_height) {
-			throw std::exception;
+			throw std::exception();
 		}
-        	return m_actorMap[i];
+        	return m_actorMap[index];
+	}
+
+	Tile* operator[](unsigned int i) {
+		return (*m_tileMap)[i];
 	}
 
 private:
 
 	shared_ptr<Interactable> *m_actorMap;
-	shared_ptr<TileMap> m_tileMap;
+	shared_ptr<TileLayer> m_tileMap;
 	unsigned int m_height;
 	unsigned int m_width;
 

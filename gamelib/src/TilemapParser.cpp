@@ -23,8 +23,9 @@ bool TilemapParser::parse(std::string& json_str) {
 
   // These will be stored by the game state
   Json::Value layers_elem = root["layers"];
-  for (int i = 0; i < layers_elem.size(); i++) {
+  for (unsigned int i = 0; i < layers_elem.size(); i++) {
     Json::Value layer_elem = layers_elem[i];
+    
     std::string type = layer_elem["type"].asString();
     int layer_width = layer_elem["width"].asInt();
     int layer_height = layer_elem["height"].asInt();
@@ -33,27 +34,29 @@ bool TilemapParser::parse(std::string& json_str) {
       TileLayer *tile_layer = new TileLayer(layer_width, layer_height);
       Json::Value data = layer_elem["data"];
       int row = 0, col = 0;
-      for (int j = 0; j < data.size(); j++) {
+      
+      for (unsigned int j = 0; j < data.size(); j++) {
         int tile_id = data[j].asInt();
-        tile_layer->tiles[col][row] = new Tile(tile_id);
+        (*tile_layer)[row][col] = Tile(tile_id);
         col = (col + 1) % layer_width;
         if (col == 0) {
           row++;
         }
       }
 
-      tileLayers.push_back(tile_layer);
+      tileLayers.push_back(shared_ptr<TileLayer>(tile_layer));
     } else if (type == "objectgroup") {
       std::string group_name = layer_elem["name"].asString();
       if (group_name == "TriggerLayer") {
         Json::Value group_objs = layer_elem["objects"];
-        for (int j = 0; j < group_objs.size(); j++) {
+        for (unsigned int j = 0; j < group_objs.size(); j++) {
           Json::Value group_obj = group_objs[j];
           std::string group_obj_name = group_obj["name"].asString();
           std::string group_obj_type_str = group_obj["type"].asString();
+          
           TriggerType group_obj_type = Trigger::triggerTypeFromString(group_obj_type_str);
           Trigger *trigger = new Trigger(group_obj_name, group_obj_type);
-          triggers.push_back(trigger);
+          triggers.push_back(shared_ptr<Trigger>(trigger));
         }
       } else {
         fprintf(stderr, "Unrecognized group name: %s\n", group_name.c_str());
@@ -65,12 +68,13 @@ bool TilemapParser::parse(std::string& json_str) {
 
   printf("Read %ld tile layers: \n", tileLayers.size());
   for (int i = 0; i < tileLayers.size(); i++) {
-    TileLayer *layer = tileLayers[i];
+    
+    auto layer = tileLayers[i];
     printf("Layer %d: \n", i);
-    for (int j = 0; j < layer->grid_height; j++) {
-      for (int k = 0; k < layer->grid_width; k++) {
-        Tile *tile = layer->tiles[k][j];
-        printf("%3d[%d] ", tile->tile_id, tile->type);
+    for (unsigned int j = 0; j < layer->getHeight(); j++) {
+      for (unsigned int k = 0; k < layer->getWidth(); k++) {
+        auto tile = (*layer)[j][k];
+        printf("%3d[%d] ", tile.tile_id, tile.type);
       }
       printf("\n");
     }
@@ -79,8 +83,17 @@ bool TilemapParser::parse(std::string& json_str) {
 
   printf("Read %ld triggers: \n", triggers.size());
   for (int i = 0; i < triggers.size(); i++) {
-    Trigger *trigger = triggers[i];
+    auto trigger = triggers[i];
     printf("Trigger %d: {name: %s, type: %d}\n", i, trigger->name.c_str(), trigger->type);
   }
   return true;
 }
+
+vector<shared_ptr<TileLayer>> TilemapParser::getTileLayers() {
+	return tileLayers;
+}
+
+vector<shared_ptr<Trigger>> TilemapParser::getTriggers() {
+	return triggers;
+}
+
