@@ -12,9 +12,8 @@ bool TilemapParser::parse(std::string& json_str) {
   Json::Reader reader;
   bool success = reader.parse(json_str, root);
   if (!success) {
-    std::cout << "Failed to parse JSON:\n"
-      << reader.getFormattedErrorMessages();
-    return false;
+    throw runtime_error("Failed to parse JSON:\n"
+		+ reader.getFormattedErrorMessages());
   }
 
   int map_width = root["width"].asInt();
@@ -74,7 +73,7 @@ bool TilemapParser::parse(std::string& json_str) {
     for (unsigned int j = 0; j < layer->getHeight(); j++) {
       for (unsigned int k = 0; k < layer->getWidth(); k++) {
         auto tile = (*layer)[j][k];
-        printf("%3d[%d] ", tile.tile_id, tile.type);
+        printf("%3d[%d] ", tile.getID(), tile.getType());
       }
       printf("\n");
     }

@@ -15,3 +15,8 @@ lib/*
 
 # Ignore generated executabels
 bin/*
+
+# Ignore temp build directories
+build/*
+
+test_build/*

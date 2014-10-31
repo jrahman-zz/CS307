@@ -22,10 +22,10 @@ public:
 	Engine(string levelJson); // TODO, add scripting, etc
 	~Engine();
 
-	std::shared_ptr<WorldFascade> getWorld() const;
-	std::shared_ptr<HeroFascade> getHero() const;
+	shared_ptr<WorldFascade> getWorld() const;
+	shared_ptr<HeroFascade> getHero() const;
 	
-	bool sendMessage(BaseMessage* msg);
+	virtual bool sendMessage(BaseMessage* msg);
 	bool executeCommand(unsigned int actorID, shared_ptr<Command> cmd);
 
 	unsigned int getTimestep() const;
@@ -37,8 +37,8 @@ protected:
 	unsigned int getHeroID() const;
 
 private:
-	std::shared_ptr<GameLevel> m_level;
-	std::shared_ptr<ActionLog> m_actions;
+	shared_ptr<GameLevel> m_level;
+	shared_ptr<ActionLog> m_actions;
 
 	unsigned int m_heroID;
 
