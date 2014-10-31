@@ -23,3 +23,9 @@
 7. Copy both the edited .tmx file and the exported JSON file to the repository
 
 This is the easiest way to ensure that the exported JSON file references the correct spritesheet path that Rails generates.
+
+### Game Design
+1. Game Curriculum Design Document 
+    https://docs.google.com/document/d/1bNT2uZDCU3fieVWuSEAD8qZXnYcgVRa7E1lBz7eGC04/edit?usp=sharing
+2. Story Design Document
+    https://docs.google.com/document/d/1uN6yrzzhVPVlJg6rd6VJG67-PLIayVNQt4ki7v5wdmo/edit?usp=sharing
