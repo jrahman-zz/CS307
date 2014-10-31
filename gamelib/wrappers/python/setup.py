@@ -8,16 +8,18 @@ import sys
 
 # https://wiki.python.org/moin/boost.python/BuildingExtensions
 
-include_dirs = ["/usr/include/boost-VERSION_INFO_HERE_TODO", .]
+include_dirs = ["/usr/include/boost/", "../../include"]
 libraries = ['gamelib', 'boost_python-gcc']
-library_dirs = ['/usr/local/lib', 'custom_lib_path_here']
+library_dirs = ['/usr/local/lib', '../../lib']
 
 module = Extension('gamelib',
 			sources=['interface.cpp'],
 			define_macros = [('DEBUG', '1')],
 			include_dirs = include_dirs,
 			libraries = libraries,
-			library_dirs = library_dirs)
+			library_dirs = library_dirs,
+			extra_compile_args=['-std=c++11'],
+			extra_link_args=['-static'])
 
 setup(name='Gamelib',
 	version = '0.1',
