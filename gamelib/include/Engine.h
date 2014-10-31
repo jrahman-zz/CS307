@@ -28,6 +28,8 @@ public:
 	bool sendMessage(BaseMessage* msg);
 	bool executeCommand(unsigned int actorID, shared_ptr<Command> cmd);
 
+	unsigned int getTimestep() const;
+
 	shared_ptr<ActionLog> getActionLog() const;
 	void resetEngine();
 protected:
@@ -55,6 +57,8 @@ private:
 	 * Log to record actions and events for recording
  	 */
 	shared_ptr<ActionLog> m_log;
+
+	unsigned int m_timestep;
 };
 
 #endif // ENGINE_H

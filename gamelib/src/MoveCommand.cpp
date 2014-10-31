@@ -8,13 +8,12 @@ MoveCommand::MoveCommand(Direction direction, unsigned int distance)
 MoveCommand::~MoveCommand() {}
 
 shared_ptr<LogEntry> MoveCommand::execute(Interactable& actor) {
+	
+	shared_ptr<LogEntry> ret = nullptr;
+
 	try {
-		auto target = dynamic_cast<Moveable>(actor);
-		auto ret = nullptr;
-		
-		while (distance-- > 0) {
-			ret &&= target.move(direction);
-		}
+		auto target = dynamic_cast<Moveable&>(actor);
+		// TODO, handle multispace move	
 	} catch (std::bad_cast e) {
 		return nullptr;
 	}

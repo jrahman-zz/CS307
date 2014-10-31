@@ -38,6 +38,10 @@ void Engine::resetEngine() {
 	m_level = shared_ptr<GameLevel>(new GameLevel(m_levelJson));
 }
 
+unsigned int Engine::getTimestep() const {
+	return m_timestep;
+}
+
 unsigned int Engine::getHeroID() const {
 	return m_heroID;
 }
