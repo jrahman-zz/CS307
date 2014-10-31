@@ -6,7 +6,7 @@
 class BaseManager {
 
 public:
-	~BaseManager() {}
+	virtual ~BaseManager() {};
 	virtual bool sendMessage(BaseMessage* msg) = 0;
 protected:
 	BaseManager() {}

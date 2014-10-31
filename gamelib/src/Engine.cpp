@@ -32,6 +32,12 @@ bool Engine::executeCommand(unsigned int actorID, shared_ptr<Command> cmd) {
 	return log->getResult();
 }
 
+bool Engine::sendMessage(BaseMessage *msg) {
+
+	// TODO, fill this out
+	return true;
+}
+
 void Engine::resetEngine() {
 
 	/* Dtor will be called on old m_level by shared_ptr */
@@ -44,4 +50,8 @@ unsigned int Engine::getTimestep() const {
 
 unsigned int Engine::getHeroID() const {
 	return m_heroID;
+}
+
+shared_ptr<ActionLog> Engine::getActionLog() const {
+	return m_log;
 }

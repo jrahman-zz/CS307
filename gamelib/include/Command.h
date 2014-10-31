@@ -15,8 +15,8 @@ using namespace std;
  */
 class Command {
 public:
-	Command();
-	virtual ~Command();
+	Command() {};
+	virtual ~Command() {};
 	
 	/*
 	 * Execute the given command
