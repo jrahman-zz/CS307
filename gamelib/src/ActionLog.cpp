@@ -8,25 +8,23 @@ ActionLog::~ActionLog() {
 }
 
 void ActionLog::log(std::shared_ptr<LogEntry> entry) {
-	auto it = records.find(entry->getTimestep());
-	if (it == records.end()) {
-		std::shared_ptr<std::list<std::shared_ptr<LogEntry>>> ptr(new std::list<std::shared_ptr<LogEntry>>());
-		records[entry->getTimestep()] = ptr;
-	}
-	records[entry->getTimestep()]->push_front(entry);
+	m_records[entry->getTimestep()].push_front(entry);
 }
 
 Json::Value ActionLog::getJsonLog() {
 	Json::Value root;
 	
-	for (auto it = records.begin(); it != records.end(); it++) {
-		unsigned int timestep = it->second;
-		auto entry = it->first;
+	for (auto it = m_records.begin(); it != m_records.end(); it++) {
+		unsigned int timestep = it->first;
+		auto actions = it->second;
 		if (!root[timestep].isArray()) {
 			Json::Value list;
 			root[timestep] = list;
 		}
-		root[timestep].append(entry->toJson());
+		for (auto it2 = actions.begin(); it2 != actions.end(); it2++) {
+			auto entry = *it2;
+			root[timestep].append(entry->toJson());
+		}
 	}
 	return root;
 }

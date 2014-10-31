@@ -12,7 +12,7 @@
 class LogEntry {
 public:
 	
-	LogEntry(unsigned int timestep); 
+	LogEntry(unsigned int timestep, bool result); 
 	virtual ~LogEntry();
 	
 	/*
@@ -24,6 +24,8 @@ public:
  	 * Return the timestep for this entry
  	 */
 	unsigned int getTimestep();
+
+	bool getResult();
 protected:
 	
 	/*
@@ -37,6 +39,7 @@ protected:
 	virtual std::string getType() = 0;
 private:
 	unsigned int m_timestep;
+	bool m_result;
 };
 
 #endif // LOG_ENTRY_H

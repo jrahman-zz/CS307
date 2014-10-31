@@ -24,7 +24,7 @@ public:
 	Json::Value getJsonLog();
 protected:
 private:
-	map<unsigned int, shared_ptr<list<shared_ptr<LogEntry>>>> m_records;
+	map<unsigned int, list<shared_ptr<LogEntry>>> m_records;
 };
 
 #endif // ACTION_LOG_H

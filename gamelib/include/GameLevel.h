@@ -2,24 +2,24 @@
 #define GAME_LEVEL_H
 
 #include <memory>
+#include <string>
+#include <vector>
 
 using namespace std;
 
 #include "Tile.h"
 #include "TileLayer.h"
+#include "TilemapParser.h"
 #include "Interactable.h"
 #include "Util.h"
 
-
-/* Game level holds the game state
- *
- *
- * 
+/*
+ * Game level holds the game state
  */
 class GameLevel {
 public:
 
-	GameLevel(shared_ptr<TileLayer> tileMap);
+	GameLevel(string levelJson);
 	~GameLevel();
 
 	shared_ptr<Interactable>& operator[](Position position) {
@@ -38,6 +38,7 @@ private:
 
 	shared_ptr<Interactable> *m_actorMap;
 	shared_ptr<TileLayer> m_tileMap;
+	vector<shared_ptr<Trigger>> m_triggers;
 	unsigned int m_height;
 	unsigned int m_width;
 

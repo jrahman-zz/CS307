@@ -1,45 +1,73 @@
 #include "TileLayer.h"
 
-TileLayer::TileLayer(int g_width, int g_height) {
-    grid_width = g_width;
-    grid_height = g_height;
-
-    tiles = new Tile*[grid_width];
-    for (int i = 0; i < grid_width; i++) {
-      tiles[i] = new Tile[grid_height];
-    }
-}
-
-TileLayer::~TileLayer() {
-  for (int i = 0; i < grid_width; i++) {
-    delete[] tiles[i];
-  }
-  delete[] tiles;
-}
-
-shared_ptr<TileLayer> TileLayer::merge(TileLayer rhs) {
-	if (rhs.grid_width != grid_width || rhs.grid_height != grid_height) {
-  		return nullptr;
+TileLayer::TileLayer(unsigned int g_width, unsigned int g_height)
+	: m_gridWidth(g_width)
+	, m_gridHeight(g_height)
+{
+	m_tiles = new Tile*[m_gridHeight];
+	for (int i = 0; i < m_gridWidth; i++) {
+ 		m_tiles[i] = new Tile[m_gridWidth];
 	}
-	shared_ptr<TileLayer> ptr(new TileLayer(grid_width, grid_height));
-	for (unsigned int i = 0; i < grid_height; i++) {
-		for (unsigned int j = 0; j < grid_width; j++) {
-			switch(tiles[i][j].type) {
-				case TileType::None:
-				case TileType::Blank:
-					ptr->[i][j] = rhs[i][j];
-					break;
-				default:
-					ptr->[i][j] = tiles[i][j];
-			}
+}
+
+TileLayer::TileLayer(TileLayer& rhs) 
+	: m_gridWidth(rhs.m_gridWidth)
+	, m_gridHeight(rhs.m_gridHeight)
+	, m_tiles(nullptr)
+{
+	m_tiles = new Tile*[m_gridHeight];
+	for (unsigned int i = 0; i < m_gridHeight; i++) {
+		m_tiles[i] = new Tile[m_gridWidth];
+	}
+	
+	for (unsigned int i = 0; i < m_gridHeight; i++) {
+		for (unsigned int j = 0; j < m_gridWidth; i++) {
+			m_tiles[i][j] = rhs.m_tiles[i][j];
 		}
 	}
 }
 
+TileLayer::TileLayer(TileLayer&& rhs)
+	: m_tiles(rhs.m_tiles)
+	, m_gridWidth(rhs.m_gridWidth)
+	, m_gridHeight(rhs.m_gridHeight)
+{
+	rhs.m_tiles = nullptr;
+	rhs.m_gridWidth = 0;
+	rhs.m_gridHeight = 0;	
+}
+
+TileLayer::~TileLayer() {
+  for (int i = 0; i < m_gridHeight; i++) {
+    delete[] m_tiles[i];
+  }
+  delete[] m_tiles;
+}
+
+shared_ptr<TileLayer> TileLayer::merge(TileLayer& rhs) {
+	if (rhs.m_gridWidth != m_gridWidth || rhs.m_gridHeight != m_gridHeight) {
+  		throw runtime_error("Dimension mismatch");
+	}
+	shared_ptr<TileLayer> ptr(new TileLayer(m_gridWidth, m_gridHeight));
+	for (unsigned int i = 0; i < m_gridHeight; i++) {
+		for (unsigned int j = 0; j < m_gridWidth; j++) {
+			switch(m_tiles[i][j].getType()) {
+				case TileType::None:
+				case TileType::Blank:
+					(*ptr)[i][j] = rhs.m_tiles[i][j];
+					break;
+				default:
+					(*ptr)[i][j] = m_tiles[i][j];
+			}
+		}
+	}
+	return ptr;
+}
+
 unsigned int TileLayer::getHeight() {
-	return grid_height;
+	return m_gridHeight;
 }
 
 unsigned int TileLayer::getWidth() {
-	return grid_width;
+	return m_gridWidth;
 }

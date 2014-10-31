@@ -1,9 +1,12 @@
 #ifndef MOVE_LOG_ENTRY_H
 #define MOVE_LOG_ENTRY_H
 
-#include "LogEntry.h"
+#include <string>
 
+#include "LogEntry.h"
 #include "json/json.h"
+
+using namespace std;
 
 class MoveLogEntry : public LogEntry {
 
@@ -13,14 +16,20 @@ public:
  	 */
 	MoveLogEntry(
 		unsigned int timestamp,
+		bool results,
 		unsigned int actorID,
 		Position position);
 	~MoveLogEntry();
 
+	
+
 protected:
+	virtual Json::Value serialize();
+	virtual string getType();
+
 private:
-	unsigned int actorID;
-	Position position;
+	unsigned int m_actorID;
+	Position m_position;
 };
 
 #endif // MOVE_LOG_ENTRY_H
