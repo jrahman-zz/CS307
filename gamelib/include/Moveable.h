@@ -3,6 +3,7 @@
 
 #include <memory>
 
+#include "MoveLogEntry.h"
 #include "Interactable.h"
 #include "Util.h"
 
@@ -26,9 +27,7 @@ public:
 	virtual bool move(Direction direction);
 	
 protected:
-
 private:
-
 };
 
 
