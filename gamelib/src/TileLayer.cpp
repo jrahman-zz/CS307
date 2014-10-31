@@ -5,7 +5,7 @@ TileLayer::TileLayer(unsigned int g_width, unsigned int g_height)
 	, m_gridHeight(g_height)
 {
 	m_tiles = new Tile*[m_gridHeight];
-	for (int i = 0; i < m_gridWidth; i++) {
+	for (int i = 0; i < m_gridHeight; i++) {
  		m_tiles[i] = new Tile[m_gridWidth];
 	}
 }

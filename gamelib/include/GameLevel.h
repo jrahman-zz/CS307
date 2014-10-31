@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include <vector>
+#include <list>
 
 using namespace std;
 
@@ -38,7 +38,7 @@ private:
 
 	shared_ptr<Interactable> *m_actorMap;
 	shared_ptr<TileLayer> m_tileMap;
-	vector<shared_ptr<Trigger>> m_triggers;
+	list<shared_ptr<Trigger>> m_triggers;
 	unsigned int m_height;
 	unsigned int m_width;
 

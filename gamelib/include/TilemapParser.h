@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include <vector>
+#include <list>
 #include "TileLayer.h"
 #include "Trigger.h"
 
@@ -16,11 +16,11 @@ class TilemapParser {
 
     bool parse(string& json_str);
 
-    vector<shared_ptr<TileLayer>> getTileLayers();
-    vector<shared_ptr<Trigger>> getTriggers();
+    list<shared_ptr<TileLayer>> getTileLayers();
+    list<shared_ptr<Trigger>> getTriggers();
 
   protected:
   private:
-    vector<shared_ptr<TileLayer>> tileLayers;
-    vector<shared_ptr<Trigger>> triggers;
+    list<shared_ptr<TileLayer>> tileLayers;
+    list<shared_ptr<Trigger>> triggers;
 };
