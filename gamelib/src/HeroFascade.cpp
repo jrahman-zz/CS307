@@ -1,8 +1,11 @@
 #include "HeroFascade.h"
 
-HeroFascade::HeroFascade(std::shared_ptr<Engine> engineRef, unsigned int heroID) :
-	engine(engineRef),
-	heroID(heroID) {}
+#include "Engine.h"
+
+HeroFascade::HeroFascade(shared_ptr<Engine> engineRef, unsigned int heroID)
+	: m_engine(engineRef)
+	, m_heroID(heroID)
+{}
 
 HeroFascade::~HeroFascade() {}
 
@@ -23,6 +26,6 @@ bool HeroFascade::moveRight(unsigned int distance) {
 }
 
 bool HeroFascade::move(Direction direction, unsigned int distance) {
-	auto ptr = std::shared_ptr<Command>(new MoveCommand(direction, distance));
-	return engine->executeCommand(heroID, ptr);
+	auto ptr = shared_ptr<Command>(new MoveCommand(direction, distance));
+	return m_engine->executeCommand(m_heroID, ptr);
 }

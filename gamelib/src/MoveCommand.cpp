@@ -1,20 +1,22 @@
 #include "MoveCommand.h"
 
-MoveCommand::MoveCommand(Direction direction, unsigned int distance) :
-	direction(direction), distance(distance) {};
+MoveCommand::MoveCommand(Direction direction, unsigned int distance)
+	: m_direction(direction)
+	, m_distance(distance)
+{}
 
-MoveCommand::~MoveCommand() {};
+MoveCommand::~MoveCommand() {}
 
-virtual bool MoveCommand::execute(Interactable& actor) {
+shared_ptr<LogEntry> MoveCommand::execute(Interactable& actor) {
 	try {
 		auto target = dynamic_cast<Moveable>(actor);
-		bool ret = true;
+		auto ret = nullptr;
 		
 		while (distance-- > 0) {
 			ret &&= target.move(direction);
 		}
 	} catch (std::bad_cast e) {
-		return false;
+		return nullptr;
 	}
 
 	return ret;

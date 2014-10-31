@@ -11,14 +11,17 @@ enum class TileType {
 };
 
 class Tile {
-  public:
-    int tile_id;
-    TileType type;
+public:
+	Tile();
+	Tile(int id);
+	
+	TileType getType();
+	int getID();
 
-    Tile(int id);
+	static TileType tileTypeFromId(int id);
 
-    static TileType tileTypeFromId(int id);
-
-  protected:
-  private:
+protected:
+private:
+	int m_ID;
+	TileType m_type;
 };

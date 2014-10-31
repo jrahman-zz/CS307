@@ -1,24 +1,26 @@
 #include "MoveLogEntry.h"
 
 MoveLogEntry::MoveLogEntry(
-	unsigned int timestamp,
+	unsigned int timestep,
+	bool result,
 	unsigned int actorID,
-	Position position) :
-	LogEntry(timestep),
-	actorID(actorID),
-	position(position) {}
+	Position position)
+	: LogEntry(timestep, result)
+	, m_actorID(actorID)
+	, m_position(position)
+{}
 
 MoveLogEntry::~MoveLogEntry() {}
 
 Json::Value MoveLogEntry::serialize() {
 	Json::Value root;
-	root["position"] = position.toJson();
-	root["actorID"] = actorID;
+	root["position"] = m_position.toJson();
+	root["actorID"] = m_actorID;
 
 	return root;
 }
 
-std::string MoveLogEntry::getType() {
-	return std::string("move");
+string MoveLogEntry::getType() {
+	return string("move");
 }
 

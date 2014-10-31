@@ -1,15 +1,28 @@
 #include "Tile.h"
 
-Tile::Tile(int id) {
-	tile_id = id;
-	type = tileTypeFromId(id);
+Tile::Tile() 
+	: m_type(TileType::None)
+	, m_ID(-1)
+{}
+
+Tile::Tile(int id) 
+	: m_ID(id)
+	, m_type(tileTypeFromId(m_ID))
+{}
+
+TileType Tile::getType() {
+	return m_type;
+}
+
+int Tile::getID() {
+	return m_ID;
 }
 
 TileType Tile::tileTypeFromId(int id) {
   // These range checks are prone to error, but id'd hate to have a switch
   // statement with 100+ values...
   if (id == 0) {
-    return TileTypeNone;
+    return TileType::None;
   } else if ((1 <= id && id <= 10)
              || (21 <= id && id <= 30)
              || (41 <= id && id <= 48)) {

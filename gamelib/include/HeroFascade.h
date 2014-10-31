@@ -7,6 +7,8 @@
 #include "MoveCommand.h"
 #include "Util.h"
 
+using namespace std;
+
 /* Forward delcaration */
 class Engine;
 
@@ -17,7 +19,7 @@ class Engine;
  */
 class HeroFascade {
 public:
-	HeroFascade(std::shared_ptr<Engine> engineRef, unsigned int heroID);
+	HeroFascade(shared_ptr<Engine> engineRef, unsigned int heroID);
 	~HeroFascade();
 	
 	bool moveUp(unsigned int distance = 1);
@@ -35,8 +37,8 @@ protected:
 	/*
 	 * Reference to the game engine object
 	 */
-	std::shared_ptr<Engine> engine;
-	unsigned int heroID;
+	shared_ptr<Engine> m_engine;
+	unsigned int m_heroID;
 private:	
 };
 

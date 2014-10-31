@@ -1,7 +1,12 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
+#include <memory>
+
 #include "Interactable.h"
+#include "LogEntry.h"
+
+using namespace std;
 
 /*
  * Command is a base class that captures the concept of an
@@ -16,7 +21,7 @@ public:
 	/*
 	 * Execute the given command
  	 */
-	bool operator()(Interactable& actor) {
+	shared_ptr<LogEntry> operator()(Interactable& actor) {
 		return this->execute(actor);
 	}
 
@@ -24,7 +29,7 @@ protected:
 	/*
 	 * Command implementation is provided here
  	 */
-	virtual bool execute(Interactable& actor) = 0;
+	virtual shared_ptr<LogEntry> execute(Interactable& actor) = 0;
 };
 
 #endif // COMMAND_H

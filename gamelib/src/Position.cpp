@@ -16,15 +16,16 @@ Json::Value Position::toJson() {
 
 unsigned int Position::getX() {
 	return m_x;
+}
 
 unsigned int Position::getY() {
 	return m_y;
 }
 
 void Position::setX(unsigned int x) {
-	this->x = m_x;
+	m_x = x;
 }
 
 void Position::setY(unsigned int y) {
-	this->y = m_y;
+	m_y = y;
 }

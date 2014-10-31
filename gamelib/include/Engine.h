@@ -12,39 +12,49 @@
 #include "HeroFascade.h"
 #include "WorldFascade.h"
 
+using namespace std;
+
 /*
  * Core class for game engine
- *
- *
  */
 class Engine : public BaseManager {
 public:
-	Engine(std::string jsonLevel); // TODO, add scripting, etc
+	Engine(string levelJson); // TODO, add scripting, etc
 	~Engine();
 
 	std::shared_ptr<WorldFascade> getWorld() const;
 	std::shared_ptr<HeroFascade> getHero() const;
 	
 	bool sendMessage(BaseMessage* msg);
-	bool executeCommand(unsigned int actorID, std::shared_ptr<Command> cmd);
+	bool executeCommand(unsigned int actorID, shared_ptr<Command> cmd);
 
-	std::shared_ptr<ActionLog> getActionLog() const;
+	shared_ptr<ActionLog> getActionLog() const;
 	void resetEngine();
 protected:
 
 	unsigned int getHeroID() const;
 
 private:
-	std::shared_ptr<GameLevel> level;
-	std::shared_ptr<ActionLog> actions;
+	std::shared_ptr<GameLevel> m_level;
+	std::shared_ptr<ActionLog> m_actions;
 
-	unsigned int heroID;
+	unsigned int m_heroID;
 
 	/*
 	 * Flag controlling if engine should continue to accept
 	 * commands controlling the character
  	 */
-	bool isActive;
+	bool m_isActive;
+
+	/*
+ 	 * Store a copy of the Json defining the level, in case of reset
+ 	 */
+	string m_levelJson;
+
+	/*
+	 * Log to record actions and events for recording
+ 	 */
+	shared_ptr<ActionLog> m_log;
 };
 
 #endif // ENGINE_H
