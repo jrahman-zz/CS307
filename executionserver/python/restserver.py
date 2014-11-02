@@ -3,6 +3,7 @@ from CodeExecutor import execute
 
 app = Flask(__name__)
 
+appcontext = {} #Context for all code execution in this docker container
 
 @app.route('/health', methods=['GET'])
 def get_health():
@@ -22,7 +23,6 @@ def run_code(levelid):
         print(e)
 
     code = '\n'.join(loadedjson['codelines'])
-    context = {}
     if 'context' in loadedjson:
         print("Found a context")
         context = loadedjson['context']
@@ -42,7 +42,7 @@ def run_code(levelid):
                         'error_line_text':str(status['line']),
                         'error_message':str(status['message'])})
 
-@app.route('/initialize', methods=[POST])
+@app.route('/initialize', methods=['POST'])
 def init_engine():
     # Create game engine instance from the game library
     # And create initial context only containing a copy
