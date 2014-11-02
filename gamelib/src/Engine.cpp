@@ -35,6 +35,13 @@ bool Engine::executeCommand(unsigned int actorID, shared_ptr<Command> cmd) {
 bool Engine::sendMessage(BaseMessage *msg) {
 
 	// TODO, fill this out
+	switch (msg->getType()) {
+		case MessageType::Move:
+			// TODO, movement here
+			break;
+		default:
+			break;
+	}
 	return true;
 }
 

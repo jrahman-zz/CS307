@@ -147,3 +147,7 @@ list<shared_ptr<Trigger>> TilemapParser::getTriggers() {
 	return triggers;
 }
 
+list<shared_ptr<Actor>> TilemapParser::getActors() {
+	return actors;
+}
+
