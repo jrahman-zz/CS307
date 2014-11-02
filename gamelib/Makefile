@@ -42,6 +42,7 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
 	@echo " $(CXX) $(CXXFLAGS) $(INC) -fPIC -c -o $@ $<"; $(CXX) $(CXXFLAGS) $(INC) -fPIC -c -o $@ $<
 
 $(LIBDIR)/$(LIBGAME_SHARED): $(OBJECTS)
+	@mkdir -p $(LIBDIR)
 	$(CXX) -shared -Wl,-soname,$@ -o $(LIBGAME_SHARED) $^
 
 $(LIBDIR)/$(LIBGAME_STATIC): $(OBJECTS)

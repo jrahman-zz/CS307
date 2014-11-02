@@ -1,29 +1,43 @@
-FROM ubuntu
+FROM centos:latest
 MAINTAINER Jason P. Rahman &lt;rahmanj@purdue.edu&gt;
 
 RUN mkdir -p /srv/scripts
-RUN mkdir -p /pip
-
 COPY run.sh /srv/scripts/
 COPY CodeExecutor.py /srv/scripts/
 COPY __init__.py /srv/scripts/
 COPY restserver.py /srv/scripts/
+
+RUN mkdir -p /pip
 COPY get-pip.py /pip/
+
+RUN mkdir -p /wrapper
+COPY wrapper /wrapper/
+
+RUN mkdir -p /include
+COPY include /include
 
 WORKDIR /srv/scripts
 
-RUN apt-get update
-
-RUN apt-get -y install software-properties-common
-
-RUN add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) universe restricted multiverse"
-
-RUN apt-get update
-RUN dpkg -l | grep python
-RUN apt-get -y install 'python-2.7'
-
-RUN python3 /pip/get-pip.py
+# Install needed modules
+RUN python /pip/get-pip.py
 RUN pip install flask
+
+# Install build tools
+RUN yum -y install python-devel
+RUN yum -y install binutils
+RUN yum -y install make
+RUN yum -y install gcc
+RUN yum -y install gcc-c++
+
+WORKDIR /wrapper
+
+# Build module
+RUN yum -y install boost-python-devel
+RUN yum -y install boost-python
+RUN python /wrapper/setup.py build
+RUN python /wrapper/setup.py install
+
+WORKDIR /srv/scripts
 
 RUN chmod u+x run.sh
 

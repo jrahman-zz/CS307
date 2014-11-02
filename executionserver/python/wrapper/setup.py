@@ -8,7 +8,7 @@ import sys
 
 # https://wiki.python.org/moin/boost.python/BuildingExtensions
 
-include_dirs = ["/usr/include/boost/", "../../include"]
+include_dirs = ["/usr/include/boost/", "../include"]
 libraries = ['boost_python']
 library_dirs = [' /usr/lib/x86_64-linux-gnu/']
 
@@ -19,7 +19,7 @@ module = Extension('gamelib',
 			libraries = libraries,
 			library_dirs = library_dirs,
 			extra_compile_args=['-std=c++11'],
-			extra_link_args=['../../lib/libgame.a'])
+			extra_link_args=['libgame.a'])
 
 setup(name='Gamelib',
 	version = '0.1',
