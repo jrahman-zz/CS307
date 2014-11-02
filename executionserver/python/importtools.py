@@ -20,3 +20,7 @@ def importfromfile(filename):
                     print(e)
 
     return context
+
+#join two contexts together
+def joincontexts(context1, context2):
+    return dict(list(context1.items()) + list(context2.items()))

@@ -48,7 +48,7 @@ def init_engine():
     # And create initial context only containing a copy
     # Of the world and hero fascade objects
     # TODO
-    return jsonify({'success': true, 'sessionID': ''})
+    return jsonify({'success': True, 'sessionID': ''})
 
 # Run
 if __name__ == '__main__':
