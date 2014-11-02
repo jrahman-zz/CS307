@@ -2,17 +2,20 @@ class SubmissionsController < ApplicationController
   # Allow submissions to be handled asynchronously
   include AsyncController
 
+  def show
+    @submission = Submission.find(params[:id])
+  end
+
   def submit
     # Only allow submissions from users who are signed in
     if user_signed_in?
-      code = submission_params[:code]
-      level_id = params[:level_id]
-      course_id = params[:course_id]
-      user_id = current_user.id
 
-      @info = { code: code, level_id: level_id, course_id: course_id, user_id: user_id }
-      render json: @info
+      @info = submission_params
+      @info[:language_id] = 1
+      @info[:status_id] = 1
 
+      # Explicitly set the user to avoid client side hijacking
+      @info[:user_id] = current_user.id
 
     #   uri = 'http://klamath.dnsdynamic.com' #TODO replace with grading server location
     #   http = EM::HttpRequest.new(uri).post body: @info
@@ -25,9 +28,23 @@ class SubmissionsController < ApplicationController
 
     #   self.response_body = ''
     #   self.status = -1
-    # else
-      # render status: 403 # Forbidden
+
+      @submission = Submission.find_or_create_by(@info)
+      @submission.save
+
+
+      @attempt = Attempt.new
+      @attempt.submission_id = @submission.id
+      @attempt.code = params[:code]
+      @attempt.hint = nil
+      @attempt.submitted_at = Time.now
+
+      @attempt.save
+    else
+      render status: 403 # Forbidden
     end
+
+    render json: @attempt
   end
 
   # POST /submissions
@@ -54,6 +71,6 @@ class SubmissionsController < ApplicationController
   private
     # Only allow a trusted parameter "white list" through.
     def submission_params
-      params.require(:submission).permit(:user_id, :course_id, :code, :passed, :score, :score, :submitted_at)
+      params.require(:submission).permit(:user_id, :course_id, :level_id, :language_id, :status_id, :code)
     end
 end
