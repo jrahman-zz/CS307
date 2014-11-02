@@ -37,14 +37,16 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
 	@echo " $(CXX) $(CXXFLAGS) $(INC) -fPIC -c -o $@ $<"; $(CXX) $(CXXFLAGS) $(INC) -fPIC -c -o $@ $<
 
 $(LIBDIR)/$(LIBGAME_SHARED): $(OBJECTS)
-	$(CXX) -shared -Wl,-soname,$@ -o $(LIBGAME_SHARED) $^
+	@mkdir -p $(LIBDIR)
+	$(CXX) -shared -Wl,-soname,$@ -o $(LIBDIR)/$(LIBGAME_SHARED) $^
 
 $(LIBDIR)/$(LIBGAME_STATIC): $(OBJECTS)
+	@mkdir -p $(LIBDIR)
 	ar rcs $@ $^
 
 object:
 	echo "$(SOURCES):$(SOURCES:.cpp=.o)"
 
 clean:
-	@echo "$(RM) -r $(BUILDDIR) $(LIBGAME_STATIC) $(LIBGAME_SHARED)"; $(RM) -r $(BUILDDIR) $(LIBGAME_SHARED) $(LIBGAME_STATIC)
+	@echo "$(RM) -r $(BUILDDIR) $(LIBDIR)/$(LIBGAME_STATIC) $(LIBDIR)/$(LIBGAME_SHARED)"; $(RM) -r $(BUILDDIR) $(LIBDIR)/$(LIBGAME_SHARED) $(LIBDIR)/$(LIBGAME_STATIC)
 	@echo "$(RM) -r $(TBUILDDIR)"; $(RM) -r $(TBUILDDIR)

@@ -26,6 +26,6 @@ public:
 	unsigned int getWidth();
 	unsigned int getHeight();
 protected:
-	Tile **m_tiles;
 	unsigned int m_gridWidth, m_gridHeight;
+	Tile **m_tiles;
 };

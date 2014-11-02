@@ -1,9 +1,9 @@
 #include "Engine.h"
 
 Engine::Engine(string levelJson)
-	: m_levelJson(levelJson)
+	: m_heroID(0)
 	, m_isActive(true)
-	, m_heroID(0)
+	, m_levelJson(levelJson)
 {
 	m_level = shared_ptr<GameLevel>(new GameLevel(m_levelJson));	
 }

@@ -18,7 +18,9 @@ bool TilemapParser::parse(std::string& json_str) {
 
   int map_width = root["width"].asInt();
   int map_height = root["height"].asInt();
+  printf("map width, height: %d, %d\n", map_width, map_height);
   int tile_size = root["tilewidth"].asInt();
+  printf("tile size: %d\n", tile_size);
 
   // These will be stored by the game state
   Json::Value layers_elem = root["layers"];
@@ -66,7 +68,7 @@ bool TilemapParser::parse(std::string& json_str) {
   }
 
   printf("Read %ld tile layers: \n", tileLayers.size());
-  for (int i = 0; i < tileLayers.size(); i++) {
+  for (unsigned int i = 0; i < tileLayers.size(); i++) {
     
     auto layer = tileLayers[i];
     printf("Layer %d: \n", i);
@@ -81,7 +83,7 @@ bool TilemapParser::parse(std::string& json_str) {
   }
 
   printf("Read %ld triggers: \n", triggers.size());
-  for (int i = 0; i < triggers.size(); i++) {
+  for (unsigned int i = 0; i < triggers.size(); i++) {
     auto trigger = triggers[i];
     printf("Trigger %d: {name: %s, type: %d}\n", i, trigger->name.c_str(), trigger->type);
   }

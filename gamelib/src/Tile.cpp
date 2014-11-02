@@ -1,8 +1,8 @@
 #include "Tile.h"
 
 Tile::Tile() 
-	: m_type(TileType::None)
-	, m_ID(-1)
+	: m_ID(0)
+  , m_type(TileType::None)
 {}
 
 Tile::Tile(int id) 

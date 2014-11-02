@@ -5,7 +5,7 @@ TileLayer::TileLayer(unsigned int g_width, unsigned int g_height)
 	, m_gridHeight(g_height)
 {
 	m_tiles = new Tile*[m_gridHeight];
-	for (int i = 0; i < m_gridWidth; i++) {
+	for (unsigned int i = 0; i < m_gridWidth; i++) {
  		m_tiles[i] = new Tile[m_gridWidth];
 	}
 }
@@ -28,9 +28,9 @@ TileLayer::TileLayer(TileLayer& rhs)
 }
 
 TileLayer::TileLayer(TileLayer&& rhs)
-	: m_tiles(rhs.m_tiles)
-	, m_gridWidth(rhs.m_gridWidth)
+	: m_gridWidth(rhs.m_gridWidth)
 	, m_gridHeight(rhs.m_gridHeight)
+	, m_tiles(rhs.m_tiles)
 {
 	rhs.m_tiles = nullptr;
 	rhs.m_gridWidth = 0;
@@ -38,7 +38,7 @@ TileLayer::TileLayer(TileLayer&& rhs)
 }
 
 TileLayer::~TileLayer() {
-  for (int i = 0; i < m_gridHeight; i++) {
+  for (unsigned int i = 0; i < m_gridHeight; i++) {
     delete[] m_tiles[i];
   }
   delete[] m_tiles;
