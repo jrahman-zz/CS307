@@ -20,5 +20,3 @@ def importfromfile(filename):
                     print(e)
 
     return context
-
-importfromfile("allmodules.txt")
