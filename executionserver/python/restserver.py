@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 appcontext = {} #Context for all code execution in this docker container
 
-@app.route('/health', methods=['GET'])
+@app.route('/ping', methods=['GET'])
 def get_health():
     print(request.data)
     return jsonify({'response':'PONG'})
