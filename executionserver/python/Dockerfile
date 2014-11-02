@@ -29,10 +29,15 @@ RUN yum -y install make
 RUN yum -y install gcc
 RUN yum -y install gcc-c++
 
+WORKDIR /wrapper
+
 # Build module
+RUN yum -y install boost-python-devel
 RUN yum -y install boost-python
 RUN python /wrapper/setup.py build
 RUN python /wrapper/setup.py install
+
+WORKDIR /srv/scripts
 
 RUN chmod u+x run.sh
 
