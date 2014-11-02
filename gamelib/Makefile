@@ -1,6 +1,7 @@
 # Makefile to build game library.
 
 .PHONY: clean
+.PHONY: cleantest
 .PHONY: test
 
 CXX	 	:= g++
@@ -14,6 +15,7 @@ SOURCES 	:= $(shell find $(SRCDIR) -type f -name *.cpp)
 OBJECTS 	:= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.cpp=.o))
 TESTS		:= $(shell find $(TESTDIR) -type f -name *.cpp)
 TESTBIN 	:= $(patsubst $(TESTDIR)/%,$(TBUILDDIR)/%,$(TESTS:.cpp=.out))
+
 
 INC := -I include
 LIBGAME_SHARED=libgame.so
@@ -32,8 +34,8 @@ $(TBUILDDIR)/%.o: $(TESTDIR)/%.cpp
 .PRECIOUS: $(TBUILDDIR)/%.out
 
 $(TBUILDDIR)/%.out: $(TBUILDDIR)/%.o $(OBJECTS)
-	$(CXX) $^ -o $@
-	$@
+	@$(CXX) $^ -o $@
+	@$@
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
 	@mkdir -p $(BUILDDIR)
@@ -49,6 +51,8 @@ $(LIBDIR)/$(LIBGAME_STATIC): $(OBJECTS)
 object:
 	echo "$(SOURCES):$(SOURCES:.cpp=.o)"
 
-clean:
-	@echo "$(RM) -r $(BUILDDIR) $(LIBDIR)/$(LIBGAME_STATIC) $(LIBDIR)/$(LIBGAME_SHARED)"; $(RM) -r $(BUILDDIR) $(LIBDIR)/$(LIBGAME_SHARED) $(LIBDIR)/$(LIBGAME_STATIC)
+cleantest:
 	@echo "$(RM) -r $(TBUILDDIR)"; $(RM) -r $(TBUILDDIR)
+
+clean: cleantest
+	@echo "$(RM) -r $(BUILDDIR) $(LIBDIR)/$(LIBGAME_STATIC) $(LIBDIR)/$(LIBGAME_SHARED)"; $(RM) -r $(BUILDDIR) $(LIBDIR)/$(LIBGAME_SHARED) $(LIBDIR)/$(LIBGAME_STATIC)

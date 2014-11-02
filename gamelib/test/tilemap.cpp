@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "TilemapParser.h"
+#include "GameLevel.h"
 
 using namespace std;
 
@@ -87,18 +87,18 @@ string testDataA = R"({ "backgroundcolor":"#000000",
 
 int main(int argc, char **argv) {
 	
-	cout << "Starting test" << endl;
+	cout << "Starting test " << argv[0] << endl;
 
 	TilemapParser parser;
+	parser.parse(testDataA);
 
-	try {
-		if (parser.parse(testDataA)) {
-			cout << "Passed test" << endl;
-		} else {
-			cout << "Failed test" << endl;
-		}
-	} catch (exception e) {
-		cout << "Failed test with exception " << e.what() << endl;
+	GameLevel level(testDataA);
+	auto tile = level[1][0];
+	auto id = tile.getID();
+	if (id != 21) {
+		cout << "Incorrect tile ID: " << id << " should be 21" << endl;
+	} else {
+		cout << "Passed test" << endl;
 	}
 
 	cout << "Ending test" << endl;

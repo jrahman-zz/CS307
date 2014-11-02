@@ -120,7 +120,7 @@ shared_ptr<TileLayer> TilemapParser::parseLayer(Json::Value root) {
 		throw runtime_error("Data array wrong size");
 	}
 
-	TileLayer *tile_layer = new TileLayer(layer_width, layer_height);
+	shared_ptr<TileLayer> tile_layer(new TileLayer(m_mapWidth, m_mapHeight));
 	int row = 0, col = 0;
       
 	for (unsigned int j = 0; j < data.size(); j++) {

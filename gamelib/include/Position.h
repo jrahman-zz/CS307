@@ -16,7 +16,7 @@ public:
 	void setY(unsigned int y);
 
 	bool operator<(const Position rhs) const {
-		return m_x < rhs.m_x || m_x == rhs.m_x && m_y < rhs.m_y;
+		return m_x < rhs.m_x || (m_x == rhs.m_x && m_y < rhs.m_y);
 	}
 
 protected:
