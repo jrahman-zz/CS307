@@ -10,27 +10,30 @@
 
 using namespace std;
 
-class Engine;
-
 enum class InteractableType { HERO };
 
 class Interactable {
-
 public:
-	Interactable(
-		unsigned int actorID,
-		State startState = State::ALIVE);
 	virtual ~Interactable();
+
+	unsigned int getID();
+	InteractableType getType();
 
 	static InteractableType getInteractableType(string type);
 	static shared_ptr<Interactable> createFromJson(InteractableType type, Json::Value val);
 
 protected:
+
+	Interactable(Json::Value value);
+
 	unsigned int m_ID;
-	State m_currentState;
+	State m_state;
 	
 	template<class T>
 	void interact(std::shared_ptr<T> source);
+
+	InteractableType m_type;
+
 };
 
 

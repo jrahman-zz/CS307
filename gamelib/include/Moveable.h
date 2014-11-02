@@ -3,6 +3,7 @@
 
 #include <memory>
 
+#include "json/json.h"
 #include "MoveLogEntry.h"
 #include "Interactable.h"
 #include "Util.h"
@@ -10,9 +11,6 @@
 class Moveable : public Interactable {
 	
 public:
-	Moveable(
-		unsigned int actorID,
-		State state = State::ALIVE);
 	virtual ~Moveable();
 	
 	/*
@@ -26,6 +24,7 @@ public:
 	virtual bool move(Direction direction);
 	
 protected:
+	Moveable(Json::Value value);
 private:
 };
 

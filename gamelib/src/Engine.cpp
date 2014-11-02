@@ -1,5 +1,7 @@
 #include "Engine.h"
 
+#include "MoveMessage.h"
+
 Engine::Engine(string levelJson)
 	: m_levelJson(levelJson)
 	, m_isActive(true)
@@ -26,21 +28,26 @@ bool Engine::executeCommand(unsigned int actorID, shared_ptr<Command> cmd) {
 	// TODO, how will this integrate with the logging mechanism
 	
 	auto actor = (*m_level)[Position(0, 0)];
-	auto log = (*cmd)(*actor);
+	auto log_entry = (*cmd)(*actor);
 	
-	m_log->log(log);
-	return log->getResult();
+	m_log->log(log_entry);
+	return log_entry->getResult();
 }
 
 bool Engine::sendMessage(BaseMessage *msg) {
 
 	// TODO, fill this out
-	switch (msg->getType()) {
-		case MessageType::MOVE:
-			// TODO, movement here
-			break;
-		default:
-			break;
+	auto type = msg->getType();
+	if (type == MessageType::MOVE) {
+		MoveMessage* m = dynamic_cast<MoveMessage*>(msg);
+		auto target_id = m->getTarget();
+		auto target = m_level->getActor(target_id);
+		auto actor = dynamic_pointer_cast<Moveable>(target);
+		if (actor == nullptr) {
+			// TODO, handle badness
+			return false;
+		}
+		
 	}
 	return true;
 }

@@ -1,9 +1,7 @@
 #include "Moveable.h"
 
-#include "Engine.h"
-
-Moveable::Moveable(unsigned int actorID, State state)
-	: Interactable(actorID, state)
+Moveable::Moveable(Json::Value value)
+	: Interactable(value)
 {}
 
 

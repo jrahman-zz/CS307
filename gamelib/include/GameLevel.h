@@ -31,9 +31,10 @@ public:
 		return (*m_tileMap)[i];
 	}
 
+	shared_ptr<Interactable> getActor(unsigned int i);
 private:
 
-	
+	map<unsigned int, shared_ptr<Interactable>> m_actorID;
 	map<Position, shared_ptr<Interactable>> m_actors;
 	shared_ptr<TileLayer> m_tileMap;
 	map<Position, shared_ptr<Trigger>> m_triggers;

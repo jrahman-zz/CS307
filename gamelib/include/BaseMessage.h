@@ -6,6 +6,9 @@ enum class MessageType { MOVE };
 class BaseMessage {
 
 public:
+	// Force as polymorphic to allow dynamic_cast<>
+	virtual ~BaseMessage() {}
+
 	MessageType getType() {
 		return m_type;
 	}
