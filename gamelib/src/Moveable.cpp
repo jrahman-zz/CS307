@@ -2,8 +2,8 @@
 
 #include "Engine.h"
 
-Moveable::Moveable(unsigned int actorID, Engine* engineRef, State state)
-	: Interactable(actorID, engineRef, state)
+Moveable::Moveable(unsigned int actorID, State state)
+	: Interactable(actorID, state)
 {}
 
 
@@ -28,13 +28,14 @@ bool Moveable::moveRight() {
 }
 
 bool Moveable::move(Direction direction) {
-	unsigned int timestep = m_engine->getTimestep();
+	//unsigned int timestep = m_engine->getTimestep();
 
 	// TODO, update position
 
 	Position position(0, 0);
-	shared_ptr<MoveLogEntry> entry(new MoveLogEntry(timestep, true, m_ID, position));
-	m_engine->getActionLog()->log(entry);
-	return entry->getResult();
+	//shared_ptr<MoveLogEntry> entry(new MoveLogEntry(timestep, true, m_ID, position));
+	//m_engine->getActionLog()->log(entry);
+	//return entry->getResult();
+	return true;
 }
 

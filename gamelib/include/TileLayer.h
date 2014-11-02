@@ -21,7 +21,7 @@ public:
 		return m_tiles[i];
 	}
 
-	shared_ptr<TileLayer> merge(TileLayer& rhs);
+	shared_ptr<TileLayer> merge(shared_ptr<TileLayer> rhs);
 
 	unsigned int getWidth();
 	unsigned int getHeight();

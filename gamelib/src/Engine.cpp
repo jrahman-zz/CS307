@@ -36,7 +36,7 @@ bool Engine::sendMessage(BaseMessage *msg) {
 
 	// TODO, fill this out
 	switch (msg->getType()) {
-		case MessageType::Move:
+		case MessageType::MOVE:
 			// TODO, movement here
 			break;
 		default:

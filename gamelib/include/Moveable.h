@@ -12,7 +12,6 @@ class Moveable : public Interactable {
 public:
 	Moveable(
 		unsigned int actorID,
-		Engine* engineRef,
 		State state = State::ALIVE);
 	virtual ~Moveable();
 	

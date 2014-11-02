@@ -37,7 +37,7 @@ string testDataA = R"({ "backgroundcolor":"#000000",
         {
          "draworder":"topdown",
          "height":10,
-         "name":"Object Layer 1",
+         "name":"TriggerLayer",
          "objects":[
                 {
                  "height":64,

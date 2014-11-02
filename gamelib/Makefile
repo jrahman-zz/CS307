@@ -43,11 +43,12 @@ $(LIBDIR)/$(LIBGAME_SHARED): $(OBJECTS)
 	$(CXX) -shared -Wl,-soname,$@ -o $(LIBGAME_SHARED) $^
 
 $(LIBDIR)/$(LIBGAME_STATIC): $(OBJECTS)
-	ar rcs $@ $^
+	@mkdir -p $(LIBDIR)
+	@echo "ar rcs $@ $^"; ar rcs $@ $^
 
 object:
 	echo "$(SOURCES):$(SOURCES:.cpp=.o)"
 
 clean:
-	@echo "$(RM) -r $(BUILDDIR) $(LIBGAME_STATIC) $(LIBGAME_SHARED)"; $(RM) -r $(BUILDDIR) $(LIBGAME_SHARED) $(LIBGAME_STATIC)
+	@echo "$(RM) -r $(BUILDDIR) $(LIBDIR)/$(LIBGAME_STATIC) $(LIBDIR)/$(LIBGAME_SHARED)"; $(RM) -r $(BUILDDIR) $(LIBDIR)/$(LIBGAME_SHARED) $(LIBDIR)/$(LIBGAME_STATIC)
 	@echo "$(RM) -r $(TBUILDDIR)"; $(RM) -r $(TBUILDDIR)

@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -23,11 +24,7 @@ public:
 	~GameLevel();
 
 	shared_ptr<Interactable>& operator[](Position position) {
-		unsigned int index = position.getX() + position.getY() * m_width;
-		if (index >= m_width * m_height) {
-			throw std::exception();
-		}
-        	return m_actorMap[index];
+		return m_actors[position];
 	}
 
 	Tile* operator[](unsigned int i) {
@@ -36,9 +33,10 @@ public:
 
 private:
 
-	shared_ptr<Interactable> *m_actorMap;
+	
+	map<Position, shared_ptr<Interactable>> m_actors;
 	shared_ptr<TileLayer> m_tileMap;
-	vector<shared_ptr<Trigger>> m_triggers;
+	map<Position, shared_ptr<Trigger>> m_triggers;
 	unsigned int m_height;
 	unsigned int m_width;
 

@@ -44,8 +44,9 @@ TileLayer::~TileLayer() {
   delete[] m_tiles;
 }
 
-shared_ptr<TileLayer> TileLayer::merge(TileLayer& rhs) {
-	if (rhs.m_gridWidth != m_gridWidth || rhs.m_gridHeight != m_gridHeight) {
+shared_ptr<TileLayer> TileLayer::merge(shared_ptr<TileLayer> rhs) {
+	if (rhs->m_gridWidth != m_gridWidth
+		|| rhs->m_gridHeight != m_gridHeight) {
   		throw runtime_error("Dimension mismatch");
 	}
 	shared_ptr<TileLayer> ptr(new TileLayer(m_gridWidth, m_gridHeight));
@@ -54,7 +55,7 @@ shared_ptr<TileLayer> TileLayer::merge(TileLayer& rhs) {
 			switch(m_tiles[i][j].getType()) {
 				case TileType::None:
 				case TileType::Blank:
-					(*ptr)[i][j] = rhs.m_tiles[i][j];
+					(*ptr)[i][j] = rhs->m_tiles[i][j];
 					break;
 				default:
 					(*ptr)[i][j] = m_tiles[i][j];
