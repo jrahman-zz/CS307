@@ -8,9 +8,17 @@
    eJxjZGBgYMKBmYGYEYglgViMABbFIycBNYMNiNmBmIMI80CYG4h5gJgXTVwPiPWB2IBIc+SBWAGIFYlUjwsbA7EJEJtSaM4oph0GAL88D0M=
   </data>
  </layer>
- <layer name="ObjectsLayer" width="18" height="10">
+ <layer name="BuildingsLayer1" width="18" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYKANuATEz3DInaSSHXfxyLUAcSsB/WeIsGMGEM/EIbcdiE8D8QMizFkDxGuh7ItIGAbuE2EGCMwC4jlEqsUH1gHxBiqYAwNzqWgWJQAANtYQow==
+   eJxjYKANuATEz3DInURiO1Fgx10kM2AYBpqAuJmA/jNo7kDHILAKiFfj0L8diE8D8QMksVAgDkPC4VDxeCBOgLIvImEYuI9mth0Q2wJxFpR2gIp7A7EPEM/D7S2igBsQe1JoxmAEABdfFB4=
   </data>
  </layer>
+ <layer name="BuildingsLayer2" width="18" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAdVANxHRDXkKEX2Yx+IK4F4gkUmAUyYzGUvQRqFjlgMRp/CZnm0Boch+JRgB0AAJc2CUQ=
+  </data>
+ </layer>
+ <objectgroup name="ActorsLayer">
+  <object name="hero" type="position" x="448" y="448" width="64" height="64"/>
+ </objectgroup>
 </map>
