@@ -41,6 +41,8 @@ gem 'devise'
 gem 'cancancan'
 gem 'rolify'
 
+# Syntax highlighted code editor
+gem 'ace-rails-ap'
 
 # Allow single-table list generation
 gem 'acts_as_list'
