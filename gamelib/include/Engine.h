@@ -27,9 +27,9 @@ using namespace std;
 /*
  * Core class for game engine
  */
-class Engine : public BaseManager, ActorObserver {
+class Engine {
 public:
-    Engine(string levelJson); // TODO, add scripting, etc
+    Engine(string levelJson);
     ~Engine();
 
     void Init(string levelJson);
@@ -37,21 +37,6 @@ public:
     shared_ptr<WorldFascade> getWorld() const;
     shared_ptr<HeroFascade> getHero() const;
     
-    virtual bool sendMessage(BaseMessage* msg);
-    bool executeCommand(unsigned int actorID, shared_ptr<Command> cmd);
-
-    /*
-     * Hooks for observer pattern
-     */
-    virtual bool onPreStateChange(Interactable& obj, State current, State next)
-    virtual void onPostStateChange(Interactable& obj, State current);
-
-    virtual bool onPreMove(Moveable& moving, Position current, Position next);
-    virtual void onPostMove(Moveable& moving, Position current);
-
-    virtual bool onPreInteract(Interactable& src, Interactable& target);
-    virtual void onPostInteract(Interactable& src, Interactable& target);
-
     unsigned int getTimestep() const;
 
     shared_ptr<ActionLog> getActionLog() const;
@@ -62,6 +47,11 @@ protected:
 
 private:
     shared_ptr<ActionLog> m_actions;
+
+    /*
+     * Object to manage level state
+     */
+    shared_ptr<LevelManager> m_levelManager;
 
     unsigned int m_heroID;
 

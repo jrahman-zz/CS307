@@ -2,12 +2,11 @@
 
 #include <memory>
 #include <vector>
-#include <tuple>
 
+#include "Positionable.h"
 #include "Interactable.h"
 #include "TileLayer.h"
 #include "Trigger.h"
-#include "Position.h"
 
 using namespace std;
 
@@ -21,16 +20,21 @@ public:
     bool parse(string& json_str);
 
     vector<shared_ptr<TileLayer>> getTileLayers();
-    vector<tuple<Position, shared_ptr<Trigger>>> getTriggers();
-    vector<tuple<Position, shared_ptr<Interactable>>> getActors();
+    vector<shared_ptr<Trigger>> getTriggers();
+    vector<shared_ptr<Interactable>> getActors();
+
+    unsigned int getMapWidth();
+    unsigned int getMapHeight();
+    unsigned int getTileWidth();
+    unsigned int getTileHeight();
 
     void debug();
     
 protected:
     
     shared_ptr<TileLayer> parseLayer(Json::Value root);
-    vector<tuple<Position, shared_ptr<Trigger>>> parseTriggers(Json::Value root);
-    vector<tuple<Position, shared_ptr<Interactable>>> parseActors(Json::Value root);
+    vector<shared_ptr<Trigger>> parseTriggers(Json::Value root);
+    vector<shared_ptr<Interactable>> parseActors(Json::Value root);
 
 private:
     vector<shared_ptr<TileLayer>> m_tileLayers;

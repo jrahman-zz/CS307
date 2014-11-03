@@ -17,7 +17,7 @@ enum class InteractableType { HERO };
 class Hero;
 class Enemy;
 
-class Interactable {
+class Interactable : public Positionable {
 public:
     virtual ~Interactable();
 
@@ -28,6 +28,10 @@ public:
     bool interact(Interactable& target);
     Position getPosition();
 
+    
+    /*
+     * TODO rip these out of this class, don't think they belong here
+     */
     static InteractableType getInteractableType(string type);
     static shared_ptr<Interactable> createFromJson(InteractableType type, Json::Value val);
 
@@ -52,11 +56,6 @@ protected:
     unsigned int m_ID;
 
     InteractableType m_type;
-
-    shared_ptr<ActorObserver> observer;
-
-    Position m_position;    
-
 private:
     State m_state;
 };

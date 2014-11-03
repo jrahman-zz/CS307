@@ -16,8 +16,10 @@ class Trigger : public Interactable {
 public:
     Trigger(Json::Value value);
 
-    static TriggerType triggerTypeFromString(string& str);
+    string getName();
+    TriggerType getType();
 
+    static TriggerType triggerTypeFromString(string& str);
 protected:
 
     string m_name;

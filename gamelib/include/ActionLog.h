@@ -7,6 +7,7 @@
 
 #include "json/json.h"
 #include "LogEntry.h"
+#include "LogObserver.h"
 
 using namespace std;
 
@@ -15,14 +16,16 @@ using namespace std;
  * Will eventually container serialization code into JSON or another format
  *
  */
-class ActionLog {
+class ActionLog : public LogObserver {
 
 public:
     ActionLog();
-    ~ActionLog();
-    void log(shared_ptr<LogEntry> entry);
+    virtual ~ActionLog();
+
+    virtual bool onLog(LogEntry& entry);
     Json::Value getJsonLog();
 protected:
+    void log(shared_ptr<LogEntry> entry);
 private:
     map<unsigned int, list<shared_ptr<LogEntry>>> m_records;
 };

@@ -91,11 +91,11 @@ vector<shared_ptr<TileLayer>> TilemapParser::getTileLayers() {
     return m_tileLayers;
 }
 
-vector<tuple<Position, shared_ptr<Trigger>>> TilemapParser::getTriggers() {
+vector<shared_ptr<Trigger>> TilemapParser::getTriggers() {
     return m_triggers;
 }
 
-vector<tuple<Position, shared_ptr<Interactable>>> TilemapParser::getActors() {
+vector<shared_ptr<Interactable>> TilemapParser::getActors() {
     return m_actors;
 }
 
@@ -136,8 +136,8 @@ shared_ptr<TileLayer> TilemapParser::parseLayer(Json::Value root) {
 }
 
 
-vector<tuple<Position, shared_ptr<Trigger>>> TilemapParser::parseTriggers(Json::Value root) {
-    vector<tuple<Position, shared_ptr<Trigger>>> triggers;
+vector<shared_ptr<Trigger>> TilemapParser::parseTriggers(Json::Value root) {
+    vector<shared_ptr<Trigger>> triggers;
     Json::Value objects = root["objects"];
 
     int layer_width = root["width"].asInt();
@@ -167,8 +167,8 @@ vector<tuple<Position, shared_ptr<Trigger>>> TilemapParser::parseTriggers(Json::
     return triggers;
 }
 
-vector<tuple<Position, shared_ptr<Interactable>>> TilemapParser::parseActors(Json::Value root) {
-    vector<tuple<Position, shared_ptr<Interactable>>> actors;
+vector<shared_ptr<Interactable>> TilemapParser::parseActors(Json::Value root) {
+    vector<shared_ptr<Interactable>> actors;
 
     auto objects = root["objects"];
 
@@ -200,6 +200,22 @@ vector<tuple<Position, shared_ptr<Interactable>>> TilemapParser::parseActors(Jso
     return actors;
 }
 
+unsigned int TilemapParser::getMapWidth() {
+    return m_mapWidth;
+}
+
+unsigned int TilemapParser::getMapHeight() {
+    return m_mapHeight;
+}
+
+unsigned int TilemapParser::getTileWidth() {
+    return m_tileWidth;
+}
+
+unsigned int TilemapParser::getTileHeight() {
+    return m_tileHeight;
+}
+
 void TilemapParser::debug() {
     printf("Read %ld tile layers: \n", m_tileLayers.size());
     int i = 0;
@@ -220,8 +236,8 @@ void TilemapParser::debug() {
     i = 0;
     for (auto it = m_triggers.begin(); it != m_triggers.end(); it++) {
         auto trigger = *it;
-        auto name = get<1>(trigger)->name;
-        auto type = get<1>(trigger)->type;
+        auto name = trigger->getName();
+        auto type = trigger->getType();
         printf("Trigger %d: {name: %s, type: %d}\n", i++, name.c_str(), type);
     }
 }
