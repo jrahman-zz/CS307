@@ -7,10 +7,55 @@ Engine::Engine(string levelJson)
 	, m_isActive(true)
 	, m_heroID(0)
 {
-	m_level = shared_ptr<GameLevel>(new GameLevel(m_levelJson));	
+	Init(levelJson);	
 }
 
 Engine::~Engine() {}
+
+void Engine::Init(string levelJson) {
+	
+	// Reset
+	m_actors.clear();
+	m_actorID.clear();
+	m_triggers.clear();
+
+	TilemapParser parser;
+	if (!parser.parse(levelJson)) {
+		throw runtime_error("Failed to parse");
+	}
+
+	auto layers = parser.getTileLayers();
+	if (layers.size() == 0) {
+		throw runtime_error("No layers parsed");
+	}
+
+	// Load and merge layers
+	auto layer_it = layers.begin();
+	auto layerOne = *layer_it;
+	layer_it++;
+
+ 	while (layer_it != layers.end()) {
+		layerOne = layerOne->merge(*layer_it);
+		layer_it++;
+	}
+	m_tileMap = layerOne;
+
+	// Load triggers into map
+	auto triggers = parser.getTriggers();
+	auto trigger_it = triggers.begin();
+	while (trigger_it != triggers.end()) {
+ 		m_triggers[get<0>(*trigger_it)] = get<1>(*trigger_it);
+		trigger_it++;
+	}
+
+	// Load actors into map
+	auto actors = parser.getActors();
+	auto actor_it = actors.begin();
+	while (actor_it != actors.end()) {
+		m_actors[get<0>(*actor_it)] = get<1>(*actor_it);
+		actor_it++;
+	}
+}
 
 shared_ptr<WorldFascade> Engine::getWorld() const {
 	shared_ptr<Engine> self(const_cast<Engine*>(this));
@@ -27,7 +72,7 @@ shared_ptr<HeroFascade> Engine::getHero() const {
 bool Engine::executeCommand(unsigned int actorID, shared_ptr<Command> cmd) {
 	// TODO, how will this integrate with the logging mechanism
 	
-	auto actor = (*m_level)[Position(0, 0)];
+	auto actor = m_actors[Position(0, 0)];
 	auto log_entry = (*cmd)(*actor);
 	
 	m_log->log(log_entry);
@@ -41,21 +86,19 @@ bool Engine::sendMessage(BaseMessage *msg) {
 	if (type == MessageType::MOVE) {
 		MoveMessage* m = dynamic_cast<MoveMessage*>(msg);
 		auto target_id = m->getTarget();
-		auto target = m_level->getActor(target_id);
-		auto actor = dynamic_pointer_cast<Moveable>(target);
+		auto target = m_actorID[target_id];
+		auto actor = dynamic_pointer_cast<Moveable>(get<1>(target));
 		if (actor == nullptr) {
 			// TODO, handle badness
 			return false;
 		}
-		
 	}
 	return true;
 }
 
 void Engine::resetEngine() {
 
-	/* Dtor will be called on old m_level by shared_ptr */
-	m_level = shared_ptr<GameLevel>(new GameLevel(m_levelJson));
+	Init(m_levelJson);
 }
 
 unsigned int Engine::getTimestep() const {

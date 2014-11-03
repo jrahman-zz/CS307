@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 
+#include "ActorObserver.h"
 #include "json/json.h"
 #include "Position.h"
 #include "Util.h"
@@ -12,6 +13,10 @@ using namespace std;
 
 enum class InteractableType { HERO };
 
+/* Forward delcarations */
+class Hero;
+class Enemy;
+
 class Interactable {
 public:
 	virtual ~Interactable();
@@ -19,21 +24,41 @@ public:
 	unsigned int getID();
 	InteractableType getType();
 
+	bool changeState(State newState);
+	bool interact(Interactable& target);
+	Position getPosition();
+
 	static InteractableType getInteractableType(string type);
 	static shared_ptr<Interactable> createFromJson(InteractableType type, Json::Value val);
 
 protected:
-
+	
+	/*
+	 * Protected constructor to prevent public instantiation
+	 */
 	Interactable(Json::Value value);
 
-	unsigned int m_ID;
-	State m_state;
+	/*
+	 * Double dispatch implementations
+ 	 */
+	virtual bool interact_impl(Interactable& target) = 0;
 	
-	template<class T>
-	void interact(std::shared_ptr<T> source);
+	/*
+	 * Target specified implementations
+	 */
+	virtual void interact_impl(Hero& hero) = 0;
+	virtual bool interact_impl(Enemy& enemy) = 0;
+
+	unsigned int m_ID;
 
 	InteractableType m_type;
 
+	shared_ptr<ActorObserver> observer;
+
+	Position m_position;	
+
+private:
+	State m_state;
 };
 
 

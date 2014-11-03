@@ -2,21 +2,26 @@
 
 #include <string>
 
+#include "json/json.h"
+#include "Interactable.h"
+
+using namespace std;
+
 typedef enum {
   TriggerTypeUnknown,
   TriggerTypeNavigation
 } TriggerType;
 
-class Trigger {
-  public:
-    std::string name;
-    TriggerType type;
+class Trigger : public Interactable {
+public:
+    Trigger(Json::Value value);
 
-    Trigger(std::string& tName, TriggerType tType);
+    static TriggerType triggerTypeFromString(string& str);
 
-    static TriggerType triggerTypeFromString(std::string& str);
+protected:
 
-  protected:
-  private:
+	string m_name;
+	TriggerType m_type;
+private:
 };
 

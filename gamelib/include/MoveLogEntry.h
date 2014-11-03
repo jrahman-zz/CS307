@@ -5,6 +5,8 @@
 
 #include "LogEntry.h"
 #include "json/json.h"
+#include "Position.h"
+
 
 using namespace std;
 

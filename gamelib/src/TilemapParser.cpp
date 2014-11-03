@@ -153,8 +153,6 @@ vector<tuple<Position, shared_ptr<Trigger>>> TilemapParser::parseTriggers(Json::
 
 	for (unsigned int j = 0; j < objects.size(); j++) {
 		Json::Value object = objects[j]; 
-		auto object_name = object["name"].asString();
-		auto object_type_str = object["type"].asString();
 
 		int x = object["x"].asInt() / m_tileWidth;
 		int y = object["y"].asInt() / m_tileHeight;
@@ -163,10 +161,8 @@ vector<tuple<Position, shared_ptr<Trigger>>> TilemapParser::parseTriggers(Json::
 			throw runtime_error("Illegal trigger position");
 		}
 
-		auto object_type = Trigger::triggerTypeFromString(object_type_str);
-		shared_ptr<Trigger> trigger(new Trigger(object_name, object_type));
-		tuple<Position, shared_ptr<Trigger>> trig(Position(x, y), trigger);
-		triggers.push_back(trig);
+		shared_ptr<Trigger> trigger(new Trigger(object));
+		triggers.push_back(trigger);
 	}
 	return triggers;
 }
@@ -191,15 +187,14 @@ vector<tuple<Position, shared_ptr<Interactable>>> TilemapParser::parseActors(Jso
 		Json::Value object  = objects[j];
 		string object_name = object["name"].asString();
 		string object_type = object["type"].asString();
+
+		object["x"].asInt() =/ m_tileWidth;
+		object["y"].asInt() =/ m_tileHeight;
 	
-		auto properties = object["properties"];	
 		auto type = Interactable::getInteractableType(object["type"].asString());
-		auto interactable = Interactable::createFromJson(type, properties);
-	
-		int x = object["x"].asInt() / m_tileWidth;
-		int y = object["y"].asInt() / m_tileHeight;
-		
-		tuple<Position, shared_ptr<Interactable>> actor(Position(x, y), interactable);
+		auto interactable = Interactable::createFromJson(type, object);	
+			
+		shared_ptr<Interactable>> actor(interactable);
 		actors.push_back(actor);
 	}
 	return actors;

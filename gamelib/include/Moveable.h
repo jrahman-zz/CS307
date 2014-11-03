@@ -6,6 +6,7 @@
 #include "json/json.h"
 #include "MoveLogEntry.h"
 #include "Interactable.h"
+#include "Position.h"
 #include "Util.h"
 
 class Moveable : public Interactable {
@@ -26,6 +27,8 @@ public:
 protected:
 	Moveable(Json::Value value);
 private:
+
+	Position m_position;
 };
 
 

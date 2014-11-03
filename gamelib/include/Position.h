@@ -6,6 +6,7 @@
 class Position {
 public:
 	Position(unsigned int x, unsigned int y);
+	Position(Position& rhs);
 	~Position();
 
 	Json::Value toJson();

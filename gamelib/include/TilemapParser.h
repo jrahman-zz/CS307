@@ -34,8 +34,8 @@ protected:
 
 private:
 	vector<shared_ptr<TileLayer>> m_tileLayers;
-	vector<tuple<Position, shared_ptr<Trigger>>> m_triggers;
-	vector<tuple<Position, shared_ptr<Interactable>>> m_actors;
+	vector<shared_ptr<Trigger>> m_triggers;
+	vector<shared_ptr<Interactable>> m_actors;
 
 	unsigned int m_mapWidth;
 	unsigned int m_mapHeight;

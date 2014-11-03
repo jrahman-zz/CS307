@@ -26,14 +26,27 @@ bool Moveable::moveRight() {
 }
 
 bool Moveable::move(Direction direction) {
-	//unsigned int timestep = m_engine->getTimestep();
-
-	// TODO, update position
-
-	Position position(0, 0);
-	//shared_ptr<MoveLogEntry> entry(new MoveLogEntry(timestep, true, m_ID, position));
-	//m_engine->getActionLog()->log(entry);
-	//return entry->getResult();
-	return true;
+	int dx = 0, dy = 0;
+	switch (direction) {
+		case Direction::UP:
+			dy = -1;
+			break;
+		case Direction::DOWN:
+			dy = 1;
+			break;
+		case Direction::LEFT:
+			dx = -1;
+			break;
+		case Direction::RIGHT:
+			dx = 1;
+			break;
+	}
+	Position next(m_position.getX() + dx, m_position.getY() + dy);
+	if (observer->onPreMove(*this, m_position, next)) {
+		m_position = next;
+		observer->onPostMove(*this, m_position);`
+	} else {
+		return false;
+	}
 }
 

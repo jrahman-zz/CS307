@@ -5,6 +5,11 @@ Position::Position(unsigned int x, unsigned int y)
 	, m_y(y)
 {}
 
+Position::Position(Position& rhs) 
+	: m_x(rhs.x)
+	, m_y(rhs.y) 
+{}
+
 Position::~Position() {}
 
 Json::Value Position::toJson() {
