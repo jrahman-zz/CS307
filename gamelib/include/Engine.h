@@ -3,10 +3,7 @@
 
 #include <memory>
 #include <string>
-#include <map>
-#include <tuple>
-
-#include "ActorObserver.h"
+#include <vector>
 
 #include "ActionLog.h"
 #include "HeroFascade.h"
@@ -70,7 +67,7 @@ private:
     /*
      * Store actors index by ID
      */
-    map<Position, shared_ptr<Interactable>> m_actors;
+    vector<shared_ptr<Interactable>> m_actors;
     
     /*
      * Record tilemap
@@ -80,11 +77,12 @@ private:
     /*
      * Position indexed triggers
      */
-    map<Position, shared_ptr<Trigger>> m_triggers;
+    vector<shared_ptr<Trigger>> m_triggers;
 
     unsigned int m_height;
     unsigned int m_width;
 
+    shared_ptr<ActionLog> m_actionLog;
 
     unsigned int m_currentTimestep;
 };

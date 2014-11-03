@@ -1,7 +1,7 @@
 #ifndef ACTION_LOG_H
 #define ACTION_LOG_H
 
-#include <map>
+#include <unordered_map>
 #include <memory>
 #include <list>
 
@@ -27,7 +27,7 @@ public:
 protected:
     void log(shared_ptr<LogEntry> entry);
 private:
-    map<unsigned int, list<shared_ptr<LogEntry>>> m_records;
+    unordered_map<unsigned int, list<shared_ptr<LogEntry>>> m_records;
 };
 
 #endif // ACTION_LOG_H

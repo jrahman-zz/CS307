@@ -16,11 +16,14 @@ public:
     
     Tile* operator[](unsigned int i) {
         if (i >= m_gridWidth) {
-            throw std::exception();
+            throw runtime_error("Invalid index");
         }
         return m_tiles[i];
     }
 
+    /*
+     * Warning, this is NOT commutative!
+     */
     shared_ptr<TileLayer> merge(shared_ptr<TileLayer> rhs);
 
     unsigned int getWidth();

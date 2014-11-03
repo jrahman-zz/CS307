@@ -4,14 +4,17 @@
 #include <memory>
 #include <string>
 
-#include "ActorObserver.h"
+#include "InteractObserver.h"
+#include "StateObserver.h"
+
 #include "json/json.h"
+#include "Positionable.h"
 #include "Position.h"
 #include "Util.h"
 
 using namespace std;
 
-enum class InteractableType { HERO };
+enum class InteractableType { HERO, ENEMY, NPC };
 
 /* Forward delcarations */
 class Hero;
@@ -21,13 +24,13 @@ class Interactable : public Positionable {
 public:
     virtual ~Interactable();
 
-    unsigned int getID();
-    InteractableType getType();
+    InteractableType getType() const;
 
     bool changeState(State newState);
     bool interact(Interactable& target);
-    Position getPosition();
 
+    void registerInteractObserver(shared_ptr<InteractObserver> obs);
+    void registerStateObserver(shared_ptr<StateObserver> obs);    
     
     /*
      * TODO rip these out of this class, don't think they belong here
@@ -43,21 +46,18 @@ protected:
     Interactable(Json::Value value);
 
     /*
-     * Double dispatch implementations
-     */
-    virtual bool interact_impl(Interactable& target) = 0;
-    
-    /*
      * Target specified implementations
      */
-    virtual void interact_impl(Hero& hero) = 0;
+    virtual bool interact_impl(Hero& hero) = 0;
     virtual bool interact_impl(Enemy& enemy) = 0;
 
-    unsigned int m_ID;
+    shared_ptr<StateObserver> m_stateObserver;
+    shared_ptr<InteractObserver> m_interactObserver;
 
-    InteractableType m_type;
+    void setInteractableType(InteractableType);
 private:
     State m_state;
+    InteractableType m_type;
 };
 
 

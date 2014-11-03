@@ -38,10 +38,14 @@ TileLayer::TileLayer(TileLayer&& rhs)
 }
 
 TileLayer::~TileLayer() {
-  for (int i = 0; i < m_gridHeight; i++) {
-    delete[] m_tiles[i];
-  }
-  delete[] m_tiles;
+    if (m_tiles != nullptr) {
+        for (int i = 0; i < m_gridHeight; i++) {
+            if (m_tiles[i] != nullptr) {
+                delete[] m_tiles[i];
+            }
+        }
+        delete[] m_tiles;
+    }
 }
 
 shared_ptr<TileLayer> TileLayer::merge(shared_ptr<TileLayer> rhs) {

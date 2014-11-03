@@ -4,13 +4,11 @@
 #include <memory>
 
 #include "Command.h"
+#include "Hero.h"
 #include "MoveCommand.h"
 #include "Util.h"
 
 using namespace std;
-
-/* Forward delcaration */
-class Engine;
 
 /*
  * Define a interface for executing commands against your hero character

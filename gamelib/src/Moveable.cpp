@@ -9,6 +9,10 @@ Moveable::~Moveable() {
 
 }
 
+void Moveable::registerMoveObserver(shared_ptr<MoveObserver> obs) {
+    m_moveObserver = obs;
+}
+
 bool Moveable::moveUp() {
     return move(Direction::UP);
 }
@@ -42,11 +46,11 @@ bool Moveable::move(Direction direction) {
             break;
     }
     Position next(m_position.getX() + dx, m_position.getY() + dy);
-    if (observer->onPreMove(*this, m_position, next)) {
+    if (m_moveObserver->onPreMove(*this, m_position, next)) {
         m_position = next;
-        observer->onPostMove(*this, m_position);`
-    } else {
-        return false;
+        m_moveObserver->onPostMove(*this, m_position);
+        return true;
     }
+    return false;
 }
 

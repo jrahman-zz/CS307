@@ -4,7 +4,6 @@
 #include "LogEntry.h"
 
 class LogObserver {
-
 public:
     LogObserver() {}
     virtual ~LogObserver() {}

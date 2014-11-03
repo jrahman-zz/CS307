@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include "MoveObserver.h"
+
 #include "json/json.h"
 #include "MoveLogEntry.h"
 #include "Interactable.h"
@@ -14,6 +16,8 @@ class Moveable : public Interactable {
 public:
     virtual ~Moveable();
     
+    void registerMoveObserver(shared_ptr<MoveObserver> obs);
+
     /*
      * All of these functions return true if the move was
      * successful, and false if not
@@ -26,9 +30,12 @@ public:
     
 protected:
     Moveable(Json::Value value);
+
 private:
 
     Position m_position;
+
+    shared_ptr<MoveObserver> m_moveObserver;
 };
 
 

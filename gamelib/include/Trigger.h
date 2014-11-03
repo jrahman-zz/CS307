@@ -16,13 +16,12 @@ class Trigger : public Positionable {
 public:
     Trigger(Json::Value value);
 
-    string getName();
-    TriggerType getType();
+    string getName() const;
+    TriggerType getType() const;
 
-    static TriggerType triggerTypeFromString(string& str);
+    static TriggerType typeFromString(string str);
 protected:
     string m_name;
     TriggerType m_type;
-private:
 };
 

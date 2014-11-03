@@ -4,34 +4,34 @@
 
 Interactable::~Interactable() {}
 
-unsigned int Interactable::getID() {
-    return m_ID;
-}
-
-InteractableType Interactable::getType() {
+InteractableType Interactable::getType() const {
     return m_type;
 }
 
 bool Interactable::changeState(State newState) {
-    if (observer->onPreStateChange(*this, m_state, newState)) {
+    if (m_stateObserver->onPreStateChange(*this, m_state, newState)) {
         m_state = newState;
-        observer->onPostStateChange(*this, m_state);
+        m_stateObserver->onPostStateChange(*this, m_state);
     } else {
         return false;
     }
 }
 
 bool Interactable::interact(Interactable& target) {
-    if (observer->onPreInteract(*this, target)) {
-        interact_impl(target);
-        observer->onPostInteract(*this, target);
+    if (m_interactObserver->onPreInteract(*this, target)) {
+        interact(target);
+        m_interactObserver->onPostInteract(*this, target);
     } else {
         return false;
     }
 }
 
-Position Interactable::getPosition() {
-    return m_position;
+void Interactable::registerInteractObserver(shared_ptr<InteractObserver> obs) {
+    m_interactObserver = obs;
+}
+
+void Interactable::registerStateObserver(shared_ptr<StateObserver> obs) {
+    m_stateObserver = obs;
 }
 
 InteractableType Interactable::getInteractableType(string type) {
@@ -70,6 +70,6 @@ Interactable::Interactable(Json::Value value)
     m_state = State::ALIVE;
 }
 
-bool Interactable::interact_impl(Interactable& target) {
-    target.interact_impl(*this);
+void Interactable::setInteractableType(InteractableType type) {
+    m_type = type;
 }

@@ -47,7 +47,7 @@ void Engine::init(string levelJson) {
     auto triggers = parser.getTriggers();
     auto trigger_it = triggers.begin();
     while (trigger_it != triggers.end()) {
-        m_triggers[(**trigger_it).getPosition()] = *trigger_it;
+        m_triggers.push_back(*trigger_it);
         trigger_it++;
     }
 
@@ -55,7 +55,7 @@ void Engine::init(string levelJson) {
     auto actors = parser.getActors();
     auto actor_it = actors.begin();
     while (actor_it != actors.end()) {
-        m_actors[(**actor_it).getPosition()] = *actor_it;
+        m_actors.push_back(*actor_it);
         actor_it++;
     }
 }
@@ -67,28 +67,16 @@ shared_ptr<WorldFascade> Engine::getWorld() const {
 }
 
 shared_ptr<HeroFascade> Engine::getHero() const {
-    shared_ptr<Engine> self(const_cast<Engine*>(this));
-    shared_ptr<HeroFascade> hero(new HeroFascade(self, getHeroID()));
-    return hero;
-}
-
-bool Engine::executeCommand(unsigned int actorID, shared_ptr<Command> cmd) {
-    // TODO, how will this integrate with the logging mechanism
-    
-    auto actor = m_actors[Position(0, 0)];
-    auto log_entry = (*cmd)(*actor);
-    
-    m_log->log(log_entry);
-    return log_entry->getResult();
+    return nullptr;
 }
 
 void Engine::resetEngine() {
 
-    Init(m_levelJson);
+    init(m_levelJson);
 }
 
 unsigned int Engine::getTimestep() const {
-    return m_timestep;
+    return m_currentTimestep;
 }
 
 unsigned int Engine::getHeroID() const {
@@ -96,5 +84,5 @@ unsigned int Engine::getHeroID() const {
 }
 
 shared_ptr<ActionLog> Engine::getActionLog() const {
-    return m_log;
+    return m_actionLog;
 }

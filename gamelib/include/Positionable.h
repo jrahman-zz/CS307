@@ -3,7 +3,6 @@
 
 #include <memory>
 
-#include "ActorObserver.h"
 #include "json/json.h"
 #include "Position.h"
 
@@ -12,14 +11,17 @@ using namespace std;
 class Positionable {
 public:
     ~Positionable();
-    Position getPosition();
+    Position getPosition() const;
+    unsigned int getID() const;
 
 protected:
     Positionable(Json::Value value);
 
-    Position m_position;
+    unsigned int m_ID;
 
-    shared_ptr<ActorObserver> m_observer;
+    Position m_position;
+private:
+    static unsigned int nextID;
 };
 
 #endif
