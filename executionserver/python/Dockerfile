@@ -18,16 +18,16 @@ COPY include /include
 
 WORKDIR /srv/scripts
 
-# Install needed modules
-RUN python /pip/get-pip.py
-RUN pip install flask
-
 # Install build tools
 RUN yum -y install python-devel
 RUN yum -y install binutils
 RUN yum -y install make
 RUN yum -y install gcc
 RUN yum -y install gcc-c++
+
+# Install needed modules
+RUN python /pip/get-pip.py
+RUN pip install flask
 
 WORKDIR /wrapper
 
@@ -38,7 +38,7 @@ RUN python /wrapper/setup.py build
 RUN python /wrapper/setup.py install
 
 WORKDIR /srv/scripts
-
+EXPOSE 5000
 RUN chmod u+x run.sh
 
 ENTRYPOINT ["/srv/scripts/run.sh"]
