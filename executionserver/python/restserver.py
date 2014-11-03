@@ -1,11 +1,11 @@
 from flask import Flask, jsonify, request, json
-from CodeExecutor import execute
+from codeexecutor import execute
 
 app = Flask(__name__)
 
 appcontext = {} #Context for all code execution in this docker container
 
-@app.route('/health', methods=['GET'])
+@app.route('/ping', methods=['GET'])
 def get_health():
     print(request.data)
     return jsonify({'response':'PONG'})
@@ -48,7 +48,7 @@ def init_engine():
     # And create initial context only containing a copy
     # Of the world and hero fascade objects
     # TODO
-    return jsonify({'success': true, 'sessionID': ''})
+    return jsonify({'success': True, 'sessionID': ''})
 
 # Run
 if __name__ == '__main__':

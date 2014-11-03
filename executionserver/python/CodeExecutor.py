@@ -3,6 +3,7 @@ from RestrictedPython import compile_restricted
 import sys
 import traceback
 import re
+from importtools import joincontexts
 
 def getexceptionmessage(exc):
     if exc == NameError:
@@ -34,7 +35,7 @@ def execute(code, context):
     returned_errors = {}
     restricted_globals = dict(__builtins__ = safe_builtins)
     game_context = context
-    execution_context = dict(list(restricted_globals.items()) + list(game_context.items()))
+    execution_context = joincontexts(restricted_globals, game_context)
     try:
         compiled_code = compile_restricted(code, '<string>', 'exec')
         exec compiled_code in execution_context
