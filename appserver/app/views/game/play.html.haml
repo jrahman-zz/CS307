@@ -7,8 +7,9 @@
 
       .form-actions
         .pull-right
-          = link_to 'Test', grade_submission_path, class: 'btn btn-warning'
-          = f.submit 'Run', class: 'btn btn-primary'
+          -# I just want a stinkin input button without specifying a submit url, Haml.
+          <input type="button" value="Test" class="btn btn-primary" id="submit_button" />
+          -#= f.submit 'Run', class: 'btn btn-primary'
 
   .col-md-9
     %p
@@ -19,6 +20,11 @@
 
 
 %script{ type: 'text/javascript' }
-  function get_level_tile_map() {
-  = "return #{@level.tilemap}".html_safe
+  function get_level_tilemap() {
+  = "\treturn '#{@level.tilemap}';".html_safe
+  }
+
+  function get_hero_gender() {
+  -# "\treturn '#{}';".html_safe
+  = "\treturn 'girl';".html_safe
   }
