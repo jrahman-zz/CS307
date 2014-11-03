@@ -3,9 +3,7 @@
 
 #include <memory>
 
-#include "Command.h"
 #include "Hero.h"
-#include "MoveCommand.h"
 #include "Util.h"
 
 using namespace std;
