@@ -3,12 +3,14 @@
 
 #include <memory>
 
+#include "Loggable.h"
+
 #include "json/json.h"
 #include "Position.h"
 
 using namespace std;
 
-class Positionable {
+class Positionable: public Loggable {
 public:
     ~Positionable();
     Position getPosition() const;

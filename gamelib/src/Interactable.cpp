@@ -19,11 +19,11 @@ bool Interactable::changeState(State newState) {
 
 bool Interactable::interact(Interactable& target) {
     if (m_interactObserver->onPreInteract(*this, target)) {
-        interact(target);
+        auto ret = interact(target);
         m_interactObserver->onPostInteract(*this, target);
-    } else {
-        return false;
+        return true;
     }
+    return false;
 }
 
 void Interactable::registerInteractObserver(shared_ptr<InteractObserver> obs) {

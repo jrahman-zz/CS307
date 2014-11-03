@@ -1,10 +1,10 @@
 #include "LevelManager.h"
 
+#include <cmath>
+
 LevelManager::LevelManager(TileLayer tilemap)
     : m_tilemap(new TileLayer(tilemap)) 
 {}
-
-
 
 LevelManager::LevelManager(TileLayer&& tilemap) 
     : m_tilemap(new TileLayer(std::forward<TileLayer>(tilemap)))
@@ -85,7 +85,45 @@ bool LevelManager::onPreMove(Moveable& obj, Position current, Position next) {
 
     // Check if the square is passable terrain
     // Consult the tilemap
-    
+    auto row = next.getY();
+    auto col = next.getX();
+    bool ret = false;
+
+    switch ((*m_tilemap)[row][col].getType()) {
+        case TileType::None:
+        case TileType::Blank:
+        case TileType::Water:
+        case TileType::Building:
+            ret = false;
+            break;
+        case TileType::Terrain:
+            ret = true;
+            break;
+        default:
+            ret = false;
+    }
+
+    if (!ret) {
+        return ret;
+    }
+
+    // Check the move distance
+    auto deltaX = current.getX() - next.getX();
+    auto deltaY = current.getY() - next.getY();
+    auto absdiff = abs(deltaX) + abs(deltaY);
+    if (absdiff != 1) {
+        return false;
+    }
+
+    // Check for on/off the map
+    if (next.getX() < 0 || next.getX() >= m_tilemap->getWidth()) {
+        return false;
+    }
+
+    if (next.getY() < 0 || next.getY() >= m_tilemap->getHeight()) {
+        return false;
+    }
+
     return true;
 }
 
