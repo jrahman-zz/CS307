@@ -9,6 +9,6 @@ public:
     LogObserver() {}
     virtual ~LogObserver() {}
     virtual bool onLog(LogEntry& logEntry) = 0;
-}
+};
 
 #endif

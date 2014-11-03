@@ -15,6 +15,6 @@ protected:
 
 private:
 
-}
+};
 
 #endif

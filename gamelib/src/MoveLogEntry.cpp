@@ -2,10 +2,9 @@
 
 MoveLogEntry::MoveLogEntry(
     unsigned int timestep,
-    bool result,
     unsigned int actorID,
     Position position)
-    : LogEntry(timestep, result)
+    : LogEntry(timestep)
     , m_actorID(actorID)
     , m_position(position)
 {}
@@ -13,7 +12,7 @@ MoveLogEntry::MoveLogEntry(
 MoveLogEntry::~MoveLogEntry() {}
 
 Json::Value MoveLogEntry::serialize() {
-    Json::Value root;
+    Json::Value root(Json::objectValue);
     root["position"] = m_position.toJson();
     root["actorID"] = m_actorID;
 

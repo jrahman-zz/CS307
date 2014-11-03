@@ -7,6 +7,7 @@
 #include "Interactable.h"
 #include "Moveable.h"
 #include "TileLayer.h"
+#include "Trigger.h"
 
 using namespace std;
 
@@ -31,6 +32,9 @@ public:
 
 protected:
     shared_ptr<TileLayer> m_tilemap;
-}
+
+private:
+
+};
 
 #endif

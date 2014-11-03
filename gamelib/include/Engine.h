@@ -6,14 +6,13 @@
 #include <map>
 #include <tuple>
 
-#include "BaseMessage.h"
-#include "BaseManager.h"
-
 #include "ActorObserver.h"
 
 #include "ActionLog.h"
 #include "HeroFascade.h"
 #include "WorldFascade.h"
+
+#include "LevelManager.h"
 
 #include "Interactable.h"
 #include "TilemapParser.h"
@@ -32,7 +31,7 @@ public:
     Engine(string levelJson);
     ~Engine();
 
-    void Init(string levelJson);
+    void resetLevel();
 
     shared_ptr<WorldFascade> getWorld() const;
     shared_ptr<HeroFascade> getHero() const;
@@ -42,6 +41,8 @@ public:
     shared_ptr<ActionLog> getActionLog() const;
     void resetEngine();
 protected:
+
+    void init(string levelJson);
 
     unsigned int getHeroID() const;
 
@@ -66,19 +67,26 @@ private:
      */
     string m_levelJson;
 
-    map<unsigned int, tuple<Position, shared_ptr<Interactable>>> m_actorID;
+    /*
+     * Store actors index by ID
+     */
     map<Position, shared_ptr<Interactable>> m_actors;
+    
+    /*
+     * Record tilemap
+     */
     shared_ptr<TileLayer> m_tileMap;
+
+    /*
+     * Position indexed triggers
+     */
     map<Position, shared_ptr<Trigger>> m_triggers;
+
     unsigned int m_height;
     unsigned int m_width;
 
-    /*
-     * Log to record actions and events for recording
-     */
-    shared_ptr<ActionLog> m_log;
 
-    unsigned int m_timestep;
+    unsigned int m_currentTimestep;
 };
 
 #endif // ENGINE_H

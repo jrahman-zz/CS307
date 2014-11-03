@@ -7,16 +7,19 @@ Engine::Engine(string levelJson)
     , m_isActive(true)
     , m_heroID(0)
 {
-    Init(levelJson);    
+    init(levelJson);    
 }
 
 Engine::~Engine() {}
 
-void Engine::Init(string levelJson) {
+void Engine::resetLevel() {
+    init(m_levelJson);
+}
+
+void Engine::init(string levelJson) {
     
-    // Reset
+    // Reset data structures
     m_actors.clear();
-    m_actorID.clear();
     m_triggers.clear();
 
     TilemapParser parser;
@@ -44,7 +47,7 @@ void Engine::Init(string levelJson) {
     auto triggers = parser.getTriggers();
     auto trigger_it = triggers.begin();
     while (trigger_it != triggers.end()) {
-        m_triggers[get<0>(*trigger_it)] = get<1>(*trigger_it);
+        m_triggers[(**trigger_it).getPosition()] = *trigger_it;
         trigger_it++;
     }
 
@@ -52,7 +55,7 @@ void Engine::Init(string levelJson) {
     auto actors = parser.getActors();
     auto actor_it = actors.begin();
     while (actor_it != actors.end()) {
-        m_actors[get<0>(*actor_it)] = get<1>(*actor_it);
+        m_actors[(**actor_it).getPosition()] = *actor_it;
         actor_it++;
     }
 }
@@ -77,23 +80,6 @@ bool Engine::executeCommand(unsigned int actorID, shared_ptr<Command> cmd) {
     
     m_log->log(log_entry);
     return log_entry->getResult();
-}
-
-bool Engine::sendMessage(BaseMessage *msg) {
-
-    // TODO, fill this out
-    auto type = msg->getType();
-    if (type == MessageType::MOVE) {
-        MoveMessage* m = dynamic_cast<MoveMessage*>(msg);
-        auto target_id = m->getTarget();
-        auto target = m_actorID[target_id];
-        auto actor = dynamic_pointer_cast<Moveable>(get<1>(target));
-        if (actor == nullptr) {
-            // TODO, handle badness
-            return false;
-        }
-    }
-    return true;
 }
 
 void Engine::resetEngine() {

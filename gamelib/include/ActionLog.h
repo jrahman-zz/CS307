@@ -22,7 +22,7 @@ public:
     ActionLog();
     virtual ~ActionLog();
 
-    virtual bool onLog(LogEntry& entry);
+    virtual bool onLog(shared_ptr<LogEntry> entry);
     Json::Value getJsonLog();
 protected:
     void log(shared_ptr<LogEntry> entry);

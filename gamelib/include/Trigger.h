@@ -12,7 +12,7 @@ typedef enum {
     TriggerTypeNavigation
 } TriggerType;
 
-class Trigger : public Interactable {
+class Trigger : public Positionable {
 public:
     Trigger(Json::Value value);
 
@@ -21,7 +21,6 @@ public:
 
     static TriggerType triggerTypeFromString(string& str);
 protected:
-
     string m_name;
     TriggerType m_type;
 private:

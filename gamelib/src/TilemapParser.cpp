@@ -188,13 +188,13 @@ vector<shared_ptr<Interactable>> TilemapParser::parseActors(Json::Value root) {
         string object_name = object["name"].asString();
         string object_type = object["type"].asString();
 
-        object["x"].asInt() =/ m_tileWidth;
-        object["y"].asInt() =/ m_tileHeight;
+        object["x"] = object["x"].asInt() / m_tileWidth;
+        object["y"] = object["y"].asInt() / m_tileHeight;
     
         auto type = Interactable::getInteractableType(object["type"].asString());
         auto interactable = Interactable::createFromJson(type, object); 
             
-        shared_ptr<Interactable>> actor(interactable);
+        shared_ptr<Interactable> actor(interactable);
         actors.push_back(actor);
     }
     return actors;
@@ -217,11 +217,11 @@ unsigned int TilemapParser::getTileHeight() {
 }
 
 void TilemapParser::debug() {
-    printf("Read %ld tile layers: \n", m_tileLayers.size());
+    cout << "Read " << m_tileLayers.size() << " tile layers: " << endl;
     int i = 0;
     for (auto it = m_tileLayers.begin(); it != m_tileLayers.end(); it++) {
         auto layer = *it;
-        printf("Layer %d: \n", i++);
+        cout << "Layer " << i++ << ": " << endl;
         for (unsigned int j = 0; j < layer->getHeight(); j++) {
             for (unsigned int k = 0; k < layer->getWidth(); k++) {
                 auto tile = (*layer)[j][k];
@@ -238,6 +238,7 @@ void TilemapParser::debug() {
         auto trigger = *it;
         auto name = trigger->getName();
         auto type = trigger->getType();
-        printf("Trigger %d: {name: %s, type: %d}\n", i++, name.c_str(), type);
+        cout << "Trigger ";
+        cout << i++ << ": {name: " << name << ", type: " << type << "}" << endl;
     }
 }

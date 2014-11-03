@@ -18,12 +18,9 @@ public:
      */
     MoveLogEntry(
         unsigned int timestamp,
-        bool results,
         unsigned int actorID,
         Position position);
     ~MoveLogEntry();
-
-    
 
 protected:
     virtual Json::Value serialize();
