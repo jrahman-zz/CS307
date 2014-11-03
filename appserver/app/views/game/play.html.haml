@@ -3,7 +3,7 @@
     = simple_form_for Submission.new, url: grade_submission_path, class: 'submission-form', html: { onsubmit: "return injectCode('.code-editor')" } do |f|
       = f.error_notification
       .prompt=@level.prompt
-      = f.text_area :code, class: 'code-editor'
+      %div#code-editor
 
       .form-actions
         .pull-right

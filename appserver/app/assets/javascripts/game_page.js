@@ -1,6 +1,13 @@
 //= require jquery
 //= require jquery_ujs
+//= require ace/ace
+//= require ace/worker-html
 //= require phaser
+
+// Configure Ace editor
+var editor = ace.edit('code-editor');
+editor.setTheme('ace/theme/twilight');
+editor.getSession().setMode('ace/mode/python');
 
 // Utility functions.
 
@@ -127,7 +134,8 @@ tilemap_promise.success(function (tilemap_str) {
 
   // Intercept click events on the submit button.
   $('input#submit_button').click(function(event) {
-    var code = $('textarea#submission_code').val();
+    var code = editor.getValue();
     console.log('code: ' + code);
+    // TODO send code
   });
 });
