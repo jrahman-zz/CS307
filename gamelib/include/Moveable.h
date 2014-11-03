@@ -10,25 +10,25 @@
 #include "Util.h"
 
 class Moveable : public Interactable {
-	
+    
 public:
-	virtual ~Moveable();
-	
-	/*
-	 * All of these functions return true if the move was
-	 * successful, and false if not
-	 */
-	virtual bool moveUp();
-	virtual bool moveDown();
-	virtual bool moveLeft();
-	virtual bool moveRight();
-	virtual bool move(Direction direction);
-	
+    virtual ~Moveable();
+    
+    /*
+     * All of these functions return true if the move was
+     * successful, and false if not
+     */
+    virtual bool moveUp();
+    virtual bool moveDown();
+    virtual bool moveLeft();
+    virtual bool moveRight();
+    virtual bool move(Direction direction);
+    
 protected:
-	Moveable(Json::Value value);
+    Moveable(Json::Value value);
 private:
 
-	Position m_position;
+    Position m_position;
 };
 
 

@@ -19,26 +19,26 @@ class Engine;
  */
 class HeroFascade {
 public:
-	HeroFascade(shared_ptr<Hero> hero);
-	~HeroFascade();
-	
-	unsigned int moveUp(unsigned int distance = 1);
-	unsigned int moveDown(unsigned int distance = 1);
-	unsigned int moveLeft(unsigned int distance = 1);
-	unsigned int moveRight(unsigned int distance = 1);
+    HeroFascade(shared_ptr<Hero> hero);
+    ~HeroFascade();
+    
+    unsigned int moveUp(unsigned int distance = 1);
+    unsigned int moveDown(unsigned int distance = 1);
+    unsigned int moveLeft(unsigned int distance = 1);
+    unsigned int moveRight(unsigned int distance = 1);
 
 protected:
-		
-	/*
-	 * Primary movement implementation
-	 */	
-	unsigned int move(Direction direction, unsigned int distance = 1);
+        
+    /*
+     * Primary movement implementation
+     */ 
+    unsigned int move(Direction direction, unsigned int distance = 1);
 
-	/*
-	 * Reference to the game engine object
-	 */
-	shared_ptr<Hero> m_hero;
-private:	
+    /*
+     * Reference to the game engine object
+     */
+    shared_ptr<Hero> m_hero;
+private:    
 };
 
 #endif // HERO_FASCADE_H

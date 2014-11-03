@@ -5,8 +5,8 @@
 
 class Enemy : public Moveable {
 public:
-	Enemy();
-	virtual ~Enemy();
+    Enemy();
+    virtual ~Enemy();
 };
 
 #endif // ENEMY_H

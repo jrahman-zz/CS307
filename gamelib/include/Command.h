@@ -15,21 +15,21 @@ using namespace std;
  */
 class Command {
 public:
-	Command() {};
-	virtual ~Command() {};
-	
-	/*
-	 * Execute the given command
- 	 */
-	shared_ptr<LogEntry> operator()(Interactable& actor) {
-		return this->execute(actor);
-	}
+    Command() {};
+    virtual ~Command() {};
+    
+    /*
+     * Execute the given command
+     */
+    shared_ptr<LogEntry> operator()(Interactable& actor) {
+        return this->execute(actor);
+    }
 
 protected:
-	/*
-	 * Command implementation is provided here
- 	 */
-	virtual shared_ptr<LogEntry> execute(Interactable& actor) = 0;
+    /*
+     * Command implementation is provided here
+     */
+    virtual shared_ptr<LogEntry> execute(Interactable& actor) = 0;
 };
 
 #endif // COMMAND_H

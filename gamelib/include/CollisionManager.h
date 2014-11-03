@@ -6,10 +6,10 @@
 
 class CollisionManager : public BaseManager {
 public:
-	CollisionManager();
-	virtual ~CollisionManager();
+    CollisionManager();
+    virtual ~CollisionManager();
 
-	virtual bool SendMessage(BaseMessage* msg);
+    virtual bool SendMessage(BaseMessage* msg);
 
 protected:
 

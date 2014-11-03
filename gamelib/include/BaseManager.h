@@ -6,10 +6,10 @@
 class BaseManager {
 
 public:
-	virtual ~BaseManager() {};
-	virtual bool sendMessage(BaseMessage* msg) = 0;
+    virtual ~BaseManager() {};
+    virtual bool sendMessage(BaseMessage* msg) = 0;
 protected:
-	BaseManager() {}
+    BaseManager() {}
 };
 
 #endif

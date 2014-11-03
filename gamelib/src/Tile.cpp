@@ -1,21 +1,21 @@
 #include "Tile.h"
 
 Tile::Tile() 
-	: m_type(TileType::None)
-	, m_ID(-1)
+    : m_type(TileType::None)
+    , m_ID(-1)
 {}
 
 Tile::Tile(int id) 
-	: m_ID(id)
-	, m_type(tileTypeFromId(m_ID))
+    : m_ID(id)
+    , m_type(tileTypeFromId(m_ID))
 {}
 
 TileType Tile::getType() {
-	return m_type;
+    return m_type;
 }
 
 int Tile::getID() {
-	return m_ID;
+    return m_ID;
 }
 
 TileType Tile::tileTypeFromId(int id) {

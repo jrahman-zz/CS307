@@ -19,46 +19,46 @@ class Enemy;
 
 class Interactable {
 public:
-	virtual ~Interactable();
+    virtual ~Interactable();
 
-	unsigned int getID();
-	InteractableType getType();
+    unsigned int getID();
+    InteractableType getType();
 
-	bool changeState(State newState);
-	bool interact(Interactable& target);
-	Position getPosition();
+    bool changeState(State newState);
+    bool interact(Interactable& target);
+    Position getPosition();
 
-	static InteractableType getInteractableType(string type);
-	static shared_ptr<Interactable> createFromJson(InteractableType type, Json::Value val);
+    static InteractableType getInteractableType(string type);
+    static shared_ptr<Interactable> createFromJson(InteractableType type, Json::Value val);
 
 protected:
-	
-	/*
-	 * Protected constructor to prevent public instantiation
-	 */
-	Interactable(Json::Value value);
+    
+    /*
+     * Protected constructor to prevent public instantiation
+     */
+    Interactable(Json::Value value);
 
-	/*
-	 * Double dispatch implementations
- 	 */
-	virtual bool interact_impl(Interactable& target) = 0;
-	
-	/*
-	 * Target specified implementations
-	 */
-	virtual void interact_impl(Hero& hero) = 0;
-	virtual bool interact_impl(Enemy& enemy) = 0;
+    /*
+     * Double dispatch implementations
+     */
+    virtual bool interact_impl(Interactable& target) = 0;
+    
+    /*
+     * Target specified implementations
+     */
+    virtual void interact_impl(Hero& hero) = 0;
+    virtual bool interact_impl(Enemy& enemy) = 0;
 
-	unsigned int m_ID;
+    unsigned int m_ID;
 
-	InteractableType m_type;
+    InteractableType m_type;
 
-	shared_ptr<ActorObserver> observer;
+    shared_ptr<ActorObserver> observer;
 
-	Position m_position;	
+    Position m_position;    
 
 private:
-	State m_state;
+    State m_state;
 };
 
 

@@ -2,7 +2,7 @@
 
 
 WorldFascade::WorldFascade(std::shared_ptr<Engine> engineRef) :
-	engine(engineRef) {
+    engine(engineRef) {
 
 }
 

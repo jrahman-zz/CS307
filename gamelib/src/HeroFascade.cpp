@@ -3,31 +3,31 @@
 #include "Engine.h"
 
 HeroFascade::HeroFascade(shared_ptr<Hero> hero)
-	: m_hero(hero)
+    : m_hero(hero)
 {}
 
 HeroFascade::~HeroFascade() {}
 
 unsigned int HeroFascade::moveUp(unsigned int distance) {
-	return move(Direction::UP, distance);
+    return move(Direction::UP, distance);
 }
 
 unsigned int HeroFascade::moveDown(unsigned int distance) {
-	return move(Direction::DOWN, distance);
+    return move(Direction::DOWN, distance);
 }
 
 unsigned int HeroFascade::moveLeft(unsigned int distance) {
-	return move(Direction::LEFT, distance);
+    return move(Direction::LEFT, distance);
 }
 
 unsigned int HeroFascade::moveRight(unsigned int distance) {
-	return move(Direction::RIGHT, distance);
+    return move(Direction::RIGHT, distance);
 }
 
 unsigned int HeroFascade::move(Direction direction, unsigned int distance) {
-	unsigned int distanceTraveled = 0;
-	while (m_hero->move(direction) && distance-- > 0) {
-		distanceTraveled++;
-	}
-	return distanceTraveled;
+    unsigned int distanceTraveled = 0;
+    while (m_hero->move(direction) && distance-- > 0) {
+        distanceTraveled++;
+    }
+    return distanceTraveled;
 }

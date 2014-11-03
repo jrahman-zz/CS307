@@ -18,13 +18,13 @@ using namespace std;
 class ActionLog {
 
 public:
-	ActionLog();
-	~ActionLog();
-	void log(shared_ptr<LogEntry> entry);
-	Json::Value getJsonLog();
+    ActionLog();
+    ~ActionLog();
+    void log(shared_ptr<LogEntry> entry);
+    Json::Value getJsonLog();
 protected:
 private:
-	map<unsigned int, list<shared_ptr<LogEntry>>> m_records;
+    map<unsigned int, list<shared_ptr<LogEntry>>> m_records;
 };
 
 #endif // ACTION_LOG_H

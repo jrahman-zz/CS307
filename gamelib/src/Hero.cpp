@@ -2,8 +2,8 @@
 
 
 Hero::Hero(Json::Value value)
-	: Moveable(value) {
-	m_type = InteractableType::HERO;
+    : Moveable(value) {
+    m_type = InteractableType::HERO;
 }
 
 Hero::~Hero() {}

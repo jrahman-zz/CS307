@@ -11,8 +11,8 @@ using namespace std;
 
 class Hero : public Moveable {
 public:
-	Hero(Json::Value json);
-	virtual ~Hero();
+    Hero(Json::Value json);
+    virtual ~Hero();
 
 };
 

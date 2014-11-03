@@ -6,12 +6,12 @@
 
 class MoveMessage : public BaseMessage {
 public:
-	MoveMessage(Direction direction, unsigned int targetID);
-	virtual ~MoveMessage();
-	Direction getDirection();
+    MoveMessage(Direction direction, unsigned int targetID);
+    virtual ~MoveMessage();
+    Direction getDirection();
 
 private:
-	Direction m_direction;
+    Direction m_direction;
 };
 
 #endif

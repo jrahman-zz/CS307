@@ -16,26 +16,26 @@ class Engine;
 class WorldFascade {
 
 public:
-	WorldFascade(std::shared_ptr<Engine> engineRef);
-	~WorldFascade();
+    WorldFascade(std::shared_ptr<Engine> engineRef);
+    ~WorldFascade();
 
-	bool isNPC(Direction direction);
-	bool isEnemy(Direction direction);
-	bool isBuilding(Direction direction);
-	bool isOpen(Direction direction);
-	bool isChallengeEntrance(Direction direction);
-	bool isLevelExit(Direction direction);
-		
+    bool isNPC(Direction direction);
+    bool isEnemy(Direction direction);
+    bool isBuilding(Direction direction);
+    bool isOpen(Direction direction);
+    bool isChallengeEntrance(Direction direction);
+    bool isLevelExit(Direction direction);
+        
 protected:
-	bool isNPC(unsigned int x, unsigned int y);
-	bool isEnemy(unsigned int x, unsigned int y);
-	bool isBuilding(unsigned int x, unsigned int y);
-	bool isOpen(unsigned int x, unsigned int y);
-	bool isChallengeEntrance(unsigned int x, unsigned int y);
-	bool isLevelExit(unsigned int x, unsigned int y);
+    bool isNPC(unsigned int x, unsigned int y);
+    bool isEnemy(unsigned int x, unsigned int y);
+    bool isBuilding(unsigned int x, unsigned int y);
+    bool isOpen(unsigned int x, unsigned int y);
+    bool isChallengeEntrance(unsigned int x, unsigned int y);
+    bool isLevelExit(unsigned int x, unsigned int y);
 
 private:
-	std::shared_ptr<Engine> engine;
+    std::shared_ptr<Engine> engine;
 };
 
 

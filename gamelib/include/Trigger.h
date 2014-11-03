@@ -8,8 +8,8 @@
 using namespace std;
 
 typedef enum {
-  TriggerTypeUnknown,
-  TriggerTypeNavigation
+    TriggerTypeUnknown,
+    TriggerTypeNavigation
 } TriggerType;
 
 class Trigger : public Interactable {
@@ -20,8 +20,8 @@ public:
 
 protected:
 
-	string m_name;
-	TriggerType m_type;
+    string m_name;
+    TriggerType m_type;
 private:
 };
 
