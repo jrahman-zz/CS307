@@ -5,7 +5,9 @@
 .PHONY: test
 
 CXX	 	:= g++
-CXXFLAGS 	:= -Wall -pedantic -std=c++11 -g
+BASEFLAGS 	:= -Wall -std=c++11 -g
+CXXTFLAGS	:= $(BASEFLAGS)
+CXXFLAGS	:= $(BASEFLAGS) -pedantic
 SRCDIR 	 	:= src
 TESTDIR  	:= test
 BUILDDIR 	:= build
@@ -28,7 +30,7 @@ test: $(TESTBIN)
 
 $(TBUILDDIR)/%.o: $(TESTDIR)/%.cpp
 	@mkdir -p $(TBUILDDIR)
-	@echo " $(CXX) $(CXXFLAGS) $(INC) -fPIC -c -o $@ $<"; $(CXX) $(CXXFLAGS) $(INC) -fPIC -c -o $@ $<
+	@echo " $(CXX) $(CXXTFLAGS) $(INC) -fPIC -c -o $@ $<"; $(CXX) $(CXXTFLAGS) $(INC) -fPIC -c -o $@ $<
 
 # My
 .PRECIOUS: $(TBUILDDIR)/%.out

@@ -1,7 +1,10 @@
 #include <iostream>
 #include <string>
 
-#include "GameLevel.h"
+#include "util.h"
+
+#include "TilemapParser.h"
+#include "TileLayer.h"
 
 using namespace std;
 
@@ -85,23 +88,25 @@ string testDataA = R"({ "backgroundcolor":"#000000",
  "width":18
 })";
 
-int main(int argc, char **argv) {
-	
-	cout << "Starting test " << argv[0] << endl;
-
+START_TEST("tilemap");
 	TilemapParser parser;
 	parser.parse(testDataA);
 
-	GameLevel level(testDataA);
-	auto tile = level[1][0];
-	auto id = tile.getID();
+	auto tilemaps = parser.getTileLayers();
+
+    if (tilemaps.size() != 2) {
+        cout << "Incorrect layer count: " << tilemaps.size() << endl;
+        FAIL_TEST("tilemap");
+    }
+
+    auto layerIt = tilemaps.begin();
+    auto firstLayer = *layerIt++;
+    auto secondLayer = *layerIt++;
+
+    auto mergedLayer = firstLayer->merge(secondLayer);
+	auto id = (*mergedLayer)[1][0].getID();
 	if (id != 21) {
 		cout << "Incorrect tile ID: " << id << " should be 21" << endl;
-	} else {
-		cout << "Passed test" << endl;
+        FAIL_TEST("tilemap");
 	}
-
-	cout << "Ending test" << endl;
-
-	return 0;
-}
+END_TEST("tilemap");

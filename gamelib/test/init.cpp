@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+#include "util.h"
+
 #include "TilemapParser.h"
 
 using namespace std;
@@ -85,23 +87,17 @@ string testDataA = R"({ "backgroundcolor":"#000000",
  "width":18
 })";
 
-int main(int argc, char **argv) {
-	
-	cout << "Starting test" << endl;
-
+START_TEST("init");
 	TilemapParser parser;
 
 	try {
 		if (parser.parse(testDataA)) {
 			cout << "Passed test" << endl;
 		} else {
-			cout << "Failed test" << endl;
-		}
+		    FAIL_TEST("init");
+        }
 	} catch (exception e) {
-		cout << "Failed test with exception " << e.what() << endl;
+		cout << "Exception " << e.what() << endl;
+        FAIL_TEST("init");
 	}
-
-	cout << "Ending test" << endl;
-
-	return 0;
-}
+END_TEST("init");
