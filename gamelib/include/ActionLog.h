@@ -24,8 +24,10 @@ public:
 
     virtual bool onLog(shared_ptr<LogEntry> entry);
     Json::Value getJsonLog();
+
 protected:
     void log(shared_ptr<LogEntry> entry);
+
 private:
     unordered_map<unsigned int, list<shared_ptr<LogEntry>>> m_records;
 };

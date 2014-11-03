@@ -5,6 +5,9 @@ Positionable::Positionable(Json::Value value)
     , m_ID(Positionable::nextID++)
 {}
 
+Positionable::~Positionable() {
+}
+
 Position Positionable::getPosition() const {
     return m_position;
 }

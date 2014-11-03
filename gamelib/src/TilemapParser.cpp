@@ -3,7 +3,6 @@
 #include <iostream>
 
 TilemapParser::TilemapParser() {
-
 }
 
 bool TilemapParser::parse(std::string& json_str) {
@@ -82,7 +81,6 @@ bool TilemapParser::parse(std::string& json_str) {
             }
         }
     }
-
 
     return true;
 }

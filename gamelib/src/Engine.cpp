@@ -4,6 +4,7 @@ Engine::Engine(string levelJson)
     : m_levelJson(levelJson)
     , m_isActive(true)
     , m_heroID(0)
+    , m_levelManager(nullptr)
 {
     init(levelJson);    
 }
@@ -15,7 +16,7 @@ void Engine::resetLevel() {
 }
 
 void Engine::init(string levelJson) {
-    
+
     // Reset data structures
     m_actors.clear();
     m_triggers.clear();
@@ -31,30 +32,37 @@ void Engine::init(string levelJson) {
     }
 
     // Load and merge layers
-    auto layer_it = layers.begin();
-    auto layerOne = *layer_it;
-    layer_it++;
+    auto layerIt = layers.begin();
+    auto layerOne = *layerIt;
+    layerIt++;
 
-    while (layer_it != layers.end()) {
-        layerOne = layerOne->merge(*layer_it);
-        layer_it++;
+    while (layerIt != layers.end()) {
+        layerOne = layerOne->merge(*layerIt);
+        layerIt++;
     }
     m_tileMap = layerOne;
 
+    shared_ptr<LevelManager> mgr(new LevelManager(*m_tileMap));
+    m_levelManager = mgr;
+
     // Load triggers into map
     auto triggers = parser.getTriggers();
-    auto trigger_it = triggers.begin();
-    while (trigger_it != triggers.end()) {
-        m_triggers.push_back(*trigger_it);
-        trigger_it++;
+    auto triggerIt = triggers.begin();
+    while (triggerIt != triggers.end()) {
+        m_triggers.push_back(*triggerIt);
+        m_levelManager->addTrigger(*triggerIt);
+        triggerIt++;
     }
 
     // Load actors into map
     auto actors = parser.getActors();
-    auto actor_it = actors.begin();
-    while (actor_it != actors.end()) {
-        m_actors.push_back(*actor_it);
-        actor_it++;
+    auto actorIt = actors.begin();
+    while (actorIt != actors.end()) {
+        m_actors.push_back(*actorIt);
+        auto position = (*actorIt)->getPosition();
+        auto id = (*actorIt)->getID();
+        m_levelManager->addActor(position, id);
+        actorIt++;
     }
 }
 

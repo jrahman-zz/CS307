@@ -3,8 +3,11 @@
 ActionLog::ActionLog() {}
 
 
-ActionLog::~ActionLog() {
+ActionLog::~ActionLog() {}
 
+bool ActionLog::onLog(shared_ptr<LogEntry> entry) {
+    log(entry);
+    return true;
 }
 
 void ActionLog::log(std::shared_ptr<LogEntry> entry) {
