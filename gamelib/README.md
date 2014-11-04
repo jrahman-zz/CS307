@@ -1,5 +1,5 @@
 Basic Conventions for C++:
-	Use tabs, not spaces
+	Use 4 spaces, not tabs
 	
 	For functions/methods:
 		int function(int argA, unsigned int argb) {
