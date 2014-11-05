@@ -1,5 +1,5 @@
 class LevelsController < ApplicationController
-  before_action :set_level, only: [:show, :edit, :update, :destroy, :play]
+  before_action :set_level, only: [:show, :edit, :update, :destroy, :play, :submissions]
 
   authorize_resource
 
@@ -15,6 +15,10 @@ class LevelsController < ApplicationController
   # GET /levels/1/play
   def play
     render 'game/play', layout: 'game_page'
+  end
+
+  # GET /levels/1/submissions
+  def submissions
   end
 
   # GET /levels/new
