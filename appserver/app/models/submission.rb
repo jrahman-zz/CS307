@@ -5,4 +5,6 @@ class Submission < ActiveRecord::Base
 
   has_one :status
   has_one :language
+
+  has_many :attempts
 end

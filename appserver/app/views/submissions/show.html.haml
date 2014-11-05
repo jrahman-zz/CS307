@@ -2,28 +2,43 @@
   %h1
     Submission
     %small
-      Score:
-      = succeed(',') do
-        = @submission.score
       Passed:
-      = checkmark @submission.passed, color: true
+      = checkmark @submission.completed_at, color: true
 
 .row
   .col-md-5
     %p.lead
       %b User:
       = @submission.user.name
+
     %p.lead
       %b Course:
       = @submission.course.name
+
     %p.lead
-      %b Submitted at:
-      = @submission.submitted_at.strftime('%Y-%m-%d %H:%m')
+      %b Started at:
+      = @submission.started_at ? @submission.started_at.strftime('%Y-%m-%d %H:%m') : 'N/A'
+
+    %p.lead
+      %b Completed at:
+      = @submission.completed_at ? @submission.completed_at.strftime('%Y-%m-%d %H:%m') : 'N/A'
 
   .col-md-7
-    %p
-      %b Code:
-      %pre<= @submission.code
+    %h2 Attempts
+
+    %table.table.table-condensed.table-striped
+      %thead
+        %tr
+          %th #
+          %th Passed?
+          %th Hint Given?
+
+      %tbody
+        - @submission.attempts.order('submitted_at').each_with_index do |a, i|
+          %tr
+            %td= link_to i+1, submission_attempt_path(@submission, a)
+            %td= checkmark a.result_id == 'passed', color: true
+            %td= checkmark a.hint, color: true
 
 
 .form-actions
