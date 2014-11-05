@@ -1,34 +1,35 @@
 .row
-  .col-md-3
+  .col-md-4
     = simple_form_for Submission.new, url: grade_submission_path, class: 'submission-form', html: { onsubmit: "return injectCode('.code-editor')" } do |f|
       = f.error_notification
-      .prompt=@level.prompt
+
+      .prompt
+        %h2= @level.name
+        =@level.prompt
+
       %div#code-editor
+
       = f.hidden_field :level_id, value: @level.id
       = f.hidden_field :course_id, value: @level.course.id
-
-      = f.input_field :code, as: :fake, class: 'code-editor'
 
       .form-actions
         .pull-right
           -# I just want a stinkin input button without specifying a submit url, Haml.
-          <input type="button" value="Test" class="btn btn-primary" id="submit_button" />
+          / <input type="button" value="Test" class="btn btn-primary" id="submit_button" />
+          / TADA!
+          = link_to 'Test', nil, class: 'btn btn-primary'
           -#= f.submit 'Run', class: 'btn btn-primary'
 
-  .col-md-9
-    %p
-      %b Level:
-      = @level.name
-
+  .col-md-8
     #canvas-container
 
 
 %script{ type: 'text/javascript' }
   function get_level_tilemap() {
-  = "\treturn '#{@level.tilemap}';".html_safe
+  = "\treturn #{@level.tilemap};".html_safe
   }
 
   function get_hero_gender() {
-  -# "\treturn '#{}';".html_safe
+  -# "\treturn #{};".html_safe
   = "\treturn 'girl';".html_safe
   }
