@@ -47,10 +47,6 @@ class SubmissionsController < ApplicationController
     render json: @attempt
   end
 
-  def attempt
-    @attempt = Attempt.find(params[:attempt_id])
-  end
-
   # POST /submissions
   def create
     @submission = Submission.new(submission_params)

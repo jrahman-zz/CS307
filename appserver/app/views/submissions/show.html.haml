@@ -29,16 +29,25 @@
     %table.table.table-condensed.table-striped
       %thead
         %tr
-          %th #
+          %th ID
           %th Passed?
           %th Hint Given?
 
       %tbody
-        - @submission.attempts.order('submitted_at').each_with_index do |a, i|
+        - @submission.attempts.order('submitted_at').each do |a|
           %tr
-            %td= link_to i+1, submission_attempt_path(@submission, a)
+            %td= link_to a.id, a
             %td= checkmark a.result_id == 'passed', color: true
             %td= checkmark a.hint, color: true
+
+    .form-actions
+      = form_tag attempt_comparison_url, method: :get, class: 'form-inline' do
+        Compare attempt
+        = collection_select('attempts', 'from', @submission.attempts.all, :id, :id, {}, class: 'form-control input-sm')
+        to attempt
+        = collection_select('attempts', 'to', @submission.attempts.all, :id, :id, {}, class: 'form-control input-sm')
+
+        = submit_tag 'Go', class: 'btn btn-primary btn-sm'
 
 
 .form-actions

@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :levels, :submissions, :courses, :users
-
   # Levels
   get  '/levels/:id/play' => 'levels#play', as: :play_level
   get  '/levels/:id/submissions' => 'levels#submissions', as: :level_submissions
@@ -17,11 +15,16 @@ Rails.application.routes.draw do
 
   # Submissions
   post '/submissions/submit/' => 'submissions#submit', as: :grade_submission
-  get  '/submissions/:id/attempts/:attempt_id' => 'submissions#attempt', as: :submission_attempt
+
+  # Attempts
+  get '/attempts/compare' => 'attempts#compare', as: :attempt_comparison
 
   # Static pages
   get  '/pages/home' => 'pages#home'
   get  '/pages/tutorial' => 'pages#tutorial'
+
+
+  resources :levels, :submissions, :courses, :users, :attempts
 
   root to: 'pages#home'
 end
