@@ -20,7 +20,7 @@
 
       - Course.with_role(:student, current_user).each do |course|
         %tr
-          %td= course.name
+          %td= link_to course.name, course
           %td= course.start_date
           %td
             .progress
@@ -29,4 +29,4 @@
                 // add if statements later
 %p
   = link_to 'Edit', edit_user_registration_path(@users), class: "btn btn-primary btn-sm"
-  = link_to 'Back', users_path, class: "btn btn-warning btn-sm"
+  = link_to 'Back', :back, class: "btn btn-warning btn-sm"
