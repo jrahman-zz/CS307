@@ -3,11 +3,11 @@
   %head
     %title This is a C00L Game
 
-    = stylesheet_link_tag    'game_page', media: 'all'
+    = stylesheet_link_tag 'game_page', media: 'all'
     = csrf_meta_tags
 
   %body
-    = render 'layouts/nav'
+    / = render 'layouts/nav'
 
     = yield
     = javascript_include_tag 'game_page'
