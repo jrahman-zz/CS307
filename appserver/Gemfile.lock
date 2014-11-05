@@ -56,6 +56,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    diffy (3.0.7)
     em-http-request (1.1.2)
       addressable (>= 2.3.4)
       cookiejar
@@ -176,6 +177,7 @@ DEPENDENCIES
   bootstrap-sass
   cancancan
   devise
+  diffy
   em-http-request
   haml-rails
   jquery-rails

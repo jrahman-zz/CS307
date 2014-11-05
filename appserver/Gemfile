@@ -1,59 +1,68 @@
 source 'https://rubygems.org'
 
+######
+# CORE
+######
+
 # Current stable version of Rails.
 gem 'rails', '4.1.6'
-
 # MariaDB doesn't have it's own gem, so we use the compliant mysql2 gem instead.
 gem 'mysql2'
-
-
 # Production-grade server. Combines Mongrel and event-based processing for extremely high throughput on a single thread.
 gem 'thin'
+# Enable controllers to perform asynchronous calls to the routing server.
 gem 'em-http-request'
 
+
+######
+# VIEWS AND ASSETS
+######
 
 # Languages / Libraries
 gem 'jquery-rails'
 gem 'haml-rails' # Using haml-rails changes the default template engine to use haml.
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass'
-
-# Javascript library gems
 gem 'phaser-rails'
-
-# Automatically add vendor prefixes (-moz, -webkit, -o, etc...) to CSS rules
-gem 'autoprefixer-rails'
-
-
-# Improved form generators that automatically format for Bootstrap.
-gem 'simple_form', '~> 3.1.0.rc2'
-
-# Enhanced and simplified searching.
-gem 'ransack'
-
-
+# Syntax highlighted code editor
+gem 'ace-rails-ap'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
+# Automatically add vendor prefixes (-moz, -webkit, -o, etc...) to CSS rules
+gem 'autoprefixer-rails'
+# Improved form generators that automatically format for Bootstrap.
+gem 'simple_form', '~> 3.1.0.rc2'
+# Perform and visualize diff output to compare Attempts
+gem 'diffy'
 
+
+######
+# MODELS
+######
 
 # Authentication and permissions
 gem 'devise'
 gem 'cancancan'
 gem 'rolify'
 
-# Syntax highlighted code editor
-gem 'ace-rails-ap'
-
 # Allow single-table list generation
 gem 'acts_as_list'
+# Enhanced and simplified searching.
+gem 'ransack'
+
+
+######
+# DEVELOPMENT AND TESTING
+######
 
 # Nicer unit testing with RSpec
 gem 'rspec'
 
 # The following gems are only loaded when running in the "development" environment.
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 group :development do
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  # Provide better error pages (only works when requesting from localhost)
   gem 'better_errors'
   gem 'binding_of_caller'
 end
