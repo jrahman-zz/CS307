@@ -48,7 +48,19 @@ def init_engine():
     # And create initial context only containing a copy
     # Of the world and hero fascade objects
     # TODO
+    appcontext = {}
     return jsonify({'success': True, 'sessionID': ''})
+
+#retrieve a value from the context of this execution server
+#for unit testing purposes
+@app.route('/retrieve/<key>', methods=['GET'])
+def get_variable(key):
+    value = ''
+    try:
+        value = appcontext[key]
+    except KeyError:
+        return jsonify({'error':'KeyError'})
+    return jsonify({'value':value})
 
 # Run
 if __name__ == '__main__':
