@@ -6,7 +6,8 @@
 
 // Configure Ace editor
 var editor = ace.edit('code-editor');
-editor.setTheme('ace/theme/twilight');
+editor.setTheme('ace/theme/terminal');
+editor.setFontSize(18);
 editor.getSession().setMode('ace/mode/python');
 
 // Utility functions.
@@ -133,7 +134,7 @@ tilemap_promise.success(function (tilemap_str) {
   }
 
   // Intercept click events on the submit button.
-  $('input#submit_button').click(function(event) {
+  $('#submit_button').click(function(event) {
     var code = editor.getValue();
     console.log('code: ' + code);
     // TODO send code
