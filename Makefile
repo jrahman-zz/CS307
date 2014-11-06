@@ -1,10 +1,14 @@
 .PHONY: all
+.PHONY: clean
 .PHONY: python_container
 
 LIBDIR		:= gamelib
 EXECUTIONDIR	:= executionserver
 
 all: python_container
+
+clean:
+	cd $(LIBDIR) && ${MAKE} clean
 
 $(LIBDIR)/lib/gamelib.a:
 	cd $(LIBDIR) && ${MAKE} all
