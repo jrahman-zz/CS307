@@ -14,6 +14,7 @@ class Ability
     Course.with_role(:instructor, user).each do |course|
       can :manage, course
       can :manage, Level, course_id: course.id
+      can :manage, Role, resource_id: course.id, resource_type: "Course"
     end
 
 

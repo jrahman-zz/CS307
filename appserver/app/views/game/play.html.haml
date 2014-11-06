@@ -6,6 +6,9 @@
       .prompt
         %h2= @level.name
         =@level.prompt
+        
+        .pull-right
+          %button.btn.btn-sm.btn-danger{"data-content" => "And here's some amazing content. It's very engaging. Right?", "data-toggle" => "popover", :title => "Popover title", :type => "button"} Hint
 
       %div#code-editor
 
