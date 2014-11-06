@@ -19,7 +19,7 @@ import spray.httpx.SprayJsonSupport
 
 import spray.json._
 
-import tugboat.Client
+import tugboat.Docker
 
 import org.slf4j.{Logger,LoggerFactory}
 
@@ -34,10 +34,10 @@ class DockerContainerFactory extends ContainerFactory {
   implicit val system = ActorSystem()
   
   def apply(config: ContainerConfig): Future[Option[Container]] = {
-    val client = tugboat.Client()
+    val client = tugboat.Docker()
     for {
       container <- client.containers.create("python")()
-      run       <- client.containers.get(container.id).start.bind(
+      run       <- client.containers.get(container.id).start.portBind(
                   tugboat.Port.Tcp(Settings(system).Container.ContainerBindPort),
                   tugboat.PortBinding.local(Settings(system).Container.HostBindPort)
                 )()
@@ -100,7 +100,7 @@ class DockerContainerFactory extends ContainerFactory {
     }
     
     def shutdown() = {
-      val client = tugboat.Client()
+      val client = tugboat.Docker();
       client.containers.get(containerID).stop(1.seconds)()
     }
   }
