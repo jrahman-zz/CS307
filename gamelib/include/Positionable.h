@@ -22,8 +22,6 @@ protected:
     unsigned int m_ID;
 
     Position m_position;
-private:
-    static unsigned int nextID;
 };
 
 #endif

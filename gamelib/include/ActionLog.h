@@ -24,6 +24,7 @@ public:
 
     virtual bool onLog(shared_ptr<LogEntry> entry);
     Json::Value getJsonLog();
+    void reset();
 
 protected:
     void log(shared_ptr<LogEntry> entry);

@@ -39,4 +39,6 @@ Json::Value ActionLog::getJsonLog() {
     return root;
 }
 
-
+void ActionLog::reset() {
+    m_records.clear();
+}

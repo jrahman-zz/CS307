@@ -15,10 +15,10 @@ public:
     ~TileLayer();
     
     Tile* operator[](unsigned int i) {
-        if (i >= m_gridWidth) {
+        if (i >= m_gridHeight) {
             throw runtime_error("Invalid index");
         }
-        return m_tiles[i];
+        return &m_tiles[i * m_gridWidth];
     }
 
     /*
@@ -29,6 +29,6 @@ public:
     unsigned int getWidth();
     unsigned int getHeight();
 protected:
-    Tile **m_tiles;
+    Tile *m_tiles;
     unsigned int m_gridWidth, m_gridHeight;
 };

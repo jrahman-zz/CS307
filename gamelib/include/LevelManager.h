@@ -15,7 +15,7 @@
 
 using namespace std;
 
-class LevelManager : public StateObserver, MoveObserver, InteractObserver {
+class LevelManager : public StateObserver, public MoveObserver, public InteractObserver {
 public:
 
     explicit LevelManager(TileLayer tilemap);

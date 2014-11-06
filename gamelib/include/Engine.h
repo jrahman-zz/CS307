@@ -35,15 +35,12 @@ public:
     
     unsigned int getTimestep() const;
 
-    shared_ptr<ActionLog> getActionLog() const;
     string getLog() const;
 
     void resetEngine();
 protected:
 
     void init(string levelJson);
-
-    unsigned int getHeroID() const;
 
 private:
     shared_ptr<ActionLog> m_actions;
@@ -53,7 +50,10 @@ private:
      */
     shared_ptr<LevelManager> m_levelManager;
 
-    unsigned int m_heroID;
+    /*
+     * Single hero instance for user control
+     */
+    shared_ptr<Hero> m_hero;
 
     /*
      * Flag controlling if engine should continue to accept
@@ -84,7 +84,7 @@ private:
     unsigned int m_height;
     unsigned int m_width;
 
-    shared_ptr<ActionLog> m_actionLog;
+     ActionLog m_actionLog;
 
     unsigned int m_currentTimestep;
 };

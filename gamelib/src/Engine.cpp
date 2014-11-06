@@ -3,7 +3,6 @@
 Engine::Engine(string levelJson)
     : m_levelJson(levelJson)
     , m_isActive(true)
-    , m_heroID(0)
     , m_levelManager(nullptr)
 {
     init(levelJson);    
@@ -20,6 +19,8 @@ void Engine::init(string levelJson) {
     // Reset data structures
     m_actors.clear();
     m_triggers.clear();
+    m_hero = nullptr;
+    m_actionLog.reset();
 
     TilemapParser parser;
     if (!parser.parse(levelJson)) {
@@ -59,9 +60,23 @@ void Engine::init(string levelJson) {
     auto actorIt = actors.begin();
     while (actorIt != actors.end()) {
         m_actors.push_back(*actorIt);
-        auto position = (*actorIt)->getPosition();
-        auto id = (*actorIt)->getID();
+        auto actor = *actorIt;
+        auto position = actor->getPosition();
+        auto id = actor->getID();
         m_levelManager->addActor(position, id);
+        
+        actor->registerStateObserver(m_levelManager);
+        actor->registerInteractObserver(m_levelManager);
+
+        auto moveable = dynamic_pointer_cast<Moveable>(actor);
+        if (moveable != nullptr) {
+            moveable->registerMoveObserver(m_levelManager);
+        }           
+
+        // Check for hero
+        if ((*actorIt)->getType() == InteractableType::HERO) {
+            m_hero = dynamic_pointer_cast<Hero>(*actorIt);
+        }
         actorIt++;
     }
 }
@@ -85,10 +100,8 @@ unsigned int Engine::getTimestep() const {
     return m_currentTimestep;
 }
 
-unsigned int Engine::getHeroID() const {
-    return m_heroID;
-}
-
-shared_ptr<ActionLog> Engine::getActionLog() const {
-    return m_actionLog;
+string Engine::getLog() const {
+    Json::FastWriter writer;
+    auto json = m_actions->getJsonLog();
+    return writer.write(json);
 }

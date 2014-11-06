@@ -4,10 +4,7 @@ TileLayer::TileLayer(unsigned int g_width, unsigned int g_height)
     : m_gridWidth(g_width)
     , m_gridHeight(g_height)
 {
-    m_tiles = new Tile*[m_gridHeight];
-    for (int i = 0; i < m_gridHeight; i++) {
-        m_tiles[i] = new Tile[m_gridWidth];
-    }
+    m_tiles = new Tile[m_gridHeight * m_gridWidth];
 }
 
 TileLayer::TileLayer(TileLayer& rhs) 
@@ -15,14 +12,12 @@ TileLayer::TileLayer(TileLayer& rhs)
     , m_gridHeight(rhs.m_gridHeight)
     , m_tiles(nullptr)
 {
-    m_tiles = new Tile*[m_gridHeight];
-    for (unsigned int i = 0; i < m_gridHeight; i++) {
-        m_tiles[i] = new Tile[m_gridWidth];
-    }
+    m_tiles = new Tile[m_gridHeight * m_gridWidth];
     
     for (unsigned int i = 0; i < m_gridHeight; i++) {
-        for (unsigned int j = 0; j < m_gridWidth; i++) {
-            m_tiles[i][j] = rhs.m_tiles[i][j];
+        for (unsigned int j = 0; j < m_gridWidth; j++) {
+            auto index = i * m_gridWidth + j;
+            m_tiles[index] = rhs.m_tiles[index];
         }
     }
 }
@@ -39,11 +34,6 @@ TileLayer::TileLayer(TileLayer&& rhs)
 
 TileLayer::~TileLayer() {
     if (m_tiles != nullptr) {
-        for (int i = 0; i < m_gridHeight; i++) {
-            if (m_tiles[i] != nullptr) {
-                delete[] m_tiles[i];
-            }
-        }
         delete[] m_tiles;
     }
 }
@@ -56,13 +46,14 @@ shared_ptr<TileLayer> TileLayer::merge(shared_ptr<TileLayer> rhs) {
     shared_ptr<TileLayer> ptr(new TileLayer(m_gridWidth, m_gridHeight));
     for (unsigned int i = 0; i < m_gridHeight; i++) {
         for (unsigned int j = 0; j < m_gridWidth; j++) {
-            switch(m_tiles[i][j].getType()) {
+            auto index = i * m_gridWidth + j;
+            switch(m_tiles[index].getType()) {
                 case TileType::None:
                 case TileType::Blank:
-                    (*ptr)[i][j] = rhs->m_tiles[i][j];
+                    (*ptr)[i][j] = rhs->m_tiles[index];
                     break;
                 default:
-                    (*ptr)[i][j] = m_tiles[i][j];
+                    (*ptr)[i][j] = m_tiles[index];
             }
         }
     }
