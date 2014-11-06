@@ -36,6 +36,8 @@ public:
     unsigned int getTimestep() const;
 
     shared_ptr<ActionLog> getActionLog() const;
+    string getLog() const;
+
     void resetEngine();
 protected:
 

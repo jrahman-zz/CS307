@@ -3,7 +3,7 @@ MAINTAINER Jason P. Rahman &lt;rahmanj@purdue.edu&gt;
 
 RUN mkdir -p /srv/scripts
 COPY run.sh /srv/scripts/
-COPY CodeExecutor.py /srv/scripts/
+COPY codeexecutor.py /srv/scripts/
 COPY __init__.py /srv/scripts/
 COPY restserver.py /srv/scripts/
 
