@@ -18,7 +18,7 @@ BOOST_PYTHON_MODULE(gamelib) {
 	class_<Engine>("Engine", init<string>())
 		.def("getWorld", &Engine::getWorld)
 		.def("getHero", &Engine::getHero)
-		.def("reset", &Engine::resetEngine);
+		.def("reset", &Engine::resetEngine)
 		.def("getLog", &Engine::getLog);
 		// TODO
 
