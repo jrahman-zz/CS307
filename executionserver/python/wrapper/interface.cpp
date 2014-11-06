@@ -19,6 +19,8 @@ BOOST_PYTHON_MODULE(gamelib) {
 		.def("getWorld", &Engine::getWorld)
 		.def("getHero", &Engine::getHero)
 		.def("reset", &Engine::resetEngine);
+		.def("getLog", &Engine::getLog);
+		// TODO
 
 	class_<HeroFascade>("Hero", no_init)
 		.def("moveUp", &HeroFascade::moveUp)
