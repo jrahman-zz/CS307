@@ -22,7 +22,9 @@ libraryDependencies ++= Seq(
     "org.slf4j" % "slf4j-simple" % "1.7.7"
 )
 
-libraryDependencies += "me.lessis" %% "tugboat" % "0.1.0-SNAPSHOT"
+resolvers += "softprops-maven" at "http://dl.bintray.com/content/softprops/maven"
+
+libraryDependencies += "me.lessis" %% "tugboat" % "0.1.0"
 
 resolvers += "RoundEights" at "http://maven.spikemark.net/roundeights"
 
