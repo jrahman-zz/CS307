@@ -6,6 +6,23 @@ class SubmissionsController < ApplicationController
     @submission = Submission.find(params[:id])
   end
 
+  def init_server
+    # Only allow submissions from users who are signed in
+    if user_signed_in?
+      uri = 'http://klamath.dnsdynamic.com:8088/session/create'
+      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: params[:level]
+
+      http.callback do
+        finish_request do
+          render json: http.response
+        end
+      end
+
+    else
+      render status: 403 # Forbidden
+    end
+  end
+
   def submit
     # Only allow submissions from users who are signed in
     if user_signed_in?
@@ -17,17 +34,14 @@ class SubmissionsController < ApplicationController
       # Explicitly set the user to avoid client side hijacking
       @info[:user_id] = current_user.id
 
-    #   uri = 'http://klamath.dnsdynamic.com' #TODO replace with grading server location
-    #   http = EM::HttpRequest.new(uri).post body: @info
+      uri = 'http://klamath.dnsdynamic.com:8088/level/submit/'
+      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: params[:code]
 
-    #   http.callback do
-    #     finish_request do
-    #       render json: http.response
-    #     end
-    #   end
-
-    #   self.response_body = ''
-    #   self.status = -1
+      http.callback do
+        finish_request do
+          render json: http.response
+        end
+      end
 
       @submission = Submission.find_or_create_by(@info)
       @submission.save
