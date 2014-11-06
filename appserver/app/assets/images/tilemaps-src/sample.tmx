@@ -19,10 +19,6 @@
   </data>
  </layer>
  <objectgroup name="ActorsLayer">
-  <object name="hero" type="position" x="448" y="448" width="64" height="64">
-   <properties>
-    <property name="id" value="0"/>
-   </properties>
-  </object>
+  <object name="hero" type="position" x="448" y="448" width="64" height="64"/>
  </objectgroup>
 </map>
