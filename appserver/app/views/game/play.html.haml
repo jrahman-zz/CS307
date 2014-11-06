@@ -6,6 +6,9 @@
       .prompt
         %h2= @level.name
         =@level.prompt
+        
+        .pull-right
+          %button.btn.btn-sm.btn-danger{"data-content" => "And here's some amazing content. It's very engaging. Right?", "data-toggle" => "popover", :title => "Popover title", :type => "button"} Hint
 
       %div#code-editor
 
@@ -14,22 +17,17 @@
 
       .form-actions
         .pull-right
-          -# I just want a stinkin input button without specifying a submit url, Haml.
-          / <input type="button" value="Test" class="btn btn-primary" id="submit_button" />
-          / TADA!
-          = link_to 'Test', nil, class: 'btn btn-primary'
-          -#= f.submit 'Run', class: 'btn btn-primary'
+          %span#submit_button.btn.btn-primary Test
 
   .col-md-8
     #canvas-container
 
 
 %script{ type: 'text/javascript' }
-  function get_level_tile_map() {
-  = "return #{@level.tilemap}".html_safe
+  function get_level_tilemap() {
+  = "\treturn '#{@level.tilemap}';".html_safe
   }
 
   function get_hero_gender() {
-  -# "\treturn #{};".html_safe
   = "\treturn 'girl';".html_safe
   }
