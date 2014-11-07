@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "Hero.h"
+#include "TimeKeeper.h"
 #include "Util.h"
 
 using namespace std;
@@ -15,7 +16,7 @@ using namespace std;
  */
 class HeroFascade {
 public:
-    HeroFascade(shared_ptr<Hero> hero);
+    HeroFascade(shared_ptr<Hero> hero, shared_ptr<TimeKeeper> timekeeper);
     ~HeroFascade();
     
     unsigned int moveUp(unsigned int distance = 1);
@@ -31,9 +32,14 @@ protected:
     unsigned int move(Direction direction, unsigned int distance = 1);
 
     /*
-     * Reference to the game engine object
+     * Reference to the hero object
      */
     shared_ptr<Hero> m_hero;
+
+    /*
+     * Reference to the timekeeper
+     */
+    shared_ptr<TimeKeeper> m_timekeeper;
 private:    
 };
 

@@ -1,11 +1,9 @@
 #include "MoveLogEntry.h"
 
 MoveLogEntry::MoveLogEntry(
-    unsigned int timestep,
     unsigned int actorID,
     Position position)
-    : LogEntry(timestep)
-    , m_actorID(actorID)
+    : m_actorID(actorID)
     , m_position(position)
 {}
 
@@ -22,4 +20,3 @@ Json::Value MoveLogEntry::serialize() {
 string MoveLogEntry::getType() {
     return string("move");
 }
-

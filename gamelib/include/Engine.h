@@ -28,8 +28,6 @@ public:
     Engine(string levelJson);
     ~Engine();
 
-    void resetLevel();
-
     shared_ptr<WorldFascade> getWorld() const;
     shared_ptr<HeroFascade> getHero() const;
     
@@ -43,8 +41,6 @@ protected:
     void init(string levelJson);
 
 private:
-    shared_ptr<ActionLog> m_actions;
-
     /*
      * Object to manage level state
      */
@@ -84,9 +80,8 @@ private:
     unsigned int m_height;
     unsigned int m_width;
 
-     ActionLog m_actionLog;
-
-    unsigned int m_currentTimestep;
+    shared_ptr<ActionLog> m_actionLog;
+    shared_ptr<TimeKeeper> m_timekeeper;
 };
 
 #endif // ENGINE_H

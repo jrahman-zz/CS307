@@ -4,23 +4,16 @@ Engine::Engine(string levelJson)
     : m_levelJson(levelJson)
     , m_isActive(true)
     , m_levelManager(nullptr)
+    , m_timekeeper(new TimeKeeper())
 {
-    init(levelJson);    
+    shared_ptr<ActionLog> logger(new ActionLog(m_timekeeper));
+    m_actionLog = logger;
+    init(m_levelJson);    
 }
 
 Engine::~Engine() {}
 
-void Engine::resetLevel() {
-    init(m_levelJson);
-}
-
 void Engine::init(string levelJson) {
-
-    // Reset data structures
-    m_actors.clear();
-    m_triggers.clear();
-    m_hero = nullptr;
-    m_actionLog.reset();
 
     TilemapParser parser;
     if (!parser.parse(levelJson)) {
@@ -73,9 +66,14 @@ void Engine::init(string levelJson) {
             moveable->registerMoveObserver(m_levelManager);
         }           
 
+        auto loggable = dynamic_pointer_cast<Loggable>(actor);
+        if (loggable != nullptr) {
+            loggable->registerLogObserver(m_actionLog);
+        }
+
         // Check for hero
-        if ((*actorIt)->getType() == InteractableType::HERO) {
-            m_hero = dynamic_pointer_cast<Hero>(*actorIt);
+        if (actor->getType() == InteractableType::HERO) {
+            m_hero = dynamic_pointer_cast<Hero>(actor);
         }
         actorIt++;
     }
@@ -88,20 +86,30 @@ shared_ptr<WorldFascade> Engine::getWorld() const {
 }
 
 shared_ptr<HeroFascade> Engine::getHero() const {
-    return nullptr;
+    if (m_hero == nullptr) {
+        throw runtime_error("No hero found");
+    }  
+    return shared_ptr<HeroFascade>(new HeroFascade(m_hero, m_timekeeper));
 }
 
 void Engine::resetEngine() {
+
+    // Reset data structures
+    m_actors.clear();
+    m_triggers.clear();
+    m_hero = nullptr;
+    m_actionLog->reset();
+    m_timekeeper->reset();
 
     init(m_levelJson);
 }
 
 unsigned int Engine::getTimestep() const {
-    return m_currentTimestep;
+    return m_timekeeper->getTimestep();
 }
 
 string Engine::getLog() const {
     Json::FastWriter writer;
-    auto json = m_actions->getJsonLog();
+    auto json = m_actionLog->getJsonLog();
     return writer.write(json);
 }

@@ -2,8 +2,9 @@
 
 #include "Engine.h"
 
-HeroFascade::HeroFascade(shared_ptr<Hero> hero)
+HeroFascade::HeroFascade(shared_ptr<Hero> hero, shared_ptr<TimeKeeper> timekeeper)
     : m_hero(hero)
+    , m_timekeeper(timekeeper)
 {}
 
 HeroFascade::~HeroFascade() {}
@@ -27,6 +28,7 @@ unsigned int HeroFascade::moveRight(unsigned int distance) {
 unsigned int HeroFascade::move(Direction direction, unsigned int distance) {
     unsigned int distanceTraveled = 0;
     while (m_hero->move(direction) && distance-- > 0) {
+        m_timekeeper->incrementClock();
         distanceTraveled++;
     }
     return distanceTraveled;

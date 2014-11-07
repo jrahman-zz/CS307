@@ -8,6 +8,7 @@
 #include "json/json.h"
 #include "LogEntry.h"
 #include "LogObserver.h"
+#include "TimeKeeper.h"
 
 using namespace std;
 
@@ -19,11 +20,11 @@ using namespace std;
 class ActionLog : public LogObserver {
 
 public:
-    ActionLog();
+    ActionLog(shared_ptr<const TimeKeeper> timekeeper);
     virtual ~ActionLog();
 
     virtual bool onLog(shared_ptr<LogEntry> entry);
-    Json::Value getJsonLog();
+    Json::Value getJsonLog() const;
     void reset();
 
 protected:
@@ -31,6 +32,8 @@ protected:
 
 private:
     unordered_map<unsigned int, list<shared_ptr<LogEntry>>> m_records;
+
+    shared_ptr<const TimeKeeper> m_timekeeper;
 };
 
 #endif // ACTION_LOG_H

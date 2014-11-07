@@ -48,6 +48,10 @@ bool Moveable::move(Direction direction) {
     Position next(m_position.getX() + dx, m_position.getY() + dy);
     if (m_moveObserver->onPreMove(*this, m_position, next)) {
         m_position = next;
+
+        // TODO, get timestamp injected
+        shared_ptr<MoveLogEntry> logEntry(new MoveLogEntry(getID(), next));
+        log(logEntry);
         m_moveObserver->onPostMove(*this, m_position);
         return true;
     }

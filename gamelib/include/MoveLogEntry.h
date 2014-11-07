@@ -17,7 +17,6 @@ public:
      * Construct a new MoveLogEntry
      */
     MoveLogEntry(
-        unsigned int timestamp,
         unsigned int actorID,
         Position position);
     ~MoveLogEntry();

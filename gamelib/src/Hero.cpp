@@ -1,6 +1,5 @@
 #include "Hero.h"
 
-
 Hero::Hero(Json::Value value)
     : Moveable(value) {
     setInteractableType(InteractableType::HERO);

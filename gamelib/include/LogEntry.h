@@ -12,18 +12,13 @@
 class LogEntry {
 public:
     
-    LogEntry(unsigned int timestep); 
+    LogEntry(); 
     virtual ~LogEntry();
     
     /*
      * Serialize the log entry into JSON
      */
     Json::Value toJson();
-
-    /*
-     * Return the timestep for this entry
-     */
-    unsigned int getTimestep();
 protected:
     
     /*
@@ -35,8 +30,6 @@ protected:
      * Return a string describing the type of log entry
      */
     virtual std::string getType() = 0;
-private:
-    unsigned int m_timestep;
 };
 
 #endif // LOG_ENTRY_H

@@ -1,8 +1,6 @@
 #ifndef HERO_H
 #define HERO_H
 
-#include <string>
-
 #include "Interactable.h"
 #include "Moveable.h"
 #include "json/json.h"

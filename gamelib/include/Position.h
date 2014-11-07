@@ -25,8 +25,8 @@ public:
 
 protected:
     unsigned int m_x, m_y;
-
-    bool m_valid;
+    bool m_xValid;
+    bool m_yValid;
 };
 
 namespace std {

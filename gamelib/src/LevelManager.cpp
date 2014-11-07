@@ -70,16 +70,20 @@ void LevelManager::onPostStateChange(Interactable& obj, State current) {
     // TODO
 }
 
+#include <iostream> // DEBUG
+
 /*
  * Validate if the move is possible
  */
 bool LevelManager::onPreMove(Moveable& obj, Position current, Position next) {
     if (obj.getID() != m_actors[current]) {
+        cout << "Object mismatch, " << obj.getID() << " mismatch " << m_actors[current] << endl;
         return false; // Mismatch
     }
     
     // Check if the square is occupied
     if (m_actors.find(next) != m_actors.end()) {
+        cout << "Occupied square" << endl;
         return false;
     }
 
@@ -87,7 +91,7 @@ bool LevelManager::onPreMove(Moveable& obj, Position current, Position next) {
     // Consult the tilemap
     auto row = next.getY();
     auto col = next.getX();
-    bool ret = false;
+    bool ret = true;
 
     switch ((*m_tilemap)[row][col].getType()) {
         case TileType::None:
@@ -103,28 +107,27 @@ bool LevelManager::onPreMove(Moveable& obj, Position current, Position next) {
             ret = false;
     }
 
-    if (!ret) {
-        return ret;
-    }
-
     // Check the move distance
     auto deltaX = current.getX() - next.getX();
     auto deltaY = current.getY() - next.getY();
     auto absdiff = abs(deltaX) + abs(deltaY);
     if (absdiff != 1) {
-        return false;
+        cout << "ABS failed" << endl;
+        ret = false;
     }
 
     // Check for on/off the map
     if (next.getX() < 0 || next.getX() >= m_tilemap->getWidth()) {
-        return false;
+        cout << "Off the edge of the world" << endl;
+        ret = false;
     }
 
     if (next.getY() < 0 || next.getY() >= m_tilemap->getHeight()) {
-        return false;
+        cout << "Off the y edge of the world" << endl;
+        ret = false;
     }
 
-    return true;
+    return ret;
 }
 
 /*

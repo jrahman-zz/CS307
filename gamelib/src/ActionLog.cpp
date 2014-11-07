@@ -1,7 +1,10 @@
 #include "ActionLog.h"
 
-ActionLog::ActionLog() {}
+#include <iostream>
 
+ActionLog::ActionLog(shared_ptr<const TimeKeeper> timekeeper)
+    : m_timekeeper(timekeeper)
+{}
 
 ActionLog::~ActionLog() {}
 
@@ -11,10 +14,11 @@ bool ActionLog::onLog(shared_ptr<LogEntry> entry) {
 }
 
 void ActionLog::log(std::shared_ptr<LogEntry> entry) {
-    m_records[entry->getTimestep()].push_front(entry);
+    cout << "Adding" << endl;
+    m_records[m_timekeeper->getTimestep()].push_front(entry);
 }
 
-Json::Value ActionLog::getJsonLog() {
+Json::Value ActionLog::getJsonLog() const {
     Json::Value root(Json::ValueType::arrayValue);
 
     int prev_timestep = -1; 

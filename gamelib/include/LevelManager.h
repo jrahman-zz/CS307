@@ -12,6 +12,7 @@
 #include "Moveable.h"
 #include "TileLayer.h"
 #include "Trigger.h"
+#include "TimeKeeper.h"
 
 using namespace std;
 
@@ -42,12 +43,12 @@ public:
 
 protected:
     shared_ptr<TileLayer> m_tilemap;
+    
     unordered_map<Position, unsigned int> m_actors;
     unordered_map<unsigned int, Position> m_actorsID;
 
     unordered_map<Position, shared_ptr<Trigger>> m_triggers;
     unordered_map<unsigned int, shared_ptr<Trigger>> m_triggersID;
-
 private:
 
 };
