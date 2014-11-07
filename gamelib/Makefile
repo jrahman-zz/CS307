@@ -17,6 +17,7 @@ SOURCES 	:= $(shell find $(SRCDIR) -type f -name *.cpp)
 OBJECTS 	:= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.cpp=.o))
 TESTS		:= $(shell find $(TESTDIR) -type f -name *.cpp)
 TESTBIN 	:= $(patsubst $(TESTDIR)/%,$(TBUILDDIR)/%,$(TESTS:.cpp=.out))
+TESTLIST	:= $(patsubst $(TESTDIR)/%,$(TBUILDDIR)/%,$(TESTS:.cpp=.test))
 
 
 INC := -I include
@@ -25,7 +26,7 @@ LIBGAME_STATIC=libgame.a
 
 all: $(LIBDIR)/$(LIBGAME_STATIC) $(LIBDIR)/$(LIBGAME_SHARED)
 
-test: $(TESTBIN)
+test: cleantest $(TESTLIST)
 	@echo "Ran tests"
 
 $(TBUILDDIR)/%.o: $(TESTDIR)/%.cpp
@@ -37,7 +38,9 @@ $(TBUILDDIR)/%.o: $(TESTDIR)/%.cpp
 
 $(TBUILDDIR)/%.out: $(TBUILDDIR)/%.o $(OBJECTS)
 	@$(CXX) $^ -o $@
-	@$@
+
+$(TBUILDDIR)/%.test: $(TBUILDDIR)/%.out
+	@$<
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
 	@mkdir -p $(BUILDDIR)
