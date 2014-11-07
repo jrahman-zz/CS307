@@ -8,7 +8,7 @@
         =@level.prompt
         
         .pull-right
-          %button.btn.btn-sm.btn-danger{"data-content" => "And here's some amazing content. It's very engaging. Right?", "data-toggle" => "popover", :title => "Popover title", :type => "button"} Hint
+          %button.btn.btn-sm.btn-danger{"data-content" => "@level.hint", "data-toggle" => "popover", "data-trigger" => "focus", :href => "#", :type => "button", :tabindex => "0"} Hint 
 
       %div#code-editor
 
