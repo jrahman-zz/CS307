@@ -27,7 +27,7 @@ unsigned int HeroFascade::moveRight(unsigned int distance) {
 
 unsigned int HeroFascade::move(Direction direction, unsigned int distance) {
     unsigned int distanceTraveled = 0;
-    while (m_hero->move(direction) && distance-- > 0) {
+    while (distance-- > 0 && m_hero->move(direction)) {
         m_timekeeper->incrementClock();
         distanceTraveled++;
     }

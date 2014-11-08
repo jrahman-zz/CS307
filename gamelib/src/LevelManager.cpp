@@ -93,6 +93,15 @@ bool LevelManager::onPreMove(Moveable& obj, const Position& current, const Posit
     auto col = next.getX();
     bool ret = true;
 
+    // Check for on/off the map
+    if (next.getX() < 0 || next.getX() >= m_tilemap->getWidth()) {
+        return false;
+    }
+
+    if (next.getY() < 0 || next.getY() >= m_tilemap->getHeight()) {
+        return false;
+    }
+
     switch ((*m_tilemap)[row][col].getType()) {
         case TileType::None:
         case TileType::Blank:
@@ -114,16 +123,7 @@ bool LevelManager::onPreMove(Moveable& obj, const Position& current, const Posit
     if (absdiff != 1) {
         ret = false;
     }
-
-    // Check for on/off the map
-    if (next.getX() < 0 || next.getX() >= m_tilemap->getWidth()) {
-        ret = false;
-    }
-
-    if (next.getY() < 0 || next.getY() >= m_tilemap->getHeight()) {
-        ret = false;
-    }
-
+ 
     return ret;
 }
 

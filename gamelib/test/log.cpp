@@ -131,6 +131,10 @@ string testDataA = R"({ "backgroundcolor":"#000000",
  "width":18
 })";
 
+
+string expected_log = R"([[{"data":{"actorID":0,"position":{"x":14,"y":2}},"type":"move"}],[{"data":{"actorID":0,"position":{"x":14,"y":1}},"type":"move"}]]
+)";
+
 START_TEST("actors");
     Engine engine(testDataA);
     auto hero = engine.getHero();
@@ -149,8 +153,12 @@ START_TEST("actors");
         FAIL_TEST("actors");
     }
 
-    cout << "Getting log" << endl;
-
-    cout << engine.getLog() << endl;
+    auto log = engine.getLog();
+    if (log.compare(expected_log)) {
+        cout << "Log doesn't matched expected: " << endl
+            << "Found: " << log << endl
+            << "Expected: " << expected_log << endl;
+        FAIL_TEST("actors");
+    }
 
 END_TEST("actors");
