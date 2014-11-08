@@ -18,7 +18,11 @@ public:
 
 protected:
     Positionable(Json::Value value);
-    Positionable(const Positionable& rhs);
+    
+    /* 
+     * Prohibit default construction
+     */
+    Positionable() = delete;
 
     unsigned int m_ID;
 

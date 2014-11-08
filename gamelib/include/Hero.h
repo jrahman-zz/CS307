@@ -16,6 +16,11 @@ public:
 
 protected:
 
+    /* 
+     * Ban default construction
+     */
+    Hero() = delete;
+
     /*
      * Double dispatch
      */

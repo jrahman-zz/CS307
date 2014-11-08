@@ -58,7 +58,6 @@ shared_ptr<Interactable> Interactable::createFromJson(InteractableType type, Jso
         case InteractableType::ENEMY:
             ptr = shared_ptr<Enemy>(new Enemy(val));
         default:
-            ptr = nullptr;
             break;
     }
     return ptr;

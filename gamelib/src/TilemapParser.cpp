@@ -190,9 +190,7 @@ vector<shared_ptr<Interactable>> TilemapParser::parseActors(Json::Value root) {
         object["y"] = object["y"].asInt() / m_tileHeight;
     
         auto type = Interactable::getInteractableType(object["type"].asString());
-        auto interactable = Interactable::createFromJson(type, object); 
-            
-        shared_ptr<Interactable> actor(interactable);
+        auto actor = Interactable::createFromJson(type, object); 
         actors.push_back(actor);
     }
     return actors;

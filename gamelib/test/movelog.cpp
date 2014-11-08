@@ -1,7 +1,7 @@
 #include "ActionLog.h"
 #include "Position.h"
 #include "MoveLogEntry.h"
-#include "LogEntry.h"
+#include "TimeKeeper.h"
 
 #include "json/json.h"
 
@@ -16,16 +16,20 @@ auto master = R"([[{"data":{"actorID":0,"position":{"x":0,"y":1}},"timestamp":0,
 
 
 START_TEST("movelog");
-    shared_ptr<LogEntry> moveA(new MoveLogEntry(0, 0, Position(0, 1)));
-    shared_ptr<LogEntry> moveB(new MoveLogEntry(3, 1, Position(1, 1)));
-    shared_ptr<LogEntry> moveC(new MoveLogEntry(3, 0, Position(2, 3)));
+    shared_ptr<LogEntry> moveA(new MoveLogEntry(0, Position(0, 1)));
+    shared_ptr<LogEntry> moveB(new MoveLogEntry(1, Position(1, 1)));
+    shared_ptr<LogEntry> moveC(new MoveLogEntry(0, Position(2, 3)));
 
-    ActionLog log;
+    shared_ptr<TimeKeeper> timekeeper(new TimeKeeper());
+    ActionLog log(timekeeper);
     if (!log.onLog(moveA)) {
         cout << "Failed to add moveA" << endl;
         FAIL_TEST("movelog");
     }
     
+    timekeeper->incrementClock();
+    timekeeper->incrementClock();
+
     if (!log.onLog(moveB)) {
         cout << "Failed to add moveB" << endl;
         FAIL_TEST("movelog");

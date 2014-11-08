@@ -35,8 +35,8 @@ public:
     virtual bool onPreStateChange(Interactable& obj, State current, State next);
     virtual void onPostStateChange(Interactable& obj, State current);
 
-    virtual bool onPreMove(Moveable& obj, Position current, Position next);
-    virtual void onPostMove(Moveable& obj, Position current);
+    virtual bool onPreMove(Moveable& obj, const Position& current, const Position& next);
+    virtual void onPostMove(Moveable& obj, const Position& current);
 
     virtual bool onPreInteract(Interactable& src, Interactable& target);
     virtual void onPostInteract(Interactable& src, Interactable& target);

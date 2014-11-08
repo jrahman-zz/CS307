@@ -1,17 +1,13 @@
 #include "Position.h"
 
-Position::Position(unsigned int x, unsigned int y) 
+#include <iostream>
+using namespace std;
+
+Position::Position(int x, int y) 
     : m_x(x)
     , m_y(y)
     , m_xValid(true)
     , m_yValid(true)
-{}
-
-Position::Position(const Position& rhs) 
-    : m_x(rhs.m_x)
-    , m_y(rhs.m_y)
-    , m_yValid(rhs.m_yValid)
-    , m_xValid(rhs.m_xValid)
 {}
 
 Position::Position() 
@@ -21,29 +17,49 @@ Position::Position()
     , m_y(0)
 {}
 
-Position::~Position() {}
+Position::Position(const Position& rhs)
+    : m_x(rhs.m_x)
+    , m_y(rhs.m_y)
+    , m_xValid(rhs.m_x)
+    , m_yValid(rhs.m_y)
+{}
 
 Json::Value Position::toJson() const {
-    Json::Value root(Json::ValueType::arrayValue);
+    Json::Value root(Json::ValueType::objectValue);
     root["x"] = m_x;
     root["y"] = m_y;
     return root;
 }
 
-unsigned int Position::getX() const {
+int Position::getX() const {
+    if (!isValid()) {
+        throw runtime_error("Invalid Position");
+    }
     return m_x;
 }
 
-unsigned int Position::getY() const {
+int Position::getY() const {
+    if (!isValid()) {
+        throw runtime_error("Invalid Position");
+    }    
     return m_y;
 }
 
-void Position::setX(unsigned int x) {
+void Position::setX(int x) {
     m_xValid = true;
     m_x = x;
 }
 
-void Position::setY(unsigned int y) {
+void Position::setY(int y) {
     m_yValid = true;
     m_y = y;
+}
+
+bool Position::isValid() const {
+    return m_xValid && m_yValid;
+}
+
+string Position::toString() const {
+    string s = to_string(m_x) + ":" + to_string(m_y) + "v" + to_string(isValid());
+    return s;
 }

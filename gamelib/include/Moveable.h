@@ -30,6 +30,11 @@ public:
     
 protected:
     Moveable(Json::Value value);
+    
+    /*
+     * Prohibit default construction
+     */
+    Moveable() = delete;
 
 private:
 

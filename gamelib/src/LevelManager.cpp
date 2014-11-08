@@ -12,8 +12,8 @@ LevelManager::LevelManager(TileLayer&& tilemap)
 
 bool LevelManager::addActor(Position pos, unsigned int actorID) {
     if (m_actorsID.find(actorID) == m_actorsID.end()) {
-        m_actorsID[actorID] = pos;
-        m_actors[pos] = actorID;
+        m_actorsID.emplace(actorID, pos);
+        m_actors.emplace(pos, actorID);
         return true;
     } else {
         return false;
@@ -33,8 +33,8 @@ bool LevelManager::removeActor(unsigned int actorID) {
 
 bool LevelManager::addTrigger(shared_ptr<Trigger> trigger) {
     if (m_triggersID.find(trigger->getID()) == m_triggersID.end()) {
-        m_triggers[trigger->getPosition()] = trigger;
-        m_triggersID[trigger->getID()] = trigger;
+        m_triggers.emplace(trigger->getPosition(), trigger);
+        m_triggersID.emplace(trigger->getID(), trigger);
         return true;
     } else {
         return false;
@@ -44,7 +44,8 @@ bool LevelManager::addTrigger(shared_ptr<Trigger> trigger) {
 bool LevelManager::removeTrigger(unsigned int triggerID) {
     if (m_triggersID.find(triggerID) == m_triggersID.end()) {
         auto pos = m_triggersID[triggerID]->getPosition();
-
+        m_triggers.erase(pos);
+        m_triggersID.erase(triggerID);
         return true;
     } else {
         return false;
@@ -75,15 +76,14 @@ void LevelManager::onPostStateChange(Interactable& obj, State current) {
 /*
  * Validate if the move is possible
  */
-bool LevelManager::onPreMove(Moveable& obj, Position current, Position next) {
+bool LevelManager::onPreMove(Moveable& obj, const Position& current, const Position& next) {
+    
     if (obj.getID() != m_actors[current]) {
-        cout << "Object mismatch, " << obj.getID() << " mismatch " << m_actors[current] << endl;
         return false; // Mismatch
     }
     
     // Check if the square is occupied
     if (m_actors.find(next) != m_actors.end()) {
-        cout << "Occupied square" << endl;
         return false;
     }
 
@@ -112,18 +112,15 @@ bool LevelManager::onPreMove(Moveable& obj, Position current, Position next) {
     auto deltaY = current.getY() - next.getY();
     auto absdiff = abs(deltaX) + abs(deltaY);
     if (absdiff != 1) {
-        cout << "ABS failed" << endl;
         ret = false;
     }
 
     // Check for on/off the map
     if (next.getX() < 0 || next.getX() >= m_tilemap->getWidth()) {
-        cout << "Off the edge of the world" << endl;
         ret = false;
     }
 
     if (next.getY() < 0 || next.getY() >= m_tilemap->getHeight()) {
-        cout << "Off the y edge of the world" << endl;
         ret = false;
     }
 
@@ -133,7 +130,7 @@ bool LevelManager::onPreMove(Moveable& obj, Position current, Position next) {
 /*
  * Actually commit the operation against our data structures
  */
-void LevelManager::onPostMove(Moveable& obj, Position current) {
+void LevelManager::onPostMove(Moveable& obj, const Position& current) {
     removeActor(obj.getID());
     addActor(current, obj.getID());
 }

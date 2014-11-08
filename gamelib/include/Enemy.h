@@ -13,6 +13,12 @@ public:
     virtual bool interact(Interactable& target);
 
 protected:
+
+    /*
+     * Ban default construction
+     */
+    Enemy() = delete;
+
     virtual bool interact_impl(Hero& target);
     virtual bool interact_impl(Enemy& target);
 };

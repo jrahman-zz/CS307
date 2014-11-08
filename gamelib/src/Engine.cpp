@@ -56,6 +56,7 @@ void Engine::init(string levelJson) {
         auto actor = *actorIt;
         auto position = actor->getPosition();
         auto id = actor->getID();
+
         m_levelManager->addActor(position, id);
         
         actor->registerStateObserver(m_levelManager);

@@ -1,7 +1,5 @@
 #include "ActionLog.h"
 
-#include <iostream>
-
 ActionLog::ActionLog(shared_ptr<const TimeKeeper> timekeeper)
     : m_timekeeper(timekeeper)
 {}
@@ -14,7 +12,6 @@ bool ActionLog::onLog(shared_ptr<LogEntry> entry) {
 }
 
 void ActionLog::log(std::shared_ptr<LogEntry> entry) {
-    cout << "Adding" << endl;
     m_records[m_timekeeper->getTimestep()].push_front(entry);
 }
 

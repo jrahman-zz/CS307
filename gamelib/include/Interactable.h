@@ -14,7 +14,7 @@
 
 using namespace std;
 
-enum class InteractableType { HERO, ENEMY, NPC };
+enum class InteractableType { HERO, ENEMY};
 
 /* Forward delcarations */
 class Hero;
@@ -46,6 +46,11 @@ protected:
     Interactable(Json::Value value);
 
     /*
+     * Prohibit default construction
+     */
+    Interactable() = delete;
+
+    /*
      * Target specified implementations
      */
     virtual bool interact_impl(Hero& hero) = 0;
@@ -59,6 +64,7 @@ private:
     State m_state;
     InteractableType m_type;
 };
+
 
 
 #endif // INTERACTABLE_H

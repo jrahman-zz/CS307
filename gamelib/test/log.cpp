@@ -132,16 +132,6 @@ string testDataA = R"({ "backgroundcolor":"#000000",
 })";
 
 START_TEST("actors");
-	TilemapParser parser;
-	parser.parse(testDataA);
-
-	auto actors = parser.getActors();
-
-    if (actors.size() != 3) {
-        cout << "Incorrect actor count: " << actors.size() << endl;
-        FAIL_TEST("actors");
-    }
-
     Engine engine(testDataA);
     auto hero = engine.getHero();
     if (hero == nullptr) {
@@ -149,7 +139,17 @@ START_TEST("actors");
         FAIL_TEST("actors");
     }
 
-    hero->moveUp();
+    if (!hero->moveDown()) {
+        cout << "moveDown) failed" << endl;
+        FAIL_TEST("actors");
+    }
+
+    if (!hero->moveUp()) {
+        cout << "moveUp() failed" << endl;
+        FAIL_TEST("actors");
+    }
+
+    cout << "Getting log" << endl;
 
     cout << engine.getLog() << endl;
 
