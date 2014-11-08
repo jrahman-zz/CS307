@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="12" height="10" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="Map" tilewidth="64" tileheight="64">
+  <image source="assets/spritesheets/RPGpack_sheet.png" width="1280" height="832"/>
+ </tileset>
+ <tileset firstgid="261" name="Wizard" tilewidth="64" tileheight="64">
+  <image source="assets/spritesheets/NPCs/PWizard2.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="262" name="LinkLeft" tilewidth="64" tileheight="64">
+  <image source="assets/spritesheets/NPCs/LinkRight.png" width="64" height="64"/>
+ </tileset>
+ <layer name="Base and Water Pond" width="12" height="10">
+  <data encoding="base64" compression="zlib">
+   eJyLY2BgiCeAFZCwFxB7E8C0Vo+Mh6J6SsIHxHcjgJHVAwDRsSCm
+  </data>
+ </layer>
+ <layer name="Side Wall and Bushes" width="12" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxzY2A44EYA72JgWMAABW5IbFyAHPW7IDRR6i8iYWLUIwNaqCfVPbsgYQrGZIQnQYCsHgCnGiI3
+  </data>
+ </layer>
+ <layer name="Corners" width="12" height="10" opacity="0.59">
+  <data encoding="base64" compression="zlib">
+   eJxzY2BYwDAKhgxwIzG+ANiPAc0=
+  </data>
+ </layer>
+ <layer name="Maze" width="12" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYGBgeMaAAE/RaFLBMyxiT7GwiTEfWQ02c3GpJcYebH4mxnxc9lDbfErjAQYAkWQUmQ==
+  </data>
+ </layer>
+ <layer name="More Bush" width="12" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBh4sGugHUBnAPTvAnrZBQCO3wIV
+  </data>
+ </layer>
+ <objectgroup name="NPCs">
+  <object type="wizard" x="512" y="128" width="64" height="64">
+   <properties>
+    <property name="id" value="2"/>
+   </properties>
+  </object>
+  <object type="link" x="64" y="64" width="64" height="64">
+   <properties>
+    <property name="id" value="1"/>
+   </properties>
+  </object>
+  <object type="hero" x="64" y="512" width="64" height="64">
+   <properties>
+    <property name="id" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="NPC - Delete Later Just Templete" width="12" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAdsDGSoQkHYKWiWaMAEwAAFdIADg==
+  </data>
+ </layer>
+ <layer name="Door" width="12" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFuAAL40C7gHIAAAWzAAY=
+  </data>
+ </layer>
+</map>
