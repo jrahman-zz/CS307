@@ -38,8 +38,6 @@ protected:
 
 private:
 
-    Position m_position;
-
     shared_ptr<MoveObserver> m_moveObserver;
 };
 
