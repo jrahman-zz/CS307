@@ -64,6 +64,6 @@ class LevelsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def level_params
-      params.require(:level).permit(:name, :course_id_id, :tilemap, :prompt)
+      params.require(:level).permit(:name, :course_id_id, :tilemap, :prompt, :hint)
     end
 end
