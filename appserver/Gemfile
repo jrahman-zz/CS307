@@ -44,7 +44,6 @@ gem 'diffy'
 gem 'devise'
 gem 'cancancan'
 gem 'rolify'
-
 # Allow single-table list generation
 gem 'acts_as_list'
 # Enhanced and simplified searching.

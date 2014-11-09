@@ -12,14 +12,31 @@
         %th Progress
 
       - Course.with_role(:student, current_user).each do |course|
+        - progress = course_progress(course,current_user)
         %tr
           %td= link_to course.name, course
           %td= course.start_date.strftime('%h %d, %Y at %I:%M %p')
           %td
-            .progress
-              .progress-bar.progress-bar-success.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "60", :role => "progressbar", :style => "width: 60%;"}
-                %span 60%
-                // add if statements later
+            - if progress < 25
+              .progress
+                .progress-bar.progress-bar-danger.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => progress * 100, :role => "progressbar", :style => "width: #{progress}%;"}
+                  %span= progress
+                  %span %
+            - elsif progress >= 25 && progress < 50
+              .progress
+                .progress-bar.progress-bar-warning.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => progress * 100, :role => "progressbar", :style => "width: #{progress}%;"}
+                  %span= progress
+                  %span %
+            - elsif progress >= 50 && progress < 75
+              .progress
+                .progress-bar.progress-bar-info.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => progress * 100, :role => "progressbar", :style => "width: #{progress}%;"}
+                  %span= progress
+                  %span %
+            - else
+              .progress
+                .progress-bar.progress-bar-success.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => progress * 100, :role => "progressbar", :style => "width: #{progress}%;"}
+                  %span= progress
+                  %span %
 
 .form-actions
   = link_to 'Edit', edit_user_registration_path(@users), class: "btn btn-primary btn-sm"

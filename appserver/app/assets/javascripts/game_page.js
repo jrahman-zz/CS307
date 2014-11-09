@@ -1,4 +1,5 @@
 //= require jquery
+//= require bootstrap
 //= require jquery_ujs
 //= require ace/ace
 //= require ace/worker-html
@@ -9,6 +10,17 @@ var editor = ace.edit('code-editor');
 editor.setTheme('ace/theme/terminal');
 editor.setFontSize(18);
 editor.getSession().setMode('ace/mode/python');
+
+
+// Enable popovers
+$(document).ready(function() {
+  $('[data-toggle="popover"]').popover();
+});
+
+
+var game = new Phaser.Game(1152, 640, Phaser.AUTO, 'canvas-container',
+  { preload: preload, create: create, update: update, render: render },
+  false /* transparent */, true /* antialias */);
 
 // Utility functions.
 
