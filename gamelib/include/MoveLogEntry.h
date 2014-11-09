@@ -19,6 +19,7 @@ public:
     MoveLogEntry(
         unsigned int actorID,
         Position position);
+    MoveLogEntry() = delete;
     ~MoveLogEntry();
 
 protected:

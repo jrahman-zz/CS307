@@ -7,11 +7,11 @@
 
 #include "json/json.h"
 #include "MoveLogEntry.h"
-#include "Interactable.h"
+#include "Rotatable.h"
 #include "Position.h"
 #include "Util.h"
 
-class Moveable : public Interactable {
+class Moveable : public Rotatable {
     
 public:
     virtual ~Moveable();
