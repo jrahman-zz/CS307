@@ -1,3 +1,5 @@
+#!/usr/bin/env
+
 from time import sleep
 from flask import Flask, jsonify, request, json
 from codeexecutor import execute
