@@ -36,8 +36,9 @@ class ProcessContainerFactory extends ContainerFactory {
   def apply(config: ContainerConfig): Future[Option[Container]] = {
     
     val executorPath = Settings(system).Container.Python.ContainerPath
+    val executorName = Settings(system).Container.Python.ExecutorName
     val port = 5000 // Smuggle this in later
-    val process = Seq(executorPath, "-p", port.toString) run
+    val process = Process(Seq(s"$executorPath/$executorName", "-p", port.toString), new java.io.File(executorPath)) run
     
     Future {
       Some(new ProcessContainer(process, port))

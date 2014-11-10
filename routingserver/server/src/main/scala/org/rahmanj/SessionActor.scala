@@ -98,8 +98,8 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
           log.debug("Successful ping returned")
           schedulePing
         case false =>
-          log.debug("Ping failed")
-          // TODO, scram, fail hard
+          log.error("Ping failed")
+          context.stop(self)
       }
   }
   
@@ -129,6 +129,7 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
         case result =>
           log.error(result, "Failed to contact the container")
           ctx.complete((500, "Unknown failure to contact the container"))
+          context.stop(self)
       }
       res.onSuccess {
         case result => ctx.complete(result)
