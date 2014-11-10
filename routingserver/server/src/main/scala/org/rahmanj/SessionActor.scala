@@ -55,29 +55,37 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
       
       log.info("Received initialization message, starting initialization procedure...")
       
-      val futureContainer = createContainer(ContainerConfig())
+      try {
+        val futureContainer = createContainer(DockerContainerConfig())
       
-      futureContainer.onComplete {
-        case Success(container) =>
-            sessionContainer = container
-            sessionContainer match {
-              case Some(container) =>
-                log.info("Container initialized")
-                
-                schedulePing()
-                context.become(receiveSubmission orElse receiveCommon)
+        futureContainer.onComplete {
+          case Success(container) =>
+              sessionContainer = container
+              sessionContainer match {
+                case Some(container) =>
+                  log.info("Container initialized")
 
-                import spray.httpx.SprayJsonSupport._
-                import messages.SessionCreateResponseProtocol._
-                ctx.complete((200, container.sendMessage(req, "initialize")))
-              case None =>
-                log.info("Failed to crate container")
-                ctx.complete((500, "Failed to create container"))
-            }
-        case Failure(throwable) =>
-            log.error(throwable, "Failed to initialize container")
-            ctx.complete((500, "Failed to create container"))
-            // Indicate failure to the router
+                  schedulePing()
+                  context.become(receiveSubmission orElse receiveCommon)
+
+                  import spray.httpx.SprayJsonSupport._
+                  import messages.SessionCreateResponseProtocol._
+                  ctx.complete((200, container.sendMessage(req, "initialize")))
+                case None =>
+                  log.error("Failed to crate container")
+                  ctx.complete((500, "Failed to create container"))
+                  context.stop(self)
+              }
+          case Failure(throwable) =>
+              log.error(throwable, "Failed to initialize container")
+              ctx.complete((500, "Failed to create container"))
+              context.stop(self)
+        }
+      } catch {
+        case ex: Throwable =>
+          log.error(ex, "Failed to initialize container")
+          ctx.complete((500, "Failed to create container"))
+          context.stop(self)
       }
     // Hideaway everything else until we are ready
     case _ => stash()
@@ -162,7 +170,7 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
     }
   }
   
-  def createContainer(config: ContainerConfig): Future[Option[Container]] = {
-    containerFactory(ContainerConfig())
+  def createContainer(config: DockerContainerConfig): Future[Option[Container]] = {
+    containerFactory(config)
   }
 }

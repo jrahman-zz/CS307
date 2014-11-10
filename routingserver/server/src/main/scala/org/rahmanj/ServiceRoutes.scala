@@ -21,8 +21,7 @@ import messages._
  */
 trait ServiceRoutes extends HttpService {
 	
-  val sessionRouter: ActorRef  
-  def authenticatorFactory(token: SessionToken): (RequestContext => Future[Authentication[LoginSession]])
+  val sessionRouter: ActorRef
   
   val serviceRoute =
     headerValueByName("user_token") { loginToken =>

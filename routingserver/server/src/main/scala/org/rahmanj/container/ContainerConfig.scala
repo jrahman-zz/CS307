@@ -1,4 +1,7 @@
 package org.rahmanj.container
 
 // TODO, fill this in
-case class ContainerConfig()
+abstract class ContainerConfig()
+
+case class ProcessContainerConfig(port: Int) extends ContainerConfig
+case class DockerContainerConfig() extends ContainerConfig

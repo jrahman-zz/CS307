@@ -13,6 +13,10 @@ class Settings(config: Config, extendedSystem: ExtendedActorSystem) extends Exte
     val PingInterval      = config.getDouble("server.container.ping-interval")
     val ContainerBindPort = config.getInt("server.container.container-bind-port")
     val HostBindPort      = config.getInt("server.container.host-bind-port")
+    
+    object Python {
+      val ContainerPath = config.getString("server.container.python.container-path")
+    }
   }
   
   object Langauge {

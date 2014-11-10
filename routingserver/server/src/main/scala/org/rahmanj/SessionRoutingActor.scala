@@ -57,7 +57,7 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
     
     val token: SessionToken = (login.toString + Random.alphanumeric.take(20).mkString).sha512.toString
     
-    val sessionActor = context.actorOf(SessionActor.props(new DockerContainerFactory(), token))
+    val sessionActor = context.actorOf(SessionActor.props(containerFactory, token))
     context.watch(sessionActor)
     
     // Update out state with the new route and session
@@ -84,9 +84,16 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
   
   def deleteSessionActor(token: SessionToken): Boolean = {
     // TODO, destroy container
+    log.info("Deleting session: %token")
+    router.getRoute(token) match {
+      case Some(actor) => // TODO
+    }
     router.removeRouteBySource(token)
   }
   
+  /*
+   * This is invoked when the underlying actor goes away
+   */
   def terminateSession(sessionActor: ActorRef) = {
     log.info("Session terminated")
     router.removeRouteByDestination(sessionActor)

@@ -9,6 +9,8 @@ import scala.concurrent.{Future, Promise}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 
+import scala.sys.process._
+
 import spray.can.Http
 import spray.http._
 import HttpMethods._
@@ -19,8 +21,6 @@ import spray.httpx.SprayJsonSupport
 
 import spray.json._
 
-import tugboat.Docker
-
 import org.slf4j.{Logger,LoggerFactory}
 
 import org.rahmanj.messages.{Response, Request}
@@ -29,48 +29,37 @@ import org.rahmanj.Settings
 /** [[ContainerFactory]] to create [[DockerContainer]] instances
  * 
  */
-class DockerContainerFactory extends ContainerFactory {
-
+class ProcessContainerFactory extends ContainerFactory {
+  
   implicit val system = ActorSystem()
   
   def apply(config: ContainerConfig): Future[Option[Container]] = {
-    val client = tugboat.Docker()
-    for {
-      container <- client.containers.create("python")()
-      run       <- client.containers.get(container.id).start.portBind(
-                  tugboat.Port.Tcp(Settings(system).Container.ContainerBindPort),
-                  tugboat.PortBinding.local(Settings(system).Container.HostBindPort)
-                )()
-      info <- client.containers.get(container.id)()
-    } yield {
-      (info, container) match {
-        case (Some(info), c) => Some(
-                new DockerContainer(
-                    info.networkSettings.ipAddr,
-                    Settings(system).Container.HostBindPort,
-                    c.id)
-                  )
-        case (None, c) => None
-      }
+    
+    val executorPath = Settings(system).Container.Python.ContainerPath
+    val port = 5000 // Smuggle this in later
+    val process = Seq(executorPath, "-p", port.toString) run
+    
+    Future {
+      Some(new ProcessContainer(process, port))
     }
   }
   
-  /** [[DockerContainer]] 
+  /** [[ProcessContainer]] 
    * 
-   * @constructor Create a new instance of the DockerContainer
-   * @param hostname Hostname for the given container
+   * @constructor Create a new instance of the ProcessContainer
+   * @param process Process for the given container
    * @param port Port number for the given container
    */
-  private class DockerContainer(hostname: String, port: Int, containerID: String) extends Container with SprayJsonSupport {
+  private class ProcessContainer(process: Process, port: Int) extends Container with SprayJsonSupport {
     
-    val logger = LoggerFactory.getLogger(classOf[DockerContainer])
-    val uri = "http://" + hostname + ":" + port
+    val logger = LoggerFactory.getLogger(classOf[ProcessContainer])
+    val uri = s"http://localhost:$port"
     
     def sendMessage[A <: Request](message: A, endpoint: String)(implicit f: Unmarshaller[A#ResponseType]): Future[A#ResponseType] = {
       
       implicit val timeout = Timeout(60.seconds)
       
-      val container_endpoint = uri + s"/$endpoint"
+      val container_endpoint = s"$uri/$endpoint"
       
       logger.info(s"Sending request to $container_endpoint")
       
@@ -82,7 +71,7 @@ class DockerContainerFactory extends ContainerFactory {
     def ping(): Future[Boolean] = {
       implicit val timeout = Timeout(1.seconds)
       
-      val endpoint = uri + "/health"
+      val endpoint = s"$uri/health"
       
       logger.info(s"Sending pint to $endpoint")
       
@@ -100,8 +89,7 @@ class DockerContainerFactory extends ContainerFactory {
     }
     
     def shutdown() = {
-      val client = tugboat.Docker();
-      client.containers.get(containerID).stop(1.seconds)()
+      process.destroy() // No mercy
     }
   }
 }
