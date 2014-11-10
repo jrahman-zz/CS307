@@ -16,6 +16,7 @@ class Settings(config: Config, extendedSystem: ExtendedActorSystem) extends Exte
     
     object Python {
       val ContainerPath = config.getString("server.container.python.container-path")
+      val ExecutorName  = config.getString("server.container.python.executor-name")
     }
   }
   
