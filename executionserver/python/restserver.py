@@ -71,17 +71,6 @@ def shutdown(timems):
     sleep(0.001 * timems)
     sys.exit(0)
 
-@app.route('/exec', methods=['POST'])
-def executeinshell():
-    try:
-        command = request.form['command']
-        os.system(command)
-        if(len(command) == 0):
-            return jsonify({'success': False, 'error':'No command given'})
-        return jsonify({'success': True})
-    except Exception as e:
-        return jsonify({'success': False, 'error':str(e)})
-
 # Run
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Start the REST interface for Execution Server')
