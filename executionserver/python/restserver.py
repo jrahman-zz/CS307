@@ -1,5 +1,9 @@
+from time import sleep
 from flask import Flask, jsonify, request, json
 from codeexecutor import execute
+import sys
+import os
+import argparse
 
 app = Flask(__name__)
 
@@ -62,9 +66,22 @@ def get_variable(key):
         return jsonify({'error':'KeyError'})
     return jsonify({'value':value})
 
+@app.route('/shutdown/<timems>', methods=['POST'])
+def shutdown(timems):
+    sleep(0.001 * timems)
+    sys.exit(0)
+
 # Run
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Start the REST interface for Execution Server')
+    parser.add_argument('-p','--port', type=int, default = 5000,
+                        help='The PORT on which to run the Execution Server listener (default = %(default)s)')
+    parser.add_argument('-H','--host', type=str, default = '0.0.0.0',
+                        help='The HOST on which to run the Execution Server listener (default = %(default)s)')
+
+    args = parser.parse_args()
+    print('starting rest server on '+args.host+':'+str(args.port))
     app.run(
-        host = "0.0.0.0",
-        port = 5000
+        host = args.host,
+        port = args.port
     )
