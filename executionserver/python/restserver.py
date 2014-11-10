@@ -1,5 +1,8 @@
+from time import sleep
 from flask import Flask, jsonify, request, json
 from codeexecutor import execute
+import sys
+import os
 
 app = Flask(__name__)
 
@@ -61,6 +64,22 @@ def get_variable(key):
     except KeyError:
         return jsonify({'error':'KeyError'})
     return jsonify({'value':value})
+
+@app.route('/shutdown/<timems>', methods=['POST'])
+def shutdown(timems):
+    sleep(0.001 * timems)
+    sys.exit(0)
+
+@app.route('/exec', methods=['POST'])
+def executeinshell():
+    try:
+        command = request.form['command']
+        os.system(command)
+        if(len(command) == 0):
+            return jsonify({'success': False, 'error':'No command given'})
+        return jsonify({'success': True, 'sessionID': ''})
+    except Exception as e:
+        return jsonify({'success': False, 'error':str(e)})
 
 # Run
 if __name__ == '__main__':
