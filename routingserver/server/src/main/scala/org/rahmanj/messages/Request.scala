@@ -6,30 +6,27 @@ sealed trait Request {
   type ResponseType <: Response
 }
 
+/*
+ * Opaque to the routing server
+ */
 case class SessionCreateRequest(
-  levelId: Int,
-  classId: Int
+  levelJson: String
 ) extends Request {
   type ResponseType = SessionCreateResponse
 }
 
-object SessionCreateRequestProtocol extends DefaultJsonProtocol {
-  import LevelProtocol._
-  implicit val sessionCreateRequestFormat = jsonFormat2(SessionCreateRequest)
+case class SessionResetRequest() extends Request {
+  type ResponseType = SessionResetResponse
 }
 
-case class SessionResetRequest()
-
-object SessionResetRequestProtocol extends DefaultJsonProtocol {
-  implicit val sessionResetRequestFormat = jsonFormat0(SessionResetRequest)
+case class SessionDeleteRequest() extends Request {
+  type RepsonseType = SessionDeleteResponse
 }
 
-case class SessionDeleteRequest()
 
-object SessionDeleteRequestProtocol extends DefaultJsonProtocol {
-  implicit val sessionDeleteRequestFormat = jsonFormat0(SessionDeleteRequest)
-}
-
+/*
+ * Likely will fill this out more later
+ */
 case class ChallengeSubmissionRequest(
   code: String,
   timeout: Double

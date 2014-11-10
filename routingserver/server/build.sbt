@@ -1,4 +1,4 @@
-name := "gradingserver"
+name := "routingserver"
 
 version := "SNAPSHOT"
 

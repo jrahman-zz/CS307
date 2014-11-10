@@ -1,6 +1,11 @@
 package org.rahmanj.messages
 
+import spray.httpx.unmarshalling._
+import spray.httpx.marshalling._
 import spray.json._
+import spray.util._
+import spray.http._
+import MediaTypes._
 
 import org.rahmanj.sessions.SessionToken
 
@@ -15,24 +20,59 @@ object SessionCreateResponseProtocol extends DefaultJsonProtocol {
   implicit val sessionCreateResponseFormat = jsonFormat2(SessionCreateResponse)
 }
 
+/*
+ * Both of these are opaque to the routing server
+ */
 case class ChallengeResultResponse(
-  success: Boolean,
-  feedback: String,
-  time: Double
+  result: String
 ) extends Response
 
-object ChallengeResultResponseProtocol extends DefaultJsonProtocol {
-  implicit val challengeResultResponseFormat = jsonFormat3(ChallengeResultResponse)
+object ChallengeResultResponse {
+  implicit val ChallengeResultResponseUnmarshaller =
+    Unmarshaller[ChallengeResultResponse](`application/json`) {
+      case HttpEntity.NonEmpty(contentType, data) =>
+        ChallengeResultResponse(data.asString)
+    }
+  
+  implicit val ChallengeResultResponseMarshaller = 
+    Marshaller.of[ChallengeResultResponse](`application/json`) { (value, contentType, ctx) =>
+      ctx.marshalTo(HttpEntity(contentType, value.result))
+    }
 }
 
 case class LevelResultResponse(
-  success: Boolean,
-  feedback: String,
-  time: Double,
-  movelist: List[Move]
+  result: String
 ) extends Response
 
-object LevelResultResponseProtocol extends DefaultJsonProtocol {
-  import MoveProtocol._
-  implicit val levelResultResponseFormat = jsonFormat4(LevelResultResponse)
+object LevelResultResponse {
+  implicit val LevelResultResponseUnmarshaller = 
+    Unmarshaller[LevelResultResponse](`application/json`) {
+      case HttpEntity.NonEmpty(contentType, data) =>
+        LevelResultResponse(data.asString)
+    }
+  
+  implicit val LevelResultResponseMarshaller = 
+    Marshaller.of[LevelResultResponse](`application/json`) { (value, contentType, ctx) =>
+      ctx.marshalTo(HttpEntity(contentType, value.result))
+    }
+}
+
+case class SessionResetResponse() extends Response
+
+object SessionResetResponse {
+  implicit val SessionResetResponseUnmarshaller =
+    Unmarshaller[SessionResetResponse](`application/json`) {
+      case HttpEntity.NonEmpty(contentType, data) =>
+        SessionResetResponse()
+    }
+}
+
+case class SessionDeleteResponse() extends Response
+
+object SessionDeleteResponse {
+  implicit val SessionRDeleteResponseUnmarshaller =
+    Unmarshaller[SessionDeleteResponse](`application/json`) {
+      case HttpEntity.NonEmpty(contentType, data) =>
+        SessionDeleteResponse()
+    }
 }
