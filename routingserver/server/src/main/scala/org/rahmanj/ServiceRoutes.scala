@@ -68,10 +68,9 @@ trait ServiceRoutes extends HttpService {
         } ~
         path("create") {
           post {
-            import SessionCreateRequestProtocol._
-            entity(as[SessionCreateRequest]) { sessionInfo => {
+            entity(as[String]) { sessionInfo => {
                 ctx: RequestContext =>
-                  sessionRouter ! CreateSession(ctx, loginToken, sessionInfo)
+                  sessionRouter ! CreateSession(ctx, loginToken, SessionCreateRequest(sessionInfo))
               }
             } ~ complete((400, "Incorrect request body"))
           } ~ complete((405, "Invalid method, only post allowed"))
@@ -80,7 +79,7 @@ trait ServiceRoutes extends HttpService {
     } ~
     path("ping") {
       get {
-        complete("TODO, ping docker, and return reply")
+        complete((200, "pong"))
       } ~ complete((405, "Invalid method, only get allowed"))
     } ~ complete((404, "This is not the page you are looking for"))
 }

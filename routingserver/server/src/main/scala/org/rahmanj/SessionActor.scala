@@ -103,21 +103,43 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
   
   def receiveSubmission: Receive = {
     case Submission(ctx, submission) => sessionContainer match {
-      case Some(container) => submission match {
-        case levelSubmission: LevelSubmissionRequest =>
-            
-          log.info(s"Session $sessionID received level submission")
-          import spray.httpx.SprayJsonSupport._
-          import messages.LevelResultResponseProtocol._
-          ctx.complete(container.sendMessage(levelSubmission, s"/level/submit/$sessionID"))
-        case challengeSubmission: ChallengeSubmissionRequest =>
-            
-          log.info(s"Session $sessionID received challenge submission")
-          import spray.httpx.SprayJsonSupport._
-          import messages.ChallengeResultResponseProtocol._
-          ctx.complete(container.sendMessage(challengeSubmission, s"/challenge/submit/$sessionID"))
-      }
+      case Some(container) => forwardSubmission(ctx, container)(submission)
       case None => ctx.complete((500, "No session container available"))
+    }
+  }
+  
+  def forwardSubmission(ctx: RequestContext, container: Container): PartialFunction[Request, Unit] = {
+    {
+    case levelSubmission: LevelSubmissionRequest =>
+      log.info(s"Session $sessionID received level submission")
+
+      import messages.LevelSubmissionRequestProtocol._
+      import messages.LevelResultResponse._
+
+      val res = container.sendMessage(levelSubmission, s"/level/submit/$sessionID")
+      res.onFailure {
+        case result =>
+          log.error(result, "Failed to contact the container")
+          ctx.complete((500, "Unknown failure to contact the container"))
+      }
+      res.onSuccess {
+        case result => ctx.complete(result)
+      }
+    case challengeSubmission: ChallengeSubmissionRequest =>
+      log.info(s"Session $sessionID received challenge submission")
+
+      import messages.ChallengeSubmissionRequestProtocol._
+      import messages.ChallengeResultResponse._
+      val res = container.sendMessage(challengeSubmission, s"/challenge/submit/$sessionID")
+
+      res.onFailure {
+        case result =>
+          log.error(result, "Failed to contact the container")
+          ctx.complete((500, "Unknown failure to contact the container"))
+      }
+      res.onSuccess {
+        case result => ctx.complete(result)
+      }
     }
   }
   
