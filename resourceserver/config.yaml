@@ -1,15 +1,17 @@
-
+# This configuration must follow the syntax given by the mysql connection adapter
 db:
- username: 'rahmanj'
- password: 'secret'
- hostname: 'localhost'
- port: 1234
- name: 'game_resources'
+ user: resource_server
+ password: awesome_password
+ host: localhost
+ port: 3306
+ database: game_resources
 
 log:
- level: 'debug'
- file: 'resource_server.log'
+ level: debug
+ file: resource_server.log
 
+# This configuration must follow the syntax given by Flask.
 server:
- port: 8080
- hostname: '0.0.0.0'
+ port: 4000
+ host: 0.0.0.0
+ debug: on

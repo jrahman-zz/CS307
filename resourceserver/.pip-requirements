@@ -1,0 +1,6 @@
+PyYaml>=3.10
+Flask>=0.10.1
+
+# May need to install with:
+#   --allow-external mysql-connector-python
+mysql-connector-python==2.0.2
