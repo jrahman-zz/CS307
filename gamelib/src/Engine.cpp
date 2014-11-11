@@ -5,11 +5,9 @@ Engine::Engine(string levelJson)
     , m_isActive(true)
     , m_levelManager(nullptr)
     , m_timekeeper(new TimeKeeper())
-    , m_gameState(new GameState())
+    , m_actionLog(new ActionLog(m_timekeeper))
+    , m_gameState(nullptr)
 {
-    
-    shared_ptr<ActionLog> logger(new ActionLog(m_timekeeper));
-    m_actionLog = logger;
     init(m_levelJson);    
 }
 
@@ -17,10 +15,14 @@ Engine::~Engine() {}
 
 void Engine::init(string levelJson) {
 
-    TilemapParser parser;
-    if (!parser.parse(levelJson)) {
-        throw runtime_error("Failed to parse");
-    }
+    TilemapParser parser(levelJson);
+
+    m_gameState = shared_ptr<GameState>(new GameState(
+                    parser.getUserID(),
+                    parser.getLevelID(),
+                    -1,
+                    parser.getClassID()
+                ));
 
     auto layers = parser.getTileLayers();
     if (layers.size() == 0) {

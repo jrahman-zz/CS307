@@ -63,6 +63,11 @@ private:
     shared_ptr<TileLayer> mergeLayers(vector<shared_ptr<TileLayer>> layers);
 
     /*
+     * Store a copy of the Json defining the level, in case of reset
+     */
+    string m_levelJson;
+
+    /*
      * Object to manage level state
      */
     shared_ptr<LevelManager> m_levelManager;
@@ -77,12 +82,7 @@ private:
      * commands controlling the character
      */
     bool m_isActive;
-
-    /*
-     * Store a copy of the Json defining the level, in case of reset
-     */
-    string m_levelJson;
-
+ 
     /*
      * Store actors index by ID
      */
@@ -106,8 +106,10 @@ private:
     unsigned int m_classID;
 
     shared_ptr<GameState> m_gameState;
-    shared_ptr<ActionLog> m_actionLog;
+
     shared_ptr<TimeKeeper> m_timekeeper;
+
+    shared_ptr<ActionLog> m_actionLog;
 };
 
 #endif // ENGINE_H
