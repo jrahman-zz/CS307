@@ -21,6 +21,13 @@ int Tile::getID() {
 TileType Tile::tileTypeFromId(int id) {
   // These range checks are prone to error, but id'd hate to have a switch
   // statement with 100+ values...
+  
+  // Just sank an hour tracing a bug down related to this
+  // Need to keep these IDs up to date
+  // Had to add a hack by increasing the building bound to 500
+  //
+  // Should we throw an exeception and fail if we have an unknown ID???
+  // That would avoid silent errors so we know they're present
   if (id == 0) {
     return TileType::None;
   } else if ((1 <= id && id <= 10)
