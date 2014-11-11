@@ -10,8 +10,8 @@ public:
     MoveObserver() {}
     ~MoveObserver() {}
 
-    virtual bool onPreMove(Moveable& obj, const Position& current, const Position& next) = 0;
-    virtual void onPostMove(Moveable& obj, const Position& current) = 0;
+    virtual bool onPreMove(Moveable& obj, Position next) = 0;
+    virtual void onPostMove(Moveable& obj, Position old) = 0;
 };
 
 #endif

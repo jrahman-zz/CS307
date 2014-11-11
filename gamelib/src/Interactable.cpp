@@ -10,28 +10,39 @@ InteractableType Interactable::getType() const {
 }
 
 bool Interactable::changeState(State newState) {
-    if (m_stateObserver->onPreStateChange(*this, m_state, newState)) {
+    auto observer = m_stateObserver.lock();
+    if (observer == nullptr) {
+        return false;
+    }
+    
+    if (observer->onPreStateChange(*this, newState)) {
+        auto oldState = m_state;
         m_state = newState;
-        m_stateObserver->onPostStateChange(*this, m_state);
+        observer->onPostStateChange(*this, oldState);
     } else {
         return false;
     }
 }
 
 bool Interactable::interact(Interactable& target) {
-    if (m_interactObserver->onPreInteract(*this, target)) {
+    auto observer = m_interactObserver.lock();
+    if (observer == nullptr) {
+        return false;
+    }
+
+    if (observer->onPreInteract(*this, target)) {
         auto ret = interact(target);
-        m_interactObserver->onPostInteract(*this, target);
+        observer->onPostInteract(*this, target);
         return ret;
     }
     return false;
 }
 
-void Interactable::registerInteractObserver(shared_ptr<InteractObserver> obs) {
+void Interactable::registerInteractObserver(weak_ptr<InteractObserver> obs) {
     m_interactObserver = obs;
 }
 
-void Interactable::registerStateObserver(shared_ptr<StateObserver> obs) {
+void Interactable::registerStateObserver(weak_ptr<StateObserver> obs) {
     m_stateObserver = obs;
 }
 

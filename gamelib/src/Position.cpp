@@ -15,7 +15,9 @@ Position::Position()
     , m_yValid(false)
     , m_x(0)
     , m_y(0)
-{}
+{
+    cout << "Default ctor" << endl;
+}
 
 Position::Position(const Position& rhs)
     : m_x(rhs.m_x)

@@ -7,7 +7,34 @@ Trigger::Trigger(Json::Value value)
     : Positionable(value)
     , m_type(Trigger::typeFromString(value["type"].asString()))
     , m_name(std::move(value["name"].asString()))
+    , m_repeatable(value["properties"].get("repeatable", false).asBool())
+    , m_stopMovement(value["properties"].get("stopMove", true).asBool())
+    , m_triggerTarget(value["properties"].get("triggerTarget", -1).asInt())
+    , m_triggered(false)
 {}
+
+Trigger::~Trigger() {}
+
+bool Trigger::arrive(Interactable& target, shared_ptr<GameState> state) {
+    if ((m_triggerTarget < 0 || m_triggerTarget == target.getID()) && isTriggerable()) {
+        m_triggered = arriveImpl(target, state);
+    } else {
+        return false; // Didn't activate trigger
+    }
+    return m_triggered;
+}
+
+bool Trigger::leave(Interactable& target, shared_ptr<GameState> state) {
+    if (m_triggerTarget < 0 || m_triggerTarget == target.getID()) {
+        return leaveImpl(target, state);
+    } else {
+        return false; // What exactly is the meaning of this return value??
+    }
+}   
+
+bool Trigger::isTriggerable() const {
+    return (m_repeatable && m_triggered) || !m_triggered;
+}
 
 string Trigger::getName() const {
     return m_name;
@@ -15,6 +42,14 @@ string Trigger::getName() const {
 
 TriggerType Trigger::getType() const {
     return m_type;
+}
+
+bool Trigger::isTriggered() const {
+    return m_triggered;
+}
+
+bool Trigger::isRepeatable() const {
+    return m_repeatable;
 }
 
 shared_ptr<Trigger> Trigger::createFromJson(TriggerType type, Json::Value value) {
@@ -26,6 +61,8 @@ shared_ptr<Trigger> Trigger::createFromJson(TriggerType type, Json::Value value)
         case TriggerType::DIALOGUE:
             ptr = shared_ptr<DialogueTrigger>(new DialogueTrigger(value));
             break;
+        default:
+            throw invalid_argument("Unknown trigger type");
     }
     return ptr;
 }
@@ -37,8 +74,6 @@ TriggerType Trigger::typeFromString(string str) {
     return TriggerType::DIALOGUE;
   }
 
-  // TODO, expand this trigger list
-  // TODO, possiblly create subclass for different types of triggers
   return TriggerType::UNKNOWN;
 }
 

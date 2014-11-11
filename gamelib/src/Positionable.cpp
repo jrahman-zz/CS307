@@ -13,6 +13,10 @@ Position Positionable::getPosition() const {
     return m_position;
 }
 
+void Positionable::setPosition(Position position) {
+    m_position = position;
+}
+
 unsigned int Positionable::getID() const {
     return m_ID;
 }

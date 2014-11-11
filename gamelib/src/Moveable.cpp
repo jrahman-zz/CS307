@@ -2,13 +2,14 @@
 
 Moveable::Moveable(Json::Value value)
     : Rotatable(value)
+    , m_canMove(true)
 {}
 
 
 Moveable::~Moveable() 
 {}
 
-void Moveable::registerMoveObserver(shared_ptr<MoveObserver> obs) {
+void Moveable::registerMoveObserver(weak_ptr<MoveObserver> obs) {
     m_moveObserver = obs;
 }
 
@@ -29,6 +30,11 @@ bool Moveable::moveRight() {
 }
 
 bool Moveable::move(Direction direction) {
+    auto observer = m_moveObserver.lock();
+    if (observer == nullptr) {
+        return false;
+    }
+
     int dx = 0, dy = 0;
     Rotation r;
     switch (direction) {
@@ -55,18 +61,31 @@ bool Moveable::move(Direction direction) {
      */
     rotate(r);
 
+     if (!m_canMove) {
+        return false;
+    }
+
     int x = m_position.getX() + dx;
     int y = m_position.getY() + dy;
 
     Position next(x, y);
-    if (m_moveObserver->onPreMove(*this, m_position, next)) {
-        m_position = next;
+    if (observer->onPreMove(*this, next)) {
+        
+        auto oldPosition = getPosition();
+        setPosition(next);
 
         shared_ptr<MoveLogEntry> logEntry(new MoveLogEntry(getID(), m_position));
         log(logEntry);
-        m_moveObserver->onPostMove(*this, m_position);
+        observer->onPostMove(*this, oldPosition);
         return true;
     }
     return false;
 }
 
+bool Moveable::canMove() const {
+    return m_canMove;
+}
+
+void Moveable::setCanMove(bool value) {
+    m_canMove = value;
+}

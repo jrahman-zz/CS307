@@ -16,18 +16,21 @@ class Moveable : public Rotatable {
 public:
     virtual ~Moveable();
     
-    void registerMoveObserver(shared_ptr<MoveObserver> obs);
+    void registerMoveObserver(weak_ptr<MoveObserver> obs);
 
     /*
      * All of these functions return true if the move was
      * successful, and false if not
      */
-    virtual bool moveUp();
-    virtual bool moveDown();
-    virtual bool moveLeft();
-    virtual bool moveRight();
-    virtual bool move(Direction direction);
-    
+    bool moveUp();
+    bool moveDown();
+    bool moveLeft();
+    bool moveRight();
+    bool move(Direction direction);
+
+    bool canMove() const;
+    void setCanMove(bool value);
+
 protected:
     Moveable(Json::Value value);
     
@@ -38,7 +41,9 @@ protected:
 
 private:
 
-    shared_ptr<MoveObserver> m_moveObserver;
+    bool m_canMove;
+
+    weak_ptr<MoveObserver> m_moveObserver;
 };
 
 

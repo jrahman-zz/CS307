@@ -7,8 +7,8 @@ class Interactable;
 
 class StateObserver {
 public:
-    virtual bool onPreStateChange(Interactable& obj, State current, State next) = 0;
-    virtual void onPostStateChange(Interactable& obj, State current) = 0;
+    virtual bool onPreStateChange(Interactable& obj, State next) = 0;
+    virtual void onPostStateChange(Interactable& obj, State old) = 0;
 };
 
 #endif

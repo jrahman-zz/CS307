@@ -8,9 +8,17 @@
 class LevelExitTrigger : public Trigger {
 public:
     LevelExitTrigger(Json::Value value);
+    ~LevelExitTrigger();
 
 protected:
 
+    /*
+     * Ban default constructor
+     */
+    LevelExitTrigger() = delete;
+
+    virtual bool arriveImpl(Interactable& target, shared_ptr<GameState> state);
+    virtual bool leaveImpl(Interactable& target, shared_ptr<GameState> state);
 };
 
 #endif

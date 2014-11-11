@@ -29,7 +29,7 @@ void Engine::init(string levelJson) {
 
     m_tileMap = mergeLayers(layers);
 
-    shared_ptr<LevelManager> mgr(new LevelManager(*m_tileMap));
+    shared_ptr<LevelManager> mgr(new LevelManager(m_tileMap, m_gameState));
     m_levelManager = mgr;
 
     // Load triggers into map
@@ -47,10 +47,8 @@ void Engine::init(string levelJson) {
     while (actorIt != actors.end()) {
         m_actors.push_back(*actorIt);
         auto actor = *actorIt;
-        auto position = actor->getPosition();
-        auto id = actor->getID();
 
-        m_levelManager->addActor(position, id);
+        m_levelManager->addActor(actor);
         
         actor->registerStateObserver(m_levelManager);
         actor->registerInteractObserver(m_levelManager);

@@ -5,12 +5,14 @@
 Loggable::Loggable() {
 }
 
-void Loggable::registerLogObserver(shared_ptr<LogObserver> obs) {
+void Loggable::registerLogObserver(weak_ptr<LogObserver> obs) {
     m_logObserver = obs;
 }
 
 void Loggable::log(shared_ptr<LogEntry> entry) {
-    if (m_logObserver != nullptr) {
-        m_logObserver->onLog(entry);
+    auto observer = m_logObserver.lock();
+
+    if (observer != nullptr) {
+        observer->onLog(entry);
     }
 }
