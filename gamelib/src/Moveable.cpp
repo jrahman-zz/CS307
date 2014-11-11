@@ -64,12 +64,14 @@ bool Moveable::move(Direction direction) {
     int y = m_position.getY() + dy;
 
     Position next(x, y);
-    if (observer->onPreMove(*this, m_position, next)) {
-        m_position = next;
+    if (observer->onPreMove(*this, next)) {
+        
+        auto oldPosition = getPosition();
+        setPosition(next);
 
         shared_ptr<MoveLogEntry> logEntry(new MoveLogEntry(getID(), m_position));
         log(logEntry);
-        observer->onPostMove(*this, m_position);
+        observer->onPostMove(*this, oldPosition);
         return true;
     }
     return false;

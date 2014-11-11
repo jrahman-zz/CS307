@@ -7,12 +7,16 @@
 class DialogueTrigger : public Trigger {
 public:
     DialogueTrigger(Json::Value value);
+    virtual ~DialogueTrigger();
 
 protected:
 
     /*
-     * Bad default instantiation
+     * Ban default instantiation
      */
+    DialogueTrigger() = delete;
+
+    virtual bool triggerImpl(Interactable& target);
 };
 
 #endif

@@ -5,7 +5,7 @@
 Loggable::Loggable() {
 }
 
-void Loggable::registerLogObserver(shared_ptr<LogObserver> obs) {
+void Loggable::registerLogObserver(weak_ptr<LogObserver> obs) {
     m_logObserver = obs;
 }
 

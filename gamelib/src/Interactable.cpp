@@ -15,9 +15,10 @@ bool Interactable::changeState(State newState) {
         return false;
     }
     
-    if (observer->onPreStateChange(*this, m_state, newState)) {
+    if (observer->onPreStateChange(*this, newState)) {
+        auto oldState = m_state;
         m_state = newState;
-        observer->onPostStateChange(*this, m_state);
+        observer->onPostStateChange(*this, oldState);
     } else {
         return false;
     }

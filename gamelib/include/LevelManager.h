@@ -23,8 +23,9 @@ public:
     explicit LevelManager(TileLayer&& tilemap);
     virtual ~LevelManager();
 
-    bool addActor(Position pos, unsigned int actorID);
+    bool addActor(shared_ptr<Interactable>);
     bool removeActor(unsigned int actorID);
+    bool removeActor(Position position);
 
     bool addTrigger(shared_ptr<Trigger> trigger);
     bool removeTrigger(unsigned int triggerID);
@@ -32,23 +33,30 @@ public:
     /*
      * Hooks for observer pattern
      */
-    virtual bool onPreStateChange(Interactable& obj, State current, State next);
-    virtual void onPostStateChange(Interactable& obj, State current);
+    virtual bool onPreStateChange(Interactable& obj, State next);
+    virtual void onPostStateChange(Interactable& obj, State old);
 
-    virtual bool onPreMove(Moveable& obj, const Position& current, const Position& next);
-    virtual void onPostMove(Moveable& obj, const Position& current);
+    virtual bool onPreMove(Moveable& obj, Position next);
+    virtual void onPostMove(Moveable& obj, Position old);
 
     virtual bool onPreInteract(Interactable& src, Interactable& target);
     virtual void onPostInteract(Interactable& src, Interactable& target);
 
 protected:
     shared_ptr<TileLayer> m_tilemap;
-    
-    unordered_map<Position, unsigned int> m_actors;
-    unordered_map<unsigned int, Position> m_actorsID;
 
+    /*
+     * Actor resources
+     */    
+    unordered_map<Position, shared_ptr<Interactable>> m_actors;
+    unordered_map<unsigned int, shared_ptr<Interactable>> m_actorsID;
+
+    /*
+     * Trigger resources
+     */
     unordered_map<Position, shared_ptr<Trigger>> m_triggers;
     unordered_map<unsigned int, shared_ptr<Trigger>> m_triggersID;
+    vector<shared_ptr<Trigger>> m_currentTriggers;
 private:
 
 };
