@@ -19,14 +19,16 @@ BOOST_PYTHON_MODULE(gamelib) {
 		.def("getWorld", &Engine::getWorld)
 		.def("getHero", &Engine::getHero)
 		.def("reset", &Engine::resetEngine)
-		.def("getLog", &Engine::getLog);
-		// TODO
+		.def("getResult", &Engine::getResult)
+		.def("startSubmission", &Engine::startSubmission)
+        .def ("endSubmission", &Engine::endSubmission);
 
 	class_<HeroFascade>("Hero", no_init)
 		.def("moveUp", &HeroFascade::moveUp)
 		.def("moveDown", &HeroFascade::moveDown)
 		.def("moveLeft", &HeroFascade::moveLeft)
 		.def("moveRight", &HeroFascade::moveRight);
+        // TODO, expand with interaction later
 
 	enum_<Direction>("direction")
 		.value("up", Direction::UP)
