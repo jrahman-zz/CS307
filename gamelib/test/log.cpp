@@ -21,7 +21,7 @@ START_TEST("actors");
     }
 
     if (!hero->moveDown()) {
-        cout << "moveDown) failed" << endl;
+        cout << "moveDown() failed" << endl;
         FAIL_TEST("actors");
     }
 
