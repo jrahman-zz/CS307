@@ -16,7 +16,7 @@ def get_health():
     print(request.data)
     return jsonify({'response':'PONG'})
 
-@app.route('/level/<levelid>/submit', methods=['POST'])
+@app.route('/level/submit', methods=['POST'])
 def run_code(levelid):
     print('received request to run level: '+levelid)
     for item in request.form.items():
