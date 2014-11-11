@@ -22,7 +22,7 @@ bool Interactable::interact(Interactable& target) {
     if (m_interactObserver->onPreInteract(*this, target)) {
         auto ret = interact(target);
         m_interactObserver->onPostInteract(*this, target);
-        return true;
+        return ret;
     }
     return false;
 }

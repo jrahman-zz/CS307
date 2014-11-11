@@ -2,13 +2,14 @@
 
 #include <memory>
 
+#include "json/json.h"
 #include "Tile.h"
 
 using namespace std;
 
 class TileLayer {
 public:
-    TileLayer(unsigned int g_width, unsigned int g_height);
+    TileLayer(Json::Value value);
     TileLayer(TileLayer& rhs);
     TileLayer(TileLayer&& rhs);
 
@@ -29,6 +30,12 @@ public:
     unsigned int getWidth();
     unsigned int getHeight();
 protected:
-    Tile *m_tiles;
+
+    /*
+     * Ban default constructor
+     */
+    TileLayer() = delete;
+
     unsigned int m_gridWidth, m_gridHeight;
+    Tile *m_tiles;
 };
