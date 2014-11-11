@@ -29,8 +29,8 @@ public:
     bool changeState(State newState);
     bool interact(Interactable& target);
 
-    void registerInteractObserver(shared_ptr<InteractObserver> obs);
-    void registerStateObserver(shared_ptr<StateObserver> obs);    
+    void registerInteractObserver(weak_ptr<InteractObserver> obs);
+    void registerStateObserver(weak_ptr<StateObserver> obs);    
     
     static InteractableType getInteractableType(string type);
     static shared_ptr<Interactable> createFromJson(InteractableType type, Json::Value val);
@@ -53,8 +53,8 @@ protected:
     virtual bool interact_impl(Hero& hero) = 0;
     virtual bool interact_impl(Enemy& enemy) = 0;
 
-    shared_ptr<StateObserver> m_stateObserver;
-    shared_ptr<InteractObserver> m_interactObserver;
+    weak_ptr<StateObserver> m_stateObserver;
+    weak_ptr<InteractObserver> m_interactObserver;
 
     void setInteractableType(InteractableType);
 private:

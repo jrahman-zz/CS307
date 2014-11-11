@@ -10,12 +10,12 @@ class LogEntry;
 
 class Loggable {
 public:
-    void registerLogObserver(shared_ptr<LogObserver> obs);
+    void registerLogObserver(weak_ptr<LogObserver> obs);
     void log(shared_ptr<LogEntry> entry);
     
 protected:
     Loggable();
-    shared_ptr<LogObserver> m_logObserver;
+    weak_ptr<LogObserver> m_logObserver;
 };
 
 #endif

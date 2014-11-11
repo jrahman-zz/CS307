@@ -16,7 +16,7 @@ class Moveable : public Rotatable {
 public:
     virtual ~Moveable();
     
-    void registerMoveObserver(shared_ptr<MoveObserver> obs);
+    void registerMoveObserver(weak_ptr<MoveObserver> obs);
 
     /*
      * All of these functions return true if the move was
@@ -38,7 +38,7 @@ protected:
 
 private:
 
-    shared_ptr<MoveObserver> m_moveObserver;
+    weak_ptr<MoveObserver> m_moveObserver;
 };
 
 
