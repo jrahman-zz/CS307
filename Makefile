@@ -13,7 +13,7 @@ test:
 
 clean:
 	cd $(LIBDIR) && ${MAKE} clean
-	cd ${EXEUTIONDIR} && ${MAKE} clean
+	cd ${EXECUTIONDIR} && ${MAKE} clean
 
 $(LIBDIR)/lib/gamelib.a:
 	cd $(LIBDIR) && ${MAKE} all
