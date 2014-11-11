@@ -22,12 +22,15 @@ public:
      * All of these functions return true if the move was
      * successful, and false if not
      */
-    virtual bool moveUp();
-    virtual bool moveDown();
-    virtual bool moveLeft();
-    virtual bool moveRight();
-    virtual bool move(Direction direction);
-    
+    bool moveUp();
+    bool moveDown();
+    bool moveLeft();
+    bool moveRight();
+    bool move(Direction direction);
+
+    bool canMove() const;
+    void setCanMove(bool value);
+
 protected:
     Moveable(Json::Value value);
     
@@ -37,6 +40,8 @@ protected:
     Moveable() = delete;
 
 private:
+
+    bool m_canMove;
 
     weak_ptr<MoveObserver> m_moveObserver;
 };

@@ -21,7 +21,11 @@ public:
     string toString() const;
 
     bool operator==(const Position& other) const {
-        return other.m_x == m_x && other.m_y == m_y;
+        return other.m_x == m_x && other.m_y == m_y && isValid() == other.isValid();
+    }
+
+    bool operator!=(const Position& other) const {
+        return !(other == *this);
     }
 
 protected: 

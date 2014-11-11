@@ -4,6 +4,7 @@
 #include <string>
 
 #include "json/json.h"
+#include "GameState.h"
 #include "Interactable.h"
 #include "Positionable.h"
 
@@ -11,18 +12,20 @@ using namespace std;
 
 enum class TriggerType { DIALOGUE, LEVELEXIT, UNKNOWN };
 
-/*
- * TODO Inject GameState
- */
-
 class Trigger : public Positionable {
 public:
 
     virtual ~Trigger();
+    
     /*
      * Activate trigger
      */
-    bool trigger(Interactable& target);
+    bool arrive(Interactable& target, shared_ptr<GameState> state);
+
+    /*
+     * Leaving
+     */
+    bool leave(Interactable& target, shared_ptr<GameState> state);
 
     string getName() const;
     TriggerType getType() const;
@@ -44,7 +47,8 @@ protected:
      */
     Trigger() = delete;
 
-    virtual bool triggerImpl(Interactable& target) = 0;
+    virtual bool arriveImpl(Interactable& target, shared_ptr<GameState> state) = 0;
+    virtual bool leaveImpl(Interactable& target, shared_ptr<GameState> state) = 0;
 
 private:
 

@@ -2,12 +2,9 @@
 
 #include <cmath>
 
-LevelManager::LevelManager(TileLayer tilemap)
-    : m_tilemap(new TileLayer(tilemap)) 
-{}
-
-LevelManager::LevelManager(TileLayer&& tilemap) 
-    : m_tilemap(new TileLayer(std::forward<TileLayer>(tilemap)))
+LevelManager::LevelManager(shared_ptr<TileLayer> tilemap, shared_ptr<GameState> gameState)
+    : m_tilemap(tilemap)
+    , m_gameState(gameState)
 {}
 
 bool LevelManager::addActor(shared_ptr<Interactable> actor) {
@@ -134,7 +131,10 @@ bool LevelManager::onPreMove(Moveable& obj, Position next) {
     if (absdiff != 1) {
         ret = false;
     }
- 
+
+    // Incorporate game state into decision
+    ret = ret && !m_gameState->levelOver() && m_gameState->canMove();
+
     return ret;
 }
 
@@ -145,6 +145,11 @@ void LevelManager::onPostMove(Moveable& obj, Position old) {
     auto actor = m_actorsID[obj.getID()];
     removeActor(old);
     addActor(actor);
+
+    auto current = actor->getPosition();
+    if (current != old) {
+        runTriggers(actor, old);
+    }
 }
 
 /*
@@ -160,4 +165,21 @@ bool LevelManager::onPreInteract(Interactable& src, Interactable& target) {
  */
 void LevelManager::onPostInteract(Interactable& src, Interactable& target) {
     // TODO
+}
+
+/*
+ * Run all required trigger hooks
+ */
+void LevelManager::runTriggers(shared_ptr<Interactable> actor, Position old) {
+    
+    auto current = actor->getPosition();
+    auto it = m_triggers.find(current);
+    if (it != m_triggers.end()) {
+        m_triggers[current]->arrive(*actor, m_gameState);
+    }
+
+    it = m_triggers.find(old);
+    if (it != m_triggers.end()) {
+        m_triggers[old]->leave(*actor, m_gameState);
+    }
 }

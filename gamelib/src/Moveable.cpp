@@ -2,6 +2,7 @@
 
 Moveable::Moveable(Json::Value value)
     : Rotatable(value)
+    , m_canMove(true)
 {}
 
 
@@ -60,6 +61,10 @@ bool Moveable::move(Direction direction) {
      */
     rotate(r);
 
+     if (!m_canMove) {
+        return false;
+    }
+
     int x = m_position.getX() + dx;
     int y = m_position.getY() + dy;
 
@@ -77,3 +82,10 @@ bool Moveable::move(Direction direction) {
     return false;
 }
 
+bool Moveable::canMove() const {
+    return m_canMove;
+}
+
+void Moveable::setCanMove(bool value) {
+    m_canMove = value;
+}

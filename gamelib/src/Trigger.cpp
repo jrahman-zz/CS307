@@ -15,14 +15,22 @@ Trigger::Trigger(Json::Value value)
 
 Trigger::~Trigger() {}
 
-bool Trigger::trigger(Interactable& target) {
+bool Trigger::arrive(Interactable& target, shared_ptr<GameState> state) {
     if ((m_triggerTarget < 0 || m_triggerTarget == target.getID()) && isTriggerable()) {
-        m_triggered = triggerImpl(target);
+        m_triggered = arriveImpl(target, state);
     } else {
         return false; // Didn't activate trigger
     }
     return m_triggered;
 }
+
+bool Trigger::leave(Interactable& target, shared_ptr<GameState> state) {
+    if (m_triggerTarget < 0 || m_triggerTarget == target.getID()) {
+        return leaveImpl(target, state);
+    } else {
+        return false; // What exactly is the meaning of this return value??
+    }
+}   
 
 bool Trigger::isTriggerable() const {
     return (m_repeatable && m_triggered) || !m_triggered;

@@ -1,11 +1,21 @@
 #include "DialogueTrigger.h"
 
+#include "DialogueLogEntry.h"
+
 DialogueTrigger::DialogueTrigger(Json::Value value)
     : Trigger(value)
+    , m_dialogue(value["properties"]["dialogue"].asString())
+    , m_sourceActor(value["properties"]["actor"].asInt())
 {}
 
 DialogueTrigger::~DialogueTrigger() {}
 
-bool DialogueTrigger::triggerImpl(Interactable& target) {
-    return true; // TODO
+bool DialogueTrigger::arriveImpl(Interactable& target, shared_ptr<GameState> state) {
+    log(shared_ptr<DialogueLogEntry>(new DialogueLogEntry(m_sourceActor, m_dialogue)));
+    return true;
+}
+
+bool DialogueTrigger::leaveImpl(Interactable& target, shared_ptr<GameState> state) {
+
+    return true;
 }

@@ -8,6 +8,8 @@
 #include "MoveObserver.h"
 #include "InteractObserver.h"
 
+#include "GameState.h"
+
 #include "Interactable.h"
 #include "Moveable.h"
 #include "TileLayer.h"
@@ -19,8 +21,7 @@ using namespace std;
 class LevelManager : public StateObserver, public MoveObserver, public InteractObserver {
 public:
 
-    explicit LevelManager(TileLayer tilemap);
-    explicit LevelManager(TileLayer&& tilemap);
+    explicit LevelManager(shared_ptr<TileLayer> tile, shared_ptr<GameState> state);
     virtual ~LevelManager();
 
     bool addActor(shared_ptr<Interactable>);
@@ -43,6 +44,18 @@ public:
     virtual void onPostInteract(Interactable& src, Interactable& target);
 
 protected:
+    
+    /*
+     * Remove unwanted default constructors
+     */
+    LevelManager() = delete;
+    LevelManager(const LevelManager& rhs) = delete;
+
+    /*
+     * Run triggers
+     */
+    void runTriggers(shared_ptr<Interactable> actor, Position old);
+
     shared_ptr<TileLayer> m_tilemap;
 
     /*
@@ -56,7 +69,8 @@ protected:
      */
     unordered_map<Position, shared_ptr<Trigger>> m_triggers;
     unordered_map<unsigned int, shared_ptr<Trigger>> m_triggersID;
-    vector<shared_ptr<Trigger>> m_currentTriggers;
+
+    shared_ptr<GameState> m_gameState;
 private:
 
 };

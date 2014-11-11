@@ -17,7 +17,8 @@ protected:
      */
     LevelExitTrigger() = delete;
 
-    virtual bool triggerImpl(Interactable& target);
+    virtual bool arriveImpl(Interactable& target, shared_ptr<GameState> state);
+    virtual bool leaveImpl(Interactable& target, shared_ptr<GameState> state);
 };
 
 #endif

@@ -29,7 +29,7 @@ void Engine::init(string levelJson) {
 
     m_tileMap = mergeLayers(layers);
 
-    shared_ptr<LevelManager> mgr(new LevelManager(*m_tileMap));
+    shared_ptr<LevelManager> mgr(new LevelManager(m_tileMap, m_gameState));
     m_levelManager = mgr;
 
     // Load triggers into map

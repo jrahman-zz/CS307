@@ -17,6 +17,10 @@ public:
 
     Rotation getRotation() const;
 
+    bool canRotate() const;
+
+    void setCanRotate(bool value);
+
 protected:
 
     Rotatable(Json::Value value);
@@ -30,6 +34,8 @@ protected:
 
 private:
     Rotation m_rotation;
+
+    bool m_canRotate;
 };
 
 #endif

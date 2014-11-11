@@ -2,15 +2,14 @@
 
 Rotatable::Rotatable(Json::Value value)
     : Interactable(value)
-{
-    auto rotate = value["rotation"].asInt();
-    m_rotation = Rotatable::rotationFromInt(rotate);
-}
+    , m_rotation(Rotatable::rotationFromInt(value["rotation"].asInt()))
+    , m_canRotate(true)
+{}
 
 Rotatable::~Rotatable() {}
 
 bool Rotatable::rotate(Rotation newRotation) {
-    if (newRotation != Rotation::RUNKNOWN) {
+    if (newRotation != Rotation::RUNKNOWN && m_canRotate) {
         shared_ptr<RotateLogEntry> entry(new RotateLogEntry(getID(), newRotation));
         log(entry);
         m_rotation = newRotation;
@@ -38,4 +37,12 @@ Rotation Rotatable::rotationFromInt(unsigned int r) {
             rot = Rotation::RUNKNOWN;
     }
     return rot;
+}
+
+bool Rotatable::canRotate() const {
+    return m_canRotate;
+}
+
+void Rotatable::setCanRotate(bool value) {
+    m_canRotate = value;
 }
