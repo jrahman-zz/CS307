@@ -79,11 +79,24 @@ shared_ptr<TileLayer> Engine::mergeLayers(vector<shared_ptr<TileLayer>> layers) 
     auto layerOne = *layerIt;
     layerIt++;
 
-    while (layerIt != layers.end()) {
-        layerOne = layerOne->merge(*layerIt);
-        layerIt++;
+    shared_ptr<TileLayer> backgroundLayer;
+    for (auto it = layers.begin(); it != layers.end(); it++) {
+        if (!(*it)->getName().compare("BackgroundLayer")) {
+            backgroundLayer = *it;
+        }
     }
-    return layerOne;
+
+    if (backgroundLayer == nullptr) {
+        throw invalid_argument("Missing BackgroundLayer");
+    }
+
+    for (auto layerIt = layers.begin(); layerIt != layers.end(); layerIt++) {
+        if ((*layerIt)->getName().compare("BackgroundLayer")) {
+            backgroundLayer = backgroundLayer->merge(*layerIt);
+        }
+    }
+
+    return backgroundLayer;
 }
 
 bool Engine::startSubmission() {

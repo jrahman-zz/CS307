@@ -31,5 +31,14 @@ unsigned int HeroFascade::move(Direction direction, unsigned int distance) {
         m_timekeeper->incrementClock();
         distanceTraveled++;
     }
+
+    if (distanceTraveled == 0) {
+        // We still need to increment the clock since
+        // a rotation may have occured
+        // This should be removed and clock increment
+        // should be made more explicitly
+        m_timekeeper->incrementClock(); 
+    }
+
     return distanceTraveled;
 }

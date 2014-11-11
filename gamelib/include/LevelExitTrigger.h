@@ -19,6 +19,9 @@ protected:
 
     virtual bool arriveImpl(Interactable& target, shared_ptr<GameState> state);
     virtual bool leaveImpl(Interactable& target, shared_ptr<GameState> state);
+
+private:
+    unsigned int m_nextLevelID;
 };
 
 #endif

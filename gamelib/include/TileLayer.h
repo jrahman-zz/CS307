@@ -9,7 +9,7 @@ using namespace std;
 
 class TileLayer {
 public:
-    TileLayer(Json::Value value);
+    explicit TileLayer(Json::Value value);
     TileLayer(TileLayer& rhs);
     TileLayer(TileLayer&& rhs);
 
@@ -27,8 +27,11 @@ public:
      */
     shared_ptr<TileLayer> merge(shared_ptr<TileLayer> rhs);
 
-    unsigned int getWidth();
-    unsigned int getHeight();
+    unsigned int getWidth() const;
+
+    unsigned int getHeight() const;
+
+    string getName() const;
 protected:
 
     /*
@@ -36,6 +39,11 @@ protected:
      */
     TileLayer() = delete;
 
-    unsigned int m_gridWidth, m_gridHeight;
     Tile *m_tiles;
+
+    unsigned int m_gridWidth;
+    
+    unsigned int m_gridHeight;
+
+    string m_name;
 };

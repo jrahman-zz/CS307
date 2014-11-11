@@ -2,13 +2,15 @@
 
 LevelExitTrigger::LevelExitTrigger(Json::Value value)
     : Trigger(value)
+    , m_nextLevelID(value["properties"]["nextLevel"].asInt())
 {}
 
 LevelExitTrigger::~LevelExitTrigger() {}
 
 bool LevelExitTrigger::arriveImpl(Interactable& target, shared_ptr<GameState> state) {
     state->setLevelOver(true);
-    state->setCanMove(false);
+    state->setNextLevel(m_nextLevelID);
+
     return true;
 }
 

@@ -33,7 +33,7 @@ TileType Tile::tileTypeFromId(int id) {
     return TileType::Water;
   } else if ((61 <= id && id <= 78)
              || (81 <= id && id <= 98)
-             || (101 <= id && id <= 118)) {
+             || (101 <= id && id <= 500)) {
     return TileType::Building;
   }
   // Not mapped - must be blank.
