@@ -99,36 +99,26 @@ vector<shared_ptr<Interactable>> TilemapParser::getActors() {
 
 shared_ptr<TileLayer> TilemapParser::parseLayer(Json::Value root) {
     if (!root.isMember("data")) {
-        throw runtime_error("No data in tilelayer");
+        throw invalid_argument("No data in tilelayer");
     }
 
     int layer_width = root["width"].asInt();
     int layer_height = root["height"].asInt();
 
     if (layer_width != m_mapWidth) {
-        throw runtime_error("Layer width mismatch");
+        throw invalid_argument("Layer width mismatch");
     }
 
     if (layer_height != m_mapHeight) {
-        throw runtime_error("layer height mismatch");
+        throw invalid_argument("layer height mismatch");
     }
     
     Json::Value data = root["data"];
     if (data.size() != m_mapHeight * m_mapWidth) {
-        throw runtime_error("Data array wrong size");
+        throw invalid_argument("Data array wrong size");
     }
 
-    shared_ptr<TileLayer> tile_layer(new TileLayer(m_mapWidth, m_mapHeight));
-    int row = 0, col = 0;
-      
-    for (unsigned int j = 0; j < data.size(); j++) {
-        int tile_id = data[j].asInt();
-        (*tile_layer)[row][col] = Tile(tile_id);
-        col = (col + 1) % layer_width;
-        if (col == 0) {
-            row++;
-        }
-    }
+    shared_ptr<TileLayer> tile_layer(new TileLayer(root));
 
     return shared_ptr<TileLayer>(tile_layer);
 }
@@ -142,11 +132,11 @@ vector<shared_ptr<Trigger>> TilemapParser::parseTriggers(Json::Value root) {
     int layer_height = root["height"].asInt();
 
     if (layer_width != m_mapWidth) {
-        throw runtime_error("Layer width mismatch");
+        throw invalid_argument("Layer width mismatch");
     }
 
     if (layer_height != m_mapHeight) {
-        throw runtime_error("Layer height mismatch");
+        throw invalid_argument("Layer height mismatch");
     }
 
     for (unsigned int j = 0; j < objects.size(); j++) {
@@ -156,10 +146,11 @@ vector<shared_ptr<Trigger>> TilemapParser::parseTriggers(Json::Value root) {
         int y = object["y"].asInt() / m_tileHeight;
 
         if (x < 0 || y < 0 || x >= m_mapWidth || y >= m_mapHeight) {
-            throw runtime_error("Illegal trigger position");
+            throw invalid_argument("Illegal trigger position");
         }
 
-        shared_ptr<Trigger> trigger(new Trigger(object));
+        auto type = Trigger::typeFromString(object["type"].asString());
+        auto trigger = Trigger::createFromJson(type, object);
         triggers.push_back(trigger);
     }
     return triggers;
@@ -233,8 +224,7 @@ void TilemapParser::debug() {
     for (auto it = m_triggers.begin(); it != m_triggers.end(); it++) {
         auto trigger = *it;
         auto name = trigger->getName();
-        auto type = trigger->getType();
         cout << "Trigger ";
-        cout << i++ << ": {name: " << name << ", type: " << type << "}" << endl;
+        cout << i++ << ": {name: " << name << " }" << endl;
     }
 }

@@ -9,6 +9,7 @@
 #include "HeroFascade.h"
 #include "WorldFascade.h"
 
+#include "GameState.h"
 #include "LevelManager.h"
 
 #include "Interactable.h"
@@ -33,14 +34,34 @@ public:
     
     unsigned int getTimestep() const;
 
-    string getLog() const;
+    /*
+     * Get level output
+     */
+    string getResult() const;
 
+    /*
+     * Call prior to beginning a submission run
+     */
+    bool startSubmission();
+    
+    /*
+     * Call following the end of a submission
+     */
+    void endSubmission();
+
+    /*
+     * Completely reset all game state
+     */
     void resetEngine();
 protected:
 
     void init(string levelJson);
-
+    
+    Json::Value getLog() const;
 private:
+
+    shared_ptr<TileLayer> mergeLayers(vector<shared_ptr<TileLayer>> layers);
+
     /*
      * Object to manage level state
      */
@@ -80,6 +101,11 @@ private:
     unsigned int m_height;
     unsigned int m_width;
 
+    unsigned int m_levelID;
+    unsigned int m_userID;
+    unsigned int m_classID;
+
+    shared_ptr<GameState> m_gameState;
     shared_ptr<ActionLog> m_actionLog;
     shared_ptr<TimeKeeper> m_timekeeper;
 };

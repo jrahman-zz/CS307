@@ -1,19 +1,29 @@
 #include "TileLayer.h"
 
-TileLayer::TileLayer(unsigned int g_width, unsigned int g_height)
-    : m_gridWidth(g_width)
-    , m_gridHeight(g_height)
+TileLayer::TileLayer(Json::Value value)
+    : m_gridWidth(value["width"].asInt())
+    , m_gridHeight(value["height"].asInt())
+    , m_tiles(new Tile[m_gridHeight * m_gridWidth])
 {
-    m_tiles = new Tile[m_gridHeight * m_gridWidth];
+    // Check data
+    auto data = value["data"];
+    if (data.size() != m_gridHeight * m_gridWidth) {
+        throw invalid_argument("Invalid data array, wrong size");
+    }
+
+    for (unsigned int i = 0; i < m_gridHeight; i++) {
+        for (unsigned int j = 0; j < m_gridWidth; j++) {
+            auto index = i * m_gridWidth + j;
+            m_tiles[index] = Tile(data[index].asInt());
+        }
+    }
 }
 
 TileLayer::TileLayer(TileLayer& rhs) 
     : m_gridWidth(rhs.m_gridWidth)
     , m_gridHeight(rhs.m_gridHeight)
-    , m_tiles(nullptr)
+    , m_tiles(new Tile[rhs.m_gridHeight * rhs.m_gridWidth])
 {
-    m_tiles = new Tile[m_gridHeight * m_gridWidth];
-    
     for (unsigned int i = 0; i < m_gridHeight; i++) {
         for (unsigned int j = 0; j < m_gridWidth; j++) {
             auto index = i * m_gridWidth + j;
@@ -41,11 +51,12 @@ TileLayer::~TileLayer() {
 shared_ptr<TileLayer> TileLayer::merge(shared_ptr<TileLayer> rhs) {
     if (rhs->m_gridWidth != m_gridWidth
         || rhs->m_gridHeight != m_gridHeight) {
-        throw runtime_error("Dimension mismatch");
+        throw invalid_argument("Dimension mismatch");
     }
-    shared_ptr<TileLayer> ptr(new TileLayer(m_gridWidth, m_gridHeight));
+    shared_ptr<TileLayer> ptr(new TileLayer(*this));
     for (unsigned int i = 0; i < m_gridHeight; i++) {
         for (unsigned int j = 0; j < m_gridWidth; j++) {
+
             auto index = i * m_gridWidth + j;
             switch(m_tiles[index].getType()) {
                 case TileType::None:

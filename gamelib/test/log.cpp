@@ -30,7 +30,7 @@ START_TEST("actors");
         FAIL_TEST("actors");
     }
 
-    auto log = engine.getLog();
+    auto log = engine.getResult();
     auto comp = log.compare(expected_log);
     if (comp) {
         cout << "Log doesn't matched expected, " << comp << ": " << endl
