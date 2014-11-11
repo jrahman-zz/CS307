@@ -131,11 +131,11 @@ unsigned int Engine::getTimestep() const {
 
 string Engine::getResult() const {
     Json::FastWriter writer;
-    auto log = getLog();
-    
-    // TODO, handle result, class, user, and level ID output
 
-    return writer.write(log);
+    auto root = m_gameState->serialize();
+    root["log"] = getLog();
+
+    return writer.write(root);
 }
 
 Json::Value Engine::getLog() const {

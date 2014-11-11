@@ -14,6 +14,17 @@ GameState::GameState(
     , m_classID(classID)
 {}
 
+Json::Value GameState::serialize() const {
+    Json::Value root(Json::objectValue);
+
+    root["userID"] = m_userID;
+    root["levelID"] = m_levelID;
+    root["nextLevel"] = m_nextLevelID;
+    root["classID"] = m_classID;
+
+    return root;
+}
+
 bool GameState::canMove() const {
     return m_canMove;
 }
