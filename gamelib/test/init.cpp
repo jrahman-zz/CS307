@@ -10,14 +10,10 @@
 using namespace std;
 
 START_TEST("init");
-	TilemapParser parser;
 
 	try {
-		if (parser.parse(testDataA)) {
-			cout << "Passed test" << endl;
-		} else {
-		    FAIL_TEST("init");
-        }
+		TilemapParser parser(testDataA);
+		cout << "Passed test" << endl;
 	} catch (exception e) {
 		cout << "Exception " << e.what() << endl;
         FAIL_TEST("init");
