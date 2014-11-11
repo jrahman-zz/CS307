@@ -3,10 +3,12 @@
 #include "DialogueTrigger.h"
 #include "LevelExitTrigger.h"
 
+#include "Moveable.h"
+
 Trigger::Trigger(Json::Value value) 
     : Positionable(value)
+    , m_name(std::move(value["name"].asString())) 
     , m_type(Trigger::typeFromString(value["type"].asString()))
-    , m_name(std::move(value["name"].asString()))
     , m_repeatable(value["properties"].get("repeatable", false).asBool())
     , m_stopMovement(value["properties"].get("stopMove", true).asBool())
     , m_triggerTarget(value["properties"].get("triggerTarget", -1).asInt())
@@ -26,7 +28,13 @@ bool Trigger::arrive(Interactable& target, shared_ptr<GameState> state) {
 
 bool Trigger::leave(Interactable& target, shared_ptr<GameState> state) {
     if (m_triggerTarget < 0 || m_triggerTarget == target.getID()) {
-        return leaveImpl(target, state);
+        auto ret = leaveImpl(target, state);
+        if (m_stopMovement) {
+            // This could throw bad_cast, but if target
+            // is moving then it should be Moveable
+            dynamic_cast<Moveable&>(target).setCanMove(false);
+        }
+        return ret;
     } else {
         return false; // What exactly is the meaning of this return value??
     }

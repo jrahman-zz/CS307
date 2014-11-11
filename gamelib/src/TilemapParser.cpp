@@ -2,67 +2,52 @@
 
 #include <iostream>
 
-TilemapParser::TilemapParser() {
+TilemapParser::TilemapParser(string jsonStr) {
+    parse(jsonStr);
 }
 
-bool TilemapParser::parse(std::string& json_str) {
+void TilemapParser::parse(string jsonStr) {
     Json::Value root;
     Json::Reader reader;
 
-    m_tileLayers.clear();
-    m_triggers.clear(); 
-    m_actors.clear();
-
-    bool success = reader.parse(json_str, root);
-    if (!success) {
+    if (!reader.parse(jsonStr, root)) {
         throw runtime_error("Failed to parse JSON:\n"
         + reader.getFormattedErrorMessages());
     }
 
-    if (!root.isMember("width")) {
-        throw runtime_error("Missing width");
-    }
-    
-    if (!root.isMember("height")) {
-        throw runtime_error("Missing height");
-    }
-    
-    if (!root.isMember("tileheight")) {
-        throw runtime_error("Missing tileheight");
-    }
+    checkInput(root); 
+ 
+    m_userID = root["userID"].asInt();
+    m_levelID = root["levelID"].asInt();
+    m_classID = root["classID"].asInt();
 
-    if (!root.isMember("tilewidth")) {
-        throw runtime_error("Missing tilewidth");
-    }
+    auto level = root["level"];    
 
-    m_mapWidth = root["width"].asInt();
-    m_mapHeight = root["height"].asInt();
-    m_tileWidth = root["tilewidth"].asInt();
-    m_tileHeight = root["tileheight"].asInt();
+    checkLevel(level);
+
+    m_mapWidth = level["width"].asInt();
+    m_mapHeight = level["height"].asInt();
+    m_tileWidth = level["tilewidth"].asInt();
+    m_tileHeight = level["tileheight"].asInt();
 
     if (m_tileHeight != m_tileWidth) {
-        throw runtime_error("Non-square tile prohibited");
+        throw invalid_argument("Non-square tile prohibited");
     }
 
-    // These will be stored by the game state
-    if (!root.isMember("layers")) {
-        throw runtime_error("No layers");
-    }
-
-    Json::Value layers_elem = root["layers"];
+    Json::Value layers_elem = level["layers"];
     for (unsigned int i = 0; i < layers_elem.size(); i++) {
         Json::Value layer_elem = layers_elem[i];
     
         if (!layer_elem.isMember("type")) {
-            throw runtime_error("No type for layer");
+            throw invalid_argument("No type for layer");
         }
 
         if (!layer_elem.isMember("width")) {
-            throw runtime_error("No width for layer");
+            throw invalid_argument("No width for layer");
         }
 
         if (!layer_elem.isMember("height")) {
-            throw runtime_error("No height for layer");
+            throw invalid_argument("No height for layer");
         }
 
         string type = layer_elem["type"].asString();
@@ -71,7 +56,7 @@ bool TilemapParser::parse(std::string& json_str) {
             m_tileLayers.push_back(layer);
         } else if (type == "objectgroup") {
             if (!layer_elem.isMember("name")) {
-                throw runtime_error("Unnamed object group layer");
+                throw invalid_argument("Unnamed object group layer");
             }
             string group_name = layer_elem["name"].asString();
             if (group_name == "TriggerLayer") {
@@ -81,8 +66,47 @@ bool TilemapParser::parse(std::string& json_str) {
             }
         }
     }
+}
 
-    return true;
+void TilemapParser::checkInput(Json::Value root) {
+    if (!root.isMember("levelID")) {
+        throw invalid_argument("Missing levelID");
+    }
+
+    if (!root.isMember("classID")) {
+        throw invalid_argument("Missing classID");
+    }
+
+    if (!root.isMember("userID")) {
+        throw invalid_argument("Missing userID");
+    }
+
+    if (!root.isMember("level")) {
+        throw invalid_argument("Missing level");
+    }
+}
+
+void TilemapParser::checkLevel(Json::Value root) {
+    
+    if (!root.isMember("width")) {
+        throw invalid_argument("Missing width");
+    }
+    
+    if (!root.isMember("height")) {
+        throw invalid_argument("Missing height");
+    }
+    
+    if (!root.isMember("tileheight")) {
+        throw invalid_argument("Missing tileheight");
+    }
+
+    if (!root.isMember("tilewidth")) {
+        throw invalid_argument("Missing tilewidth");
+    }
+
+    if (!root.isMember("layers")) {
+        throw invalid_argument("Missing layers");
+    }
 }
 
 vector<shared_ptr<TileLayer>> TilemapParser::getTileLayers() {
@@ -95,6 +119,22 @@ vector<shared_ptr<Trigger>> TilemapParser::getTriggers() {
 
 vector<shared_ptr<Interactable>> TilemapParser::getActors() {
     return m_actors;
+}
+
+unsigned int TilemapParser::getUserID() const {
+    return m_userID;
+}
+
+unsigned int TilemapParser::getLevelID() const {
+    return m_levelID;
+}
+
+unsigned int TilemapParser::getNextLevelID() const {
+    return m_nextLevelID;
+}
+
+unsigned int TilemapParser::getClassID() const {
+    return m_classID;
 }
 
 shared_ptr<TileLayer> TilemapParser::parseLayer(Json::Value root) {

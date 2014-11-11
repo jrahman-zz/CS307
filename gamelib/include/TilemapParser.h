@@ -15,9 +15,7 @@ using namespace std;
  */
 class TilemapParser {
 public:
-    TilemapParser();
-
-    bool parse(string& json_str);
+    explicit TilemapParser(string jsonStr);
 
     vector<shared_ptr<TileLayer>> getTileLayers();
     vector<shared_ptr<Trigger>> getTriggers();
@@ -28,10 +26,25 @@ public:
     unsigned int getTileWidth();
     unsigned int getTileHeight();
 
+    unsigned int getUserID() const;
+    unsigned int getLevelID() const;
+    unsigned int getNextLevelID() const;
+    unsigned int getClassID() const;
+
     void debug();
     
 protected:
     
+    /*
+     * Ban the constructors we don't want
+     */
+    TilemapParser() = delete;
+    TilemapParser(const TilemapParser& rhs) = delete;
+
+    void parse(string jsonStr);
+    void checkInput(Json::Value root);
+    void checkLevel(Json::Value root);
+
     shared_ptr<TileLayer> parseLayer(Json::Value root);
     vector<shared_ptr<Trigger>> parseTriggers(Json::Value root);
     vector<shared_ptr<Interactable>> parseActors(Json::Value root);
@@ -45,4 +58,9 @@ private:
     unsigned int m_mapHeight;
     unsigned int m_tileHeight;
     unsigned int m_tileWidth;
+
+    unsigned int m_userID;
+    unsigned int m_levelID;
+    unsigned int m_nextLevelID;
+    unsigned int m_classID;
 };
