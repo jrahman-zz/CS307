@@ -1,10 +1,9 @@
 .page-header
-  .pull-right.col-md-4
-    = search_form_for @q do |f|
-      .input-group
-        = f.search_field :name_cont, placeholder: 'Search Courses', class: 'form-control'
-        .input-group-btn= f.submit 'Search', class: 'btn btn-default'
-  %h1 Courses
+  = search_form_for @q do |f|
+    .input-group.col-md-4.pull-right
+      = f.search_field :name_cont, placeholder: 'Search Courses', class: 'form-control'
+      .input-group-btn= f.submit 'Search', class: 'btn btn-default'
+    %h1 Courses
 
 %table.table.table-striped.vertical-aligned
   %thead

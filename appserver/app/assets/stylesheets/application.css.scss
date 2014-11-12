@@ -14,6 +14,21 @@
  *= require_tree ./application/
  */
 
+/* Bootstrap Overrides */
+$navbar-default-bg: #AA6C39;
+$navbar-default-color: #fff;
+$navbar-default-link-color: #fff;
+$navbar-default-link-hover-color: $navbar-default-link-color;
+$navbar-default-link-hover-bg: darken($navbar-default-bg, 2%);
+
+$brand-primary: #407F7F;
+$brand-success: #2A7E43;
+$brand-info:    #669999;
+$brand-warning: #D49A6A;
+$brand-danger:  #AA4839;
+
+// $body-bg: #105E27;
+
 /* Import the Bootstrap stylesheets */
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -42,6 +57,14 @@
 
 body {
   padding-top: 50px;
+}
+
+.container {
+  background-color: white;
+}
+
+.navbar .container {
+  background-color: transparent;
 }
 
 ul.member-list li {
