@@ -3,11 +3,17 @@
 #include <json/json.h>
 
 enum class TileType {
-    None,
+    None, // No mapped value - possibly indicates error.
     Blank,
     Terrain,
     Water,
-    Building
+    Building,
+    Flora,
+    Ladder,
+    Gate,
+    Crate,
+    Barrel,
+    Door
 };
 
 class Tile {
