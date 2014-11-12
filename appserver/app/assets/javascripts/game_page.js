@@ -3,8 +3,8 @@
 //= require jquery_ujs
 //= require phaser
 
-$(document).ready(function() { 
-  $('[data-toggle="popover"]').popover(); 
+$(document).ready(function() {
+  $('[data-toggle="popover"]').popover();
 });
 
 var game = new Phaser.Game(1152, 640, Phaser.AUTO, 'canvas-container',
@@ -16,7 +16,7 @@ function preload() {
   // game.load.tilemap('sample-tilemap', '/assets/tilemaps/sample.json',
   //   null, Phaser.Tilemap.TILED_JSON);
 
-  game.load.tilemap('sample-tilemap', null, get_level_tile_map(), Phaser.Tilemap.TILED_JSON);
+  game.load.tilemap('sample-tilemap', null, get_level_tilemap(), Phaser.Tilemap.TILED_JSON);
   game.load.image('tiles', '/assets/spritesheets/RPGpack_sheet.png');
 }
 
