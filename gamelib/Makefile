@@ -28,7 +28,7 @@ all: $(LIBDIR)/$(LIBGAME_STATIC) $(LIBDIR)/$(LIBGAME_SHARED)
 test: cleantest $(TESTBIN)
 	@cp $(TESTDIR)/test.sh $(TBUILDDIR)
 	@cd $(TBUILDDIR) && ./test.sh
-	@echo "Ran tests"
+	echo "Ran tests"
 
 $(TBUILDDIR)/%.o: $(TESTDIR)/%.cpp
 	@mkdir -p $(TBUILDDIR)
@@ -44,16 +44,16 @@ $(TBUILDDIR)/%.out: $(TBUILDDIR)/%.o $(OBJECTS)
 	@$(CXX) $^ -o $@
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
-	@mkdir -p $(BUILDDIR)
-	@$(CXX) $(CXXFLAGS) $(INC) -fPIC -c -o $@ $<
+	mkdir -p $(BUILDDIR)
+	$(CXX) $(CXXFLAGS) $(INC) -fPIC -c -o $@ $<
 
 $(LIBDIR)/$(LIBGAME_SHARED): $(OBJECTS)
-	@mkdir -p $(LIBDIR)
-	@$(CXX) -shared -Wl,-soname,$@ -o $(LIBGAME_SHARED) $^
+	mkdir -p $(LIBDIR)
+	$(CXX) -shared -Wl,-soname,$@ -o $(LIBGAME_SHARED) $^
 
 $(LIBDIR)/$(LIBGAME_STATIC): $(OBJECTS)
-	@mkdir -p $(LIBDIR)
-	@ar rcs $@ $^
+	mkdir -p $(LIBDIR)
+	ar rcs $@ $^
 
 object:
 	echo "$(SOURCES):$(SOURCES:.cpp=.o)"
@@ -62,4 +62,4 @@ cleantest:
 	@$(RM) -r $(TBUILDDIR)
 
 clean: cleantest
-	@$(RM) -r $(BUILDDIR) $(LIBDIR)/$(LIBGAME_SHARED) $(LIBDIR)/$(LIBGAME_STATIC)
+	$(RM) -r $(BUILDDIR) $(LIBDIR)/$(LIBGAME_SHARED) $(LIBDIR)/$(LIBGAME_STATIC)
