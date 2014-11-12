@@ -9,52 +9,54 @@
  <tileset firstgid="262" name="LinkLeft" tilewidth="64" tileheight="64">
   <image source="assets/spritesheets/NPCs/LinkRight.png" width="64" height="64"/>
  </tileset>
- <layer name="Base and Water Pond" width="12" height="10">
+ <layer name="BaseLayer" width="12" height="10">
   <data encoding="base64" compression="zlib">
-   eJyLY2BgiCeAFZCwFxB7E8C0Vo+Mh6J6SsIHxHcjgJHVAwDRsSCm
+   eJyLY2BgiMeDE4BYAQl7AbE3HuxDY/XeaO4jRj0ypoV6NyRM6/BxR7MPHXuiqQcAEwgg1w==
   </data>
  </layer>
- <layer name="Side Wall and Bushes" width="12" height="10">
+ <layer name="BushLayer" width="12" height="10">
   <data encoding="base64" compression="zlib">
-   eJxzY2A44EYAb2VAACB/AQMBQI56GCZG/UUkTIx6ZEAL9aS6h1T/ooUnQYCsHgCNbhyl
+   eJxjYCAMthKhhlL1MDwSAKn+pST8AT1KBxM=
   </data>
  </layer>
- <layer name="Corners" width="12" height="10" opacity="0.59">
+ <layer name="MazeLayer" width="12" height="10">
   <data encoding="base64" compression="zlib">
-   eJxzY2BYwDAKhgxwIzG+ANiPAc0=
+   eJxjYGBgeAbElxgg4CkSvQ+KSQHP0PgXkcyEsWFm7iVg1lM0Pszsi0gYl1p0Pi537kVTi8tN+MzH5h70cCAEYOGCjaYEAAAxBB8K
   </data>
  </layer>
- <layer name="Maze" width="12" height="10">
+ <layer name="ExitLayer" width="12" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYGBgeAbElxgg4CkSvQ+KSQHPsIjBzLyIZC4I7CVg1lM0PjazcalF56MDmFl70dTichO55hMLYOGCjaYEAACt6hlT
+   eJxjYBgFuAAL40C7gHIAAAWzAAY=
   </data>
  </layer>
- <objectgroup name="NPCs">
-  <object type="wizard" x="448" y="64" width="64" height="64">
+ <objectgroup name="ActorLayer">
+  <object name="Wizard" type="npc" x="448" y="64" width="64" height="64">
    <properties>
     <property name="id" value="2"/>
+    <property name="npc_id" value="0"/>
    </properties>
   </object>
-  <object type="link" x="64" y="64" width="64" height="64">
+  <object name="Link" type="npc" x="64" y="64" width="64" height="64">
    <properties>
     <property name="id" value="1"/>
+    <property name="npc_id" value="1"/>
    </properties>
   </object>
-  <object type="hero" x="64" y="512" width="64" height="64">
+  <object name="Hero" type="hero" x="64" y="512" width="64" height="64">
    <properties>
     <property name="id" value="0"/>
    </properties>
   </object>
  </objectgroup>
- <layer name="NPC - Delete Later Just Templete" width="12" height="10">
-  <data encoding="base64" compression="zlib">
-   eJxjYCAdsDFiF2fFIT4KBg4AABcKAA4=
-  </data>
- </layer>
- <layer name="Door" width="12" height="10">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFuAAL40C7gHIAAAWzAAY=
-  </data>
- </layer>
- <objectgroup name="Dialog"/>
+ <objectgroup name="TriggerLayer">
+  <object name="Link Dialog" type="dialogue" x="128" y="64" width="64" height="64">
+   <properties>
+    <property name="actor" value="1"/>
+    <property name="dialogue" value=" sleeping beauty. You are like an old man sleeping for 12 hours straight! But, anyway you must be already getting super tired of typing in Hero.moveUp() a million times. So I heard there were something called arguments in functions! \nAnd if you forgot what a function is it is just special code that is designed to do a set of instructions, but it conveniently lets you do it with 1 line of code! So try giving Hero.MoveRight() a number and see what happens!"/>
+    <property name="repeatable" value="true"/>
+    <property name="stopMove" value="true"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

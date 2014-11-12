@@ -17,11 +17,6 @@ $(document).ready(function() {
   $('[data-toggle="popover"]').popover();
 });
 
-
-var game = new Phaser.Game(1152, 640, Phaser.AUTO, 'canvas-container',
-  { preload: preload, create: create, update: update, render: render },
-  false /* transparent */, true /* antialias */);
-
 // Utility functions.
 
 function default_for(arg, defaultVal) {
