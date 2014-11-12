@@ -43,6 +43,9 @@ void Engine::init(string levelJson) {
 
 void Engine::addTriggers(vector<shared_ptr<Trigger>> triggers) {
      for (auto triggerIt = triggers.begin(); triggerIt != triggers.end(); triggerIt++) {
+        auto trigger = *triggerIt;
+        trigger->registerLogObserver(m_actionLog);
+
         if (!m_levelManager->addTrigger(*triggerIt)) {
             throw runtime_error("Failed to add trigger");
         }

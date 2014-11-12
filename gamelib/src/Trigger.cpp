@@ -20,6 +20,9 @@ Trigger::~Trigger() {}
 bool Trigger::arrive(Interactable& target, shared_ptr<GameState> state) {
     if ((m_triggerTarget < 0 || m_triggerTarget == target.getID()) && isTriggerable()) {
         m_triggered = arriveImpl(target, state);
+        if (m_triggered && m_stopMovement) {
+            dynamic_cast<Moveable&>(target).setCanMove(false);
+        }
     } else {
         return false; // Didn't activate trigger
     }
@@ -29,11 +32,6 @@ bool Trigger::arrive(Interactable& target, shared_ptr<GameState> state) {
 bool Trigger::leave(Interactable& target, shared_ptr<GameState> state) {
     if (m_triggerTarget < 0 || m_triggerTarget == target.getID()) {
         auto ret = leaveImpl(target, state);
-        if (m_stopMovement) {
-            // This could throw bad_cast, but if target
-            // is moving then it should be Moveable
-            dynamic_cast<Moveable&>(target).setCanMove(false);
-        }
         return ret;
     } else {
         return false; // What exactly is the meaning of this return value??
