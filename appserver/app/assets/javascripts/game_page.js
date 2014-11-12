@@ -17,6 +17,13 @@ $(function() {
   $('[data-toggle="popover"]').popover();
 });
 
+// Constants.
+var TileSize = 64;
+var CanvasTileWidth = 18;
+var CanvasTileHeight = 10;
+
+var AnimMoveSpeed = 150; // pixels per second.
+
 // SpriteType enum.
 var SpriteType = {
   HERO: 'hero',
@@ -90,7 +97,8 @@ tilemap_promise.success(function (tilemap_str) {
   // Values are SpriteEntity objects corresponding to the id.
   var entity_map = {};
 
-  var game = new Phaser.Game(1152, 640, Phaser.AUTO, 'canvas-container',
+  var game = new Phaser.Game(CanvasTileWidth * TileSize, CanvasTileHeight * TileSize,
+    Phaser.AUTO, 'canvas-container',
     { preload: preload, create: create, update: update, render: render },
     false /* transparent */, true /* antialias */);
 
@@ -143,13 +151,100 @@ tilemap_promise.success(function (tilemap_str) {
 
     // Load hero spritesheet.
     var hero_spritesheet_path = '/assets/spritesheets/heroes/' + hero_gender + '/walk.png';
-    game.load.spritesheet('hero0-spritesheet', hero_spritesheet_path, 64, 64);
+    game.load.spritesheet('hero0-spritesheet', hero_spritesheet_path, TileSize, TileSize);
 
     // Load NPC spritesheets.
     // TODO make this dynamic.
     // Should follow format '<type><type_id>-spritesheet'
-    game.load.spritesheet('npc1-spritesheet', '/assets/spritesheets/NPCs/LinkRight.png', 64, 64);
-    game.load.spritesheet('npc0-spritesheet', '/assets/spritesheets/NPCs/PWizard2.png', 64, 64);
+    game.load.spritesheet('npc1-spritesheet', '/assets/spritesheets/NPCs/LinkRight.png', TileSize, TileSize);
+    game.load.spritesheet('npc0-spritesheet', '/assets/spritesheets/NPCs/PWizard2.png', TileSize, TileSize);
+
+
+    // Example response JSON processing.
+    // TODO replace with server call and prevent submission while animating.
+    game.load.onLoadComplete.addOnce(function () {
+      setTimeout(onLoadComplete, 1000);
+    });
+    function onLoadComplete() {
+      var response_json = {"finished": false,
+      "log":[
+        [
+          {
+            "type": "move",
+            "data": {
+              "actorID": 0,
+              "position": {
+                "x": 2,
+                "y": 3
+              }
+            }
+          },
+
+          {
+            "type": "move",
+            "data": {
+              "actorID": 1,
+              "position": {
+                "x": 4,
+                "y": 5
+              }
+            }
+          }
+        ],
+        [
+          {
+            "type": "move",
+            "data": {
+              "actorID": 0,
+              "position": {
+                "x": 5,
+                "y": 5
+              }
+            }
+          },
+
+          {
+            "type": "move",
+            "data": {
+              "actorID": 1,
+              "position": {
+                "x": 6,
+                "y": 2
+              }
+            }
+          }
+        ]
+      ]};
+
+      var events = parse_response(response_json);
+
+      // Note: This is nasty recursion. I'll fix this
+      // when I can think straight (and work around Javascripts serial nature).
+      function process(index) {
+        var anims = events[index];
+        var completed_count = 0;
+        for (var i = 0; i < anims.length; i++) {
+          var anim = anims[i];
+          anim.start();
+
+          // All animations should finish at same time, but this
+          // ensures synchronization.
+          anim.onComplete.addOnce(function () {
+            completed_count++;
+            if (completed_count == anims.length) {
+              var next_index = index + 1;
+              if (next_index < events.length) {
+                process(next_index); // Recursive!
+              }
+            }
+          });
+        }
+      }
+
+      if (events.length > 0) {
+        process(0);
+      }
+    }
   }
 
   function create() {
@@ -170,7 +265,6 @@ tilemap_promise.success(function (tilemap_str) {
 
     for (var id in entity_map) {
       var game_sprite = entity_map[id];
-      console.log('id: ' + id + ', ' + JSON.stringify(game_sprite, true, 3));
 
       var spritesheet = game_sprite.type + game_sprite.type_id + '-spritesheet';
       var sprite = game.add.sprite(game_sprite.start_x, game_sprite.start_y, spritesheet);
@@ -191,6 +285,58 @@ tilemap_promise.success(function (tilemap_str) {
 
   function render() {
 
+  }
+
+  /**
+   * Returns 2D array of form [timestep][animation_index]. Objects are type Phaser.Tween.
+   */
+  function parse_response(response_json) {
+    var events = [];
+
+    var log_json = response_json['log'];
+    for (var timestep = 0; timestep < log_json.length; timestep++) {
+      var events_json = log_json[timestep];
+
+      // All anims are created and then iterated.
+      var anims = [];
+
+      for (var i = 0; i < events_json.length; i++) {
+        var event_json = events_json[i];
+        var type = event_json['type'];
+        var data_json = event_json['data'];
+
+        switch (type) {
+          case 'move':
+            var actor_id = data_json['actorID'];
+            var pos_json = data_json['position'];
+            var dest_x = pos_json['x'] * TileSize;
+            var dest_y = pos_json['y'] * TileSize;
+
+            var entity = entity_map[actor_id];
+            var sprite = entity.sprite;
+
+            var props = { x: dest_x, y: dest_y };
+            var distance = game.physics.arcade.distanceToXY(sprite, dest_x, dest_y);
+            var duration = distance / AnimMoveSpeed * 1000;
+            var delay = 0; // TODO maybe add delay
+            var anim = game.add.tween(sprite).to(props, duration, 
+                Phaser.Easing.Linear.None, false /* autoStart */, delay);
+
+            anims.push(anim);
+            break;
+          case 'rotate':
+            // TODO include in tmx and implement
+            break;
+          default:
+            console.log('Unknown log event type: ' + type);
+            break;
+        }
+      }
+
+      events.push(anims);
+    }
+
+    return events;
   }
 
   // Intercept click events on the submit button.
