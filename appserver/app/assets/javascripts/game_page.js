@@ -22,7 +22,7 @@ var TileSize = 64;
 var CanvasTileWidth = 18;
 var CanvasTileHeight = 10;
 
-var AnimMoveSpeed = 150; // pixels per second.
+var AnimMoveSpeed = 120; // pixels per second.
 
 // SpriteType enum.
 var SpriteType = {
@@ -171,13 +171,12 @@ tilemap_promise.success(function (tilemap_str) {
       var response_json = {
         "classID":2,
         "levelID":1,
-        "log":
-        [
-           [{"data":{"actorID":0,"rotation":270},"type":"rotate"}],
-           [{"data":{"actorID":0,"rotation":180},"type":"rotate"}],
-           [{"data":{"actorID":1,"dialogue":"Blah blah blahede blah"}],
-           [{"data":{"actorID":0,"position":{"x":8,"y":2}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}]
-        ],
+        "log": [
+        [{"data":{"actorID":0,"position":{"x":1,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":180},"type":"rotate"}],
+          [{"data":{"actorID":0,"dialogue":"Hi"},"type":"dialogue"},{"data":{"actorID":0,"position":{"x":0,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}],
+          [{"data":{"actorID":0,"position":{"x":0,"y":6}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}],
+          [{"data":{"actorID":0,"dialogue":"Hi 2"},"type":"dialogue"},{"data":{"actorID":0,"position":{"x":0,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}]
+          ],
         "nextLevel":-1,
         "userID":0
       };
@@ -265,6 +264,7 @@ tilemap_promise.success(function (tilemap_str) {
 
       // All anims are created and then iterated.
       var anims = [];
+      var last_x, last_y;
 
       for (var i = 0; i < events_json.length; i++) {
         var event_json = events_json[i];
@@ -280,9 +280,15 @@ tilemap_promise.success(function (tilemap_str) {
 
             var entity = entity_map[actor_id];
             var sprite = entity.sprite;
+            if (!last_x || !last_y) {
+              last_x = sprite.x;
+              last_y = sprite.y;
+            }
 
             var props = { x: dest_x, y: dest_y };
-            var distance = game.physics.arcade.distanceToXY(sprite, dest_x, dest_y);
+            var distance = distance_between(last_x, last_y, dest_x, dest_y);
+            last_x = dest_x;
+            last_y = dest_y;
             var duration = distance / AnimMoveSpeed * 1000;
             var delay = 0; // TODO maybe add delay
             var anim = game.add.tween(sprite).to(props, duration, 
