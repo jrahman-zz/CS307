@@ -15,7 +15,7 @@ def getexceptionmessage(exc):
     if exc == KeyError:
         return 'You tried to access a dictionary entry which does not exist.'
     if exc == IndexError:
-        return 'You tried to access a part of an array which was outside.'
+        return 'You tried to access a part of an array which was outside its bounds. Check that the array and index are what you expected them to be.'
     if exc == MemoryError:
         return 'The system has run out of memory. Check that you are not using any extremely large arrays.'
     if exc == OverflowError:
