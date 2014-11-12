@@ -61,5 +61,12 @@
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
+  <object name="NextLevelTrigger" type="levelexit" x="704" y="320" width="64" height="64">
+   <properties>
+    <property name="repeatable" value="true"/>
+    <property name="stopMove" value="true"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

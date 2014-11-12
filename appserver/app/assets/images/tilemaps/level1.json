@@ -125,6 +125,22 @@
                  "width":64,
                  "x":128,
                  "y":64
+                }, 
+                {
+                 "height":64,
+                 "name":"NextLevelTrigger",
+                 "properties":
+                    {
+                     "repeatable":"true",
+                     "stopMove":"true",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"levelexit",
+                 "visible":true,
+                 "width":64,
+                 "x":704,
+                 "y":320
                 }],
          "opacity":1,
          "type":"objectgroup",
