@@ -7,11 +7,31 @@ from importtools import joincontexts
 
 def getexceptionmessage(exc):
     if exc == NameError:
-        return 'name error message here'
+        return '''You tried to use a variable that you haven't defined yet. Check your spelling.'''
     if exc == TypeError:
-        return 'type error message here'
+        return 'You are using the wrong type of variable here. Check if it is a string, number, or list and how you are using it.'
+    if exc == ImportError:
+        return 'You tried to import something which either does not exist or is not allowed.'
+    if exc == KeyError:
+        return 'You tried to access a dictionary entry which does not exist.'
+    if exc == IndexError:
+        return 'You tried to access a part of an array which was outside its bounds. Check that the array and index are what you expected them to be.'
+    if exc == MemoryError:
+        return 'The system has run out of memory. Check that you are not using any extremely large arrays.'
+    if exc == OverflowError:
+        return 'The number you are using is too large for the system to use in calculations.'
+    if exc == SyntaxError:
+        return 'There is a typo in your code. Check the spelling and order of the words in this line.'
+    if exc == IndentationError:
+        return 'This line is not indented the right amount. Check the number of leading spaces.'
+    if exc == SystemError:
+        return 'There was an error in our system. We are not sure the cause, but it was not your fault.'
+    if exc == TabError:
+        return 'You are using both tabs and spaces to indent your code. Please use only one.'
+    if exc == ZeroDivisionError:
+        return 'You tried to divide by zero. Check that your denominator is the value you expected it to be.'
     else:
-        return 'no match for error type found'
+        return 'An error occurred, but we are not sure what went wrong'
 
 def exceptiondetails(code):
     returned_info = {}
