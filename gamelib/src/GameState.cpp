@@ -21,6 +21,7 @@ Json::Value GameState::serialize() const {
     root["levelID"] = m_levelID;
     root["nextLevel"] = m_nextLevelID;
     root["classID"] = m_classID;
+    root["completed"] = m_levelOver;
 
     return root;
 }

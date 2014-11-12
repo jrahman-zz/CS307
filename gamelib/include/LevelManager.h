@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <memory>
+#include <string>
 
 #include "StateObserver.h"
 #include "MoveObserver.h"
@@ -29,7 +30,7 @@ public:
     bool removeActor(Position position);
 
     bool addTrigger(shared_ptr<Trigger> trigger);
-    bool removeTrigger(unsigned int triggerID);
+    bool removeTrigger(string triggerName);
 
     /*
      * Hooks for observer pattern
@@ -68,7 +69,7 @@ protected:
      * Trigger resources
      */
     unordered_map<Position, shared_ptr<Trigger>> m_triggers;
-    unordered_map<unsigned int, shared_ptr<Trigger>> m_triggersID;
+    unordered_map<string, shared_ptr<Trigger>> m_triggersName;
 
     shared_ptr<GameState> m_gameState;
 private:

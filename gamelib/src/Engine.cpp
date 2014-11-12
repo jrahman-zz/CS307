@@ -34,23 +34,31 @@ void Engine::init(string levelJson) {
     shared_ptr<LevelManager> mgr(new LevelManager(m_tileMap, m_gameState));
     m_levelManager = mgr;
 
-    // Load triggers into map
-    auto triggers = parser.getTriggers();
-    auto triggerIt = triggers.begin();
-    while (triggerIt != triggers.end()) {
-        m_triggers.push_back(*triggerIt);
-        m_levelManager->addTrigger(*triggerIt);
-        triggerIt++;
-    }
+    // Load actors
+    addActors(parser.getActors());
 
+    // Load triggers into map
+    addTriggers(parser.getTriggers()); 
+}
+
+void Engine::addTriggers(vector<shared_ptr<Trigger>> triggers) {
+     for (auto triggerIt = triggers.begin(); triggerIt != triggers.end(); triggerIt++) {
+        if (!m_levelManager->addTrigger(*triggerIt)) {
+            throw runtime_error("Failed to add trigger");
+        }
+    }
+}
+
+void Engine::addActors(vector<shared_ptr<Interactable>> actors) {
+    
     // Load actors into map
-    auto actors = parser.getActors();
-    auto actorIt = actors.begin();
-    while (actorIt != actors.end()) {
+    for (auto actorIt = actors.begin(); actorIt != actors.end(); actorIt++) {
         m_actors.push_back(*actorIt);
         auto actor = *actorIt;
 
-        m_levelManager->addActor(actor);
+        if (!m_levelManager->addActor(actor)) {
+            throw runtime_error("Failed to add actor");
+        }
         
         actor->registerStateObserver(m_levelManager);
         actor->registerInteractObserver(m_levelManager);
@@ -69,7 +77,6 @@ void Engine::init(string levelJson) {
         if (actor->getType() == InteractableType::HERO) {
             m_hero = dynamic_pointer_cast<Hero>(actor);
         }
-        actorIt++;
     }
 }
 
@@ -130,7 +137,6 @@ void Engine::resetEngine() {
 
     // Reset data structures
     m_actors.clear();
-    m_triggers.clear();
     m_hero = nullptr;
     m_actionLog->reset();
     m_timekeeper->reset();

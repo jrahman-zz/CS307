@@ -56,7 +56,11 @@ public:
 protected:
 
     void init(string levelJson);
-    
+
+    void addTriggers(vector<shared_ptr<Trigger>> triggers);
+
+    void addActors(vector<shared_ptr<Interactable>> actors);
+        
     Json::Value getLog() const;
 private:
 
@@ -92,11 +96,6 @@ private:
      * Record tilemap
      */
     shared_ptr<TileLayer> m_tileMap;
-
-    /*
-     * Position indexed triggers
-     */
-    vector<shared_ptr<Trigger>> m_triggers;
 
     unsigned int m_height;
     unsigned int m_width;

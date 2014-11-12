@@ -1,10 +1,9 @@
 #include "Positionable.h"
 
 Positionable::Positionable(Json::Value value) 
-    : m_position(value["x"].asInt(), value["y"].asInt()) {
-    auto properties = value["properties"];
-    m_ID = properties["id"].asInt();
-}
+    : m_position(value["x"].asInt(), value["y"].asInt())
+    , m_ID(value["properties"].get("id", -1).asInt()) 
+{}
 
 Positionable::~Positionable() {
 }
@@ -17,7 +16,7 @@ void Positionable::setPosition(Position position) {
     m_position = position;
 }
 
-unsigned int Positionable::getID() const {
+int Positionable::getID() const {
     return m_ID;
 }
 
