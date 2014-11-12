@@ -42,7 +42,7 @@ def run_code(levelid):
 
     print('status:' + str(status))
     if len(status) == 0:
-        return jsonify({'response':'Ran code'})
+        return gamelib.Engine.getResult()
     else:
         return jsonify({'response':'Error running code',
                         'error_name':str(status['exc_type']),
