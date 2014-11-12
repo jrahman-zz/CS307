@@ -36,6 +36,8 @@ def execute(code, context):
     restricted_globals = dict(__builtins__ = safe_builtins)
     game_context = context
     execution_context = joincontexts(restricted_globals, game_context)
+
+    exec "gamelib.Engine.startSubmission()" in context
     try:
         compiled_code = compile_restricted(code, '<string>', 'exec')
         exec compiled_code in execution_context
@@ -43,5 +45,6 @@ def execute(code, context):
     except Exception as e:
         returned_errors = exceptiondetails(code)
 
+    exec "gamelib.Engine.endSubmission()" in context
     print('returning errors' + str(returned_errors))
     return returned_errors

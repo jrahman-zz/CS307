@@ -7,6 +7,9 @@ import sys
 import os
 import argparse
 
+sys.path.append('.')
+import gamelib
+
 app = Flask(__name__)
 
 appcontext = {} #Context for all code execution in this docker container
@@ -55,6 +58,7 @@ def init_engine():
     # Of the world and hero fascade objects
     # TODO
     appcontext = {}
+    exec "gamelib.Engine('''" + request.data + "''')" in appcontext
     return jsonify({'success': True, 'sessionID': ''})
 
 #retrieve a value from the context of this execution server
