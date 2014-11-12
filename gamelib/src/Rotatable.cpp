@@ -10,9 +10,11 @@ Rotatable::~Rotatable() {}
 
 bool Rotatable::rotate(Rotation newRotation) {
     if (newRotation != Rotation::RUNKNOWN && m_canRotate) {
-        shared_ptr<RotateLogEntry> entry(new RotateLogEntry(getID(), newRotation));
-        log(entry);
-        m_rotation = newRotation;
+        if (m_rotation != newRotation) {
+            shared_ptr<RotateLogEntry> entry(new RotateLogEntry(getID(), newRotation));
+            log(entry);
+            m_rotation = newRotation;
+        }
         return true;
     }
     return false;

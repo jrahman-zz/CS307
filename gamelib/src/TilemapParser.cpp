@@ -182,8 +182,12 @@ vector<shared_ptr<Trigger>> TilemapParser::parseTriggers(Json::Value root) {
     for (unsigned int j = 0; j < objects.size(); j++) {
         Json::Value object = objects[j]; 
 
-        int x = object["x"].asInt() / m_tileWidth;
-        int y = object["y"].asInt() / m_tileHeight;
+        // We must normalize to tile coordinates before handing off to the ctor
+        object["x"] = object["x"].asInt() / m_tileWidth;
+        object["y"] = object["y"].asInt() / m_tileHeight;
+
+        auto x = object["x"].asInt();
+        auto y = object["y"].asInt();
 
         if (x < 0 || y < 0 || x >= m_mapWidth || y >= m_mapHeight) {
             throw invalid_argument("Illegal trigger position");

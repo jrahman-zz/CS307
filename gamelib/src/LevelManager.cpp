@@ -39,19 +39,19 @@ bool LevelManager::removeActor(Position pos) {
 }
 
 bool LevelManager::addTrigger(shared_ptr<Trigger> trigger) {
-    if (m_triggersID.find(trigger->getID()) == m_triggersID.end()) {
+    if (m_triggersName.find(trigger->getName()) == m_triggersName.end()) {
         m_triggers.emplace(trigger->getPosition(), trigger);
-        m_triggersID.emplace(trigger->getID(), trigger);
+        m_triggersName.emplace(trigger->getName(), trigger);
         return true;
     } else {
         return false;
     }
 }
 
-bool LevelManager::removeTrigger(unsigned int triggerID) {
-    if (m_triggersID.find(triggerID) == m_triggersID.end()) {
-        auto pos = m_triggersID[triggerID]->getPosition();
-        return m_triggersID.erase(triggerID) && m_triggers.erase(pos);
+bool LevelManager::removeTrigger(string triggerName) {
+    if (m_triggersName.find(triggerName) == m_triggersName.end()) {
+        auto pos = m_triggersName[triggerName]->getPosition();
+        return m_triggersName.erase(triggerName) && m_triggers.erase(pos);
     } else {
         return false;
     }

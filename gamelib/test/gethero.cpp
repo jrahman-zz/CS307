@@ -28,7 +28,7 @@ START_TEST("gethero");
     }
 
 
-    if (!hero->moveUp()) {
+    if (!hero->moveDown()) {
         cout << "Failed to move" << endl;
         FAIL_TEST("gethero");
     }

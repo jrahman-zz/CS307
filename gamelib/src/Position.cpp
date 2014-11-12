@@ -20,8 +20,8 @@ Position::Position()
 Position::Position(const Position& rhs)
     : m_x(rhs.m_x)
     , m_y(rhs.m_y)
-    , m_xValid(rhs.m_x)
-    , m_yValid(rhs.m_y)
+    , m_xValid(rhs.m_xValid)
+    , m_yValid(rhs.m_yValid)
 {}
 
 Json::Value Position::toJson() const {

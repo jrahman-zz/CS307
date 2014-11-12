@@ -69,7 +69,7 @@ private:
     /*
      * Actor ID to target
      */
-    bool m_triggerTarget;
+    int m_triggerTarget;
 
     /*
      * Has this trigger been activated, if repeatable, reset once the hero moves off

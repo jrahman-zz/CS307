@@ -9,7 +9,7 @@
 
 #include "test_data_a.h"
 
-string expected_log = R"({"classID":2,"levelID":1,"log":[[{"data":{"actorID":0,"position":{"x":14,"y":2}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}],[{"data":{"actorID":0,"position":{"x":14,"y":1}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}]],"nextLevel":4294967295,"userID":0}
+string expected_log = R"({"classID":2,"completed":false,"levelID":1,"log":[[{"data":{"actorID":0,"position":{"x":14,"y":2}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}],[{"data":{"actorID":0,"position":{"x":14,"y":1}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}]],"nextLevel":4294967295,"userID":0}
 )";
 
 START_TEST("actors");

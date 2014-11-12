@@ -16,19 +16,20 @@ public:
 
     Position getPosition() const;
     
-    unsigned int getID() const;
+    int getID() const;
 
 protected:
-    Positionable(Json::Value value);
-
-    void setPosition(Position position);
 
     /* 
      * Prohibit default construction
      */
     Positionable() = delete;
 
-    unsigned int m_ID;
+    Positionable(Json::Value value);
+
+    void setPosition(Position position); 
+
+    int m_ID;
 
     Position m_position;
 };
