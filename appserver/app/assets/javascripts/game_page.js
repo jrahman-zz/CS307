@@ -13,7 +13,7 @@ editor.getSession().setMode('ace/mode/python');
 
 
 // Enable popovers
-$(document).ready(function() {
+$(function() {
   $('[data-toggle="popover"]').popover();
 });
 
