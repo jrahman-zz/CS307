@@ -65,7 +65,8 @@ string testDataA = R"({
                      "properties":
                         {
                             "dialogue": "Hi",
-                            "actorID": 0
+                            "actorID": 1,
+                            "repeatable": true
                         },
                      "rotation":0,
                      "type":"dialogue",
