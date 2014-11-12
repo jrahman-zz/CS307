@@ -32,12 +32,13 @@ var SpriteType = {
 };
 
 // Holds information about in-game sprite.
-var SpriteEntity = function (id, type, type_id, start_x, start_y) {
+var SpriteEntity = function (id, type, type_id, start_x, start_y, rotation) {
   this.id = id;
   this.type = type; // Type SpriteType.
   this.type_id = type_id; // Defines type of character (dependent on sprite_type).
   this.start_x = start_x;
   this.start_y = start_y;
+  this.rotation = rotation; // In degrees. In range [0, 360).
   this.sprite = null; // Created by Phaser. Type Phaser.Sprite.
 };
 
@@ -45,23 +46,24 @@ var SpriteEntity = function (id, type, type_id, start_x, start_y) {
 function parse_actor_objects(objects_json, entity_map) {
   for (var j = 0; j < objects_json.length; j++) {
     var object_json = objects_json[j];
-    var x = Number(object_json['x']);
-    var y = Number(object_json['y']);
+    var x = object_json['x'];
+    var y = object_json['y'];
     var props_json = object_json['properties'];
     var object_id = props_json['id'];
+    var rotation = props_json['rotation'];
 
     var sprite;
     switch (object_json['type']) {
       case 'hero':
-        sprite = new SpriteEntity(object_id, SpriteType.HERO, 0, x, y);
+        sprite = new SpriteEntity(object_id, SpriteType.HERO, 0, x, y, rotation);
         break;
       case 'enemy':
         sprite = new SpriteEntity(object_id, SpriteType.ENEMY, props_json['enemy_id'],
-                                     x, y);
+                                     x, y, rotation);
         break;
       case 'npc':
         sprite = new SpriteEntity(object_id, SpriteType.NPC, props_json['npc_id'],
-                                     x, y);
+                                     x, y, rotation);
         break;
       default:
         console.log('Unknown object type: ' + object_json['type']);
@@ -166,55 +168,18 @@ tilemap_promise.success(function (tilemap_str) {
       setTimeout(onLoadComplete, 1000);
     });
     function onLoadComplete() {
-      var response_json = {"finished": false,
-      "log":[
+      var response_json = {
+        "classID":2,
+        "levelID":1,
+        "log":
         [
-          {
-            "type": "move",
-            "data": {
-              "actorID": 0,
-              "position": {
-                "x": 2,
-                "y": 3
-              }
-            }
-          },
-
-          {
-            "type": "move",
-            "data": {
-              "actorID": 1,
-              "position": {
-                "x": 4,
-                "y": 5
-              }
-            }
-          }
+           [{"data":{"actorID":0,"rotation":270},"type":"rotate"}],
+           [{"data":{"actorID":0,"rotation":180},"type":"rotate"}],
+           [{"data":{"actorID":0,"position":{"x":8,"y":2}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}]
         ],
-        [
-          {
-            "type": "move",
-            "data": {
-              "actorID": 0,
-              "position": {
-                "x": 5,
-                "y": 5
-              }
-            }
-          },
-
-          {
-            "type": "move",
-            "data": {
-              "actorID": 1,
-              "position": {
-                "x": 6,
-                "y": 2
-              }
-            }
-          }
-        ]
-      ]};
+        "nextLevel":-1,
+        "userID":0
+      };
 
       var events = parse_response(response_json);
 
@@ -325,7 +290,32 @@ tilemap_promise.success(function (tilemap_str) {
             anims.push(anim);
             break;
           case 'rotate':
-            // TODO include in tmx and implement
+            var actor_id = data_json['actorID'];
+            var rotation = data_json['rotation'];
+
+            var entity = entity_map[actor_id];
+            var sprite = entity.sprite;
+
+            // TODO genericize anims to function(callback) objects and
+            // implement type_id specific logic to rotate sprite orientation.
+            // ex. hero:
+            // switch (entity.rotation) {
+            //   case 0:
+            //     sprite.frame = 27;
+            //     break;
+            //   case 90:
+            //     sprite.frame = 0;
+            //     break;
+            //   case 180:
+            //     sprite.frame = 9;
+            //     break;
+            //   case 270:
+            //     sprite.frame = 18;
+            //     break;
+            //   default:
+            //     console.log('Invalid rotation value: ' + entity.rotation);
+            //     break;
+            // }
             break;
           default:
             console.log('Unknown log event type: ' + type);

@@ -34,17 +34,20 @@
    <properties>
     <property name="id" value="2"/>
     <property name="npc_id" value="0"/>
+    <property name="rotation" value="180"/>
    </properties>
   </object>
   <object name="Link" type="npc" x="64" y="64" width="64" height="64">
    <properties>
     <property name="id" value="1"/>
     <property name="npc_id" value="1"/>
+    <property name="rotation" value="0"/>
    </properties>
   </object>
   <object name="Hero" type="hero" x="64" y="512" width="64" height="64">
    <properties>
     <property name="id" value="0"/>
+    <property name="rotation" value="90"/>
    </properties>
   </object>
  </objectgroup>
