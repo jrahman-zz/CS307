@@ -3,6 +3,21 @@
  <tileset firstgid="1" name="RPGpack_sheet" tilewidth="64" tileheight="64">
   <image source="assets/spritesheets/RPGpack_sheet.png" width="1280" height="832"/>
  </tileset>
+ <tileset firstgid="261" name="Wizard" tilewidth="64" tileheight="64">
+  <image source="assets/spritesheets/NPCs/PWizard.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="262" name="NPC2" tilewidth="64" tileheight="64">
+  <image source="assets/spritesheets/NPCs/NPC2.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="263" name="Blue" tilewidth="64" tileheight="64">
+  <image source="assets/spritesheets/NPCs/PokemonGymBlue.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="264" name="peach" tilewidth="64" tileheight="64">
+  <image source="assets/spritesheets/NPCs/Peach.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="265" name="dancingWiz" tilewidth="64" tileheight="64">
+  <image source="assets/spritesheets/NPCs/dancingWiz.png" width="64" height="64"/>
+ </tileset>
  <layer name="BackgroundLayer" width="18" height="10">
   <data encoding="base64" compression="zlib">
    eJxjZGBgYMKBmYGYEYglgViMABbFIycBNYMNiNmBmIMI80CYG4h5gJgXTVwPiPWB2IBIc+SBWAGIFYlUjwsbA7EJEJtSaM4oph0GAL88D0M=
@@ -10,19 +25,59 @@
  </layer>
  <layer name="BuildingsLayer1" width="18" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYKANuATEz3DInURiO1Fgx10kM2AYBpqAuJmA/jNo7kDHILAKiFfj0L8diE8D8QMksVAgDkPC4VDxeCBOgLIvImEYuI9mth0Q2wJxFpR2gIp7A7EPEM/D7S2igBsQe1JoxmAEABdfFB4=
+   eJxjYKANuATEz3DInURiO1Fgx10kM2AYBpqAuJmA/jNo7kDHILAKiFfj0L8diE8D8QMg3gEVCwXiMCQcDhWPB+IEKPsiEmaA6r2PZAaItgNiWyDOgtIOUDlvIPYB4nkE/EYIuAGxJ4VmDEYAAOvsFv4=
   </data>
  </layer>
  <layer name="BuildingsLayer2" width="18" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYCAdVANxHRDXkKEX2Yx+IK4F4gkUmAUyYzGUvQRqFjlgMRp/CZnm0Boch+JRgB0AAJc2CUQ=
+   eJxjYCAdVANxHRDXkKEX2Yx+IK4F4gkUmAUyYzGUvQRqFjkAZMYVKPsK1CxKwEEK9YPAPzQaBI5D8SjADgD0SA2p
   </data>
  </layer>
  <objectgroup name="ActorsLayer">
-  <object name="hero" type="position" x="448" y="448" width="64" height="64">
+  <object type="hero" x="192" y="384" width="64" height="64">
    <properties>
     <property name="id" value="0"/>
    </properties>
   </object>
+  <object type="wizard" x="256" y="384" width="64" height="64">
+   <properties>
+    <property name="id" value="1"/>
+   </properties>
+  </object>
+  <object type="koopa" x="192" y="64" width="64" height="64">
+   <properties>
+    <property name="id" value="2"/>
+   </properties>
+  </object>
+  <object type="blue" x="896" y="320" width="64" height="64">
+   <properties>
+    <property name="id" value="3"/>
+   </properties>
+  </object>
+  <object type="peach" x="640" y="128" width="64" height="64">
+   <properties>
+    <property name="id" value="4"/>
+   </properties>
+  </object>
+  <object type="dancinWiz" x="960" y="576" width="64" height="64">
+   <properties>
+    <property name="id" value="5"/>
+   </properties>
+  </object>
  </objectgroup>
+ <layer name="NPC - Delete Later" width="18" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYKA+YGOkgaFogIMOdgwGwE7An6wjJBzwAU6kMAAAN18AKQ==
+  </data>
+ </layer>
+ <layer name="Pond " width="18" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4A+gBuIeaCYlwJzjIHYBIpN0eQAJjgBAQ==
+  </data>
+ </layer>
+ <layer name="Trees are cool" width="18" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFowATnKNQ/1kg3gXEj6A0OQCk7yGU3kmkHgCJjgcA
+  </data>
+ </layer>
 </map>

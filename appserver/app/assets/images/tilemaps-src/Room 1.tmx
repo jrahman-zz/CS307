@@ -16,7 +16,7 @@
  </layer>
  <layer name="Side Wall and Bushes" width="12" height="10">
   <data encoding="base64" compression="zlib">
-   eJxzY2A44EYA72JgWMAABW5IbFyAHPW7IDRR6i8iYWLUIwNaqCfVPbsgYQrGZIQnQYCsHgCnGiI3
+   eJxzY2A44EYAb2VAACB/AQMBQI56GCZG/UUkTIx6ZEAL9aS6h1T/ooUnQYCsHgCNbhyl
   </data>
  </layer>
  <layer name="Corners" width="12" height="10" opacity="0.59">
@@ -26,16 +26,11 @@
  </layer>
  <layer name="Maze" width="12" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYGBgeMaAAE/RaFLBMyxiT7GwiTEfWQ02c3GpJcYebH4mxnxc9lDbfErjAQYAkWQUmQ==
-  </data>
- </layer>
- <layer name="More Bush" width="12" height="10">
-  <data encoding="base64" compression="zlib">
-   eJxjYBh4sGugHUBnAPTvAnrZBQCO3wIV
+   eJxjYGBgeAbElxgg4CkSvQ+KSQHPsIjBzLyIZC4I7CVg1lM0PjazcalF56MDmFl70dTichO55hMLYOGCjaYEAACt6hlT
   </data>
  </layer>
  <objectgroup name="NPCs">
-  <object type="wizard" x="512" y="128" width="64" height="64">
+  <object type="wizard" x="448" y="64" width="64" height="64">
    <properties>
     <property name="id" value="2"/>
    </properties>
@@ -53,7 +48,7 @@
  </objectgroup>
  <layer name="NPC - Delete Later Just Templete" width="12" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYCAdsDGSoQkHYKWiWaMAEwAAFdIADg==
+   eJxjYCAdsDFiF2fFIT4KBg4AABcKAA4=
   </data>
  </layer>
  <layer name="Door" width="12" height="10">
@@ -61,4 +56,5 @@
    eJxjYBgFuAAL40C7gHIAAAWzAAY=
   </data>
  </layer>
+ <objectgroup name="Dialog"/>
 </map>
