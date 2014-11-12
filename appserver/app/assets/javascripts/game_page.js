@@ -175,6 +175,7 @@ tilemap_promise.success(function (tilemap_str) {
         [
            [{"data":{"actorID":0,"rotation":270},"type":"rotate"}],
            [{"data":{"actorID":0,"rotation":180},"type":"rotate"}],
+           [{"data":{"actorID":1,"dialogue":"Blah blah blahede blah"}],
            [{"data":{"actorID":0,"position":{"x":8,"y":2}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}]
         ],
         "nextLevel":-1,
@@ -316,6 +317,12 @@ tilemap_promise.success(function (tilemap_str) {
             //     console.log('Invalid rotation value: ' + entity.rotation);
             //     break;
             // }
+            break;
+          case 'dialogue':
+            // TODO implement
+            break;
+          case 'levelexit':
+            // TODO implement
             break;
           default:
             console.log('Unknown log event type: ' + type);
