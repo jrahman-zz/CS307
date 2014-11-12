@@ -4,6 +4,7 @@
 //= require ace/ace
 //= require ace/worker-html
 //= require phaser
+//= require util
 
 // Configure Ace editor
 var editor = ace.edit('code-editor');
@@ -11,50 +12,19 @@ editor.setTheme('ace/theme/terminal');
 editor.setFontSize(18);
 editor.getSession().setMode('ace/mode/python');
 
-
 // Enable popovers
 $(function() {
   $('[data-toggle="popover"]').popover();
 });
-
-// Utility functions.
-
-function default_for(arg, defaultVal) {
-  return (typeof arg === 'undefined' ? defaultVal : arg)
-}
-
-function generate_list(low, high) {
-  var list = [];
-  while (low <= high) {
-    list.push(low++);
-  }
-  return list;
-}
-
-function http_post_json(url, data) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', url, false);
-  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-  xhr.send(data);
-  return JSON.parse(xhr.responseText);
-}
-
-function load_tilemap_async(json_url) {
-  return $.ajax({
-    url: '/assets/tilemaps/' + json_url,
-    dataType: 'text',
-  });
-}
 
 // Functions inserted by play.html.haml.
 var tilemap_url = get_level_tilemap();
 var hero_gender = get_hero_gender();
 
 // Load tilemap from file asynchronously.
-var tilemap_promise = load_tilemap_async(tilemap_url);
+var tilemap_promise = ajax_request_async('/assets/tilemaps/' + tilemap_url);
 tilemap_promise.success(function (tilemap_str) {
   // Initialize level session with Execution server
-  //var response = http_post_json('http://google.com', tilemap_str);
   var tilemap_json = JSON.parse(tilemap_str);
 
   // tileset IDs implicitly defined as 'tileset1', 'tileset2', ...
