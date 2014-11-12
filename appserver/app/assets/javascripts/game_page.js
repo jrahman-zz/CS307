@@ -259,12 +259,12 @@ tilemap_promise.success(function (tilemap_str) {
     var events = [];
 
     var log_json = response_json['log'];
+    var last_x, last_y;
     for (var timestep = 0; timestep < log_json.length; timestep++) {
       var events_json = log_json[timestep];
 
       // All anims are created and then iterated.
       var anims = [];
-      var last_x, last_y;
 
       for (var i = 0; i < events_json.length; i++) {
         var event_json = events_json[i];
@@ -280,7 +280,7 @@ tilemap_promise.success(function (tilemap_str) {
 
             var entity = entity_map[actor_id];
             var sprite = entity.sprite;
-            if (!last_x || !last_y) {
+            if (last_x === undefined || last_y === undefined) {
               last_x = sprite.x;
               last_y = sprite.y;
             }
@@ -290,7 +290,7 @@ tilemap_promise.success(function (tilemap_str) {
             last_x = dest_x;
             last_y = dest_y;
             var duration = distance / AnimMoveSpeed * 1000;
-            var delay = 0; // TODO maybe add delay
+            var delay = 500;
             var anim = game.add.tween(sprite).to(props, duration, 
                 Phaser.Easing.Linear.None, false /* autoStart */, delay);
 
