@@ -52,6 +52,7 @@ function parse_actor_objects(objects_json, entity_map) {
     var object_id = props_json['id'];
     var rotation = props_json['rotation'];
 
+<<<<<<< HEAD
     var sprite;
     switch (object_json['type']) {
       case 'hero':
@@ -76,6 +77,10 @@ function parse_actor_objects(objects_json, entity_map) {
     }
     entity_map[object_id] = sprite;
   }
+=======
+  game.load.tilemap('sample-tilemap', null, get_level_tilemap(), Phaser.Tilemap.TILED_JSON);
+  game.load.image('tiles', '/assets/spritesheets/RPGpack_sheet.png');
+>>>>>>> app_server
 }
 
 // Functions inserted by play.html.haml.
@@ -291,7 +296,7 @@ tilemap_promise.success(function (tilemap_str) {
             last_y = dest_y;
             var duration = distance / AnimMoveSpeed * 1000;
             var delay = 500;
-            var anim = game.add.tween(sprite).to(props, duration, 
+            var anim = game.add.tween(sprite).to(props, duration,
                 Phaser.Easing.Linear.None, false /* autoStart */, delay);
 
             anims.push(anim);
