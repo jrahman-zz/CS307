@@ -52,7 +52,6 @@ function parse_actor_objects(objects_json, entity_map) {
     var object_id = props_json['id'];
     var rotation = props_json['rotation'];
 
-<<<<<<< HEAD
     var sprite;
     switch (object_json['type']) {
       case 'hero':
@@ -77,10 +76,6 @@ function parse_actor_objects(objects_json, entity_map) {
     }
     entity_map[object_id] = sprite;
   }
-=======
-  game.load.tilemap('sample-tilemap', null, get_level_tilemap(), Phaser.Tilemap.TILED_JSON);
-  game.load.image('tiles', '/assets/spritesheets/RPGpack_sheet.png');
->>>>>>> app_server
 }
 
 // Functions inserted by play.html.haml.
