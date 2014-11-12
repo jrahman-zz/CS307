@@ -71,8 +71,8 @@ string testDataA = R"({
                      "type":"dialogue",
                      "visible":true,
                      "width":64,
-                     "x":896,
-                     "y":0
+                     "x":448,
+                     "y": 128
                     }, {
                         "height":64,
                         "name": "exit",
@@ -82,8 +82,8 @@ string testDataA = R"({
                         "type": "levelexit",
                         "visible": true,
                         "width": 64,
-                        "x": 384,
-                        "y":192
+                        "x": 512,
+                        "y": 64
                     }
              ],
              "opacity":1,
