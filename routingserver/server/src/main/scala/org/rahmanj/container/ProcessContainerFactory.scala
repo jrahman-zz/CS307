@@ -8,6 +8,7 @@ import akka.io.IO
 import scala.concurrent.{Future, Promise}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
+import scala.concurrent.blocking
 
 import scala.sys.process._
 
@@ -26,8 +27,8 @@ import org.slf4j.{Logger,LoggerFactory}
 import org.rahmanj.messages.{Response, Request}
 import org.rahmanj.Settings
 
-/** [[ContainerFactory]] to create [[DockerContainer]] instances
- * 
+/**
+ * [[ContainerFactory]] to create [[DockerContainer]] instances
  */
 class ProcessContainerFactory extends ContainerFactory {
   
@@ -38,9 +39,10 @@ class ProcessContainerFactory extends ContainerFactory {
     val executorPath = Settings(system).Container.Python.ContainerPath
     val executorName = Settings(system).Container.Python.ExecutorName
     val port = 5000 // Smuggle this in later
-    val process = Process(Seq(s"$executorPath/$executorName", "-p", port.toString), new java.io.File(executorPath)) run
+    val process = Process(Seq("python", s"$executorPath/$executorName", "-p", port.toString, "-H", "localhost"), new java.io.File(executorPath)) run
     
     Future {
+      blocking(Thread.sleep(1000L))
       Some(new ProcessContainer(process, port))
     }
   }
@@ -66,13 +68,13 @@ class ProcessContainerFactory extends ContainerFactory {
       
       val send = (req: HttpRequest) => (IO(Http) ? req).mapTo[HttpResponse]
       val pipeline = send ~> unmarshal[A#ResponseType]
-      pipeline(HttpRequest(GET, Uri(container_endpoint)))
+      pipeline(HttpRequest(POST, Uri(container_endpoint)))
     }
     
     def ping(): Future[Boolean] = {
       implicit val timeout = Timeout(1.seconds)
       
-      val endpoint = s"$uri/health"
+      val endpoint = s"$uri/ping"
       
       logger.info(s"Sending pint to $endpoint")
       
@@ -90,7 +92,9 @@ class ProcessContainerFactory extends ContainerFactory {
     }
     
     def shutdown() = {
-      process.destroy() // No mercy
+      Future {
+        process.destroy() // No mercy
+      }
     }
   }
 }

@@ -25,8 +25,8 @@ trait Container {
    */
   def ping(): Future[Boolean]
   
-  /** Shut the container down
-   *
+  /** 
+   * Shut the container down
    */
   def shutdown()
 

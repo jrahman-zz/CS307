@@ -55,7 +55,7 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
   def createSession(ctx: RequestContext, login: SessionToken, levelInfo: SessionCreateRequest) = {
     log.info("Creating new session")
     
-    val token: SessionToken = (login.toString + Random.alphanumeric.take(20).mkString).sha512.toString
+    val token: SessionToken = (login.toString + Random.alphanumeric.take(20).mkString).sha512.hex
     
     val sessionActor = context.actorOf(SessionActor.props(containerFactory, token))
     context.watch(sessionActor)
@@ -66,15 +66,15 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
     
     // Send message to kick-start initialization proceedure
     log.info("Sending initialization message...")
-    sessionActor ! InitializeSession(ctx, levelInfo)
+    sessionActor ! InitializeSession(ctx, levelInfo, token)
   }
   
-  def deleteSession(ctx: RequestContext, loginSession: LoginSession, token: SessionToken) = {
+  def deleteSession(ctx: RequestContext, loginSession: SessionToken, token: SessionToken) = {
     log.info("Deleting session")
     sessionMap get token match {
         case Some(session) if session == loginSession =>
           deleteSessionActor(token) match {
-            case true => ctx.complete((200, "Deleted session")) // TODO, add new message
+            case true => ctx.complete((200, "Deleted container"))
             case false => ctx.complete((500, "Failed to delete session"))
           }
         case Some(session) => ctx.complete((403, "Not allowed to access that session"))
@@ -83,10 +83,11 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
   }
   
   def deleteSessionActor(token: SessionToken): Boolean = {
-    // TODO, destroy container
-    log.info("Deleting session: %token")
+    
+    log.info(s"Deleting session: $token")
     router.getRoute(token) match {
-      case Some(actor) => // TODO
+      case Some(actor) => context.stop(actor)
+      case None => log.warning("No session found to delete")
     }
     router.removeRouteBySource(token)
   }

@@ -26,14 +26,14 @@ trait ServiceRoutes extends HttpService {
   val serviceRoute =
     headerValueByName("user_token") { loginToken =>
       pathPrefix("level") {
-        path("reset" / RestPath) { sessionToken =>
+        path("reset" / Segement) { sessionToken =>
           val token = sessionToken.toString
           post { ctx =>
             sessionRouter ! RequestRoutable(token, RequestCtx(ctx, loginToken), SessionResetRequest())
           } ~
           complete((405, "Invalid method, only post allowed"))
         } ~
-        path("submit" / RestPath) { sessionToken =>
+        path("submit" / Segement) { sessionToken =>
           val token: SessionToken = sessionToken.toString
           post {
             import LevelSubmissionRequestProtocol._
@@ -46,7 +46,7 @@ trait ServiceRoutes extends HttpService {
         }
       } ~
       pathPrefix("challenge") {
-        path("submit" / RestPath) { sessionToken =>
+        path("submit" / Segement) { sessionToken =>
           val token = sessionToken.toString
           post {
             import ChallengeSubmissionRequestProtocol._
@@ -59,19 +59,17 @@ trait ServiceRoutes extends HttpService {
         }
       }~
       pathPrefix("session") {
-        path("delete" / RestPath) { sessionToken =>
-          val token = sessionToken.toString
-          post { ctx =>
-            sessionRouter ! RequestRoutable(token, RequestCtx(ctx, loginToken), SessionDeleteRequest())
-          } ~ complete((405, "Invalid method, only post allowed"))
-        } ~
         path("create") {
           post {
             entity(as[String]) { sessionInfo => {
-                ctx: RequestContext =>
-                  sessionRouter ! CreateSession(ctx, loginToken, SessionCreateRequest(sessionInfo))
+                ctx => sessionRouter ! CreateSession(ctx, loginToken, SessionCreateRequest(sessionInfo))
               }
             } ~ complete((400, "Incorrect request body"))
+          } ~ complete((405, "Invalid method, only post allowed"))
+        } ~
+        path("delete" / Segment) { sessionToken =>
+          post {
+            ctx => sessionRouter ! DeleteSession(ctx, loginToken, sessionToken.toString)
           } ~ complete((405, "Invalid method, only post allowed"))
         }
       } 
@@ -80,5 +78,5 @@ trait ServiceRoutes extends HttpService {
       get {
         complete((200, "pong"))
       } ~ complete((405, "Invalid method, only get allowed"))
-    } ~ complete((404, "This is not the page you are looking for"))
+    } ~ complete((500, "This is not the page you are looking for"))
 }

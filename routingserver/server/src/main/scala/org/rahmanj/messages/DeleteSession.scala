@@ -5,6 +5,6 @@ import spray.routing.RequestContext
 
 case class DeleteSession(
   ctx: RequestContext,
-  login: LoginSession,
+  login: SessionToken,
   token: SessionToken
 )

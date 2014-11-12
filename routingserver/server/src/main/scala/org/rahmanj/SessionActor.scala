@@ -20,7 +20,7 @@ import container._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-case class InitializeSession(ctx: RequestContext, request: SessionCreateRequest)
+case class InitializeSession(ctx: RequestContext, request: SessionCreateRequest, token: SessionToken)
 case class SessionInitialized(ctx: RequestContext, container: Container)
 // TODO, handle failed initialization
 
@@ -51,7 +51,7 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
   def receive: Receive = prepareInitialization
     
   def prepareInitialization: Receive = {
-    case InitializeSession(ctx, req) =>
+    case InitializeSession(ctx, req, token) =>
       
       log.info("Received initialization message, starting initialization procedure...")
       
@@ -70,7 +70,7 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
 
                   import spray.httpx.SprayJsonSupport._
                   import messages.SessionCreateResponseProtocol._
-                  ctx.complete((200, container.sendMessage(req, "initialize")))
+                  ctx.complete((200, container.sendMessage(req, "initialize").map(res => SessionCreateResponse(true, token))))
                 case None =>
                   log.error("Failed to crate container")
                   ctx.complete((500, "Failed to create container"))
@@ -114,8 +114,15 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
       case Some(container) => forwardSubmission(ctx, container)(submission)
       case None => ctx.complete((500, "No session container available"))
     }
+    case DeleteSession(ctx, login, sesion) => sessionContainer match {
+        case Some(container) => ctx.complete( {
+              container.shutdown()
+              "Deleted"
+        }) // TODO improve this
+        case None => ctx.complete((500, "No session container available"))
+    }
   }
-  
+
   def forwardSubmission(ctx: RequestContext, container: Container): PartialFunction[Request, Unit] = {
     {
     case levelSubmission: LevelSubmissionRequest =>
@@ -173,5 +180,11 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
   
   def createContainer(config: DockerContainerConfig): Future[Option[Container]] = {
     containerFactory(config)
+  }
+  
+  override def postStop() {
+    sessionContainer match {
+      case Some(container) => container.shutdown()
+    }
   }
 }
