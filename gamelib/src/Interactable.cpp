@@ -1,5 +1,6 @@
 #include "Interactable.h"
 
+#include "Character.h"
 #include "Hero.h"
 #include "Enemy.h"
 
@@ -22,6 +23,7 @@ bool Interactable::changeState(State newState) {
     } else {
         return false;
     }
+    return true;
 }
 
 bool Interactable::interact(Interactable& target) {
@@ -47,12 +49,12 @@ void Interactable::registerStateObserver(weak_ptr<StateObserver> obs) {
 }
 
 InteractableType Interactable::getInteractableType(string type) {
-    // TODO
-    
     if (type == "hero") {
         return InteractableType::HERO;
     } else if (type == "enemy") {
         return InteractableType::ENEMY;
+    } else if (type == "npc") {
+        return InteractableType::NPC;
     }
 
     throw invalid_argument("Unknown InteractableType");
@@ -68,6 +70,10 @@ shared_ptr<Interactable> Interactable::createFromJson(InteractableType type, Jso
             break;
         case InteractableType::ENEMY:
             ptr = shared_ptr<Enemy>(new Enemy(val));
+            break;
+        case InteractableType::NPC:
+            ptr = shared_ptr<Character>(new Character(val));
+            break;
         default:
             break;
     }

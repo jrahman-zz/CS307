@@ -14,7 +14,7 @@
 
 using namespace std;
 
-enum class InteractableType { HERO, ENEMY};
+enum class InteractableType { HERO, ENEMY, NPC };
 
 /* Forward delcarations */
 class Hero;
