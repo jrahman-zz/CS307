@@ -31,10 +31,10 @@ HeroDirectionFrameMap[Direction.DOWN] = 18;
   */
 function direction_from(rotation) {
   switch (rotation) {
-    case 0: console.log('0'); return Direction.RIGHT;
-    case 90: console.log('90'); return Direction.UP;
-    case 180: console.log('180'); return Direction.LEFT;
-    case 270: console.log('270'); return Direction.DOWN;
+    case 0: return Direction.RIGHT;
+    case 90: return Direction.UP;
+    case 180: return Direction.LEFT;
+    case 270: return Direction.DOWN;
   }
   return null;
 }
@@ -95,8 +95,6 @@ Event.prototype.execute = function(entity_map, callback) {
       var anim = this.data['anim'];
 
       var entity = entity_map[actor_id];
-      console.log('rotation: ' + entity.rotation);
-      console.log('dir: ' + direction_from(entity.rotation));
       entity.sprite.animations.play('walk-' + direction_from(entity.rotation), 15, true);
       anim.start();
       anim.onComplete.addOnce(function() {
