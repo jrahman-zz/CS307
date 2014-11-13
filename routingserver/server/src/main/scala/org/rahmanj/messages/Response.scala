@@ -18,6 +18,11 @@ case class SessionCreateResponse(
 
 object SessionCreateResponseProtocol extends DefaultJsonProtocol {
   implicit val sessionCreateResponseFormat = jsonFormat2(SessionCreateResponse)
+  
+  implicit val SessionCreateResponseMarshaller = 
+    Marshaller.of[SessionCreateResponse](`application/json`) { (value, contentType, ctx) =>
+      ctx.marshalTo(HttpEntity(contentType, CompactPrinter(value.toJson)))
+    }
 }
 
 /*

@@ -1,5 +1,12 @@
 package org.rahmanj.messages
 
+import spray.httpx._
+import marshalling._
+import unmarshalling._
+
+import spray.http._
+import MediaTypes._
+
 import spray.json._
 
 sealed trait Request {
@@ -13,6 +20,14 @@ case class SessionCreateRequest(
   levelJson: String
 ) extends Request {
   type ResponseType = SessionCreateResponse
+}
+
+object SessionCreateRequest {
+  
+  implicit val SessionCreateRequestMarshaller =
+    Marshaller.of[SessionCreateRequest](`application/json`) { (value, contentType, ctx) =>
+      ctx.marshalTo(HttpEntity(contentType, value.levelJson))
+    }
 }
 
 case class SessionResetRequest() extends Request {
@@ -36,6 +51,11 @@ case class ChallengeSubmissionRequest(
 
 object ChallengeSubmissionRequestProtocol extends DefaultJsonProtocol {
   implicit val challengeSubmissionRequestFormat = jsonFormat2(ChallengeSubmissionRequest)
+  
+  implicit val ChallengeSubmissionRequestMarshaller = 
+    Marshaller.of[ChallengeSubmissionRequest](`application/json`) { (value, contentType, ctx) =>
+      ctx.marshalTo(HttpEntity(contentType, CompactPrinter(value.toJson)))
+    }
 }
 
 case class LevelSubmissionRequest(
@@ -46,6 +66,11 @@ case class LevelSubmissionRequest(
 
 object LevelSubmissionRequestProtocol extends DefaultJsonProtocol {
   implicit val levelSubmissionRequestFormat = jsonFormat1(LevelSubmissionRequest)
+  
+  implicit val LevelSubmissionRequestMarshaller = 
+    Marshaller.of[LevelSubmissionRequest](`application/json`) { (value, contentType, ctx) =>
+      ctx.marshalTo(HttpEntity(contentType, CompactPrinter(value.toJson)))
+    }
 }
 
 

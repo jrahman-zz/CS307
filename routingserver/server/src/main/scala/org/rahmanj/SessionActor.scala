@@ -18,6 +18,9 @@ import sessions._
 import messages._
 import container._
 
+import spray.httpx.SprayJsonSupport._
+import messages.SessionCreateResponseProtocol._
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
 case class InitializeSession(ctx: RequestContext, request: SessionCreateRequest, token: SessionToken)
@@ -67,9 +70,7 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
 
                   schedulePing()
                   context.become(receiveSubmission orElse receiveCommon)
-
-                  import spray.httpx.SprayJsonSupport._
-                  import messages.SessionCreateResponseProtocol._
+                  
                   ctx.complete((200, container.sendMessage(req, "initialize").map(res => SessionCreateResponse(true, token))))
                 case None =>
                   log.error("Failed to crate container")
@@ -131,7 +132,7 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
       import messages.LevelSubmissionRequestProtocol._
       import messages.LevelResultResponse._
 
-      val res = container.sendMessage(levelSubmission, s"/level/submit")
+      val res = container.sendMessage(levelSubmission, s"level/submit")
       res.onFailure {
         case result =>
           log.error(result, "Failed to contact the container")
@@ -146,7 +147,7 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
 
       import messages.ChallengeSubmissionRequestProtocol._
       import messages.ChallengeResultResponse._
-      val res = container.sendMessage(challengeSubmission, s"/challenge/submit")
+      val res = container.sendMessage(challengeSubmission, s"challenge/submit")
 
       res.onFailure {
         case result =>
