@@ -57,10 +57,10 @@ tilemap_promise.success(function (tilemap_str) {
           "classID":2,
           "levelID":1,
           "log": [
-          [{"data":{"actorID":0,"position":{"x":5,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":180},"type":"rotate"}],
-            [{"data":{"actorID":0,"dialogue":"Hi"},"type":"dialogue"},{"data":{"actorID":0,"position":{"x":4,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}],
-            [{"data":{"actorID":0,"position":{"x":4,"y":6}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}],
-            [{"data":{"actorID":0,"dialogue":"Hi 2"},"type":"dialogue"},{"data":{"actorID":0,"position":{"x":4,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}]
+          [{"data":{"actorID":0,"position":{"x":1,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":180},"type":"rotate"}],
+            [{"data":{"actorID":0,"dialogue":"Hi"},"type":"dialogue"},{"data":{"actorID":0,"position":{"x":0,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}],
+            [{"data":{"actorID":0,"position":{"x":0,"y":6}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}],
+            [{"data":{"actorID":0,"dialogue":"Hi 2"},"type":"dialogue"},{"data":{"actorID":0,"position":{"x":0,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}]
             ],
           "nextLevel":-1,
           "userID":0
