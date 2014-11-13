@@ -8,7 +8,7 @@ import os
 import argparse
 
 sys.path.append('.')
-import gamelib
+#import gamelib
 
 app = Flask(__name__)
 
@@ -20,29 +20,32 @@ def get_health():
     return jsonify({'response':'PONG'})
 
 @app.route('/level/submit', methods=['POST'])
-def run_code(levelid):
-    print('received request to run level: '+levelid)
-    for item in request.form.items():
-        print('form data item: '+str(item))
+def run_code():
+    # for item in request.form.items():
+    #     print('form data item: '+str(item))
+    # try:
+    #     loadedjson = json.loads(request.form['jsondata'])
+    #     print("Codelines: " + '\n'.join(loadedjson['codelines']))
+    #     #print("Context: " + loadedjson['context'])
+    # except Exception as e:
+    #     print(e)
+    #
+    # code = '\n'.join(loadedjson['codelines'])
+    # if 'context' in loadedjson:
+    #     print("Found a context")
+    #     context = loadedjson['context']
+    #
+    loadedjson = request.get_json()
+    code = loadedjson['codelines']
     try:
-        loadedjson = json.loads(request.form['jsondata'])
-        print("Codelines: " + '\n'.join(loadedjson['codelines']))
-        #print("Context: " + loadedjson['context'])
-    except Exception as e:
-        print(e)
-
-    code = '\n'.join(loadedjson['codelines'])
-    if 'context' in loadedjson:
-        print("Found a context")
-        context = loadedjson['context']
-    try:
-        status = execute(code, context)
+        status = execute(code, appcontext)
     except Exception as e:
         print(e)
 
     print('status:' + str(status))
     if len(status) == 0:
-        return gamelib.Engine.getResult()
+        nullline=None
+        #return gamelib.Engine.getResult()
     else:
         return jsonify({'response':'Error running code',
                         'error_name':str(status['exc_type']),
@@ -58,7 +61,7 @@ def init_engine():
     # Of the world and hero fascade objects
     # TODO
     appcontext = {}
-    exec "gamelib.Engine('''" + request.data + "''')" in appcontext
+    #exec "gamelib.Engine('''" + request.data + "''')" in appcontext
     return jsonify({'success': True, 'sessionID': ''})
 
 #retrieve a value from the context of this execution server

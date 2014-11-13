@@ -57,14 +57,14 @@ def execute(code, context):
     game_context = context
     execution_context = joincontexts(restricted_globals, game_context)
 
-    exec "gamelib.Engine.startSubmission()" in context
+    #exec "gamelib.Engine.startSubmission()" in context
     try:
         compiled_code = compile_restricted(code, '<string>', 'exec')
         exec compiled_code in execution_context
-        print('After execution, y is: '+execution_context['y'])
+        print('After execution, y is: '+str(execution_context['y']))
     except Exception as e:
         returned_errors = exceptiondetails(code)
 
-    exec "gamelib.Engine.endSubmission()" in context
+    #exec "gamelib.Engine.endSubmission()" in context
     print('returning errors' + str(returned_errors))
     return returned_errors
