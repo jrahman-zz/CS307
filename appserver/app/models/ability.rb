@@ -13,24 +13,23 @@ class Ability
     # Instructor roles
     Course.with_role(:instructor, user).each do |course|
       can :manage, course
-      can :manage, Level, course_id: course.id
+      can :manage, course.levels
       can :manage, Role, resource_id: course.id, resource_type: "Course"
     end
 
 
-    # Student Roles
+    # Student roles
     Course.with_role(:student, user).each do |course|
       can [:read, :submit, :withdraw], course
+      can [:read, :play], course.levels
     end
 
 
     # Guest roles
     can [:read, :enroll], Course
 
+
     # Users can manage themselves
     can :manage, user
-
-    # TODO: TEMP FIX
-    can :manage, Level
   end
 end
