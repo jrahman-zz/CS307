@@ -2,7 +2,9 @@ package org.rahmanj.container
 
 import scala.concurrent.Future
 
-import spray.httpx.unmarshalling._
+import spray.httpx._
+import unmarshalling._
+import marshalling._
 
 import org.rahmanj.messages.{Response, Request}
 
@@ -18,7 +20,7 @@ trait Container {
    * @param message The message to be sent to the container
    * @returns [[scala.concurrent.Future]] containing the Response
    */
-  def sendMessage[A <: Request](message: A, endpoint: String)(implicit f: Unmarshaller[A#ResponseType]): Future[A#ResponseType]
+  def sendMessage[A <: Request](message: A, endpoint: String)(implicit f: Unmarshaller[A#ResponseType], p: Marshaller[A]): Future[A#ResponseType]
   
   /** Checks the health of the container
    * @returns [[scala.concurrent.Future]] containing a [[Boolean]] indicating the outcome

@@ -13,9 +13,11 @@ import spray.can.Http
 import spray.http._
 import HttpMethods._
 
-import spray.httpx.unmarshalling._
-import spray.httpx.ResponseTransformation._
-import spray.httpx.SprayJsonSupport
+import spray.httpx._
+import unmarshalling._
+import marshalling._
+import SprayJsonSupport._
+import spray.client.pipelining._
 
 import spray.json._
 
@@ -66,7 +68,7 @@ class DockerContainerFactory extends ContainerFactory {
     val logger = LoggerFactory.getLogger(classOf[DockerContainer])
     val uri = "http://" + hostname + ":" + port
     
-    def sendMessage[A <: Request](message: A, endpoint: String)(implicit f: Unmarshaller[A#ResponseType]): Future[A#ResponseType] = {
+    def sendMessage[A <: Request](message: A, endpoint: String)(implicit f: Unmarshaller[A#ResponseType], p: Marshaller[A]): Future[A#ResponseType] = {
       
       implicit val timeout = Timeout(60.seconds)
       
@@ -74,9 +76,10 @@ class DockerContainerFactory extends ContainerFactory {
       
       logger.info(s"Sending request to $container_endpoint")
       
-      val send = (req: HttpRequest) => (IO(Http) ? req).mapTo[HttpResponse]
+      val request = Post(container_endpoint, message)
+      val send: HttpRequest => Future[HttpResponse] = (req: HttpRequest) => (IO(Http) ? req).mapTo[HttpResponse]
       val pipeline = send ~> unmarshal[A#ResponseType]
-      pipeline(HttpRequest(GET, Uri(container_endpoint)))
+      pipeline(request)
     }
     
     def ping(): Future[Boolean] = {
