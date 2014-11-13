@@ -39,7 +39,7 @@ object ChallengeSubmissionRequestProtocol extends DefaultJsonProtocol {
 }
 
 case class LevelSubmissionRequest(
-  code: String
+  codelines: String
 ) extends Request {
   type ResponseType = LevelResultResponse
 }
