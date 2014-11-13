@@ -1,6 +1,3 @@
-// Constnats
-var AnimMoveSpeed = 120; // pixels per second.
-
 /**
  * SpriteType enum.
  */
@@ -11,17 +8,72 @@ var SpriteType = {
 };
 
 /**
+ * Direction enum.
+ */
+ var Direction = {
+  RIGHT: 'right',
+  UP: 'up',
+  LEFT: 'left',
+  DOWN: 'down'
+ };
+
+// Constants
+var AnimMoveSpeed = 120; // pixels per second.
+
+var HeroDirectionFrameMap = {};
+HeroDirectionFrameMap[Direction.RIGHT] = 27;
+HeroDirectionFrameMap[Direction.UP] = 0;
+HeroDirectionFrameMap[Direction.LEFT] = 9;
+HeroDirectionFrameMap[Direction.DOWN] = 18;
+
+ /**
+  * Attempts to map rotation angle to Direction.
+  */
+function direction_from(rotation) {
+  switch (rotation) {
+    case 0: return Direction.RIGHT;
+    case 90: return Direction.UP;
+    case 180: return Direction.LEFT;
+    case 270: return Direction.DOWN;
+  }
+  return null;
+}
+
+/**
  * Holds information about in-game sprite.
  */
-var SpriteEntity = function(id, type, type_id, start_x, start_y, rotation) {
+var SpriteEntity = function(id, type, type_class, start_x, start_y, rotation) {
   this.id = id;
   this.type = type; // Type SpriteType.
-  this.type_id = type_id; // Defines type of character (dependent on sprite_type).
+  this.type_class = type_class; // Defines class of character (dependent on sprite_type).
   this.start_x = start_x;
   this.start_y = start_y;
   this.rotation = rotation; // In degrees. In range [0, 360).
   this.sprite = null; // Created by Phaser. Type Phaser.Sprite.
 };
+
+SpriteEntity.prototype.apply_rotation = function(rotation) {
+  this.rotation = rotation;
+  var dir = direction_from(rotation);
+  if (!dir) {
+    console.log('Warning: Failed to map rotation to direction: ' + rotation);
+    return;
+  }
+
+  this.apply_direction(dir);
+}
+
+SpriteEntity.prototype.apply_direction = function(direction) {
+  switch (this.type) {
+    case SpriteType.HERO:
+      var new_frame = HeroDirectionFrameMap[direction];
+      this.sprite.frame = new_frame;
+      break;
+    default:
+      // Direction not implemented.
+      break;
+  }
+}
 
 /**
  * The state of the game, man. It's pretty self explanatory
@@ -135,7 +187,7 @@ GameState.prototype.load = function(tilemap_json) {
 
   // Load NPC spritesheets.
   // TODO make this dynamic.
-  // Should follow format '<type><type_id>-spritesheet'
+  // Should follow format '<type><type_class>-spritesheet'
   this.game.load.spritesheet('npc1-spritesheet', '/assets/spritesheets/NPCs/LinkRight.png', this.tile_size, this.tile_size);
   this.game.load.spritesheet('npc0-spritesheet', '/assets/spritesheets/NPCs/PWizard2.png', this.tile_size, this.tile_size);
 }
@@ -160,7 +212,7 @@ GameState.prototype.create = function() {
   for (var id in this.entity_map) {
     var game_sprite = this.entity_map[id];
 
-    var spritesheet = game_sprite.type + game_sprite.type_id + '-spritesheet';
+    var spritesheet = game_sprite.type + game_sprite.type_class + '-spritesheet';
     var sprite = this.game.add.sprite(game_sprite.start_x, game_sprite.start_y, spritesheet);
     game_sprite.sprite = sprite;
 
@@ -215,38 +267,34 @@ GameState.prototype.parse_response = function(response_json) {
           var anim = this.game.add.tween(sprite).to(props, duration, 
               Phaser.Easing.Linear.None, false /* autoStart */, delay);
 
-          events.push(function (callback) {
-            anim.start();
-            anim.onComplete.addOnce(callback);
-          });
+          // Closure.
+          (function() {
+            var anim_val = anim;
+            events.push(function (callback) {
+              anim_val.start();
+              anim_val.onComplete.addOnce(function() {
+                callback();
+              });
+            });
+          })();
           break;
         case 'rotate':
           var actor_id = data_json['actorID'];
           var rotation = data_json['rotation'];
 
           var entity = this.entity_map[actor_id];
-          var sprite = entity.sprite;
 
-          // TODO genericize anims to function(callback) objects and
-          // implement type_id specific logic to rotate sprite orientation.
-          // ex. hero:
-          // switch (entity.rotation) {
-          //   case 0:
-          //     sprite.frame = 27;
-          //     break;
-          //   case 90:
-          //     sprite.frame = 0;
-          //     break;
-          //   case 180:
-          //     sprite.frame = 9;
-          //     break;
-          //   case 270:
-          //     sprite.frame = 18;
-          //     break;
-          //   default:
-          //     console.log('Invalid rotation value: ' + entity.rotation);
-          //     break;
-          // }
+          // Closure to capture current rotation.
+          (function() {
+              var rot_value = rotation;
+              events.push(function (callback) {
+                // Wait 500ms, rotate, wait 500ms.
+                setTimeout(function() {
+                  entity.apply_rotation(rot_value);
+                  setTimeout(callback, 500);
+                }, 500);
+              });
+          })();
           break;
         case 'dialogue':
           // TODO implement
@@ -270,24 +318,13 @@ GameState.prototype.parse_response = function(response_json) {
  * Process and play animations given from the response JSON.
  * Returns TODO indicate level switching
  */
-GameState.prototype.process_response = function(response_json) {
+GameState.prototype.process_response = function(response_json, callback) {
   var frames = this.parse_response(response_json);
-  console.log('process!');
 
-  /*
-  // Recursion required to ensure synchronization after event functions complete.
-  function process(events, index, callback) {
-    if (index == events.length) {
-      callback();
-    }
-    var event_func = events[index];
-    event_func(function () {
-      process(events, index + 1); // Recursion!
-    });
-  }
-
+  // This recursion may be converted to use setTimeout in the future.
   function process_frames(f_index) {
     if (f_index == frames.length) {
+      callback();
       return;
     }
 
@@ -295,12 +332,19 @@ GameState.prototype.process_response = function(response_json) {
     var completed_count = 0;
     
     function process_events(e_index) {
-      if (e_index == events.length) {
+      var event_func = events[e_index];
+      event_func(function () {
+        completed_count++;
 
-      }
+        if (completed_count == events.length) {
+          process_frames(f_index + 1); // Recursive call.
+        } else {
+          process_events(e_index + 1); // Recursive call.
+        }
+      } /* callback */);
     }
+    process_events(0);
   }
 
   process_frames(0);
-  */
 }

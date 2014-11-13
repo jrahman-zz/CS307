@@ -66,7 +66,9 @@ tilemap_promise.success(function (tilemap_str) {
           "userID":0
         };
 
-        game_state.process_response(response_json);
+        game_state.process_response(response_json, function() {
+          console.log('Done!');
+        });
       }, 1000);
     });
   }
