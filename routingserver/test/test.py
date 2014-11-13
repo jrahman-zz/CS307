@@ -224,6 +224,32 @@ hero.moveUp()
     
     print json.dumps(data)
 
+    code = """
+hero.moveDown(2)
+    """
+    submission = { "codelines": code }
+
+    submit_params = { "Content-Type": "application/json", "user_token": "test" }
+    submit_params.update(default_params)
+
+    # So level
+    connection.request(
+            method  = "POST",
+            url     = "%s/%s" % (LEVEL_SUBMIT, sessionID),
+            body    = json.dumps(submission),
+            headers = submit_params
+        )
+    response = connection.getresponse()
+    print response.status
+    if response.status != 200:
+        print "FAILED: Couldn't submit code"
+        return
+
+    data = response.read()
+    data = json.loads(data)
+    
+    print json.dumps(data)
+    
     url = "%s/%s" % (DELETE_SESSION, sessionID)
     delete_params = {"user_token": "test"}
     delete_params.update(default_params)
