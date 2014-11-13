@@ -47,7 +47,8 @@ class ProcessContainerFactory extends ContainerFactory {
     }
   }
   
-  /** [[ProcessContainer]] 
+  /**
+   * [[ProcessContainer]] 
    * 
    * @constructor Create a new instance of the ProcessContainer
    * @param process Process for the given container
