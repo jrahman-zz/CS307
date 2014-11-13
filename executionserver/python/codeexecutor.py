@@ -59,7 +59,8 @@ def execute(code, context, engine):
     engine.startSubmission()
     try:
         # Compile restricted is completely broken when interacting with libgame
-        compiled_code = compile(code, '<string>', 'exec')
+        #compiled_code = compile_restricted(code, '<string>', 'exec')
+        compiled_code = code
         exec compiled_code in execution_context
         #print('After execution, y is: '+str(execution_context['y']))
     except Exception as e:
