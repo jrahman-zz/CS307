@@ -23,7 +23,7 @@ BOOST_PYTHON_MODULE(gamelib) {
 		.def("startSubmission", &Engine::startSubmission)
         .def ("endSubmission", &Engine::endSubmission);
 
-	class_<HeroFascade>("Hero", no_init)
+	class_<HeroFascade, shared_ptr<HeroFascade>>("Hero", no_init)
 		.def("moveUp", &HeroFascade::moveUp)
 		.def("moveDown", &HeroFascade::moveDown)
 		.def("moveLeft", &HeroFascade::moveLeft)
