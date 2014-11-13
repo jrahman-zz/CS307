@@ -47,7 +47,8 @@ def run_code():
         print response
         return Response(
                 response = response,
-                status = 200
+                status = 200,
+                mimetype = "application/json"
             )
 
 @app.route('/initialize', methods=['POST'])
@@ -62,8 +63,9 @@ def init_engine():
         engine = gamelib.Engine(request.data)
         appcontext['hero'] = engine.getHero()
         return Response(
-                 response = "Success",
-                 status = 200
+                response = """{ "success": true, "sessionID": "" }""",
+                status = 200,
+                mimetype = "application/json"
             )
     except Exception as e:
         return Response(status=500)
@@ -96,6 +98,5 @@ if __name__ == '__main__':
     print('starting rest server on '+args.host+':'+str(args.port))
     app.run(
         host = args.host,
-        port = args.port,
-        debug=True
+        port = args.port
     )

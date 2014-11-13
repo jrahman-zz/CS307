@@ -132,7 +132,7 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
       import messages.LevelSubmissionRequestProtocol._
       import messages.LevelResultResponse._
 
-      val res = container.sendMessage(levelSubmission, s"/level/submit")
+      val res = container.sendMessage(levelSubmission, s"level/submit")
       res.onFailure {
         case result =>
           log.error(result, "Failed to contact the container")
@@ -147,7 +147,7 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
 
       import messages.ChallengeSubmissionRequestProtocol._
       import messages.ChallengeResultResponse._
-      val res = container.sendMessage(challengeSubmission, s"/challenge/submit")
+      val res = container.sendMessage(challengeSubmission, s"challenge/submit")
 
       res.onFailure {
         case result =>
