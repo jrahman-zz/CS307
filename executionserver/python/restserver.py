@@ -46,7 +46,7 @@ def run_code():
     print('status:' + str(status))
     if len(status) == 0:
         nullline=None #so I can comment out the next line
-        return gamelib.Engine.getResult()
+        return engine.getResult()
     else:
         return jsonify({'response':'Error running code',
                         'error_name':str(status['exc_type']),
