@@ -12,8 +12,8 @@ editor.setTheme('ace/theme/terminal');
 editor.setFontSize(18);
 editor.getSession().setMode('ace/mode/python');
 
-// Enable popovers.
 $(function() {
+  // Enable popovers.
   $('[data-toggle="popover"]').popover();
 });
 
@@ -87,6 +87,15 @@ var tilemap_promise = ajax_request_async('/assets/tilemaps/' + tilemap_url);
 tilemap_promise.success(function (tilemap_str) {
   // Initialize level session with Execution server.
   var tilemap_json = JSON.parse(tilemap_str);
+  $.ajax({
+    url: '/submissions/init',
+    type: 'post',
+    data: {
+      level_id: 1,
+      course_id: 1,
+      level: tilemap_str
+    }
+  })
 
   // tileset IDs implicitly defined as 'tileset1', 'tileset2', ...
   // Array members are name of corresponding tileset as referenced in the tilemap.
