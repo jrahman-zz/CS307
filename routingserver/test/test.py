@@ -155,6 +155,7 @@ jsonStr = """
 
 BASE_URL = "localhost:8088"
 CREATE_SESSION = "/session/create"
+LEVEL_SUBMIT = "/level/submit"
 DELETE_SESSION = "/session/delete"
 PING_SERVER = "/ping"
 
@@ -195,6 +196,32 @@ def run_test(connection):
     if response.status != 200:
         print "FAILED: Couldn't create session"
         return
+
+    code = """
+hero.moveUp()
+    """
+    
+    submission = { "codelines": code }
+
+    submit_params = { "user_token": "test" }
+    submit_params.update(default_params)
+
+    # So level
+    connection.request(
+            method  = "POST",
+            url     = LEVEL_SUBMIT,
+            body    = json.dumps(submission),
+            headers = submit_params
+        )
+    response = connection.getresponse()
+    data = json.loads(connection.read())
+
+    print response.status
+    if response.status != 200:
+        print "FAILED: Couldn't submit code"
+        return
+
+    print data.dumps()
 
     url = "%s/%s" % (DELETE_SESSION, sessionID)
     delete_params = {"user_token": "test"}
