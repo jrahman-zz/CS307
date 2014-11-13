@@ -56,6 +56,7 @@ def init_engine():
     # Create game engine instance from the game library
     # And create initial context only containing a copy
     # Of the world and hero fascade objects
+<<<<<<< HEAD
     global engine
     global appcontext
     try:
@@ -69,6 +70,13 @@ def init_engine():
             )
     except Exception as e:
         return Response(status=500)
+=======
+    # TODO
+    appcontext = {}
+    engine = gamelib.Engine(request.data)
+    appcontext['hero'] = gamelib.getHero()
+    return jsonify({'success': True, 'sessionID': ''})
+>>>>>>> parent of 2b3a9e1... gamelib.Engine changed to engine
 
 #retrieve a value from the context of this execution server
 #for unit testing purposes
