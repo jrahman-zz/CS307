@@ -90,7 +90,18 @@ tilemap_promise.success(function (tilemap_str) {
   // Intercept click events on the submit button.
   $('#submit_button').click(function(event) {
     var code = editor.getValue();
-    console.log('code: ' + code);
-    // TODO send code
+
+    $.ajax({
+        type: 'POST',
+        // make sure you respect the same origin policy with this url:
+        // http://en.wikipedia.org/wiki/Same_origin_policy
+        url: 'http://128.211.191.198:3900/submissions/submit',
+        data: { 
+            'code': code
+        },
+        success: function(msg){
+            alert('wow: ' + msg);
+        }
+    });
   });
 });

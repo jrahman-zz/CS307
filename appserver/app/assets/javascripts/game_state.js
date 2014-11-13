@@ -45,7 +45,7 @@ function direction_from(rotation) {
 var SpriteEntity = function(id, type, type_class, start_x, start_y, rotation) {
   this.id = id;
   this.type = type; // Type SpriteType.
-  this.type_class = type_class; // Defines class of character (dependent on sprite_type).
+  this.type_class = type_class; // Defines class of character (dependent on type).
   this.start_x = start_x;
   this.start_y = start_y;
   this.rotation = rotation; // In degrees. In range [0, 360).
@@ -216,7 +216,7 @@ GameState.prototype.create = function() {
     var sprite = this.game.add.sprite(game_sprite.start_x, game_sprite.start_y, spritesheet);
     game_sprite.sprite = sprite;
 
-    if (game_sprite.sprite_type == SpriteType.HERO) {
+    if (game_sprite.type == SpriteType.HERO) {
       sprite.animations.add('walk-up', generate_list(0, 8), 15, true);
       sprite.animations.add('walk-left', generate_list(9, 17), 15, true);
       sprite.animations.add('walk-down', generate_list(18, 26), 15, true);
@@ -264,13 +264,17 @@ GameState.prototype.parse_response = function(response_json) {
           last_y = dest_y;
           var duration = distance / AnimMoveSpeed * 1000;
           var delay = 500; // ms.
-          var anim = this.game.add.tween(sprite).to(props, duration, 
+          var anim = this.game.add.tween(entity.sprite).to(props, duration, 
               Phaser.Easing.Linear.None, false /* autoStart */, delay);
 
           // Closure.
           (function() {
             var anim_val = anim;
+            var sprite_val = sprite;
             events.push(function (callback) {
+              var anim_name = 'walk-' + direction_from(sprite_val.rotation);
+              // TODO fix
+              sprite_val.play('walk-' + direction_from(sprite_val.rotation), 15, true);
               anim_val.start();
               anim_val.onComplete.addOnce(function() {
                 callback();
