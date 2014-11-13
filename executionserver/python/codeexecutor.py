@@ -50,21 +50,21 @@ def exceptiondetails(code):
     returned_info['message'] = getexceptionmessage(returned_info['exc_type'])
     return returned_info
 
-def execute(code, context):
+def execute(code, context, engine):
     print("Executing code")
     returned_errors = {}
     restricted_globals = dict(__builtins__ = safe_builtins)
-    game_context = context
-    execution_context = joincontexts(restricted_globals, game_context)
-
-    exec "engine.startSubmission()" in context
+    execution_context = joincontexts(restricted_globals, context)
+    
+    engine.startSubmission()
     try:
-        compiled_code = compile_restricted(code, '<string>', 'exec')
+        # Compile restricted is completely broken when interacting with libgame
+        compiled_code = compile(code, '<string>', 'exec')
         exec compiled_code in execution_context
         #print('After execution, y is: '+str(execution_context['y']))
     except Exception as e:
         returned_errors = exceptiondetails(code)
 
-    exec "engine.endSubmission()" in context
+    engine.endSubmission()
     print('returning errors' + str(returned_errors))
-    return returned_errors
+    return (execution_context, returned_errors)

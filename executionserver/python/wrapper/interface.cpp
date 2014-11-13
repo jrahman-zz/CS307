@@ -1,4 +1,5 @@
 #include <boost/python.hpp>
+#include <boost/python/overloads.hpp>
 
 #include <string>
 
@@ -9,6 +10,12 @@
 
 using namespace std;
 using namespace boost::python;
+
+// Required for default argument overloading
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(heroMoveUp, HeroFascade::moveUp, 0, 1);
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(heroMoveDown, HeroFascade::moveDown, 0, 1);
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(heroMoveLeft, HeroFascade::moveLeft, 0, 1);
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(heroMoveRight, HeroFascade::moveRight, 0, 1);
 
 /*
  * http://www-spires.slac.stanford.edu/BFROOT/www/doc/workbook_backup_010108/examples/ex1/workdir/PARENT/boost/libs/python/doc/tutorial/index.html
@@ -21,13 +28,13 @@ BOOST_PYTHON_MODULE(gamelib) {
 		.def("reset", &Engine::resetEngine)
 		.def("getResult", &Engine::getResult)
 		.def("startSubmission", &Engine::startSubmission)
-        .def ("endSubmission", &Engine::endSubmission);
+        .def ("endSubmission", &Engine::endSubmission); 
 
-	class_<HeroFascade, shared_ptr<HeroFascade>>("Hero", no_init)
-		.def("moveUp", &HeroFascade::moveUp)
-		.def("moveDown", &HeroFascade::moveDown)
-		.def("moveLeft", &HeroFascade::moveLeft)
-		.def("moveRight", &HeroFascade::moveRight);
+    class_<HeroFascade, shared_ptr<HeroFascade>>("Hero", no_init)
+		.def("moveUp", &HeroFascade::moveUp, heroMoveUp())
+		.def("moveDown", &HeroFascade::moveDown, heroMoveDown())
+		.def("moveLeft", &HeroFascade::moveLeft, heroMoveLeft())
+		.def("moveRight", &HeroFascade::moveRight, heroMoveRight());
         // TODO, expand with interaction later
 
 	enum_<Direction>("direction")

@@ -22,51 +22,51 @@ def get_health():
 
 @app.route('/level/submit', methods=['POST'])
 def run_code():
-    # for item in request.form.items():
-    #     print('form data item: '+str(item))
-    # try:
-    #     loadedjson = json.loads(request.form['jsondata'])
-    #     print("Codelines: " + '\n'.join(loadedjson['codelines']))
-    #     #print("Context: " + loadedjson['context'])
-    # except Exception as e:
-    #     print(e)
-    #
-    # code = '\n'.join(loadedjson['codelines'])
-    # if 'context' in loadedjson:
-    #     print("Found a context")
-    #     context = loadedjson['context']
-    #
+    global engine
+    global appcontext
     loadedjson = request.get_json()
     code = loadedjson['codelines']
     try:
-        status = execute(code, appcontext, engine)
+        (appcontext, status) = execute(code, appcontext, engine)
     except Exception as e:
-        print(e)
+        print str(e)
+        return Response(status = 500)
 
     print('status:' + str(status))
     if len(status) == 0:
-        response = Response(response=engine.getResult(),
+        return Response(response=engine.getResult(),
                     status=200,
                     mimetype="application/json")
-        return response
     else:
-        return jsonify({'response':'Error running code',
+        response = json.dumps({'response':'Error running code',
                         'error_name':str(status['exc_type']),
                         'error_obj':str(status['exc_obj']),
                         'error_line_number':str(status['lineno']),
                         'error_line_text':str(status['line']),
                         'error_message':str(status['message'])})
+        print response
+        return Response(
+                response = response,
+                status = 200
+            )
 
 @app.route('/initialize', methods=['POST'])
 def init_engine():
     # Create game engine instance from the game library
     # And create initial context only containing a copy
     # Of the world and hero fascade objects
-    # TODO
-    appcontext = {}
-    engine = gamelib.Engine(request.data)
-    appcontext['hero'] = engine.getHero()
-    return jsonify({'success': True, 'sessionID': ''})
+    global engine
+    global appcontext
+    try:
+        appcontext = {}
+        engine = gamelib.Engine(request.data)
+        appcontext['hero'] = engine.getHero()
+        return Response(
+                 response = "Success",
+                 status = 200
+            )
+    except Exception as e:
+        return Response(status=500)
 
 #retrieve a value from the context of this execution server
 #for unit testing purposes
@@ -96,5 +96,6 @@ if __name__ == '__main__':
     print('starting rest server on '+args.host+':'+str(args.port))
     app.run(
         host = args.host,
-        port = args.port
+        port = args.port,
+        debug=True
     )
