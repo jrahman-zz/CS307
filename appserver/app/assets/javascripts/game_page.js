@@ -97,7 +97,9 @@ tilemap_promise.success(function (tilemap_str) {
         // http://en.wikipedia.org/wiki/Same_origin_policy
         url: 'http://128.211.191.198:3900/submissions/submit',
         data: { 
-            'code': code
+            'code': code,
+            'level_id': 1,
+            'course_id': 1
         },
         success: function(msg){
             alert('wow: ' + msg);

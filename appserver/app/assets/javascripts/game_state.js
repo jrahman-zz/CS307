@@ -10,12 +10,12 @@ var SpriteType = {
 /**
  * Direction enum.
  */
- var Direction = {
+var Direction = {
   RIGHT: 'right',
   UP: 'up',
   LEFT: 'left',
   DOWN: 'down'
- };
+};
 
 // Constants
 var AnimMoveSpeed = 120; // pixels per second.
@@ -31,10 +31,10 @@ HeroDirectionFrameMap[Direction.DOWN] = 18;
   */
 function direction_from(rotation) {
   switch (rotation) {
-    case 0: return Direction.RIGHT;
-    case 90: return Direction.UP;
-    case 180: return Direction.LEFT;
-    case 270: return Direction.DOWN;
+    case 0: console.log('0'); return Direction.RIGHT;
+    case 90: console.log('90'); return Direction.UP;
+    case 180: console.log('180'); return Direction.LEFT;
+    case 270: console.log('270'); return Direction.DOWN;
   }
   return null;
 }
@@ -76,6 +76,48 @@ SpriteEntity.prototype.apply_direction = function(direction) {
 }
 
 /**
+ * Event type enum.
+ */
+var EventType = {
+  MOVE: 'move',
+  ROTATE: 'rotate'
+};
+
+var Event = function(type, data) {
+  this.type = type; // type EventType.
+  this.data = data;
+};
+
+Event.prototype.execute = function(entity_map, callback) {
+  switch (this.type) {
+    case EventType.MOVE:
+      var actor_id = this.data['actorID'];
+      var anim = this.data['anim'];
+
+      var entity = entity_map[actor_id];
+      console.log('rotation: ' + entity.rotation);
+      console.log('dir: ' + direction_from(entity.rotation));
+      entity.sprite.animations.play('walk-' + direction_from(entity.rotation), 15, true);
+      anim.start();
+      anim.onComplete.addOnce(function() {
+        entity.sprite.animations.stop();
+        callback();
+      });
+      break;
+    case EventType.ROTATE:
+      var actor_id = this.data['actorID'];
+      var rotation = this.data['rotation'];
+      var entity = entity_map[actor_id];
+      // Wait 500ms, rotate, wait 500ms.
+      setTimeout(function() {
+        entity.apply_rotation(rotation);
+        setTimeout(callback, 500);
+      }, 500);
+      break;
+  }
+}
+
+/**
  * The state of the game, man. It's pretty self explanatory
  */
 var GameState = function(game, tile_size) {
@@ -105,21 +147,22 @@ GameState.prototype.parse_actor_objects = function(objects_json) {
     var x = object_json['x'];
     var y = object_json['y'];
     var props_json = object_json['properties'];
+
     var object_id = props_json['id'];
     var rotation = props_json['rotation'];
 
     var sprite;
     switch (object_json['type']) {
       case 'hero':
-        sprite = new SpriteEntity(object_id, SpriteType.HERO, 0, x, y, rotation);
+        sprite = new SpriteEntity(object_id, SpriteType.HERO, 0, x, y, Number(rotation));
         break;
       case 'enemy':
         sprite = new SpriteEntity(object_id, SpriteType.ENEMY, props_json['enemy_id'],
-                                     x, y, rotation);
+                                     x, y, Number(rotation));
         break;
       case 'npc':
         sprite = new SpriteEntity(object_id, SpriteType.NPC, props_json['npc_id'],
-                                     x, y, rotation);
+                                     x, y, Number(rotation));
         break;
       default:
         console.log('Unknown object type: ' + object_json['type']);
@@ -263,24 +306,12 @@ GameState.prototype.parse_response = function(response_json) {
           last_x = dest_x;
           last_y = dest_y;
           var duration = distance / AnimMoveSpeed * 1000;
-          var delay = 500; // ms.
+          var delay = 100; // ms.
           var anim = this.game.add.tween(entity.sprite).to(props, duration, 
               Phaser.Easing.Linear.None, false /* autoStart */, delay);
-
-          // Closure.
-          (function() {
-            var anim_val = anim;
-            var sprite_val = sprite;
-            events.push(function (callback) {
-              var anim_name = 'walk-' + direction_from(sprite_val.rotation);
-              // TODO fix
-              sprite_val.play('walk-' + direction_from(sprite_val.rotation), 15, true);
-              anim_val.start();
-              anim_val.onComplete.addOnce(function() {
-                callback();
-              });
-            });
-          })();
+          
+          var data = { 'actorID': actor_id, 'anim': anim };
+          events.push(new Event(EventType.MOVE, data));
           break;
         case 'rotate':
           var actor_id = data_json['actorID'];
@@ -288,17 +319,8 @@ GameState.prototype.parse_response = function(response_json) {
 
           var entity = this.entity_map[actor_id];
 
-          // Closure to capture current rotation.
-          (function() {
-              var rot_value = rotation;
-              events.push(function (callback) {
-                // Wait 500ms, rotate, wait 500ms.
-                setTimeout(function() {
-                  entity.apply_rotation(rot_value);
-                  setTimeout(callback, 500);
-                }, 500);
-              });
-          })();
+          var data = { 'actorID': actor_id, 'rotation': rotation };
+          events.push(new Event(EventType.ROTATE, data));
           break;
         case 'dialogue':
           // TODO implement
@@ -337,18 +359,19 @@ GameState.prototype.process_response = function(response_json, callback) {
     
     function process_events(e_index) {
       var event_func = events[e_index];
-      event_func(function () {
+      var copy = this;
+      event_func.execute(this.entity_map, function () {
         completed_count++;
 
         if (completed_count == events.length) {
-          process_frames(f_index + 1); // Recursive call.
+          process_frames.bind(copy)(f_index + 1); // Recursive call.
         } else {
-          process_events(e_index + 1); // Recursive call.
+          process_events.bind(copy)(e_index + 1); // Recursive call.
         }
       } /* callback */);
     }
-    process_events(0);
+    process_events.bind(this)(0);
   }
 
-  process_frames(0);
+  process_frames.bind(this)(0);
 }
