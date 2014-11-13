@@ -63,7 +63,7 @@ def init_engine():
     # TODO
     appcontext = {}
     engine = gamelib.Engine(request.data)
-    appcontext['hero'] = gamelib.getHero()
+    appcontext['hero'] = engine.getHero()
     return jsonify({'success': True, 'sessionID': ''})
 
 #retrieve a value from the context of this execution server
