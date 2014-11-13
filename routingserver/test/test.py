@@ -189,13 +189,13 @@ def run_test(connection):
             headers = create_params
         )
     response = connection.getresponse()
-    data = response.read()
-    sessionID = json.loads(data)['sessionID']
-
     print response.status
     if response.status != 200:
         print "FAILED: Couldn't create session"
         return
+
+    data = response.read()
+    sessionID = json.loads(data)['sessionID']
 
     code = """
 hero.moveUp()
@@ -203,24 +203,26 @@ hero.moveUp()
     
     submission = { "codelines": code }
 
-    submit_params = { "user_token": "test" }
+    submit_params = { "Content-Type": "application/json", "user_token": "test" }
     submit_params.update(default_params)
 
     # So level
     connection.request(
             method  = "POST",
-            url     = LEVEL_SUBMIT,
+            url     = "%s/%s" % (LEVEL_SUBMIT, sessionID),
             body    = json.dumps(submission),
             headers = submit_params
         )
     response = connection.getresponse()
-    data = json.loads(connection.read())
-
     print response.status
     if response.status != 200:
         print "FAILED: Couldn't submit code"
         return
 
+    data = response.read()
+    print data
+    data = json.loads(data)
+    
     print data.dumps()
 
     url = "%s/%s" % (DELETE_SESSION, sessionID)
