@@ -26,7 +26,6 @@ class SubmissionsController < ApplicationController
   def submit
     # Only allow submissions from users who are signed in
     if user_signed_in?
-
       @info = submission_params
       @info[:language_id] = 1
       @info[:status_id] = 1
@@ -35,7 +34,7 @@ class SubmissionsController < ApplicationController
       @info[:user_id] = current_user.id
 
       uri = 'http://klamath.dnsdynamic.com:8088/level/submit/'
-      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: params[:code]
+      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: JSON.stringify({ codelines: params[:code] })
 
       http.callback do
         finish_request do
