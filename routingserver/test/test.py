@@ -220,10 +220,9 @@ hero.moveUp()
         return
 
     data = response.read()
-    print data
     data = json.loads(data)
     
-    print data.dumps()
+    print json.dumps(data)
 
     url = "%s/%s" % (DELETE_SESSION, sessionID)
     delete_params = {"user_token": "test"}
