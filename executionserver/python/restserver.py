@@ -1,7 +1,7 @@
 #!/usr/bin/env
 
 from time import sleep
-from flask import Flask, jsonify, request, json
+from flask import Flask, jsonify, request, json, Response
 from codeexecutor import execute
 import sys
 import os
@@ -45,8 +45,10 @@ def run_code():
 
     print('status:' + str(status))
     if len(status) == 0:
-        nullline=None #so I can comment out the next line
-        return engine.getResult()
+        response = Response(response=engine.getResult(),
+                    status=200,
+                    mimetype="application/json")
+        return response
     else:
         return jsonify({'response':'Error running code',
                         'error_name':str(status['exc_type']),
