@@ -63,7 +63,8 @@ START_TEST("multi");
         cout << "Log doesn't match expected, " << comp << ": " << endl
             << "Found: " << log2 << endl
             << "Expected: " << expected_log2 << endl;
+        FAIL_TEST("multi");
     }
 
     engine.endSubmission();
-END_TEST("actors");
+END_TEST("multi");
