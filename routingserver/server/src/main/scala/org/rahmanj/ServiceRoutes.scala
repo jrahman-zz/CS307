@@ -39,7 +39,7 @@ trait ServiceRoutes extends HttpService {
             import LevelSubmissionRequestProtocol._
             entity(as[LevelSubmissionRequest]) { submission => {
                 ctx: RequestContext =>
-                  sessionRouter ! RequestRoutable(token, RequestCtx(ctx, loginToken), submission)
+                  sessionRouter ! RequestRoutable(token, RequestCtx(ctx, loginToken), Submission(ctx, submission))
               }
             }  ~ complete((400, "Incorrect request body"))
           } ~ complete((405, "Invalid method, only post allowed"))
@@ -52,7 +52,7 @@ trait ServiceRoutes extends HttpService {
             import ChallengeSubmissionRequestProtocol._
             entity(as[ChallengeSubmissionRequest]) { submission => {
                 ctx: RequestContext => 
-                  sessionRouter ! RequestRoutable(token, RequestCtx(ctx, loginToken), submission)
+                  sessionRouter ! RequestRoutable(token, RequestCtx(ctx, loginToken), Submission(ctx, submission))
               }
             }  ~ complete((400, "Incorrect request body"))
           } ~ complete((405, "Invalid method, only post allowed"))
