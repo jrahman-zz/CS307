@@ -14,8 +14,8 @@ editor.setTheme('ace/theme/terminal');
 editor.setFontSize(18);
 editor.getSession().setMode('ace/mode/python');
 
-// Enable popovers.
 $(function() {
+  // Enable popovers.
   $('[data-toggle="popover"]').popover();
 });
 
@@ -32,9 +32,18 @@ var hero_gender = get_hero_gender();
 var tilemap_promise = ajax_request_async('/assets/tilemaps/' + tilemap_url);
 tilemap_promise.success(function (tilemap_str) {
   "use strict";
-  
+
   // Initialize level session with Execution server.
   var tilemap_json = JSON.parse(tilemap_str);
+  $.ajax({
+    url: '/submissions/init',
+    type: 'post',
+    data: {
+      level_id: 1,
+      course_id: 1,
+      level: tilemap_str
+    }
+  })
 
   var game = new Phaser.Game(CanvasTileWidth * TileSize, CanvasTileHeight * TileSize,
     Phaser.AUTO, 'canvas-container',
@@ -96,7 +105,7 @@ tilemap_promise.success(function (tilemap_str) {
         // make sure you respect the same origin policy with this url:
         // http://en.wikipedia.org/wiki/Same_origin_policy
         url: 'http://128.211.191.198:3900/submissions/submit',
-        data: { 
+        data: {
             'code': code,
             'level_id': 1,
             'course_id': 1
