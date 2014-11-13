@@ -55,12 +55,11 @@ class ResourceType(Model):
 # Class for managing the connection to the database
 class Database(object):
   def __init__(self, config):
+    self.config = config
     self.connection = mysql.connector.connect(**config)
-    self.cursor = self.connection.cursor()
 
   def close(self):
     self.connection.close()
-    self.cursor = None
 
 
   def get(self, klass, ids):
@@ -94,14 +93,22 @@ class Database(object):
   # If `klass` is specified, returns a list of objects of that type.
   # Otherwise, returns the cursor to the database result.
   def query(self, sql, klass=None, multi=False, commit=False):
+    # Ensure a connection has been established and
+    try:
+      cursor = self.connection.cursor()
+      cursor.execute(sql, multi)
+    except Exception:
+      self.connection = mysql.connector.connect(**self.config)
+      cursor = self.connection.cursor()
+      cursor.execute(sql, multi)
+
     print "Executing SQL:", sql
 
-    self.cursor.execute(sql, multi)
     if commit: self.connection.commit()
 
     if commit:
       return None
     elif klass:
-      return [klass(ent) for ent in self.cursor.fetchall()]
+      return [klass(ent) for ent in cursor.fetchall()]
     else:
-      return self.cursor
+      return cursor
