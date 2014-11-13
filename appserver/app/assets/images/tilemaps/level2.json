@@ -2,7 +2,7 @@
  "height":10,
  "layers":[
         {
-         "data":[1, 2, 2, 2, 2, 2, 2, 3, 1, 25, 22, 22, 22, 22, 22, 22, 22, 22, 21, 22, 22, 22, 22, 22, 22, 24, 25, 6, 7, 8, 22, 22, 22, 22, 22, 22, 22, 22, 22, 11, 12, 13, 22, 22, 22, 46, 47, 48, 22, 22, 22, 22, 22, 22, 22, 22, 22, 31, 32, 33, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 51, 52, 53, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
+         "data":[1, 2, 2, 2, 2, 2, 2, 3, 1, 25, 22, 22, 22, 22, 22, 22, 22, 22, 21, 22, 22, 22, 22, 22, 22, 24, 25, 6, 7, 8, 22, 22, 22, 22, 22, 22, 22, 22, 22, 11, 12, 13, 22, 22, 22, 46, 47, 48, 22, 22, 22, 22, 22, 22, 22, 22, 22, 31, 32, 33, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 51, 52, 53, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 11, 12, 12, 13, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 51, 52, 52, 53, 22, 22, 22],
          "height":10,
          "name":"BackgroundLayer",
          "opacity":1,
@@ -13,9 +13,9 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 210, 230, 0, 0, 0, 0, 0, 201, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 221, 0, 66, 66, 66, 0, 0, 130, 131, 0, 0, 0, 0, 0, 0, 0, 204, 0, 0, 66, 66, 66, 66, 66, 0, 170, 171, 0, 0, 0, 0, 0, 183, 203, 224, 184, 0, 85, 86, 86, 86, 87, 0, 95, 96, 0, 209, 209, 209, 0, 184, 223, 184, 0, 184, 62, 61, 106, 61, 64, 0, 75, 76, 158, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 70, 73, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 210, 230, 0, 0, 0, 0, 0, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 0, 0, 130, 131, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 66, 66, 0, 170, 171, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 86, 86, 86, 87, 0, 95, 96, 0, 209, 209, 209, 0, 0, 0, 0, 0, 0, 62, 61, 106, 61, 64, 0, 75, 76, 158, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 70, 73, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
-         "name":"BuildingsLayer1",
+         "name":"BuildingsWalls",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -26,7 +26,18 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 123, 126, 124, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 123, 143, 125, 144, 124, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 143, 163, 0, 164, 144, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 163, 212, 0, 212, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 193, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 254, 0, 254, 0, 0, 199, 199, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
-         "name":"BuildingsLayer2",
+         "name":"BuildingsRoofWindow",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":18,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 225, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 204, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 183, 203, 224, 184, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 184, 223, 184, 0, 184, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 206, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 186, 226, 186, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 186, 225, 186, 185, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":10,
+         "name":"TreeLayer",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -41,10 +52,11 @@
          "objects":[
                 {
                  "height":64,
-                 "name":"",
+                 "name":"Hero",
                  "properties":
                     {
-                     "id":"0"
+                     "id":"0",
+                     "rotation":"0"
                     },
                  "rotation":0,
                  "type":"hero",
@@ -55,27 +67,31 @@
                 }, 
                 {
                  "height":64,
-                 "name":"",
+                 "name":"Wizard",
                  "properties":
                     {
-                     "id":"1"
+                     "id":"1",
+                     "npc_id":"1",
+                     "rotation":"0"
                     },
                  "rotation":0,
-                 "type":"wizard",
+                 "type":"npc",
                  "visible":true,
                  "width":64,
-                 "x":256,
+                 "x":320,
                  "y":384
                 }, 
                 {
                  "height":64,
-                 "name":"",
+                 "name":"Koopa",
                  "properties":
                     {
-                     "id":"2"
+                     "id":"2",
+                     "npc_id":"2",
+                     "rotation":"0"
                     },
                  "rotation":0,
-                 "type":"koopa",
+                 "type":"npc",
                  "visible":true,
                  "width":64,
                  "x":192,
@@ -83,13 +99,15 @@
                 }, 
                 {
                  "height":64,
-                 "name":"",
+                 "name":"Trainer",
                  "properties":
                     {
-                     "id":"3"
+                     "id":"3",
+                     "npc_id":"3",
+                     "rotation":"0"
                     },
                  "rotation":0,
-                 "type":"blue",
+                 "type":"npc",
                  "visible":true,
                  "width":64,
                  "x":896,
@@ -97,13 +115,15 @@
                 }, 
                 {
                  "height":64,
-                 "name":"",
+                 "name":"Peachy",
                  "properties":
                     {
-                     "id":"4"
+                     "id":"4",
+                     "npc_id":"4",
+                     "rotation":"0"
                     },
                  "rotation":0,
-                 "type":"peach",
+                 "type":"npc",
                  "visible":true,
                  "width":64,
                  "x":640,
@@ -111,16 +131,144 @@
                 }, 
                 {
                  "height":64,
-                 "name":"",
+                 "name":"DancinWiz",
                  "properties":
                     {
-                     "id":"5"
+                     "id":"5",
+                     "npc_id":"5",
+                     "rotation":"0"
                     },
                  "rotation":0,
-                 "type":"dancinWiz",
+                 "type":"npc",
                  "visible":true,
                  "width":64,
                  "x":960,
+                 "y":576
+                }, 
+                {
+                 "height":64,
+                 "name":"Koopa Dialog",
+                 "properties":
+                    {
+                     "actor":"2",
+                     "dialogue":"The bottle states there are 18 ozs in the bottle. But I need 1372 grams. Do I have enough? Hint:  I believe 1 oz is equal to 28.3 grams. ",
+                     "repeatable":"false",
+                     "stopMove":"true",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"dialogue",
+                 "visible":true,
+                 "width":64,
+                 "x":192,
+                 "y":0
+                }, 
+                {
+                 "height":64,
+                 "name":"Wizard Dialog",
+                 "properties":
+                    {
+                     "actor":"1",
+                     "dialogue":"Hello young one. Since you graciously accepted to take on my quest I must teach you a few things so you can survive in the wilderness. First I will teach you how to do math with python. It is fairly easy. All you do is type in your equation and hit enter! Its that simple. So to help you practice I have a small problem for you to solve.",
+                     "repeatable":"false",
+                     "stopMove":"true",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"Dialogue",
+                 "visible":true,
+                 "width":64,
+                 "x":256,
+                 "y":384
+                }, 
+                {
+                 "height":64,
+                 "name":"Peachy Dialog",
+                 "properties":
+                    {
+                     "actor":"4",
+                     "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
+                     "repeatable":"true",
+                     "stopMove":"false",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"dialogue",
+                 "visible":true,
+                 "width":64,
+                 "x":640,
+                 "y":64
+                }, 
+                {
+                 "height":64,
+                 "name":"Peachy Dialog",
+                 "properties":
+                    {
+                     "actor":"4",
+                     "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
+                     "repeatable":"true",
+                     "stopMove":"false",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"dialogue",
+                 "visible":true,
+                 "width":64,
+                 "x":576,
+                 "y":128
+                }, 
+                {
+                 "height":64,
+                 "name":"Trainer Dialog",
+                 "properties":
+                    {
+                     "actor":"3",
+                     "dialogue":"Ahh yes, Tnana my rival! I believe he is hanging around somewhere in the beach area! Go talk to my wizard friend that is dancing around the pound he can transport you to the beach!",
+                     "repeatable":"true",
+                     "stopMove":"false",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"dialogue",
+                 "visible":true,
+                 "width":64,
+                 "x":896,
+                 "y":384
+                }, 
+                {
+                 "height":64,
+                 "name":"DancinWiz Dialog",
+                 "properties":
+                    {
+                     "actor":"5",
+                     "dialogue":"Hello Traveler!!! How can I help you?! \nOh? You want a ride from the ALMIGHTY WIZ?! \nWell It isn\u2019t free ya\u2019 kno\u2019?!\u201d \n",
+                     "repeatable":"false",
+                     "stopMove":"false",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"dialogue",
+                 "visible":true,
+                 "width":64,
+                 "x":960,
+                 "y":512
+                }, 
+                {
+                 "height":64,
+                 "name":"DancinWiz Dialog",
+                 "properties":
+                    {
+                     "actor":"5",
+                     "dialogue":"Hello Traveler!!! How can I help you?! \nOh? You want a ride from the ALMIGHTY WIZ?! \nWell It isn\u2019t free ya\u2019 kno\u2019?!\u201d \n",
+                     "repeatable":"false",
+                     "stopMove":"false",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"dialogue",
+                 "visible":true,
+                 "width":64,
+                 "x":1024,
                  "y":576
                 }],
          "opacity":1,
@@ -131,24 +279,14 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 12, 12, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 51, 52, 52, 53, 0, 0, 0],
-         "height":10,
-         "name":"Pond ",
+         "draworder":"topdown",
+         "height":0,
+         "name":"TriggerLayer",
+         "objects":[],
          "opacity":1,
-         "type":"tilelayer",
+         "type":"objectgroup",
          "visible":true,
-         "width":18,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 206, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 186, 226, 186, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 186, 225, 186, 185, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":10,
-         "name":"Trees are cool",
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":18,
+         "width":0,
          "x":0,
          "y":0
         }],
@@ -162,7 +300,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"assets\/spritesheets\/RPGpack_sheet.png",
+         "image":"..\/assets\/spritesheets\/RPGpack_sheet.png",
          "imageheight":832,
          "imagewidth":1280,
          "margin":0,
@@ -177,7 +315,7 @@
         }, 
         {
          "firstgid":261,
-         "image":"assets\/spritesheets\/NPCs\/PWizard.png",
+         "image":"..\/assets\/spritesheets\/NPCs\/PWizard.png",
          "imageheight":64,
          "imagewidth":64,
          "margin":0,
@@ -192,7 +330,7 @@
         }, 
         {
          "firstgid":262,
-         "image":"assets\/spritesheets\/NPCs\/NPC2.png",
+         "image":"..\/assets\/spritesheets\/NPCs\/NPC2.png",
          "imageheight":64,
          "imagewidth":64,
          "margin":0,
@@ -207,7 +345,7 @@
         }, 
         {
          "firstgid":263,
-         "image":"assets\/spritesheets\/NPCs\/PokemonGymBlue.png",
+         "image":"..\/assets\/spritesheets\/NPCs\/PokemonGymBlue.png",
          "imageheight":64,
          "imagewidth":64,
          "margin":0,
@@ -222,7 +360,7 @@
         }, 
         {
          "firstgid":264,
-         "image":"assets\/spritesheets\/NPCs\/Peach.png",
+         "image":"..\/assets\/spritesheets\/NPCs\/Peach.png",
          "imageheight":64,
          "imagewidth":64,
          "margin":0,
@@ -237,7 +375,7 @@
         }, 
         {
          "firstgid":265,
-         "image":"assets\/spritesheets\/NPCs\/dancingWiz.png",
+         "image":"..\/assets\/spritesheets\/NPCs\/dancingWiz.png",
          "imageheight":64,
          "imagewidth":64,
          "margin":0,
