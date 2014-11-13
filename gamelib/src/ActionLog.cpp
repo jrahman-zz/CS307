@@ -41,5 +41,6 @@ Json::Value ActionLog::getJsonLog() const {
 }
 
 void ActionLog::reset() {
+    cout << "Reseting action log" << endl;
     m_records.clear();
 }

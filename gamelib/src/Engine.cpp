@@ -114,6 +114,9 @@ bool Engine::startSubmission() {
         return false; // Cannot continue to play a finished level
     }
 
+    m_timekeeper->reset(); // Reset clock as well
+    m_actionLog->reset(); // Clear any previous log entries
+
     m_gameState->setCanMove(true); // Renable movement
 
     return true; // submission can proceed
@@ -161,6 +164,5 @@ string Engine::getResult() const {
 }
 
 Json::Value Engine::getLog() const {
-    auto json = m_actionLog->getJsonLog();
     return m_actionLog->getJsonLog();
 }
