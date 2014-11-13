@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     # Initialize guest user if not logged in
-    user ||= User.new
+    user ||= User.new(id: 0)
 
     # Admin role?
     if user.has_role? :admin
