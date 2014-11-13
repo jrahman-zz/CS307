@@ -26,14 +26,14 @@ trait ServiceRoutes extends HttpService {
   val serviceRoute =
     headerValueByName("user_token") { loginToken =>
       pathPrefix("level") {
-        path("reset" / Segement) { sessionToken =>
+        path("reset" / Segment) { sessionToken =>
           val token = sessionToken.toString
           post { ctx =>
             sessionRouter ! RequestRoutable(token, RequestCtx(ctx, loginToken), SessionResetRequest())
           } ~
           complete((405, "Invalid method, only post allowed"))
         } ~
-        path("submit" / Segement) { sessionToken =>
+        path("submit" / Segment) { sessionToken =>
           val token: SessionToken = sessionToken.toString
           post {
             import LevelSubmissionRequestProtocol._
@@ -46,7 +46,7 @@ trait ServiceRoutes extends HttpService {
         }
       } ~
       pathPrefix("challenge") {
-        path("submit" / Segement) { sessionToken =>
+        path("submit" / Segment) { sessionToken =>
           val token = sessionToken.toString
           post {
             import ChallengeSubmissionRequestProtocol._

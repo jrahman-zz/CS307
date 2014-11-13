@@ -8,7 +8,7 @@
         =@level.prompt
 
         .pull-right
-          %button.btn.btn-sm.btn-danger{"data-content" => @level.hint, "data-toggle" => "popover", "data-trigger" => "focus", :href => "#", :type => "button", :tabindex => "0"} Hint 
+          %button.btn.btn-sm.btn-danger{"data-content" => @level.hint, "data-toggle" => "popover", "data-trigger" => "focus", :href => "#", :type => "button", :tabindex => "0"} Hint
 
       %div#code-editor
 
@@ -17,6 +17,7 @@
 
       .form-actions
         .pull-right
+          = link_to 'Back to Courses', courses_path, class: 'btn btn-default'
           %span#submit_button.btn.btn-primary Test
 
   .col-md-8
