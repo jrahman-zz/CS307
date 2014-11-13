@@ -35,12 +35,14 @@ import org.rahmanj.Settings
 class ProcessContainerFactory extends ContainerFactory {
   
   implicit val system = ActorSystem()
+  var port = 5000
   
   def apply(config: ContainerConfig): Future[Option[Container]] = {
     
+    port = port + 1
+    
     val executorPath = Settings(system).Container.Python.ContainerPath
     val executorName = Settings(system).Container.Python.ExecutorName
-    val port = 5000 // Smuggle this in later
     val process = Process(Seq("python", s"$executorPath/$executorName", "-p", port.toString, "-H", "localhost"), new java.io.File(executorPath)) run
     
     Future {
@@ -63,7 +65,7 @@ class ProcessContainerFactory extends ContainerFactory {
     
     def sendMessage[A <: Request](message: A, endpoint: String)(implicit f: Unmarshaller[A#ResponseType], p: Marshaller[A]): Future[A#ResponseType] = {
       
-      implicit val timeout = Timeout(60.seconds)
+      implicit val timeout = Timeout(10.seconds)
       
       val container_endpoint = s"$uri/$endpoint"
       
