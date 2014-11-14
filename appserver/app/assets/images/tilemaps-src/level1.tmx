@@ -3,7 +3,7 @@
  <tileset firstgid="1" name="Map" tilewidth="64" tileheight="64">
   <image source="assets/spritesheets/RPGpack_sheet.png" width="1280" height="832"/>
  </tileset>
- <layer name="BaseLayer" width="18" height="10">
+ <layer name="BackgroundLayer" width="18" height="10">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -766,25 +766,24 @@
    <properties>
     <property name="actor" value="1"/>
     <property name="dialogue" value=" sleeping beauty. You are like an old man sleeping for 12 hours straight! But, anyway you must be already getting super tired of typing in Hero.moveUp() a million times. So I heard there were something called arguments in functions! \nAnd if you forgot what a function is it is just special code that is designed to do a set of instructions, but it conveniently lets you do it with 1 line of code! So try giving Hero.MoveRight() a number and see what happens!"/>
-    <property name="repeatable" value="1"/>
-    <property name="stopMove" value="1"/>
+    <property name="repeatable" value="true"/>
+    <property name="stopMove" value="true"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
   <object name="NextLevelTrigger" type="levelexit" x="896" y="320" width="64" height="64">
    <properties>
-    <property name="repeatable" value="1"/>
-    <property name="stopMove" value="1"/>
+    <property name="repeatable" value="true"/>
+    <property name="stopMove" value="true"/>
     <property name="triggerTarget" value="0"/>
-    <property name="nextLevel" value="2" />
    </properties>
   </object>
   <object name="Wizard Dialog" type="dialogue" x="384" y="64" width="64" height="64">
    <properties>
     <property name="actor" value="2"/>
     <property name="dialogue" value="HEY THERE! You are finally awake! Why dont you come towards me (wizard) and we can talk! Try walking by typing in Hero.moveUp()."/>
-    <property name="repeatable" value="0"/>
-    <property name="stopMove" value="1"/>
+    <property name="repeatable" value="false"/>
+    <property name="stopMove" value="true"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
