@@ -79,6 +79,7 @@
                     {
                      "id":"1",
                      "npc_id":"1",
+                     "rotation":"0"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -94,6 +95,7 @@
                     {
                      "id":"",
                      "npc_id":"",
+                     "rotation":"0"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -109,6 +111,7 @@
                     {
                      "id":"3",
                      "npc_id":"3",
+                     "rotation":"0"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -123,8 +126,9 @@
                  "properties":
                     {
                      "id":"0",
+                     "rotation":"90"
                     },
-                 "rotation":90,
+                 "rotation":0,
                  "type":"hero",
                  "visible":true,
                  "width":64,
@@ -138,6 +142,7 @@
                     {
                      "id":"4",
                      "npc_id":"4",
+                     "rotation":"0"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -151,9 +156,9 @@
                  "name":"NextLevelTrigger",
                  "properties":
                     {
-                     "repeatable":true,
-                     "stopMove":false,
-                     "triggerTarget":0
+                     "repeatable":"1",
+                     "stopMove":"0",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"levelexit",
@@ -181,9 +186,9 @@
                     {
                      "actor":"1",
                      "dialogue":"Ahh you heard my brother was here too? Me too! But, while I was here I decided to check up on my little store center I have on the pier. But, it looks like my cash register has been acting up and has not been selling at the correct prices. Help me reprogram it young one! So to the left of your screen I have started the program function definition for you.",
-                     "repeatable":false,
-                     "stopMove":true,
-                     "triggerTarget":0
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -197,11 +202,11 @@
                  "name":"Link Dialog",
                  "properties":
                     {
-                     "actor":3,
+                     "actor":"3",
                      "dialogue":"What\u2019s up! I heard that you were looking for Tnana. I heard he was going to traveling off to some secret island for a potion creation ceremony! I think thats his boat about to leave! You can probably sneak on! Go Hero Go!",
-                     "repeatable":true,
-                     "stopMove":false,
-                     "triggerTarget":0
+                     "repeatable":"1",
+                     "stopMove":"0",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -215,11 +220,11 @@
                  "name":"Link Dialog",
                  "properties":
                     {
-                     "actor":3,
+                     "actor":"3",
                      "dialogue":"What\u2019s up! I heard that you were looking for Tnana. I heard he was going to traveling off to some secret island for a potion creation ceremony! I think thats his boat about to leave! You can probably sneak on! Go Hero Go!",
-                     "repeatable":true,
-                     "stopMove":false,
-                     "triggerTarget":0
+                     "repeatable":"1",
+                     "stopMove":"0",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -233,11 +238,11 @@
                  "name":"Tnana Dialog",
                  "properties":
                     {
-                     "actor":2,
+                     "actor":"2",
                      "dialogue":"Heh? What do you want? ",
-                     "repeatable":false,
-                     "stopMove":true,
-                     "triggerTarget":0
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -251,11 +256,11 @@
                  "name":"Tnana Dialog",
                  "properties":
                     {
-                     "actor":2,
+                     "actor":"2",
                      "dialogue":"Heh? What do you want? ",
-                     "repeatable":false,
-                     "stopMove":true,
-                     "triggerTarget":0
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"dialogue",
