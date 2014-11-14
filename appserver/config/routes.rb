@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   # Submissions
   post '/submissions/submit/' => 'submissions#submit', as: :grade_submission
+  post '/submissions/init' => 'submissions#init_server', as: :init_grading_session
 
   # Attempts
   get '/attempts/compare' => 'attempts#compare', as: :attempt_comparison

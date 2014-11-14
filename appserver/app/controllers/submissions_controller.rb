@@ -6,14 +6,26 @@ class SubmissionsController < ApplicationController
     @submission = Submission.find(params[:id])
   end
 
+  # POST /submissions/init
   def init_server
     # Only allow submissions from users who are signed in
     if user_signed_in?
       uri = 'http://klamath.dnsdynamic.com:8088/session/create'
-      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: params[:level]
+      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: {
+        levelID: params[:level_id],
+        courseID: params[:course_id],
+        userID: current_user.id,
+        level: params[:level]
+      }
+
+      self.response_body = ''
+      self.status = -1
+
+      puts '\n\n#### Sent a request to Jason ####\n\n'
 
       http.callback do
         finish_request do
+          puts '\n\n#### Gameplay Session initialized ####\n\n'
           render json: http.response
         end
       end
@@ -23,10 +35,10 @@ class SubmissionsController < ApplicationController
     end
   end
 
+  # POST /submissions/submit
   def submit
     # Only allow submissions from users who are signed in
     if user_signed_in?
-
       @info = submission_params
       @info[:language_id] = 1
       @info[:status_id] = 1
@@ -35,10 +47,16 @@ class SubmissionsController < ApplicationController
       @info[:user_id] = current_user.id
 
       uri = 'http://klamath.dnsdynamic.com:8088/level/submit/'
-      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: params[:code]
+      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: { codelines: params[:code] }
+
+      self.response_body = ''
+      self.status = -1
+
+      puts '\n\n#### Sent a request to Jason ####\n\n'
 
       http.callback do
         finish_request do
+          puts '\n\n#### Routing Server response captured, returning to client ####\n\n'
           render json: http.response
         end
       end
@@ -60,6 +78,8 @@ class SubmissionsController < ApplicationController
 
     render json: @attempt
   end
+
+
 
   # POST /submissions
   def create
