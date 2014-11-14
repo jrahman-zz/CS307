@@ -38,3 +38,33 @@ function distance_between(x1, y1, x2, y2) {
   var dy = y2 - y1;
   return Math.sqrt(dx * dx + dy * dy);
 }
+
+/**
+ * Converts the given text into an array of strings whose lengths
+ * are no greater than line_chars.
+ */
+function segment_text(text, line_chars) {
+  var lines = [];
+  while (text.length > 0) {
+    var last_space = null;
+    var i = 0;
+    while (i < text.length && i < line_chars) {
+      if (text.charAt(i) == ' ') {
+        last_space = i;
+      }
+      i++;
+    }
+
+    var split_at;
+    if (i == text.length) {
+      split_at = text.length;
+    } else  {
+      split_at = (last_space === null ? line_chars : last_space);
+    }
+    var line = text.substring(0, split_at);
+    text = text.substring(split_at + 1);
+
+    lines.push(line);
+  }
+  return lines;
+}

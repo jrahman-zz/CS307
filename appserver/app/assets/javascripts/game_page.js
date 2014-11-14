@@ -14,8 +14,8 @@ editor.setTheme('ace/theme/terminal');
 editor.setFontSize(18);
 editor.getSession().setMode('ace/mode/python');
 
+// Enable popovers.
 $(function() {
-  // Enable popovers.
   $('[data-toggle="popover"]').popover();
 });
 
@@ -61,6 +61,8 @@ tilemap_promise.success(function (tilemap_str) {
     // Load world tilemap.
     game.load.tilemap('world-tilemap', null, tilemap_str, Phaser.Tilemap.TILED_JSON);
 
+    game.stage.disableVisibilityChange = true;
+
     game_state.load(tilemap_json);
 
     // Example response JSON processing.
@@ -70,12 +72,12 @@ tilemap_promise.success(function (tilemap_str) {
         var response_json = {
           "classID":2,
           "levelID":1,
-          "log": [
-          [{"data":{"actorID":0,"position":{"x":1,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":180},"type":"rotate"}],
-            [{"data":{"actorID":0,"dialogue":"Hi"},"type":"dialogue"},{"data":{"actorID":0,"position":{"x":0,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}],
-            [{"data":{"actorID":0,"position":{"x":0,"y":6}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}],
-            [{"data":{"actorID":0,"dialogue":"Hi 2"},"type":"dialogue"},{"data":{"actorID":0,"position":{"x":0,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}]
-            ],
+          "log":[
+             [{"data":{"actorID":0,"position":{"x":1,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":180},"type":"rotate"}],
+             [{"data":{"actorID":1,"dialogue":"Sleeping beauty. You are like an old man sleeping for 12 hours straight! But, anyway you must be already getting super tired of typing in hero.moveUp() a million times. So I heard there were something called arguments in functions! \\nAnd if you forgot what a function is it is just special code that is designed to do a set of instructions, but it conveniently lets you do it with 1 line of code! So try giving hero.moveRight() a number and see what happens!"},"type":"dialogue"},{"data":{"actorID":0,"position":{"x":0,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}],
+             [{"data":{"actorID":0,"position":{"x":0, "y":6}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}],
+             [{"data":{"actorID":2,"dialogue":"Second dialogue of inspiration~"},"type":"dialogue"},{"data":{"actorID":0,"position":{"x":0,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}]
+          ],
           "nextLevel":-1,
           "userID":0
         };

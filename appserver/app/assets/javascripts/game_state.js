@@ -42,10 +42,11 @@ function direction_from(rotation) {
 /**
  * Holds information about in-game sprite.
  */
-var SpriteEntity = function(id, type, type_class, start_x, start_y, rotation) {
+var SpriteEntity = function(id, type, type_class, name, start_x, start_y, rotation) {
   this.id = id;
   this.type = type; // Type SpriteType.
   this.type_class = type_class; // Defines class of character (dependent on type).
+  this.name = name;
   this.start_x = start_x;
   this.start_y = start_y;
   this.rotation = rotation; // In degrees. In range [0, 360).
@@ -80,7 +81,8 @@ SpriteEntity.prototype.apply_direction = function(direction) {
  */
 var EventType = {
   MOVE: 'move',
-  ROTATE: 'rotate'
+  ROTATE: 'rotate',
+  DIALOGUE: 'dialogue'
 };
 
 var Event = function(type, data) {
@@ -88,7 +90,9 @@ var Event = function(type, data) {
   this.data = data;
 };
 
-Event.prototype.execute = function(entity_map, callback) {
+Event.prototype.execute = function(game_state, callback) {
+  var entity_map = game_state.entity_map;
+
   switch (this.type) {
     case EventType.MOVE:
       var actor_id = this.data['actorID'];
@@ -112,6 +116,18 @@ Event.prototype.execute = function(entity_map, callback) {
         setTimeout(callback, 500);
       }, 500);
       break;
+    case EventType.DIALOGUE:
+      var actor_id = this.data['actorID'];
+      var dialogue = this.data['dialogue'];
+      var entity = entity_map[actor_id];
+
+      var full_text = entity.name + ': ' + dialogue;
+      var lines = segment_text(full_text, 78);
+      game_state.animate_text(lines, callback);
+      break;
+    default:
+      console.log('Unrecognized event type: ' + this.type);
+      break;
   }
 }
 
@@ -134,6 +150,16 @@ var GameState = function(game, tile_size) {
   // Keys are unique ids which are shared with the game library and defined by the "id": property.
   // Values are SpriteEntity objects corresponding to the id.
   this.entity_map = {};
+
+  this.dialogue_text_index = 0;
+  this.dialogue_texts = null;
+
+  this.dialogue_line_index = 0;
+  this.dialogue_lines = null;
+  this.dialogue_line = null;
+  this.dialogue_curr = null;
+  this.dialogue_char_index = 0;
+  this.dialogue_callback = null;
 };
 
 /**
@@ -144,6 +170,7 @@ GameState.prototype.parse_actor_objects = function(objects_json) {
     var object_json = objects_json[j];
     var x = object_json['x'];
     var y = object_json['y'];
+    var name = object_json['name'];
     var props_json = object_json['properties'];
 
     var object_id = props_json['id'];
@@ -152,15 +179,16 @@ GameState.prototype.parse_actor_objects = function(objects_json) {
     var sprite;
     switch (object_json['type']) {
       case 'hero':
-        sprite = new SpriteEntity(object_id, SpriteType.HERO, 0, x, y, Number(rotation));
+        sprite = new SpriteEntity(object_id, SpriteType.HERO, 0, name,
+                                  x, y, Number(rotation));
         break;
       case 'enemy':
-        sprite = new SpriteEntity(object_id, SpriteType.ENEMY, props_json['enemy_id'],
-                                     x, y, Number(rotation));
+        sprite = new SpriteEntity(object_id, SpriteType.ENEMY, props_json['enemy_id'], name,
+                                  x, y, Number(rotation));
         break;
       case 'npc':
-        sprite = new SpriteEntity(object_id, SpriteType.NPC, props_json['npc_id'],
-                                     x, y, Number(rotation));
+        sprite = new SpriteEntity(object_id, SpriteType.NPC, props_json['npc_id'], name,
+                                  x, y, Number(rotation));
         break;
       default:
         console.log('Unknown object type: ' + object_json['type']);
@@ -264,6 +292,12 @@ GameState.prototype.create = function() {
       sprite.animations.add('walk-right', generate_list(27, 35), 15, true);
     }
   }
+
+  var style = { font: '18pt Courier', fill: '#04750B', stroke: '#000000', strokeThickness: 2 };
+  this.dialogue_texts = [
+    this.game.add.text(24, 18, '', style),
+    this.game.add.text(24, 64, '', style)
+  ];
 }
 
 /**
@@ -321,7 +355,10 @@ GameState.prototype.parse_response = function(response_json) {
           events.push(new Event(EventType.ROTATE, data));
           break;
         case 'dialogue':
-          // TODO implement
+          var actor_id = data_json['actorID'];
+          var dialogue = data_json['dialogue'];
+          var data = { 'actorID': actor_id, 'dialogue': dialogue };
+          events.push(new Event(EventType.DIALOGUE, data));
           break;
         case 'levelexit':
           // TODO implement
@@ -357,14 +394,14 @@ GameState.prototype.process_response = function(response_json, callback) {
     
     function process_events(e_index) {
       var event_func = events[e_index];
-      var copy = this;
-      event_func.execute(this.entity_map, function () {
+      var this_ref = this;
+      event_func.execute(this_ref, function () {
         completed_count++;
 
         if (completed_count == events.length) {
-          process_frames.bind(copy)(f_index + 1); // Recursive call.
+          process_frames.bind(this_ref)(f_index + 1); // Recursive call.
         } else {
-          process_events.bind(copy)(e_index + 1); // Recursive call.
+          process_events.bind(this_ref)(e_index + 1); // Recursive call.
         }
       } /* callback */);
     }
@@ -372,4 +409,54 @@ GameState.prototype.process_response = function(response_json, callback) {
   }
 
   process_frames.bind(this)(0);
+}
+
+/**
+ * Animates displaying given text.
+ */
+GameState.prototype.animate_text = function(lines, callback) {
+  this.dialogue_text_index = -1;
+  this.dialogue_line_index = 0;
+  this.dialogue_lines = lines;
+  this.dialogue_callback = callback;
+  animate_line.bind(this)();
+}
+
+function animate_line() {
+  if (this.dialogue_line_index == this.dialogue_lines.length) {
+    var this_ref = this;
+    setTimeout(function() {
+      for (var i = 0; i < this_ref.dialogue_texts.length; i++) {
+        this_ref.dialogue_texts[i].setText('');
+      }
+      this_ref.dialogue_callback();
+    }, 1000);
+  } else {
+    if (this.dialogue_text_index < this.dialogue_texts.length - 1) {
+      this.dialogue_text_index++;
+    } else {
+      // Shift text.
+      for (var i = 0; i < this.dialogue_texts.length - 1; i++) {
+        this.dialogue_texts[i].setText(this.dialogue_texts[i+1].text);
+      }
+    }
+
+    this.dialogue_line = this.dialogue_lines[this.dialogue_line_index];
+    this.dialogue_curr = '';
+    this.dialogue_char_index = 0;
+    this.game.time.events.repeat(28, this.dialogue_lines[this.dialogue_line_index].length + 1, animate_line_tick, this);
+  }
+}
+
+function animate_line_tick() {
+  if (this.dialogue_char_index == this.dialogue_line.length) {
+    this.dialogue_line_index++;
+
+    this.game.time.events.add(500, animate_line, this);
+  } else {
+    this.dialogue_curr += this.dialogue_line[this.dialogue_char_index];
+    this.dialogue_char_index++;
+
+    this.dialogue_texts[this.dialogue_text_index].setText(this.dialogue_curr);
+  }
 }
