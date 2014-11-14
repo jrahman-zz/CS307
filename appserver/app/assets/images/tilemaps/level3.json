@@ -93,8 +93,8 @@
                  "name":"Wiz",
                  "properties":
                     {
-                     "id":"",
-                     "npc_id":"",
+                     "id":"2",
+                     "npc_id":"2",
                      "rotation":"0"
                     },
                  "rotation":0,
@@ -150,22 +150,6 @@
                  "width":64,
                  "x":192,
                  "y":576
-                },
-                {
-                 "height":64,
-                 "name":"NextLevelTrigger",
-                 "properties":
-                    {
-                     "repeatable":"1",
-                     "stopMove":"0",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"levelexit",
-                 "visible":true,
-                 "width":64,
-                 "x":704,
-                 "y":320
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -179,6 +163,23 @@
          "height":0,
          "name":"TriggerLayer",
          "objects":[
+                {
+                 "height":64,
+                 "name":"NextLevelTrigger",
+                 "properties":
+                    {
+                     "repeatable":"1",
+                     "stopMove":"0",
+                     "triggerTarget":"0",
+                     "nextLevel": "2"
+                    },
+                 "rotation":0,
+                 "type":"levelexit",
+                 "visible":true,
+                 "width":64,
+                 "x":704,
+                 "y":320
+                },
                 {
                  "height":64,
                  "name":"Wizard Dialog",
@@ -217,7 +218,7 @@
                 },
                 {
                  "height":64,
-                 "name":"Link Dialog",
+                 "name":"Link Dialog2",
                  "properties":
                     {
                      "actor":"3",

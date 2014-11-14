@@ -133,7 +133,8 @@
                     {
                      "repeatable":"1",
                      "stopMove":"1",
-                     "triggerTarget":"0"
+                     "triggerTarget":"0",
+                     "nextLevel": "2"
                     },
                  "rotation":0,
                  "type":"levelexit",

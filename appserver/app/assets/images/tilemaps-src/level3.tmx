@@ -86,21 +86,22 @@
     <property name="rotation" value="0"/>
    </properties>
   </object>
-  <object name="NextLevelTrigger" type="levelexit" x="704" y="320" width="64" height="64">
-   <properties>
-    <property name="repeatable" value="true"/>
-    <property name="stopMove" value="false"/>
-    <property name="triggerTarget" value="0"/>
-   </properties>
-  </object>
  </objectgroup>
  <objectgroup name="TriggerLayer">
+ <object name="NextLevelTrigger" type="levelexit" x="704" y="320" width="64" height="64">
+   <properties>
+    <property name="repeatable" value="1"/>
+    <property name="stopMove" value="0"/>
+    <property name="triggerTarget" value="0"/>
+    <property name="nextLevel" value="2" />
+   </properties>
+  </object>
   <object name="Wizard Dialog" type="dialogue" x="320" y="192" width="64" height="64">
    <properties>
     <property name="actor" value="1"/>
     <property name="dialogue" value="Ahh you heard my brother was here too? Me too! But, while I was here I decided to check up on my little store center I have on the pier. But, it looks like my cash register has been acting up and has not been selling at the correct prices. Help me reprogram it young one! So to the left of your screen I have started the program function definition for you."/>
-    <property name="repeatable" value="false"/>
-    <property name="stopMove" value="true"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -108,8 +109,8 @@
    <properties>
     <property name="actor" value="3"/>
     <property name="dialogue" value="What’s up! I heard that you were looking for Tnana. I heard he was going to traveling off to some secret island for a potion creation ceremony! I think thats his boat about to leave! You can probably sneak on! Go Hero Go!"/>
-    <property name="repeatable" value="true"/>
-    <property name="stopMove" value="false"/>
+    <property name="repeatable" value="1"/>
+    <property name="stopMove" value="0"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -117,8 +118,8 @@
    <properties>
     <property name="actor" value="3"/>
     <property name="dialogue" value="What’s up! I heard that you were looking for Tnana. I heard he was going to traveling off to some secret island for a potion creation ceremony! I think thats his boat about to leave! You can probably sneak on! Go Hero Go!"/>
-    <property name="repeatable" value="true"/>
-    <property name="stopMove" value="false"/>
+    <property name="repeatable" value="1"/>
+    <property name="stopMove" value="0"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -126,8 +127,8 @@
    <properties>
     <property name="actor" value="2"/>
     <property name="dialogue" value="Heh? What do you want? "/>
-    <property name="repeatable" value="false"/>
-    <property name="stopMove" value="true"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -135,8 +136,8 @@
    <properties>
     <property name="actor" value="2"/>
     <property name="dialogue" value="Heh? What do you want? "/>
-    <property name="repeatable" value="false"/>
-    <property name="stopMove" value="true"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -144,8 +145,8 @@
    <properties>
     <property name="actor" value="2"/>
     <property name="dialogue" value="Heh? What do you want? "/>
-    <property name="repeatable" value="false"/>
-    <property name="stopMove" value="true"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -153,7 +154,7 @@
    <properties>
     <property name="actor" value="2"/>
     <property name="dialogue" value="Heh? What do you want? "/>
-    <property name="repeatable" value="false"/>
+    <property name="repeatable" value="0"/>
     <property name="stopMove" value="true"/>
     <property name="triggerTarget" value="0"/>
    </properties>
@@ -162,8 +163,8 @@
    <properties>
     <property name="actor" value="2"/>
     <property name="dialogue" value="Heh? What do you want? "/>
-    <property name="repeatable" value="false"/>
-    <property name="stopMove" value="true"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -171,8 +172,8 @@
    <properties>
     <property name="actor" value="2"/>
     <property name="dialogue" value="Heh? What do you want? "/>
-    <property name="repeatable" value="false"/>
-    <property name="stopMove" value="true"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -180,8 +181,8 @@
    <properties>
     <property name="actor" value="3"/>
     <property name="dialogue" value="“Merh…. That old wizard is making it hard for me to do business here in this corner shop. I heard you created a new software implementation for that old man. Can you help me out too? I am a lot less nice than that wizard guy. I will sell it to anyone if they offer me more than 792 gold or give me exactly 750 gold say SOLD. If it isnt then say NO DEAALIO!!!”"/>
-    <property name="repeatable" value="true"/>
-    <property name="stopMove" value="false"/>
+    <property name="repeatable" value="1"/>
+    <property name="stopMove" value="0"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -190,8 +191,8 @@
     <property name="actor" value="4"/>
     <property name="dialogue">Hey there traveler! Can you help me with my problem? 
 </property>
-    <property name="repeatable" value="true"/>
-    <property name="stopMove" value="false"/>
+    <property name="repeatable" value="1"/>
+    <property name="stopMove" value="0"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -200,8 +201,8 @@
     <property name="actor" value="4"/>
     <property name="dialogue">Hey there traveler! Can you help me with my problem? 
 </property>
-    <property name="repeatable" value="true"/>
-    <property name="stopMove" value="false"/>
+    <property name="repeatable" value="1"/>
+    <property name="stopMove" value="0"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -210,8 +211,8 @@
     <property name="actor" value="4"/>
     <property name="dialogue">Hey there traveler! Can you help me with my problem? 
 </property>
-    <property name="repeatable" value="true"/>
-    <property name="stopMove" value="false"/>
+    <property name="repeatable" value="1"/>
+    <property name="stopMove" value="0"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>

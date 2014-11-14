@@ -84,17 +84,17 @@
    <properties>
     <property name="actor" value="2"/>
     <property name="dialogue" value="The bottle states there are 18 ozs in the bottle. But I need 1372 grams. Do I have enough? Hint:  I believe 1 oz is equal to 28.3 grams. "/>
-    <property name="repeatable" value="false"/>
-    <property name="stopMove" value="true"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
-  <object name="Wizard Dialog" type="Dialogue" x="256" y="384" width="64" height="64">
+  <object name="Wizard Dialog" type="dialogue" x="256" y="384" width="64" height="64">
    <properties>
     <property name="actor" value="1"/>
     <property name="dialogue" value="Hello young one. Since you graciously accepted to take on my quest I must teach you a few things so you can survive in the wilderness. First I will teach you how to do math with python. It is fairly easy. All you do is type in your equation and hit enter! Its that simple. So to help you practice I have a small problem for you to solve."/>
-    <property name="repeatable" value="false"/>
-    <property name="stopMove" value="true"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -102,8 +102,8 @@
    <properties>
     <property name="actor" value="4"/>
     <property name="dialogue" value="I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you."/>
-    <property name="repeatable" value="true"/>
-    <property name="stopMove" value="false"/>
+    <property name="repeatable" value="1"/>
+    <property name="stopMove" value="0"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -111,8 +111,8 @@
    <properties>
     <property name="actor" value="4"/>
     <property name="dialogue" value="I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you."/>
-    <property name="repeatable" value="true"/>
-    <property name="stopMove" value="false"/>
+    <property name="repeatable" value="1"/>
+    <property name="stopMove" value="0"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -120,8 +120,8 @@
    <properties>
     <property name="actor" value="3"/>
     <property name="dialogue" value="Ahh yes, Tnana my rival! I believe he is hanging around somewhere in the beach area! Go talk to my wizard friend that is dancing around the pound he can transport you to the beach!"/>
-    <property name="repeatable" value="true"/>
-    <property name="stopMove" value="false"/>
+    <property name="repeatable" value="1"/>
+    <property name="stopMove" value="0"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -132,8 +132,8 @@
 Oh? You want a ride from the ALMIGHTY WIZ?! 
 Well It isn’t free ya’ kno’?!” 
 </property>
-    <property name="repeatable" value="false"/>
-    <property name="stopMove" value="false"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="0"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -144,8 +144,8 @@ Well It isn’t free ya’ kno’?!”
 Oh? You want a ride from the ALMIGHTY WIZ?! 
 Well It isn’t free ya’ kno’?!” 
 </property>
-    <property name="repeatable" value="false"/>
-    <property name="stopMove" value="false"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="0"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
