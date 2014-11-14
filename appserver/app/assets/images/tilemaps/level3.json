@@ -79,7 +79,6 @@
                     {
                      "id":"1",
                      "npc_id":"1",
-                     "rotation":"0"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -95,7 +94,6 @@
                     {
                      "id":"",
                      "npc_id":"",
-                     "rotation":"0"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -111,7 +109,6 @@
                     {
                      "id":"3",
                      "npc_id":"3",
-                     "rotation":"0"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -126,7 +123,6 @@
                  "properties":
                     {
                      "id":"0",
-                     "rotation":"90"
                     },
                  "rotation":90,
                  "type":"hero",
@@ -142,7 +138,6 @@
                     {
                      "id":"4",
                      "npc_id":"4",
-                     "rotation":"0"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -184,7 +179,7 @@
                  "name":"Wizard Dialog",
                  "properties":
                     {
-                     "actor":1,
+                     "actor":"1",
                      "dialogue":"Ahh you heard my brother was here too? Me too! But, while I was here I decided to check up on my little store center I have on the pier. But, it looks like my cash register has been acting up and has not been selling at the correct prices. Help me reprogram it young one! So to the left of your screen I have started the program function definition for you.",
                      "repeatable":false,
                      "stopMove":true,
@@ -274,11 +269,11 @@
                  "name":"Tnana Dialog",
                  "properties":
                     {
-                     "actor":2,
+                     "actor":"2",
                      "dialogue":"Heh? What do you want? ",
-                     "repeatable":false,
-                     "stopMove":true,
-                     "triggerTarget":0
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -292,11 +287,11 @@
                  "name":"Tnana Dialog",
                  "properties":
                     {
-                     "actor":2,
+                     "actor":"2",
                      "dialogue":"Heh? What do you want? ",
-                     "repeatable":false,
-                     "stopMove":true,
-                     "triggerTarget":0
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -310,11 +305,11 @@
                  "name":"Tnana Dialog",
                  "properties":
                     {
-                     "actor":2,
+                     "actor":"2",
                      "dialogue":"Heh? What do you want? ",
-                     "repeatable":false,
-                     "stopMove":true,
-                     "triggerTarget":0
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -328,11 +323,11 @@
                  "name":"Tnana Dialog",
                  "properties":
                     {
-                     "actor":2,
+                     "actor":"2",
                      "dialogue":"Heh? What do you want? ",
-                     "repeatable":false,
-                     "stopMove":true,
-                     "triggerTarget":0
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -346,11 +341,11 @@
                  "name":"Wiz Dialog",
                  "properties":
                     {
-                     "actor":3,
+                     "actor":"3",
                      "dialogue":"\u201cMerh\u2026. That old wizard is making it hard for me to do business here in this corner shop. I heard you created a new software implementation for that old man. Can you help me out too? I am a lot less nice than that wizard guy. I will sell it to anyone if they offer me more than 792 gold or give me exactly 750 gold say SOLD. If it isnt then say NO DEAALIO!!!\u201d",
-                     "repeatable":true,
-                     "stopMove":false,
-                     "triggerTarget":0
+                     "repeatable":"1",
+                     "stopMove":"0",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -364,11 +359,11 @@
                  "name":"Toad Dialog",
                  "properties":
                     {
-                     "actor":4,
+                     "actor":"4",
                      "dialogue":"Hey there traveler! Can you help me with my problem? \n",
-                     "repeatable":true,
-                     "stopMove":false,
-                     "triggerTarget":0
+                     "repeatable":"1",
+                     "stopMove":"0",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -382,11 +377,11 @@
                  "name":"Toad Dialog",
                  "properties":
                     {
-                     "actor":4,
+                     "actor":"4",
                      "dialogue":"Hey there traveler! Can you help me with my problem? \n",
-                     "repeatable":true,
-                     "stopMove":false,
-                     "triggerTarget":0
+                     "repeatable":"1",
+                     "stopMove":"0",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -400,11 +395,11 @@
                  "name":"Toad Dialog",
                  "properties":
                     {
-                     "actor":4,
+                     "actor":"4",
                      "dialogue":"Hey there traveler! Can you help me with my problem? \n",
-                     "repeatable":true,
-                     "stopMove":false,
-                     "triggerTarget":0
+                     "repeatable":"1",
+                     "stopMove":"0",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"dialogue",

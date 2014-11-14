@@ -54,9 +54,9 @@
                  "name":"Wizard",
                  "properties":
                     {
-                     "id":2,
-                     "npc_id":0,
-                     "rotation":180
+                     "id":"2",
+                     "npc_id":"0",
+                     "rotation":"180"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -70,9 +70,9 @@
                  "name":"Link",
                  "properties":
                     {
-                     "id":1,
-                     "npc_id":1,
-                     "rotation":0
+                     "id":"1",
+                     "npc_id":"1",
+                     "rotation":"0"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -86,8 +86,8 @@
                  "name":"Hero",
                  "properties":
                     {
-                     "id":0,
-                     "rotation":90
+                     "id":"0",
+                     "rotation":"90"
                     },
                  "rotation":0,
                  "type":"hero",
@@ -115,8 +115,8 @@
                     {
                      "actor":"1",
                      "dialogue":" sleeping beauty. You are like an old man sleeping for 12 hours straight! But, anyway you must be already getting super tired of typing in hero.moveUp() a million times. So I heard there were something called arguments in functions! \\nAnd if you forgot what a function is it is just special code that is designed to do a set of instructions, but it conveniently lets you do it with 1 line of code! So try giving hero.moveRight() a number and see what happens!",
-                     "repeatable":"true",
-                     "stopMove":"true",
+                     "repeatable":"1",
+                     "stopMove":"1",
                      "triggerTarget":"0"
                     },
                  "rotation":0,
@@ -131,9 +131,9 @@
                  "name":"NextLevelTrigger",
                  "properties":
                     {
-                     "repeatable":true,
-                     "stopMove":true,
-                     "triggerTarget":0
+                     "repeatable":"1",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"levelexit",
@@ -149,8 +149,8 @@
                     {
                      "actor":"2",
                      "dialogue":"HEY THERE! You are finally awake! Why dont you come towards me (wizard) and we can talk! Try walking by typing in hero.moveUp().",
-                     "repeatable":"false",
-                     "stopMove":"true",
+                     "repeatable":"0",
+                     "stopMove":"1",
                      "triggerTarget":"0"
                     },
                  "rotation":0,
