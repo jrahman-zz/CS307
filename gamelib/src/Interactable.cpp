@@ -86,10 +86,8 @@ shared_ptr<Interactable> Interactable::createFromJson(InteractableType type, Jso
  */
 
 Interactable::Interactable(Json::Value value) 
-    : Positionable(value) {
-    auto properties = value["properties"];
-    m_ID = properties["id"].asInt();
-    m_state = State::ALIVE;
+    : Positionable(value)
+    , m_state(State::ALIVE) {
 }
 
 void Interactable::setInteractableType(InteractableType type) {

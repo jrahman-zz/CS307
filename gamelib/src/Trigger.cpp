@@ -9,9 +9,9 @@ Trigger::Trigger(Json::Value value)
     : Positionable(value)
     , m_name(std::move(value["name"].asString())) 
     , m_type(Trigger::typeFromString(value["type"].asString()))
-    , m_repeatable(value["properties"].get("repeatable", false).asBool())
-    , m_stopMovement(value["properties"].get("stopMove", true).asBool())
-    , m_triggerTarget(value["properties"].get("triggerTarget", -1).asInt())
+    , m_repeatable(stoi(value["properties"].get("repeatable", "0").asString()))
+    , m_stopMovement(stoi(value["properties"].get("stopMove", "1").asString()))
+    , m_triggerTarget(stoi(value["properties"].get("triggerTarget", "-1").asString()))
     , m_triggered(false)
 {}
 

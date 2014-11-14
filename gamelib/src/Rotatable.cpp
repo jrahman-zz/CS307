@@ -2,7 +2,7 @@
 
 Rotatable::Rotatable(Json::Value value)
     : Interactable(value)
-    , m_rotation(Rotatable::rotationFromInt(value["rotation"].asInt()))
+    , m_rotation(Rotatable::rotationFromInt(stoi(value["properties"].get("rotation", "0").asString())))
     , m_canRotate(true)
 {}
 

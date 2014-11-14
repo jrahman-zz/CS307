@@ -2,7 +2,7 @@
 
 Positionable::Positionable(Json::Value value) 
     : m_position(value["x"].asInt(), value["y"].asInt())
-    , m_ID(value["properties"].get("id", -1).asInt()) 
+    , m_ID(stoi(value["properties"].get("id", "-1").asString())) 
 {}
 
 Positionable::~Positionable() {

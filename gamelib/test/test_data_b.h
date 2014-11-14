@@ -65,9 +65,9 @@ string testDataA = R"({
                      "properties":
                         {
                             "dialogue": "Hi",
-                            "actorID": 0,
-                            "repeatable": true,
-                            "stopMove": false
+                            "actor": "0",
+                            "repeatable": "1",
+                            "stopMove": "0"
                         },
                      "rotation":0,
                      "type":"dialogue",
@@ -79,7 +79,7 @@ string testDataA = R"({
                         "height":64,
                         "name": "exit",
                         "properties": {
-                            "nextLevel": 1
+                            "nextLevel": "1"
                         },
                         "type": "levelexit",
                         "visible": true,
@@ -106,7 +106,8 @@ string testDataA = R"({
                         "width": 64,
                         "rotation": 180,
                         "properties": {
-                            "id": 0
+                            "id": "0",
+                            "rotation": "0"
                         },
                         "x": 512,
                         "y": 192,
@@ -115,9 +116,10 @@ string testDataA = R"({
                     }, {
                         "height": 64,
                         "width": 64,
-                        "rotation": 90,
+                        "rotation": 0,
                         "properties": {
-                            "id": 1
+                            "id": "1",
+                            "rotation": "90"
                         },
                         "x": 448,
                         "y": 192,

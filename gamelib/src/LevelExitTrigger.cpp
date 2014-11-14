@@ -2,7 +2,7 @@
 
 LevelExitTrigger::LevelExitTrigger(Json::Value value)
     : Trigger(value)
-    , m_nextLevelID(value["properties"]["nextLevel"].asInt())
+    , m_nextLevelID(stoi(value["properties"]["nextLevel"].asString()))
 {}
 
 LevelExitTrigger::~LevelExitTrigger() {}

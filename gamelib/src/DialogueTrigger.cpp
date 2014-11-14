@@ -5,7 +5,7 @@
 DialogueTrigger::DialogueTrigger(Json::Value value)
     : Trigger(value)
     , m_dialogue(value["properties"]["dialogue"].asString())
-    , m_sourceActor(value["properties"]["actor"].asInt())
+    , m_sourceActor(stoi(value["properties"]["actor"].asString()))
 {}
 
 DialogueTrigger::~DialogueTrigger() {}
