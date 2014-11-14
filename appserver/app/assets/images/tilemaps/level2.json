@@ -175,7 +175,7 @@
                      "triggerTarget":"0"
                     },
                  "rotation":0,
-                 "type":"Dialogue",
+                 "type":"dialogue",
                  "visible":true,
                  "width":64,
                  "x":256,
