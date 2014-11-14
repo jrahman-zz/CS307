@@ -61,8 +61,8 @@
   </object>
   <object name="Wiz" type="npc" x="640" y="576" width="64" height="64">
    <properties>
-    <property name="id" value=""/>
-    <property name="npc_id" value=""/>
+    <property name="id" value="2"/>
+    <property name="npc_id" value="2"/>
     <property name="rotation" value="0"/>
    </properties>
   </object>
