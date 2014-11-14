@@ -11,7 +11,7 @@
          "width":18,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "data":[146, 146, 146, 146, 146, 146, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 146, 146, 146, 146, 146, 146, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 146, 146, 146, 146, 146, 146, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
@@ -22,7 +22,7 @@
          "width":18,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "data":[189, 189, 250, 230, 230, 209, 189, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 229, 189, 250, 250, 0, 0, 189, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 247, 247, 247, 247, 247, 0, 189, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
@@ -33,7 +33,7 @@
          "width":18,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 275, 0, 0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 267, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 271, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 275, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
@@ -44,7 +44,7 @@
          "width":18,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 183, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 183, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 183, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 183, 183, 183, 183, 183, 0, 0, 0, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 185, 0, 185, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 201, 201, 0, 0, 185, 0, 0, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 221, 221, 0, 185, 0, 0, 0, 0, 185, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 0, 0, 185, 0, 181, 0, 0, 0, 0, 0, 0, 185, 185, 0, 0, 0, 0, 225, 0, 185, 185, 0, 181, 0, 0, 0, 0, 0, 0],
          "height":10,
@@ -55,7 +55,7 @@
          "width":18,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 276, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
@@ -66,7 +66,7 @@
          "width":18,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "draworder":"topdown",
          "height":0,
@@ -79,6 +79,7 @@
                     {
                      "id":"1",
                      "npc_id":"1",
+                     "rotation":"0"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -86,7 +87,7 @@
                  "width":64,
                  "x":320,
                  "y":128
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Wiz",
@@ -94,6 +95,7 @@
                     {
                      "id":"",
                      "npc_id":"",
+                     "rotation":"0"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -101,7 +103,7 @@
                  "width":64,
                  "x":640,
                  "y":576
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Link",
@@ -109,6 +111,7 @@
                     {
                      "id":"3",
                      "npc_id":"3",
+                     "rotation":"0"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -116,13 +119,14 @@
                  "width":64,
                  "x":512,
                  "y":0
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Hero",
                  "properties":
                     {
                      "id":"0",
+                     "rotation":"90"
                     },
                  "rotation":90,
                  "type":"hero",
@@ -130,7 +134,7 @@
                  "width":64,
                  "x":64,
                  "y":256
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Toad",
@@ -138,6 +142,7 @@
                     {
                      "id":"4",
                      "npc_id":"4",
+                     "rotation":"0"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -145,7 +150,7 @@
                  "width":64,
                  "x":192,
                  "y":576
-                }, 
+                },
                 {
                  "height":64,
                  "name":"NextLevelTrigger",
@@ -168,7 +173,7 @@
          "width":0,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "draworder":"topdown",
          "height":0,
@@ -179,7 +184,7 @@
                  "name":"Wizard Dialog",
                  "properties":
                     {
-                     "actor":"1",
+                     "actor":1,
                      "dialogue":"Ahh you heard my brother was here too? Me too! But, while I was here I decided to check up on my little store center I have on the pier. But, it looks like my cash register has been acting up and has not been selling at the correct prices. Help me reprogram it young one! So to the left of your screen I have started the program function definition for you.",
                      "repeatable":false,
                      "stopMove":true,
@@ -191,7 +196,7 @@
                  "width":64,
                  "x":320,
                  "y":192
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Link Dialog",
@@ -209,7 +214,7 @@
                  "width":64,
                  "x":512,
                  "y":64
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Link Dialog",
@@ -227,7 +232,7 @@
                  "width":64,
                  "x":576,
                  "y":0
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Tnana Dialog",
@@ -245,7 +250,7 @@
                  "width":64,
                  "x":384,
                  "y":320
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Tnana Dialog",
@@ -263,17 +268,17 @@
                  "width":64,
                  "x":512,
                  "y":384
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Tnana Dialog",
                  "properties":
                     {
-                     "actor":"2",
+                     "actor":2,
                      "dialogue":"Heh? What do you want? ",
-                     "repeatable":"false",
-                     "stopMove":"true",
-                     "triggerTarget":"0"
+                     "repeatable":false,
+                     "stopMove":true,
+                     "triggerTarget":0
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -281,17 +286,17 @@
                  "width":64,
                  "x":512,
                  "y":320
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Tnana Dialog",
                  "properties":
                     {
-                     "actor":"2",
+                     "actor":2,
                      "dialogue":"Heh? What do you want? ",
-                     "repeatable":"false",
-                     "stopMove":"true",
-                     "triggerTarget":"0"
+                     "repeatable":false,
+                     "stopMove":true,
+                     "triggerTarget":0
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -299,17 +304,17 @@
                  "width":64,
                  "x":448,
                  "y":384
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Tnana Dialog",
                  "properties":
                     {
-                     "actor":"2",
+                     "actor":2,
                      "dialogue":"Heh? What do you want? ",
-                     "repeatable":"false",
-                     "stopMove":"true",
-                     "triggerTarget":"0"
+                     "repeatable":false,
+                     "stopMove":true,
+                     "triggerTarget":0
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -317,17 +322,17 @@
                  "width":64,
                  "x":384,
                  "y":448
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Tnana Dialog",
                  "properties":
                     {
-                     "actor":"2",
+                     "actor":2,
                      "dialogue":"Heh? What do you want? ",
-                     "repeatable":"false",
-                     "stopMove":"true",
-                     "triggerTarget":"0"
+                     "repeatable":false,
+                     "stopMove":true,
+                     "triggerTarget":0
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -335,17 +340,17 @@
                  "width":64,
                  "x":512,
                  "y":448
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Wiz Dialog",
                  "properties":
                     {
-                     "actor":"3",
+                     "actor":3,
                      "dialogue":"\u201cMerh\u2026. That old wizard is making it hard for me to do business here in this corner shop. I heard you created a new software implementation for that old man. Can you help me out too? I am a lot less nice than that wizard guy. I will sell it to anyone if they offer me more than 792 gold or give me exactly 750 gold say SOLD. If it isnt then say NO DEAALIO!!!\u201d",
-                     "repeatable":"true",
-                     "stopMove":"false",
-                     "triggerTarget":"0"
+                     "repeatable":true,
+                     "stopMove":false,
+                     "triggerTarget":0
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -353,17 +358,17 @@
                  "width":64,
                  "x":640,
                  "y":512
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Toad Dialog",
                  "properties":
                     {
-                     "actor":"4",
+                     "actor":4,
                      "dialogue":"Hey there traveler! Can you help me with my problem? \n",
-                     "repeatable":"true",
-                     "stopMove":"false",
-                     "triggerTarget":"0"
+                     "repeatable":true,
+                     "stopMove":false,
+                     "triggerTarget":0
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -371,17 +376,17 @@
                  "width":64,
                  "x":192,
                  "y":512
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Toad Dialog",
                  "properties":
                     {
-                     "actor":"4",
+                     "actor":4,
                      "dialogue":"Hey there traveler! Can you help me with my problem? \n",
-                     "repeatable":"true",
-                     "stopMove":"false",
-                     "triggerTarget":"0"
+                     "repeatable":true,
+                     "stopMove":false,
+                     "triggerTarget":0
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -389,17 +394,17 @@
                  "width":64,
                  "x":256,
                  "y":576
-                }, 
+                },
                 {
                  "height":64,
                  "name":"Toad Dialog",
                  "properties":
                     {
-                     "actor":"4",
+                     "actor":4,
                      "dialogue":"Hey there traveler! Can you help me with my problem? \n",
-                     "repeatable":"true",
-                     "stopMove":"false",
-                     "triggerTarget":"0"
+                     "repeatable":true,
+                     "stopMove":false,
+                     "triggerTarget":0
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -437,7 +442,7 @@
          "spacing":0,
          "tileheight":64,
          "tilewidth":64
-        }, 
+        },
         {
          "firstgid":261,
          "image":"..\/assets\/spritesheets\/NPCs\/boat.png",
@@ -452,7 +457,7 @@
          "spacing":0,
          "tileheight":64,
          "tilewidth":64
-        }, 
+        },
         {
          "firstgid":277,
          "image":"..\/assets\/spritesheets\/NPCs\/Cropped Wizard.png",
@@ -467,7 +472,7 @@
          "spacing":0,
          "tileheight":64,
          "tilewidth":64
-        }, 
+        },
         {
          "firstgid":278,
          "image":"..\/assets\/spritesheets\/NPCs\/Tnana1.png",
@@ -482,7 +487,7 @@
          "spacing":0,
          "tileheight":64,
          "tilewidth":64
-        }, 
+        },
         {
          "firstgid":279,
          "image":"..\/assets\/spritesheets\/NPCs\/LinkRight.png",
@@ -497,7 +502,7 @@
          "spacing":0,
          "tileheight":64,
          "tilewidth":64
-        }, 
+        },
         {
          "firstgid":280,
          "image":"..\/assets\/spritesheets\/NPCs\/Toad.png",
@@ -512,7 +517,7 @@
          "spacing":0,
          "tileheight":64,
          "tilewidth":64
-        }, 
+        },
         {
          "firstgid":281,
          "image":"..\/assets\/spritesheets\/NPCs\/SwagWiz.png",
