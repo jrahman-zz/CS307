@@ -16,7 +16,7 @@ class SubmissionsController < ApplicationController
       level = JSON.parse(params[:level])
       body = URI.unescape({
         levelID: params[:level_id],
-        courseID: params[:course_id],
+        classID: params[:course_id],
         userID: current_user.id,
         level: level
       }.to_json.to_s)
@@ -52,7 +52,7 @@ class SubmissionsController < ApplicationController
       # Explicitly set the user to avoid client side hijacking
       @info[:user_id] = current_user.id
 
-      uri = 'http://klamath.dnsdynamic.com:8089/level/submit/'
+      uri = 'http://klamath.dnsdynamic.com:8089/level/submit/' + params[:session_id]
       http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: { codelines: params[:code] }
 
       self.response_body = ''

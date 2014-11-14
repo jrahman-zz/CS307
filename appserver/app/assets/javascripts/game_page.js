@@ -28,6 +28,9 @@ var CanvasTileHeight = 10;
 var tilemap_url = get_level_tilemap();
 var hero_gender = get_hero_gender();
 
+// This is set by the session initialization request, then sent with every submission request.
+var session_id = null;
+
 // Load tilemap from file asynchronously.
 var tilemap_promise = ajax_request_async('/assets/tilemaps/' + tilemap_url);
 tilemap_promise.success(function (tilemap_str) {
@@ -43,7 +46,9 @@ tilemap_promise.success(function (tilemap_str) {
       course_id: 1,
       level: tilemap_str
     }
-  })
+  }).done(function(data) {
+    session_id = data.sessionID;
+  });
 
   var game = new Phaser.Game(CanvasTileWidth * TileSize, CanvasTileHeight * TileSize,
     Phaser.AUTO, 'canvas-container',
@@ -108,7 +113,8 @@ tilemap_promise.success(function (tilemap_str) {
         data: {
             'code': code,
             'level_id': 1,
-            'course_id': 1
+            'course_id': 1,
+            'session_id': session_id
         },
         success: function(msg){
             alert('wow: ' + msg);
