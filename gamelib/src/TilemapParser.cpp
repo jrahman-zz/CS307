@@ -168,17 +168,6 @@ vector<shared_ptr<Trigger>> TilemapParser::parseTriggers(Json::Value root) {
     vector<shared_ptr<Trigger>> triggers;
     Json::Value objects = root["objects"];
 
-    int layer_width = root["width"].asInt();
-    int layer_height = root["height"].asInt();
-
-    if (layer_width != m_mapWidth) {
-        throw invalid_argument("Layer width mismatch");
-    }
-
-    if (layer_height != m_mapHeight) {
-        throw invalid_argument("Layer height mismatch");
-    }
-
     for (unsigned int j = 0; j < objects.size(); j++) {
         Json::Value object = objects[j]; 
 
@@ -204,18 +193,7 @@ vector<shared_ptr<Interactable>> TilemapParser::parseActors(Json::Value root) {
     vector<shared_ptr<Interactable>> actors;
 
     auto objects = root["objects"];
-
-    int layer_width = root["width"].asInt();
-    int layer_height = root["height"].asInt();
-
-    if (layer_width != m_mapWidth) {
-        throw runtime_error("Layer width mismatch");
-    }
-
-    if (layer_height != m_mapHeight) {
-        throw runtime_error("Layer height mismatch");
-    }
-
+    
     for (unsigned int j = 0; j < objects.size(); j++) {
         Json::Value object  = objects[j];
         string object_name = object["name"].asString();
