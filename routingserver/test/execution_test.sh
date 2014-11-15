@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #LEVEL="../../appserver/app/assets/images/tilemaps/level1.json"
-LEVEL="data.json"
+LEVEL="final.json"
 ls "${LEVEL}"
 if [ $? != 0 ]; then
     echo "No level found"
