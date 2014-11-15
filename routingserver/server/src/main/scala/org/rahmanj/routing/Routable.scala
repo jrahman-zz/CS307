@@ -6,11 +6,9 @@ import org.rahmanj.sessions._
 
 trait Routable {
   type RouteSource
-
   type RoutableContext
   
   def source: RouteSource
-  
   def context: RoutableContext
   
   def payload: Any

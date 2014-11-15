@@ -1,4 +1,4 @@
-package org.rahmanj.container
+package org.rahmanj.containers
 
 import scala.concurrent.{Future, Promise}
 import scala.concurrent.ExecutionContext.Implicits.global

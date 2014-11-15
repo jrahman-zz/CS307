@@ -15,16 +15,22 @@ import sessions._
 import routing._
 import messages._
 
-/** Provides the routes for our services
+/** Provides the routes for our service
  * @requires sessionRouter An ActorRef for a message routing actor
- * @requires authenticatorFactory A function returning a [[spray.routing.authentication.ContextAuthenticator]]
  */
 trait ServiceRoutes extends HttpService {
 	
   val sessionRouter: ActorRef
   
   val serviceRoute =
+    /*
+     * Extract the user_token header for further use 
+     */
     headerValueByName("user_token") { loginToken =>
+      /*
+       * Top level path match for all level operations
+       * Note that the tailing / after level is removed at this point
+       */
       pathPrefix("level") {
         path("reset" / Segment) { sessionToken =>
           val token = sessionToken.toString
@@ -45,6 +51,10 @@ trait ServiceRoutes extends HttpService {
           } ~ complete((405, "Invalid method, only post allowed"))
         }
       } ~
+      /*
+       * Top level path match for all challenge operations
+       * Note that the tailing / after challenge is removed at this point
+       */
       pathPrefix("challenge") {
         path("submit" / Segment) { sessionToken =>
           val token = sessionToken.toString
@@ -58,6 +68,10 @@ trait ServiceRoutes extends HttpService {
           } ~ complete((405, "Invalid method, only post allowed"))
         }
       }~
+      /*
+       * Top level path match for all session operations
+       * Note that the tailing / after session is removed at this point
+       */
       pathPrefix("session") {
         path("create") {
           post {
