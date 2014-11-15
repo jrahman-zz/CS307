@@ -3,7 +3,7 @@
 
 #include "util.h"
 
-#include "TilemapParser.h"
+#include "Engine.h"
 
 using namespace std;
 
@@ -11,7 +11,7 @@ using namespace std;
 
 START_TEST("final");
 
-	TilemapParser parser(data);
+	Engine engine(data);
 	cout << "Passed test" << endl;
 
 END_TEST("final");

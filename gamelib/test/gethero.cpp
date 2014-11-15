@@ -2,7 +2,7 @@
 #include <string>
 
 #include "util.h"
-
+#include "json/json.h"
 #include "TilemapParser.h"
 #include "Engine.h"
 #include "Hero.h"
@@ -12,7 +12,15 @@ using namespace std;
 #include "test_data_a.h"
 
 START_TEST("gethero");
-    TilemapParser parser(testDataA);
+    
+    Json::Value root;
+    Json::Reader reader;
+    if (!reader.parse(testDataA, root)) {
+        cout << "Failed to parse string" << endl;
+        FAIL_TEST("gethero");
+    }
+
+    TilemapParser parser(root["level"]);
     auto actors = parser.getActors();
 
     if (actors.size() != 3) {
