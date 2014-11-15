@@ -2,39 +2,24 @@
 
 #include <iostream>
 
-TilemapParser::TilemapParser(string jsonStr) {
-    parse(jsonStr);
+TilemapParser::TilemapParser(Json::Value root) {
+    parse(root);
 }
 
-void TilemapParser::parse(string jsonStr) {
-    Json::Value root;
-    Json::Reader reader;
+void TilemapParser::parse(Json::Value root) {
 
-    if (!reader.parse(jsonStr, root)) {
-        throw runtime_error("Failed to parse JSON:\n"
-        + reader.getFormattedErrorMessages());
-    }
+    checkLevel(root);
 
-    checkInput(root); 
- 
-    m_userID = root["userID"].asInt();
-    m_levelID = root["levelID"].asInt();
-    m_classID = root["classID"].asInt();
-
-    auto level = root["level"];    
-
-    checkLevel(level);
-
-    m_mapWidth = level["width"].asInt();
-    m_mapHeight = level["height"].asInt();
-    m_tileWidth = level["tilewidth"].asInt();
-    m_tileHeight = level["tileheight"].asInt();
+    m_mapWidth = root["width"].asInt();
+    m_mapHeight = root["height"].asInt();
+    m_tileWidth = root["tilewidth"].asInt();
+    m_tileHeight = root["tileheight"].asInt();
 
     if (m_tileHeight != m_tileWidth) {
         throw invalid_argument("Non-square tile prohibited");
     }
 
-    Json::Value layers_elem = level["layers"];
+    Json::Value layers_elem = root["layers"];
     for (unsigned int i = 0; i < layers_elem.size(); i++) {
         Json::Value layer_elem = layers_elem[i];
     
@@ -65,24 +50,6 @@ void TilemapParser::parse(string jsonStr) {
                 m_actors = parseActors(layer_elem);
             }
         }
-    }
-}
-
-void TilemapParser::checkInput(Json::Value root) {
-    if (!root.isMember("levelID")) {
-        throw invalid_argument("Missing levelID");
-    }
-
-    if (!root.isMember("classID")) {
-        throw invalid_argument("Missing classID");
-    }
-
-    if (!root.isMember("userID")) {
-        throw invalid_argument("Missing userID");
-    }
-
-    if (!root.isMember("level")) {
-        throw invalid_argument("Missing level");
     }
 }
 
@@ -119,22 +86,6 @@ vector<shared_ptr<Trigger>> TilemapParser::getTriggers() {
 
 vector<shared_ptr<Interactable>> TilemapParser::getActors() {
     return m_actors;
-}
-
-unsigned int TilemapParser::getUserID() const {
-    return m_userID;
-}
-
-unsigned int TilemapParser::getLevelID() const {
-    return m_levelID;
-}
-
-unsigned int TilemapParser::getNextLevelID() const {
-    return m_nextLevelID;
-}
-
-unsigned int TilemapParser::getClassID() const {
-    return m_classID;
 }
 
 shared_ptr<TileLayer> TilemapParser::parseLayer(Json::Value root) {
