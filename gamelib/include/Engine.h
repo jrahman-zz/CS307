@@ -64,6 +64,8 @@ protected:
     Json::Value getLog() const;
 private:
 
+    void checkInput(Json::Value root);
+
     shared_ptr<TileLayer> mergeLayers(vector<shared_ptr<TileLayer>> layers);
 
     /*

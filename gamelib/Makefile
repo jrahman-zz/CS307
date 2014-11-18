@@ -17,7 +17,8 @@ SOURCES 	:= $(shell find $(SRCDIR) -type f -name *.cpp)
 OBJECTS 	:= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.cpp=.o))
 TESTS		:= $(shell find $(TESTDIR) -type f -name *.cpp)
 TESTBIN 	:= $(patsubst $(TESTDIR)/%,$(TBUILDDIR)/%,$(TESTS:.cpp=.out))
-
+BINDIR		:= bin
+TOOLDIR		:= tools
 
 INC := -I include
 LIBGAME_SHARED=libgame.so
@@ -54,6 +55,12 @@ $(LIBDIR)/$(LIBGAME_SHARED): $(OBJECTS)
 $(LIBDIR)/$(LIBGAME_STATIC): $(OBJECTS)
 	mkdir -p $(LIBDIR)
 	ar rcs $@ $^
+
+tools: levelcheck
+
+levelcheck: $(OBJECTS) $(TOOLDIR)/levelcheck.cpp
+	mkdir -p $(BINDIR)
+	$(CXX) $(CXXFLAGS) $(INC) -o $(BINDIR)/levelcheck $^
 
 object:
 	echo "$(SOURCES):$(SOURCES:.cpp=.o)"

@@ -15,13 +15,22 @@ Engine::~Engine() {}
 
 void Engine::init(string levelJson) {
 
-    TilemapParser parser(levelJson);
+    Json::Value root;
+    Json::Reader reader;
+
+    if (!reader.parse(levelJson, root)) {
+        throw invalid_argument("Invalid JSON:\n" + reader.getFormattedErrorMessages());
+    }
+
+    checkInput(root);
+
+    TilemapParser parser(root["level"]);
 
     m_gameState = shared_ptr<GameState>(new GameState(
-                    parser.getUserID(),
-                    parser.getLevelID(),
+                    root["userID"].asInt(),
+                    root["levelID"].asInt(),
                     -1,
-                    parser.getClassID()
+                    root["classID"].asInt()
                 ));
 
     auto layers = parser.getTileLayers();
@@ -124,6 +133,24 @@ bool Engine::startSubmission() {
 
 void Engine::endSubmission() {
     // TODO
+}
+
+void Engine::checkInput(Json::Value root) {
+    if (!root.isMember("level")) {
+        throw invalid_argument("No level member");
+    }
+
+    if (!root.isMember("userID")) {
+        throw invalid_argument("Missing userID");
+    }
+
+    if (!root.isMember("levelID")) {
+        throw invalid_argument("Missing levelID");
+    }
+    
+    if (!root.isMember("classID")) {
+        throw invalid_argument("Missing classID");
+    }
 }
 
 shared_ptr<WorldFascade> Engine::getWorld() const {

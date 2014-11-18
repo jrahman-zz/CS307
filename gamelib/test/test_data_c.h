@@ -242,7 +242,7 @@ string data = R"({
                 },
                 {
                  "height":64,
-                 "name":"Tnana Dialog",
+                 "name":"Tnana Dialog3",
                  "properties":
                     {
                      "actor":"2",
@@ -260,7 +260,7 @@ string data = R"({
                 },
                 {
                  "height":64,
-                 "name":"Tnana Dialog",
+                 "name":"Tnana Dialog4",
                  "properties":
                     {
                      "actor":"2",
@@ -278,7 +278,7 @@ string data = R"({
                 },
                 {
                  "height":64,
-                 "name":"Tnana Dialog",
+                 "name":"Tnana Dialog5",
                  "properties":
                     {
                      "actor":"2",
@@ -296,7 +296,7 @@ string data = R"({
                 },
                 {
                  "height":64,
-                 "name":"Tnana Dialog",
+                 "name":"Tnana Dialog6",
                  "properties":
                     {
                      "actor":"2",
@@ -314,7 +314,7 @@ string data = R"({
                 },
                 {
                  "height":64,
-                 "name":"Tnana Dialog",
+                 "name":"Tnana Dialog7",
                  "properties":
                     {
                      "actor":"2",
@@ -332,7 +332,7 @@ string data = R"({
                 },
                 {
                  "height":64,
-                 "name":"Tnana Dialog",
+                 "name":"Tnana Dialog8",
                  "properties":
                     {
                      "actor":"2",
@@ -386,7 +386,7 @@ string data = R"({
                 },
                 {
                  "height":64,
-                 "name":"Toad Dialog",
+                 "name":"Toad Dialog1",
                  "properties":
                     {
                      "actor":"4",
@@ -404,7 +404,7 @@ string data = R"({
                 },
                 {
                  "height":64,
-                 "name":"Toad Dialog",
+                 "name":"Toad Dialog2",
                  "properties":
                     {
                      "actor":"4",

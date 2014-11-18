@@ -2,7 +2,7 @@
 #include <string>
 
 #include "util.h"
-
+#include "json/json.h"
 #include "TilemapParser.h"
 #include "TileLayer.h"
 
@@ -12,7 +12,15 @@ using namespace std;
 
 START_TEST("tilemap");
 	try {
-        TilemapParser parser(testDataA);
+
+        Json::Value root;
+        Json::Reader reader;
+        if (!reader.parse(testDataA, root)) {
+            cout << "Failed to parse" << endl;
+            FAIL_TEST("tilemap");
+        }
+
+        TilemapParser parser(root["level"]);
 
         auto tilemaps = parser.getTileLayers();
 
@@ -31,8 +39,11 @@ START_TEST("tilemap");
             cout << "Incorrect tile ID: " << id << " should be 21" << endl;
             FAIL_TEST("tilemap");
         }
-    } catch (exception e) {
+    } catch (runtime_error e) {
         cout << "Exception: " << e.what() << endl;
+        FAIL_TEST("tilemap");
+    } catch (exception e) {
+        cout << "Unknown exception" << endl;
         FAIL_TEST("tilemap");
     }
 END_TEST("tilemap");
