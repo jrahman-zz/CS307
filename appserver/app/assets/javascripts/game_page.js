@@ -38,7 +38,7 @@ tilemap_promise.success(function (tilemap_str) {
 
   // Initialize level session with Execution server.
   var tilemap_json = JSON.parse(tilemap_str);
-  $.ajax({
+ /* $.ajax({
     url: '/submissions/init',
     type: 'post',
     data: {
@@ -48,7 +48,7 @@ tilemap_promise.success(function (tilemap_str) {
     }
   }).done(function(data) {
     session_id = data.sessionID;
-  });
+  });*/
 
   var game = new Phaser.Game(CanvasTileWidth * TileSize, CanvasTileHeight * TileSize,
     Phaser.AUTO, 'canvas-container',
@@ -64,29 +64,6 @@ tilemap_promise.success(function (tilemap_str) {
     game.stage.disableVisibilityChange = true;
 
     game_state.load(tilemap_json);
-
-    // Example response JSON processing.
-    // TODO replace with server call and prevent submission while animating.
-    game.load.onLoadComplete.addOnce(function () {
-      setTimeout(function() {
-        var response_json = {
-          "classID":2,
-          "levelID":1,
-          "log":[
-             [{"data":{"actorID":0,"position":{"x":1,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":180},"type":"rotate"}],
-             [{"data":{"actorID":1,"dialogue":"Sleeping beauty. You are like an old man sleeping for 12 hours straight! But, anyway you must be already getting super tired of typing in hero.moveUp() a million times. So I heard there were something called arguments in functions! \\nAnd if you forgot what a function is it is just special code that is designed to do a set of instructions, but it conveniently lets you do it with 1 line of code! So try giving hero.moveRight() a number and see what happens!"},"type":"dialogue"},{"data":{"actorID":0,"position":{"x":0,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}],
-             [{"data":{"actorID":0,"position":{"x":0, "y":6}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}],
-             [{"data":{"actorID":2,"dialogue":"Second dialogue of inspiration~"},"type":"dialogue"},{"data":{"actorID":0,"position":{"x":0,"y":7}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}]
-          ],
-          "nextLevel":-1,
-          "userID":0
-        };
-
-        game_state.process_response(response_json, function() {
-          console.log('Done!');
-        });
-      }, 1000);
-    });
   }
 
   function create() {
@@ -103,11 +80,43 @@ tilemap_promise.success(function (tilemap_str) {
 
   }
 
+  var index = 0;
+
   // Intercept click events on the submit button.
   $('#submit_button').click(function(event) {
     var code = editor.getValue();
 
-    $.ajax({
+    if (index == 0) {
+      var response_json = {
+        "classID":2,
+        "levelID":1,
+        "log":[
+           [{"data":{"actorID":0,"position":{"x":4,"y":7}},"type":"move"}],
+           [{"data":{"actorID":0,"position":{"x":4,"y":6}},"type":"move"}],
+           [{"data":{"actorID":0,"position":{"x":4,"y":5}},"type":"move"}],
+           [{"data":{"actorID":0,"position":{"x":4,"y":4}},"type":"move"}],
+           [{"data":{"actorID":0,"position":{"x":4,"y":3}},"type":"move"}],
+           [{"data":{"actorID":0,"rotation":0},"type":"rotate"}, {"data":{"actorID":0,"position":{"x":5,"y":3}},"type":"move"}],
+          [{"data":{"actorID":0,"rotation":90},"type":"rotate"}, {"data":{"actorID":0,"position":{"x":5,"y":2}},"type":"move"}],
+          [{"data":{"actorID":0,"position":{"x":5,"y":1}},"type":"move"}, {"data":{"actorID":0,"rotation":180},"type":"rotate"}],
+
+           [{"data":{"actorID":1,"dialogue":"Sleeping beauty. You are like an old man sleeping for 12 hours straight! But, anyway you must be already getting super tired of typing in hero.moveUp() a million times. So I heard there were something called arguments in functions! And if you forgot what a function is it is just special code that is designed to do a set of instructions, but it conveniently lets you do it with 1 line of code! So try giving hero.moveRight() a number and see what happens!"},"type":"dialogue"}],
+           [{"data":{"actorID":0,"rotation":0},"type":"rotate"}, {"data":{"actorID":0,"position":{"x":6, "y":1}},"type":"move"}],
+           [{"data":{"actorID":0,"position":{"x":7, "y":1}},"type":"move"}],
+           [{"data":{"actorID":0,"position":{"x":8, "y":1}},"type":"move"}],
+           [{"data":{"actorID":0,"position":{"x":9, "y":1}},"type":"move"}],
+           [{"data":{"actorID":2,"dialogue":"Second dialogue of inspiration~"},"type":"dialogue"}]
+        ],
+        "nextLevel":-1,
+        "userID":0
+      };
+
+      game_state.process_response(response_json, function() {
+        console.log('Done!');
+      });
+    }
+    index++;
+    /*$.ajax({
         type: 'POST',
         // make sure you respect the same origin policy with this url:
         // http://en.wikipedia.org/wiki/Same_origin_policy
@@ -121,6 +130,6 @@ tilemap_promise.success(function (tilemap_str) {
         success: function(msg){
             alert('wow: ' + msg);
         }
-    });
+    });*/
   });
 });
