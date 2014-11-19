@@ -14,6 +14,8 @@ app = Flask(__name__)
 
 engine = None
 appcontext = {} #Context for all code execution in this docker container
+prefix = ''
+suffix = ''
 
 @app.route('/ping', methods=['GET'])
 def get_health():
@@ -26,6 +28,7 @@ def run_code():
     global appcontext
     loadedjson = request.get_json()
     code = loadedjson['codelines']
+    code = prefix + code + suffix
     try:
         (appcontext, status) = execute(code, appcontext, engine)
     except Exception as e:
@@ -71,6 +74,35 @@ def init_engine():
         print str(e)
         return Response(status=500)
 
+@app.route('/level/prefix', methods=['POST'])
+def run_code():
+    global prefix
+    try:
+        loadedjson = request.get_json()
+        prefix = loadedjson['prefix']
+    except KeyError as e:
+        print str(e)
+        return Response(status=400)
+    return Response(
+                response = """{ "success": true}""",
+                status = 200,
+                mimetype = "application/json"
+            )
+
+@app.route('/level/suffix', methods=['POST'])
+def run_code():
+    global suffix
+    try:
+        loadedjson = request.get_json()
+        suffix = loadedjson['suffix']
+    except KeyError as e:
+        print str(e)
+        return Response(status=400)
+    return Response(
+                response = """{ "success": true}""",
+                status = 200,
+                mimetype = "application/json"
+            )
 
 #retrieve a value from the context of this execution server
 #for unit testing purposes
