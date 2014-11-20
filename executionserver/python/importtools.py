@@ -1,3 +1,5 @@
+import re
+
 #returns a context containing the modules listed in a file
 def importfromfile(filename):
     context = dict()
@@ -24,3 +26,10 @@ def importfromfile(filename):
 #join two contexts together
 def joincontexts(context1, context2):
     return dict(list(context1.items()) + list(context2.items()))
+
+def findimports(code):
+    codelines = code.split('\n')
+    for lineno, line in enumerate(codelines):
+        if re.match('import', line) is not None:
+            return (lineno, line)
+    return None

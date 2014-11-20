@@ -3,7 +3,7 @@ from RestrictedPython import compile_restricted
 import sys
 import traceback
 import re
-from importtools import joincontexts
+from importtools import joincontexts, findimports
 
 def getexceptionmessage(exc):
     if exc == NameError:
@@ -50,6 +50,17 @@ def exceptiondetails(code):
     returned_info['message'] = getexceptionmessage(returned_info['exc_type'])
     return returned_info
 
+def getimporterror(lineno, line):
+    returned_info = {}
+    returned_info['exc_type'] = 'ImportError'
+    returned_info['exc_obj'] = None
+    returned_info['lineno'] = lineno
+    returned_info['line'] = line
+
+
+    returned_info['message'] = "You tried to import a module, but importing is not allowed."
+    return returned_info
+
 def execute(code, context, engine):
     print("Executing code")
     returned_errors = {}
@@ -58,11 +69,16 @@ def execute(code, context, engine):
     
     engine.startSubmission()
     try:
+
         # Compile restricted is completely broken when interacting with libgame
         #compiled_code = compile_restricted(code, '<string>', 'exec')
         compiled_code = code
+
+        importresults = findimports(code)
+        if importresults is not None:
+            return (execution_context, getimporterror(importresults[0], importresults[1]))
         exec compiled_code in execution_context
-        #print('After execution, y is: '+str(execution_context['y']))
+
     except Exception as e:
         returned_errors = exceptiondetails(code)
 
