@@ -23,7 +23,7 @@
    eJxjYKA/OEslcx5SqP8Mhfq3A/FpIH4AxDsoMAek9z6SGZSYRS1wjkL9oDjeBcSPoDQ5AKTvIZTeSaQeAGEkD5s=
   </data>
  </layer>
- <objectgroup name="ActorsLayer">
+ <objectgroup name="ActorLayer">
   <object name="Hero" type="hero" x="192" y="384" width="64" height="64">
    <properties>
     <property name="id" value="0"/>

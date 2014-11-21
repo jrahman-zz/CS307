@@ -48,7 +48,7 @@
         {
          "draworder":"topdown",
          "height":0,
-         "name":"ActorsLayer",
+         "name":"ActorLayer",
          "objects":[
                 {
                  "height":64,
