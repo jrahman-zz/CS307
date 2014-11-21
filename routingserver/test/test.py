@@ -68,8 +68,8 @@ jsonStr = """
                      "properties":
                         {
                             "dialogue": "Hi",
-                            "actorID": 1,
-                            "repeatable": true
+                            "actor": "1",
+                            "repeatable": "1"
                         },
                      "rotation":0,
                      "type":"dialogue",
@@ -96,7 +96,8 @@ jsonStr = """
                         "width": 64,
                         "rotation": 0,
                         "properties": {
-                            "id": 0
+                            "id": "0",
+                            "rotation": "0"
                         },
                         "x": 896,
                         "y": 64,
@@ -107,7 +108,8 @@ jsonStr = """
                         "width": 64,
                         "rotation": 0,
                         "properties": {
-                            "id": 1
+                            "id": "1",
+                            "rotation": "0"
                         },
                         "x": 880,
                         "y": 128,
@@ -118,7 +120,8 @@ jsonStr = """
                         "width": 64,
                         "rotation": 180,
                         "properties": {
-                            "id": 2
+                            "id": "2",
+                            "rotation": "0"
                         },
                         "x": 864,
                         "y": 256,
@@ -153,7 +156,7 @@ jsonStr = """
 }
 """
 
-BASE_URL = "localhost:8088"
+BASE_URL = "localhost:8089"
 CREATE_SESSION = "/session/create"
 LEVEL_SUBMIT = "/level/submit"
 DELETE_SESSION = "/session/delete"
@@ -161,7 +164,7 @@ PING_SERVER = "/ping"
 
 def run_test(connection):
 
-    default_params = {"Host": "127.0.0.1:8088"}
+    default_params = {"Host": BASE_URL}
 
     
     # Much ping

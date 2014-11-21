@@ -18,7 +18,7 @@ else
 fi
 
 URL="${BASE_URL}/${CREATE_SESSION}"
-wget -O output --method="POST" --header="user_token: test" --header="Content-Type: application/json" "${URL}" 
+wget -O output --post-data="" --header="user_token: test" --header="Content-Type: application/json" "${URL}" 
 if [ $? == 0 ]; then
     echo "Passed create session test"
     cat output
