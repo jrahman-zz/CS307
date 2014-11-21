@@ -11,7 +11,7 @@
          "width":18,
          "x":0,
          "y":0
-        },
+        }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 210, 230, 0, 0, 0, 0, 0, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 0, 0, 130, 131, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 66, 66, 0, 170, 171, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 86, 86, 86, 87, 0, 95, 96, 0, 209, 209, 209, 0, 0, 0, 0, 0, 0, 62, 61, 106, 61, 64, 0, 75, 76, 158, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 70, 73, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
@@ -22,7 +22,7 @@
          "width":18,
          "x":0,
          "y":0
-        },
+        }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 123, 126, 124, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 123, 143, 125, 144, 124, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 143, 163, 0, 164, 144, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 163, 212, 0, 212, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 193, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 254, 0, 254, 0, 0, 199, 199, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
@@ -33,7 +33,7 @@
          "width":18,
          "x":0,
          "y":0
-        },
+        }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 225, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 204, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 183, 203, 224, 184, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 184, 223, 184, 0, 184, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 206, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 186, 226, 186, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 186, 225, 186, 185, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
@@ -44,7 +44,7 @@
          "width":18,
          "x":0,
          "y":0
-        },
+        }, 
         {
          "draworder":"topdown",
          "height":0,
@@ -64,7 +64,7 @@
                  "width":64,
                  "x":192,
                  "y":384
-                },
+                }, 
                 {
                  "height":64,
                  "name":"Wizard",
@@ -80,7 +80,7 @@
                  "width":64,
                  "x":320,
                  "y":384
-                },
+                }, 
                 {
                  "height":64,
                  "name":"Koopa",
@@ -96,7 +96,7 @@
                  "width":64,
                  "x":192,
                  "y":64
-                },
+                }, 
                 {
                  "height":64,
                  "name":"Trainer",
@@ -112,7 +112,7 @@
                  "width":64,
                  "x":896,
                  "y":320
-                },
+                }, 
                 {
                  "height":64,
                  "name":"Peachy",
@@ -128,7 +128,7 @@
                  "width":64,
                  "x":640,
                  "y":128
-                },
+                }, 
                 {
                  "height":64,
                  "name":"DancinWiz",
@@ -144,7 +144,7 @@
                  "width":64,
                  "x":960,
                  "y":576
-                },
+                }, 
                 {
                  "height":64,
                  "name":"Koopa Dialog",
@@ -162,7 +162,7 @@
                  "width":64,
                  "x":192,
                  "y":0
-                },
+                }, 
                 {
                  "height":64,
                  "name":"Wizard Dialog",
@@ -180,7 +180,7 @@
                  "width":64,
                  "x":256,
                  "y":384
-                },
+                }, 
                 {
                  "height":64,
                  "name":"Peachy Dialog",
@@ -198,7 +198,7 @@
                  "width":64,
                  "x":640,
                  "y":64
-                },
+                }, 
                 {
                  "height":64,
                  "name":"Peachy Dialog",
@@ -216,7 +216,7 @@
                  "width":64,
                  "x":576,
                  "y":128
-                },
+                }, 
                 {
                  "height":64,
                  "name":"Trainer Dialog",
@@ -234,7 +234,7 @@
                  "width":64,
                  "x":896,
                  "y":384
-                },
+                }, 
                 {
                  "height":64,
                  "name":"DancinWiz Dialog",
@@ -252,7 +252,7 @@
                  "width":64,
                  "x":960,
                  "y":512
-                },
+                }, 
                 {
                  "height":64,
                  "name":"DancinWiz Dialog",
@@ -277,7 +277,7 @@
          "width":0,
          "x":0,
          "y":0
-        },
+        }, 
         {
          "draworder":"topdown",
          "height":0,
@@ -300,86 +300,11 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"..\/assets\/spritesheets\/RPGpack_sheet.png",
+         "image":"assets\/spritesheets\/RPGpack_sheet.png",
          "imageheight":832,
          "imagewidth":1280,
          "margin":0,
          "name":"RPGpack_sheet",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":64,
-         "tilewidth":64
-        },
-        {
-         "firstgid":261,
-         "image":"..\/assets\/spritesheets\/NPCs\/PWizard.png",
-         "imageheight":64,
-         "imagewidth":64,
-         "margin":0,
-         "name":"Wizard",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":64,
-         "tilewidth":64
-        },
-        {
-         "firstgid":262,
-         "image":"..\/assets\/spritesheets\/NPCs\/NPC2.png",
-         "imageheight":64,
-         "imagewidth":64,
-         "margin":0,
-         "name":"NPC2",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":64,
-         "tilewidth":64
-        },
-        {
-         "firstgid":263,
-         "image":"..\/assets\/spritesheets\/NPCs\/PokemonGymBlue.png",
-         "imageheight":64,
-         "imagewidth":64,
-         "margin":0,
-         "name":"Blue",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":64,
-         "tilewidth":64
-        },
-        {
-         "firstgid":264,
-         "image":"..\/assets\/spritesheets\/NPCs\/Peach.png",
-         "imageheight":64,
-         "imagewidth":64,
-         "margin":0,
-         "name":"peach",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":64,
-         "tilewidth":64
-        },
-        {
-         "firstgid":265,
-         "image":"..\/assets\/spritesheets\/NPCs\/dancingWiz.png",
-         "imageheight":64,
-         "imagewidth":64,
-         "margin":0,
-         "name":"dancingWiz",
          "properties":
             {
 
