@@ -17,7 +17,7 @@ object SessionRoutingActor {
   
   /**
    * Create Props for an actor of this type
-   * @param containerFactory A factory to create suitable container objects
+   * @param containerFactory Factory to create suitable container objects
    * @return A Props for creating this actor
    */
   def props(containerFactory: ContainerFactory): Props = Props(new SessionRoutingActor(containerFactory))
@@ -30,7 +30,14 @@ object SessionRoutingActor {
  */
 class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with ActorLogging {
 
+  implicit val system = ActorSystem()
+  
   val router = new Router[ActorRef, RequestRoutable](token => sessionActor => msg => sessionActor ! msg.payload)
+  
+  /*
+   * Track number of active containers
+   */
+  var containerCount = 0
   
   // Map LevelSession to LoginSession
   val sessionMap = Map[SessionToken, SessionToken]() 
@@ -49,7 +56,11 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
           msg.context.ctx.complete((404, "No such session exists"))
       }
     case CreateSession(ctx, loginSession, levelInfo) =>
-      createSession(ctx, loginSession, levelInfo)
+      if (containerCount < Settings(system).Container.MaxContainers) {
+        createSession(ctx, loginSession, levelInfo)
+      } else {
+        ctx.complete((503, "Too many sessions, come again later"))
+      }
     case DeleteSession(ctx, loginSession, token) =>
       deleteSession(ctx, loginSession, token)
     case Terminated(sessionActor) =>
@@ -65,6 +76,10 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
     val token: SessionToken = (login.toString + Random.alphanumeric.take(20).mkString).sha512.hex
     
     val sessionActor = context.actorOf(SessionActor.props(containerFactory, token))
+    
+    /*
+     * Register termination watcher
+     */
     context.watch(sessionActor)
     
     // Update out state with the new route and session
@@ -73,6 +88,7 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
     
     // Send message to kick-start initialization proceedure
     log.info("Sending initialization message...")
+    containerCount = containerCount + 1
     sessionActor ! InitializeSession(ctx, levelInfo, token)
   }
   
@@ -109,7 +125,8 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
    * This is invoked when the underlying actor goes away
    */
   def terminateSession(sessionActor: ActorRef) = {
-    log.info("Session terminated")
+    log.info("Container terminated")
+    containerCount = containerCount - 1
     router.removeRouteByDestination(sessionActor)
   }
 }

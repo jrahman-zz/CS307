@@ -13,7 +13,7 @@ class Settings(config: Config, extendedSystem: ExtendedActorSystem) extends Exte
     val PingInterval      = config.getDouble("server.container.ping-interval")
     val ContainerBindPort = config.getInt("server.container.container-bind-port")
     val HostBindPort      = config.getInt("server.container.host-bind-port")
-    
+    val MaxContainers     = config.getInt("server.container.max-containers")
     object Python {
       val ContainerPath = config.getString("server.container.python.container-path")
       val ExecutorName  = config.getString("server.container.python.executor-name")
