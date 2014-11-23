@@ -49,11 +49,6 @@ void assertTrue(bool condition, const string &errMessage) {
 }
 
 void validateLevelTileLayer(Json::Value tileLayer, int index, int tilesetMaxValue) {
-    assertEqual(tileLayer["x"].asInt(), 0, string("Expected layer x to be 0 at layer index "
-        + to_string(index)));
-    assertEqual(tileLayer["y"].asInt(), 0, string("Expected layer y to be 0 at layer index "
-        + to_string(index)));
-
     int width = tileLayer["width"].asInt();
     int height = tileLayer["height"].asInt();
     Json::Value data = tileLayer["data"];
@@ -67,21 +62,70 @@ void validateLevelTileLayer(Json::Value tileLayer, int index, int tilesetMaxValu
             + string("\nGid range: (1, " + to_string(tilesetMaxValue) + string(")"))));
     }
 
-    assertTrue(tileLayer["visible"].asBool(), string("Tilelayer must be visible at layer index "
-        + to_string(index)));
     assertGreater(tileLayer["name"].asString().length(), 0,
         string("Tilelayer name must be non-empty at layer index " + to_string(index)));
 }
 
 void validateLevelObjectLayer(Json::Value objLayer, int index) {
     string name = objLayer["name"].asString();
+    Json::Value objs = objLayer["objects"];
     if (name == "TriggerLayer") {
+        for (unsigned int i = 0; i < objs.size(); i++) {
+            Json::Value obj = objs[i];
+            string type = obj["type"].asString();
+            Json::Value props = obj["properties"];
 
+            assertTrue(props.isMember("repeatable"), string("Trigger without repeatable prop"));
+            assertTrue(props.isMember("stopMove"), string("Trigger without stopMove prop"));
+            assertTrue(props.isMember("triggerTarget"),
+                string("Trigger without triggerTarget prop"));
+            if (type == "dialogue") {
+                assertTrue(props.isMember("actor"), 
+                    string("Dialogue trigger without actor prop"));
+                assertTrue(props.isMember("dialogue"),
+                    string("Dialogue trigger without dialogue prop"));
+            } else if (type == "levelexit") {
+                assertTrue(props.isMember("nextLevel"),
+                    string("Dialogue trigger without nextLevel prop"));
+            } else {
+                throw runtime_error(string("Invalid trigger type: ") + type);
+            }
+        }
     } else if (name == "ActorLayer") {
+        vector<int> actorIds;
+        for (unsigned int i = 0; i < objs.size(); i++) {
+            Json::Value obj = objs[i];
+            string type = obj["type"].asString();
+            Json::Value props = obj["properties"];
 
+            int rotation = stoi(props["rotation"].asString());
+            assertTrue(rotation == 0
+                       || rotation == 90
+                       || rotation == 180
+                       || rotation == 270, string("Rotation must be 0, 90, 180, or 270."));
+
+            int actorId = stoi(props["id"].asString());
+            if (find(actorIds.begin(), actorIds.end(), actorId) != actorIds.end()) {
+                throw runtime_error(string("Actor id collision: ")
+                    + to_string(actorId));
+            }
+            actorIds.push_back(actorId);
+            if (type == "npc") {
+                assertTrue(props.isMember("npc_id"), string("NPC actor without npc_id"));
+            } else if (type == "enemy") {
+                assertTrue(props.isMember("enemy_id"), string("Enemy actor without enemy_id"));
+            } else if (type == "hero") {
+
+            } else {
+                throw runtime_error(string("Invalid actor object type: ") + type);
+            }
+        }
     } else {
         throw runtime_error(string("Invalid object layer name: ") + name);
     }
+
+    assertEqual(objLayer["draworder"].asString(), "topdown",
+        string("Expected topdown draworder on object layer at index " + to_string(index)));
 }
 
 void validateLevelJson(Json::Value root) {
@@ -120,10 +164,13 @@ void validateLevelJson(Json::Value root) {
 
     // Validate layers.
     vector<string> tilelayerNames;
+    vector<string> objectlayerNames;
     Json::Value layers = root["layers"];
     assertGreater(layers.size(), 0, "No layers");
     for (unsigned int i = 0; i < layers.size(); i++) {
         Json::Value layer = layers[i];
+
+        string name = layer["name"].asString();
         string type = layer["type"].asString();
 
         if (type == "tilelayer") {
@@ -133,19 +180,30 @@ void validateLevelJson(Json::Value root) {
             assertEqual(layer["height"].asInt(), levelHeight,
                 string("Expected layer height equal to level height"));
 
-            string name = layer["name"].asString();
             if (find(tilelayerNames.begin(), tilelayerNames.end(), name) != tilelayerNames.end()) {
                 throw runtime_error(string("Duplicate tilelayer name: ") + name
                     + string(". Tilelayer names must be unique"));
             }
-            tilelayerNames.push_back(layer["name"].asString());
+            tilelayerNames.push_back(name);
 
             validateLevelTileLayer(layer, i, tilesetMaxValue);
         } else if (type == "objectgroup") {
+            if (find(objectlayerNames.begin(), objectlayerNames.end(), name)
+                    != objectlayerNames.end()) {
+                throw runtime_error(string("Duplicate objectlayer name: ") + name
+                    + string(". Objectlayer names must be unique"));
+            }
             validateLevelObjectLayer(layer, i);
         } else {
             throw runtime_error(string("Invalid layer type: ") + type);
         }
+
+        assertEqual(layer["x"].asInt(), 0, string("Expected layer x to be 0 at layer index "
+            + to_string(i)));
+        assertEqual(layer["y"].asInt(), 0, string("Expected layer y to be 0 at layer index "
+            + to_string(i)));
+        assertTrue(layer["visible"].asBool(), string("Expected layer to be visible at layer index "
+            + to_string(i)));
     }
 }
 
@@ -180,22 +238,22 @@ int main(int argc, char **argv) {
     } catch (exception &e) {
         cerr << "----- Invalid level format! -----" << endl;
         cerr << e.what() << endl;
-        cerr << "-----------------------------";
+        cerr << "---------------------------------";
         cerr << endl;
         return 1;
     }
 
     // Parse full map.
-    /*try {
+    try {
         TilemapParser parser(levelJson);
-    } catch (runtime_error e) {
-        cerr << "Invalid level:" << endl
-            << e.what() << endl;
+    } catch (exception &e) {
+        cerr << "----- Invalid level format! -----" << endl;
+        cerr << "Level passed validation but failed to parse with TilemapParser:" << endl;
+        cerr << e.what() << endl;
+        cerr << "---------------------------------";
+        cerr << endl;
         return 1;
-    } catch (exception e) {
-        cerr << "Exception thrown" << e.what() << endl;
-        return 1;
-    }*/
+    }
 
     cout << string("Level '") + filename + string("' passed basic tests.") << endl;
     return 0;
