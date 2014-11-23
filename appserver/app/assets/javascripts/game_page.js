@@ -8,11 +8,18 @@
 //= require game_state
 //= require util
 
+var Range = ace.require('ace/range').Range;
+
 // Configure Ace editor.
 var editor = ace.edit('code-editor');
 editor.setTheme('ace/theme/terminal');
 editor.setFontSize(18);
-editor.getSession().setMode('ace/mode/python');
+editor.session.setMode('ace/mode/python');
+
+var editorDoc = editor.session.getDocument();
+// doc.insertLines(0, [ 'def test():', '  print "hallelujah"', '# comment']);
+
+var editorMarkers = [];
 
 // Enable popovers.
 $(function() {
@@ -86,8 +93,16 @@ tilemap_promise.success(function (tilemap_str) {
   $('#submit_button').click(function(event) {
     var code = editor.getValue();
 
+    var response_json;
     if (index == 0) {
-      var response_json = {
+      response_json = {
+        "classID":2,
+        "levelID":1,
+        "error": "...",
+        "error_line": 2 // TODO match actual return
+      };
+    } else if (index == 1) {
+      response_json = {
         "classID":2,
         "levelID":1,
         "log":[
@@ -110,12 +125,23 @@ tilemap_promise.success(function (tilemap_str) {
         "nextLevel":-1,
         "userID":0
       };
+    }
+    index++;
 
+    if ("error" in response_json) {
+      var line = response_json["error_line"];
+      var marker = editor.session.addMarker(new Range(line, 0, line, Number.MAX_VALUE),
+          "ace_active-line", "fullLine");
+      editorMarkers.push(marker);
+    } else {
+      for (var i = 0; i < editorMarkers.length; i++) {
+        editor.session.removeMarker(editorMarkers[i]);
+      }
+        
       game_state.process_response(response_json, function() {
         console.log('Done!');
       });
     }
-    index++;
     /*$.ajax({
         type: 'POST',
         // make sure you respect the same origin policy with this url:

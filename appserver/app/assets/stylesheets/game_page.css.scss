@@ -85,6 +85,10 @@ html, body {
     background: none;
     border: none;
     width: 100%;
+
+    .ace_active-line {
+      background-color: rgba(161, 0, 37, 0.4);
+    }
   }
 
   .form-actions {
