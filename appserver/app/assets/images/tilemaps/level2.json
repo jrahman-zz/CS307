@@ -128,6 +128,22 @@
                  "width":64,
                  "x":960,
                  "y":576
+                }, 
+                {
+                 "height":64,
+                 "name":"Wizard",
+                 "properties":
+                    {
+                     "id":"1",
+                     "npc_id":"1",
+                     "rotation":"0"
+                    },
+                 "rotation":0,
+                 "type":"npc",
+                 "visible":true,
+                 "width":64,
+                 "x":320,
+                 "y":384
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -157,22 +173,6 @@
                  "visible":true,
                  "width":64,
                  "x":256,
-                 "y":384
-                }, 
-                {
-                 "height":64,
-                 "name":"Wizard",
-                 "properties":
-                    {
-                     "id":"1",
-                     "npc_id":"1",
-                     "rotation":"0"
-                    },
-                 "rotation":0,
-                 "type":"npc",
-                 "visible":true,
-                 "width":64,
-                 "x":320,
                  "y":384
                 }, 
                 {

@@ -58,6 +58,13 @@
     <property name="rotation" value="0"/>
    </properties>
   </object>
+  <object name="Wizard" type="npc" x="320" y="384" width="64" height="64">
+   <properties>
+    <property name="id" value="1"/>
+    <property name="npc_id" value="1"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="TriggerLayer">
   <object name="Wizard Dialog" type="dialogue" x="256" y="384" width="64" height="64">
@@ -67,13 +74,6 @@
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
-   </properties>
-  </object>
-  <object name="Wizard" type="npc" x="320" y="384" width="64" height="64">
-   <properties>
-    <property name="id" value="1"/>
-    <property name="npc_id" value="1"/>
-    <property name="rotation" value="0"/>
    </properties>
   </object>
   <object name="Trainer Dialog" type="dialogue" x="896" y="384" width="64" height="64">
