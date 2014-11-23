@@ -1,4 +1,4 @@
-package org.rahmanj.container
+package org.rahmanj.containers
 
 import scala.concurrent.Future
 
@@ -8,7 +8,8 @@ import marshalling._
 
 import org.rahmanj.messages.{Response, Request}
 
-/** Represents an generic execution container
+/**
+ * Represents an generic execution container
  * 
  * @required sendMessage Send a command message to the container
  * @required ping Send a health check to the container
@@ -23,6 +24,7 @@ trait Container {
   def sendMessage[A <: Request](message: A, endpoint: String)(implicit f: Unmarshaller[A#ResponseType], p: Marshaller[A]): Future[A#ResponseType]
   
   /** Checks the health of the container
+   *
    * @returns [[scala.concurrent.Future]] containing a [[Boolean]] indicating the outcome
    */
   def ping(): Future[Boolean]
@@ -31,5 +33,4 @@ trait Container {
    * Shut the container down
    */
   def shutdown()
-
 }

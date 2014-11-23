@@ -10,28 +10,31 @@ import spray.routing._
 import sessions._
 import messages._
 import routing._
-import container._
+import containers._
 
 /** Represents the core functionality being the service
  *
- *  Implements abstract functionality in ServiceRoutes through dependency injection
- *  of the authenticatorFactory, actorRefFactory, and sessionRouter dependencies 
+ * Implements abstract functionality in ServiceRoutes through dependency injection
+ * of the actorRefFactory, and sessionRouter dependencies 
  */
 class ServiceActor extends Actor with ServiceRoutes {
   
   val system = ActorSystem()
  
-  
+  /*
+   * Inject the container factory here into the [[SessionRoutingActor]]
+   */
   val sessionRouter = actorRefFactory.actorOf(SessionRoutingActor.props(new ProcessContainerFactory()))
   
-  /** The [[spray.routing.HttpServer]] trait only requires this member be implemented
-   *
+  /**
+   * The [[spray.routing.HttpServer]] trait only requires this member be implemented
    */
   def actorRefFactory = context
 
-  /** This actor only runs routes for the service
+  /**
+   * This actor only runs routes for the service
    *
-   *  Invoke the route upon receiving a message
+   * Invoke the route upon receiving a message
    */
   def receive = runRoute(serviceRoute)
 }

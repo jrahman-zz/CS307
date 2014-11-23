@@ -24,6 +24,22 @@
 
 This is the easiest way to ensure that the exported JSON file references the correct spritesheet path that Rails generates.
 
+### Game library development (gamelib/)
+
+TODO, high level overview, details in README.md in the gamelib folder
+
+### Routing server development (routingserver/)
+
+TODO, high level overview, details in README.md in the routingserver folder
+
+### Resource server development (resourceserver/)
+
+TODO, high level overview, details in README.md in the resourceserver folder
+
+### Execution server development
+
+TODO, high level overview, details in README.md in the folder
+
 ### Game Design
 1. Game Curriculum Design Document 
     https://docs.google.com/document/d/1bNT2uZDCU3fieVWuSEAD8qZXnYcgVRa7E1lBz7eGC04/edit?usp=sharing

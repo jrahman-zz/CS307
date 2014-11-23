@@ -1,4 +1,4 @@
-package org.rahmanj.container
+package org.rahmanj.containers
 
 import akka.actor.ActorSystem
 import akka.util.Timeout
@@ -8,9 +8,6 @@ import akka.io.IO
 import scala.concurrent.{Future, Promise}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
-import scala.concurrent.blocking
-
-import scala.sys.process._
 
 import spray.can.Http
 import spray.http._
@@ -19,55 +16,63 @@ import HttpMethods._
 import spray.httpx._
 import unmarshalling._
 import marshalling._
-import spray.client.pipelining._
 import SprayJsonSupport._
+import spray.client.pipelining._
 
 import spray.json._
+
+import tugboat.Docker
 
 import org.slf4j.{Logger,LoggerFactory}
 
 import org.rahmanj.messages.{Response, Request}
 import org.rahmanj.Settings
 
-/**
- * [[ContainerFactory]] to create [[DockerContainer]] instances
+/** [[ContainerFactory]] to create [[DockerContainer]] instances
+ * 
  */
-class ProcessContainerFactory extends ContainerFactory {
-  
+class DockerContainerFactory extends ContainerFactory {
+
   implicit val system = ActorSystem()
-  var port = 5000
   
   def apply(config: ContainerConfig): Future[Option[Container]] = {
-    
-    port = port + 1
-    
-    val executorPath = Settings(system).Container.Python.ContainerPath
-    val executorName = Settings(system).Container.Python.ExecutorName
-    val process = Process(Seq("python", s"$executorPath/$executorName", "-p", port.toString, "-H", "localhost"), new java.io.File(executorPath)) run
-    
-    Future {
-      blocking(Thread.sleep(1000L))
-      Some(new ProcessContainer(process, port))
+    val client = tugboat.Docker()
+    for {
+      container <- client.containers.create("python")()
+      run       <- client.containers.get(container.id).start.portBind(
+                  tugboat.Port.Tcp(Settings(system).Container.ContainerBindPort),
+                  tugboat.PortBinding.local(Settings(system).Container.HostBindPort)
+                )()
+      info <- client.containers.get(container.id)()
+    } yield {
+      (info, container) match {
+        case (Some(info), c) => Some(
+                new DockerContainer(
+                    info.networkSettings.ipAddr,
+                    Settings(system).Container.HostBindPort,
+                    c.id)
+                  )
+        case (None, c) => None
+      }
     }
   }
   
-  /**
-   * [[ProcessContainer]] 
+  /** [[DockerContainer]] 
    * 
-   * @constructor Create a new instance of the ProcessContainer
-   * @param process Process for the given container
+   * @constructor Create a new instance of the DockerContainer
+   * @param hostname Hostname for the given container
    * @param port Port number for the given container
    */
-  private class ProcessContainer(process: Process, port: Int) extends Container with SprayJsonSupport {
+  private class DockerContainer(hostname: String, port: Int, containerID: String) extends Container with SprayJsonSupport {
     
-    val logger = LoggerFactory.getLogger(classOf[ProcessContainer])
-    val uri = s"http://localhost:$port"
+    val logger = LoggerFactory.getLogger(classOf[DockerContainer])
+    val uri = "http://" + hostname + ":" + port
     
     def sendMessage[A <: Request](message: A, endpoint: String)(implicit f: Unmarshaller[A#ResponseType], p: Marshaller[A]): Future[A#ResponseType] = {
       
-      implicit val timeout = Timeout(10.seconds)
+      implicit val timeout = Timeout(60.seconds)
       
-      val container_endpoint = s"$uri/$endpoint"
+      val container_endpoint = uri + s"/$endpoint"
       
       logger.info(s"Sending request to $container_endpoint")
       
@@ -80,7 +85,7 @@ class ProcessContainerFactory extends ContainerFactory {
     def ping(): Future[Boolean] = {
       implicit val timeout = Timeout(1.seconds)
       
-      val endpoint = s"$uri/ping"
+      val endpoint = uri + "/health"
       
       logger.info(s"Sending pint to $endpoint")
       
@@ -98,9 +103,8 @@ class ProcessContainerFactory extends ContainerFactory {
     }
     
     def shutdown() = {
-      Future {
-        process.destroy() // No mercy
-      }
+      val client = tugboat.Docker();
+      client.containers.get(containerID).stop(1.seconds)()
     }
   }
 }

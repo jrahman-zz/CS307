@@ -11,7 +11,7 @@ import com.roundeights.hasher.Implicits._
 import sessions._
 import messages._
 import routing._
-import container._
+import containers._
 
 object SessionRoutingActor {
   
@@ -31,8 +31,13 @@ object SessionRoutingActor {
 class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with ActorLogging {
 
   val router = new Router[ActorRef, RequestRoutable](token => sessionActor => msg => sessionActor ! msg.payload)
-  val sessionMap = Map[SessionToken, SessionToken]() // Map LevelSession to LoginSession
   
+  // Map LevelSession to LoginSession
+  val sessionMap = Map[SessionToken, SessionToken]() 
+  
+  /*
+   * Core switch to handle incoming msgs
+   */
   def receive = {
     case msg: RequestRoutable =>
       sessionMap get msg.source match {
@@ -51,6 +56,9 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
       terminateSession(sessionActor)
   }
   
+  /*
+   * 
+   */
   def createSession(ctx: RequestContext, login: SessionToken, levelInfo: SessionCreateRequest) = {
     log.info("Creating new session")
     
@@ -68,12 +76,15 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
     sessionActor ! InitializeSession(ctx, levelInfo, token)
   }
   
+  /*
+   * 
+   */
   def deleteSession(ctx: RequestContext, loginSession: SessionToken, token: SessionToken) = {
     log.info("Deleting session")
     sessionMap get token match {
         case Some(session) if session == loginSession =>
           deleteSessionActor(token) match {
-            case true => ctx.complete((200, "Deleted container"))
+            case true => ctx.complete((200, "Deleted session"))
             case false => ctx.complete((500, "Failed to delete session"))
           }
         case Some(session) => ctx.complete((403, "Not allowed to access that session"))
@@ -81,6 +92,9 @@ class SessionRoutingActor(containerFactory: ContainerFactory) extends Actor with
       }
   }
   
+  /*
+   * Removes the route and deletes the session actor
+   */
   def deleteSessionActor(token: SessionToken): Boolean = {
     
     log.info(s"Deleting session: $token")

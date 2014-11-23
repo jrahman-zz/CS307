@@ -6,7 +6,7 @@ import org.rahmanj.sessions.SessionToken
 /** A context for a given request being routed
  * 
  * @constructor create a new RequestCtx
- * @param ctx The Spray RequestContext
+ * @param ctx The Spray [[RequestContext]]
  * @param login The login session for the context
  */
 case class RequestCtx(

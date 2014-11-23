@@ -1,4 +1,4 @@
-package org.rahmanj.container
+package org.rahmanj.containers
 
 // TODO, fill this in
 abstract class ContainerConfig()

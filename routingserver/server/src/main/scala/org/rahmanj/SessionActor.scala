@@ -16,15 +16,13 @@ import spray.routing.RequestContext
 
 import sessions._
 import messages._
-import container._
+import containers._
 
 import spray.httpx.SprayJsonSupport._
 import messages.SessionCreateResponseProtocol._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-case class InitializeSession(ctx: RequestContext, request: SessionCreateRequest, token: SessionToken)
-case class SessionInitialized(ctx: RequestContext, container: Container)
 // TODO, handle failed initialization
 
 case class ContainerPing(success: Boolean)
@@ -50,48 +48,66 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
   
   var sessionContainer: Option[Container] = None
   
-  // Start in the initial state to receive an initialization 
+  // Start in the prepare initialization state
   def receive: Receive = prepareInitialization
-    
+  
+  /**
+   * Message receive handler for the initialization state
+   * While in this state, we stash any messages other than the InitializeSession
+   * message, and when we receive the InitializeSession message, we begin that
+   * proceedure
+   */
   def prepareInitialization: Receive = {
     case InitializeSession(ctx, req, token) =>
       
       log.info("Received initialization message, starting initialization procedure...")
       
       try {
-        val futureContainer = createContainer(DockerContainerConfig())
-      
-        futureContainer.onComplete {
+        createContainer(DockerContainerConfig()).onComplete {
           case Success(container) =>
-              sessionContainer = container
-              sessionContainer match {
-                case Some(container) =>
-                  log.info("Container initialized")
-
-                  schedulePing()
-                  context.become(receiveSubmission orElse receiveCommon)
-                  
-                  ctx.complete((200, container.sendMessage(req, "initialize").map(res => SessionCreateResponse(true, token))))
-                case None =>
-                  log.error("Failed to crate container")
-                  ctx.complete((500, "Failed to create container"))
-                  context.stop(self)
-              }
+            initializeContainer(container, req, token)(ctx)
+            schedulePing()
+            context.become(receiveNormal orElse receiveCommon)
           case Failure(throwable) =>
               log.error(throwable, "Failed to initialize container")
               ctx.complete((500, "Failed to create container"))
               context.stop(self)
         }
       } catch {
+        /*
+         * Bailout here if anything bad happened
+         */
         case ex: Throwable =>
           log.error(ex, "Failed to initialize container")
           ctx.complete((500, "Failed to create container"))
           context.stop(self)
       }
-    // Hideaway everything else until we are ready
+    // Hideaway everything else until we are ready, we will process later
     case _ => stash()
   }
-   
+  
+  /*
+   * Update actor state, and send initialize message to the container with level information
+   */
+  def initializeContainer[T <: Request](newContainer: Option[Container], req: SessionCreateRequest, token: SessionToken)(implicit ctx: RequestContext) = {
+    newContainer match {
+      case Some(container) =>
+        log.info("Container created, initializing...")
+
+        sessionContainer = newContainer
+        import messages.SessionCreateResponseProtocol._
+        ctx.complete((200, container.sendMessage(req, "initialize").map(res => SessionCreateResponse(true, token))))
+      case None =>
+        sessionContainer = None
+        log.error("Failed to crate container")
+        ctx.complete((500, "Failed to create container"))
+        context.stop(self)
+    }
+  }
+  
+  /*
+   * Process heartbeat pings from the container
+   */
   def receivePing: Receive = {
     case ContainerPing(result) =>
       result match {
@@ -99,7 +115,8 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
           log.debug("Successful ping returned")
           schedulePing
         case false =>
-          log.error("Ping failed")
+          // Crash and burn if our container has a problem
+          log.error("Ping failed, terminating session...")
           context.stop(self)
       }
   }
@@ -108,6 +125,9 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
     case _ => log.warning("Unknown message received by actor")
   }
   
+  /*
+   * Bundle these two together
+   */
   def receiveCommon = receivePing orElse receiveUnknown
   
   def receiveSubmission: Receive = {
@@ -115,23 +135,38 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
       case Some(container) => forwardSubmission(ctx, container)(submission)
       case None => ctx.complete((500, "No session container available"))
     }
+    
+  }
+  
+  def receiveDeletion: Receive = {
     case DeleteSession(ctx, login, sesion) => sessionContainer match {
         case Some(container) => ctx.complete( {
               container.shutdown()
               "Deleted"
-        }) // TODO improve this
+        })
         case None => ctx.complete((500, "No session container available"))
     }
   }
+  
+  /*
+   * Bundle these two together
+   */
+  def receiveNormal = receiveSubmission orElse receiveDeletion
 
+  /*
+   * Blindly pass the message onto the container without inspection
+   */
   def forwardSubmission(ctx: RequestContext, container: Container): PartialFunction[Request, Unit] = {
     {
+      /*
+       * Switch on each type of 
+       */
     case levelSubmission: LevelSubmissionRequest =>
       log.info(s"Session $sessionID received level submission")
 
       import messages.LevelSubmissionRequestProtocol._
       import messages.LevelResultResponse._
-
+      
       val res = container.sendMessage(levelSubmission, s"level/submit")
       res.onFailure {
         case result =>
@@ -147,8 +182,8 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
 
       import messages.ChallengeSubmissionRequestProtocol._
       import messages.ChallengeResultResponse._
+         
       val res = container.sendMessage(challengeSubmission, s"challenge/submit")
-
       res.onFailure {
         case result =>
           log.error(result, "Failed to contact the container")
@@ -171,10 +206,12 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
       sessionContainer match {
         case Some(container) =>
           container.ping.onComplete {
-            case Success(result) => // TODO
-            case Failure(throwable) => // TODO
+            case Success(result) => schedulePing() // Reset and start again
+            case Failure(throwable) => {
+              context.stop(self) // Die quickly
+            }
           }
-        case None => log.warning("Attempted to ping empty container")
+        case None => log.warning("Attempted to ping an empty container")
       }
     }
   }
@@ -182,10 +219,20 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
   def createContainer(config: DockerContainerConfig): Future[Option[Container]] = {
     containerFactory(config)
   }
-  
-  override def postStop() {
+
+  /*
+   * Terminate the container if safe to do so
+   */
+  def shutdownContainer() = {
     sessionContainer match {
       case Some(container) => container.shutdown()
     }
+  }
+  
+  /*
+   * Clean up the container as the actor is going away
+   */
+  override def postStop() {
+    shutdownContainer()
   }
 }

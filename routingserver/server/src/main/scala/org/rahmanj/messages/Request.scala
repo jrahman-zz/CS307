@@ -72,5 +72,3 @@ object LevelSubmissionRequestProtocol extends DefaultJsonProtocol {
       ctx.marshalTo(HttpEntity(contentType, CompactPrinter(value.toJson)))
     }
 }
-
-

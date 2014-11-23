@@ -33,6 +33,7 @@ case class ChallengeResultResponse(
 ) extends Response
 
 object ChallengeResultResponse {
+  
   implicit val ChallengeResultResponseUnmarshaller =
     Unmarshaller[ChallengeResultResponse](`application/json`) {
       case HttpEntity.NonEmpty(contentType, data) =>
