@@ -30,13 +30,6 @@
     <property name="rotation" value="0"/>
    </properties>
   </object>
-  <object name="Wizard" type="npc" x="320" y="384" width="64" height="64">
-   <properties>
-    <property name="id" value="1"/>
-    <property name="npc_id" value="1"/>
-    <property name="rotation" value="0"/>
-   </properties>
-  </object>
   <object name="Koopa" type="npc" x="192" y="64" width="64" height="64">
    <properties>
     <property name="id" value="2"/>
@@ -65,15 +58,8 @@
     <property name="rotation" value="0"/>
    </properties>
   </object>
-  <object name="Koopa Dialog" type="dialogue" x="192" y="0" width="64" height="64">
-   <properties>
-    <property name="actor" value="2"/>
-    <property name="dialogue" value="The bottle states there are 18 ozs in the bottle. But I need 1372 grams. Do I have enough? Hint:  I believe 1 oz is equal to 28.3 grams. "/>
-    <property name="repeatable" value="0"/>
-    <property name="stopMove" value="1"/>
-    <property name="triggerTarget" value="0"/>
-   </properties>
-  </object>
+ </objectgroup>
+ <objectgroup name="TriggerLayer">
   <object name="Wizard Dialog" type="dialogue" x="256" y="384" width="64" height="64">
    <properties>
     <property name="actor" value="1"/>
@@ -83,10 +69,17 @@
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
-  <object name="Peachy Dialog" type="dialogue" x="640" y="64" width="64" height="64">
+  <object name="Wizard" type="npc" x="320" y="384" width="64" height="64">
    <properties>
-    <property name="actor" value="4"/>
-    <property name="dialogue" value="I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you."/>
+    <property name="id" value="1"/>
+    <property name="npc_id" value="1"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object name="Trainer Dialog" type="dialogue" x="896" y="384" width="64" height="64">
+   <properties>
+    <property name="actor" value="3"/>
+    <property name="dialogue" value="Ahh yes, Tnana my rival! I believe he is hanging around somewhere in the beach area! Go talk to my wizard friend that is dancing around the pound he can transport you to the beach!"/>
     <property name="repeatable" value="1"/>
     <property name="stopMove" value="0"/>
     <property name="triggerTarget" value="0"/>
@@ -101,12 +94,21 @@
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
-  <object name="Trainer Dialog" type="dialogue" x="896" y="384" width="64" height="64">
+  <object name="Peachy Dialog" type="dialogue" x="640" y="64" width="64" height="64">
    <properties>
-    <property name="actor" value="3"/>
-    <property name="dialogue" value="Ahh yes, Tnana my rival! I believe he is hanging around somewhere in the beach area! Go talk to my wizard friend that is dancing around the pound he can transport you to the beach!"/>
+    <property name="actor" value="4"/>
+    <property name="dialogue" value="I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you."/>
     <property name="repeatable" value="1"/>
     <property name="stopMove" value="0"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+  <object name="Koopa Dialog" type="dialogue" x="192" y="0" width="64" height="64">
+   <properties>
+    <property name="actor" value="2"/>
+    <property name="dialogue" value="The bottle states there are 18 ozs in the bottle. But I need 1372 grams. Do I have enough? Hint:  I believe 1 oz is equal to 28.3 grams. "/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -135,5 +137,4 @@ Well It isn’t free ya’ kno’?!”
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="TriggerLayer"/>
 </map>

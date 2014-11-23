@@ -67,22 +67,6 @@
                 }, 
                 {
                  "height":64,
-                 "name":"Wizard",
-                 "properties":
-                    {
-                     "id":"1",
-                     "npc_id":"1",
-                     "rotation":"0"
-                    },
-                 "rotation":0,
-                 "type":"npc",
-                 "visible":true,
-                 "width":64,
-                 "x":320,
-                 "y":384
-                }, 
-                {
-                 "height":64,
                  "name":"Koopa",
                  "properties":
                     {
@@ -144,25 +128,19 @@
                  "width":64,
                  "x":960,
                  "y":576
-                }, 
-                {
-                 "height":64,
-                 "name":"Koopa Dialog",
-                 "properties":
-                    {
-                     "actor":"2",
-                     "dialogue":"The bottle states there are 18 ozs in the bottle. But I need 1372 grams. Do I have enough? Hint:  I believe 1 oz is equal to 28.3 grams. ",
-                     "repeatable":"0",
-                     "stopMove":"1",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"dialogue",
-                 "visible":true,
-                 "width":64,
-                 "x":192,
-                 "y":0
-                }, 
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":0,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":0,
+         "name":"TriggerLayer",
+         "objects":[
                 {
                  "height":64,
                  "name":"Wizard Dialog",
@@ -183,11 +161,27 @@
                 }, 
                 {
                  "height":64,
-                 "name":"Peachy Dialog",
+                 "name":"Wizard",
                  "properties":
                     {
-                     "actor":"4",
-                     "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
+                     "id":"1",
+                     "npc_id":"1",
+                     "rotation":"0"
+                    },
+                 "rotation":0,
+                 "type":"npc",
+                 "visible":true,
+                 "width":64,
+                 "x":320,
+                 "y":384
+                }, 
+                {
+                 "height":64,
+                 "name":"Trainer Dialog",
+                 "properties":
+                    {
+                     "actor":"3",
+                     "dialogue":"Ahh yes, Tnana my rival! I believe he is hanging around somewhere in the beach area! Go talk to my wizard friend that is dancing around the pound he can transport you to the beach!",
                      "repeatable":"1",
                      "stopMove":"0",
                      "triggerTarget":"0"
@@ -196,8 +190,8 @@
                  "type":"dialogue",
                  "visible":true,
                  "width":64,
-                 "x":640,
-                 "y":64
+                 "x":896,
+                 "y":384
                 }, 
                 {
                  "height":64,
@@ -219,11 +213,11 @@
                 }, 
                 {
                  "height":64,
-                 "name":"Trainer Dialog",
+                 "name":"Peachy Dialog",
                  "properties":
                     {
-                     "actor":"3",
-                     "dialogue":"Ahh yes, Tnana my rival! I believe he is hanging around somewhere in the beach area! Go talk to my wizard friend that is dancing around the pound he can transport you to the beach!",
+                     "actor":"4",
+                     "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
                      "repeatable":"1",
                      "stopMove":"0",
                      "triggerTarget":"0"
@@ -232,8 +226,26 @@
                  "type":"dialogue",
                  "visible":true,
                  "width":64,
-                 "x":896,
-                 "y":384
+                 "x":640,
+                 "y":64
+                }, 
+                {
+                 "height":64,
+                 "name":"Koopa Dialog",
+                 "properties":
+                    {
+                     "actor":"2",
+                     "dialogue":"The bottle states there are 18 ozs in the bottle. But I need 1372 grams. Do I have enough? Hint:  I believe 1 oz is equal to 28.3 grams. ",
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"dialogue",
+                 "visible":true,
+                 "width":64,
+                 "x":192,
+                 "y":0
                 }, 
                 {
                  "height":64,
@@ -271,18 +283,6 @@
                  "x":1024,
                  "y":576
                 }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "width":0,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "height":0,
-         "name":"TriggerLayer",
-         "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
