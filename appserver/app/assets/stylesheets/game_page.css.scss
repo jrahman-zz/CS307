@@ -74,6 +74,11 @@ html, body {
     position: relative;
   }
 
+  .code-error {
+    color: red;
+    font-size: 18px;
+  }
+
   #code-editor {
     padding: 10px;
     height: 75vh;

@@ -98,7 +98,7 @@ tilemap_promise.success(function (tilemap_str) {
       response_json = {
         "classID":2,
         "levelID":1,
-        "error": "...",
+        "error": "Syntax error! Get your life together, Carl!",
         "error_line": 2 // TODO match actual return
       };
     } else if (index == 1) {
@@ -128,15 +128,22 @@ tilemap_promise.success(function (tilemap_str) {
     }
     index++;
 
-    if ("error" in response_json) {
-      var line = response_json["error_line"];
+    if ('error' in response_json) {
+      var error = response_json['error'];
+      var line = response_json['error_line'];
+
+      // Add marker in editor.
       var marker = editor.session.addMarker(new Range(line, 0, line, Number.MAX_VALUE),
-          "ace_active-line", "fullLine");
+          'ace_active-line', 'fullLine');
       editorMarkers.push(marker);
+
+      // Set div text.
+      $('div.code-error').text(error);
     } else {
       for (var i = 0; i < editorMarkers.length; i++) {
         editor.session.removeMarker(editorMarkers[i]);
       }
+      $('div.code-error').text('');
         
       game_state.process_response(response_json, function() {
         console.log('Done!');
