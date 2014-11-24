@@ -24,7 +24,7 @@ libraryDependencies ++= Seq(
 
 resolvers += "softprops-maven" at "http://dl.bintray.com/content/softprops/maven"
 
-libraryDependencies += "me.lessis" %% "tugboat" % "0.1.0"
+libraryDependencies += "me.lessis" %% "tugboat" % "0.1.0-SNAPSHOT"
 
 resolvers += "RoundEights" at "http://maven.spikemark.net/roundeights"
 
