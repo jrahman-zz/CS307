@@ -7,13 +7,16 @@
 
 class DialogueLogEntry : public LogEntry {
 public:
-    DialogueLogEntry(unsigned int actorID, string dialogue);
+    DialogueLogEntry(
+            unsigned int actorID,
+            string dialogue
+        );
     DialogueLogEntry() = delete;
-    ~DialogueLogEntry();
+    virtual ~DialogueLogEntry();
 
 protected:
-    virtual Json::Value serialize();
-    virtual string getType();
+    Json::Value serialize() override;
+    string getType() override;
 
 private:
     unsigned int m_actorID;
