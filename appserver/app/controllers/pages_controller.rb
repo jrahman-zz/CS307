@@ -7,4 +7,8 @@ class PagesController < ApplicationController
 
   def tutorial
   end
+
+  def credit
+  end
+
 end
