@@ -54,7 +54,7 @@ class CoursesController < ApplicationController
     @user.revoke :student, @course
     @user.revoke :pending_student, @course
 
-    redirect_to @course
+    redirect_to @course, notice: 'You have successfully withdrawn!'
   end
 
   def enroll
