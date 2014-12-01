@@ -13,7 +13,8 @@ enum class TileType {
     Gate,
     Crate,
     Barrel,
-    Door
+    Door,
+    Staircase
 };
 
 class Tile {

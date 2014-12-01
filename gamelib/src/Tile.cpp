@@ -63,6 +63,13 @@ TileType Tile::tileTypeFromId(int id) {
              || id == 235 || id == 240
              || id == 255 || id == 260) {
     return TileType::Door;
+  } else if ((id <= 128 && id <= 129)
+  			 || (id <= 148 && id <= 149)
+  			 || (id <= 168 && id <= 169)
+  			 || (id <= 137 && id <= 138)
+  			 || (id <= 157 && id <= 158)
+  			 || (id <= 177 && id <= 178)){
+  	return TileType::Staircase;
   } else {
     return TileType::Building; // Gahhh forget it
     // Everything's a building
