@@ -50,6 +50,16 @@ public:
     void endSubmission();
 
     /*
+     * Begin objective mode
+     */
+    void startObjective();
+
+    /*
+     * exit objective mode
+     */
+    void endObjective(bool success);
+
+    /*
      * Completely reset all game state
      */
     void resetEngine();
@@ -111,8 +121,6 @@ private:
     shared_ptr<TimeKeeper> m_timekeeper;
 
     shared_ptr<ActionLog> m_actionLog;
-
-    bool m_objectiveInProgress;
 };
 
 #endif // ENGINE_H

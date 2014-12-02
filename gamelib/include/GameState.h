@@ -17,6 +17,10 @@ public:
     bool canMove() const;
     bool levelOver() const;
 
+    bool getObjectiveInProgress() const;
+    unsigned int getTotalObjectives() const;
+    unsigned int getCompletedObjectives() const;
+
     unsigned int getUserID() const;
     unsigned int getLevelID() const;
     unsigned int getNextLevelID() const;
@@ -25,13 +29,20 @@ public:
     void setCanMove(bool val);
     void setLevelOver(bool val);
     void setNextLevel(unsigned int nextLevel);
-
+    void setObjectiveInProgress(bool inProgress);
+    void setCompletedObjectives(unsigned int objectives);
+    void setTotalObjectives(unsigned int objectives);
 protected:
 
     GameState() = delete;
 
     bool m_canMove;
     bool m_levelOver;
+
+    bool m_objectiveInProgress;
+
+    unsigned int m_totalObjectives;
+    unsigned int m_completedObjectives;
 
     unsigned int m_userID;
     unsigned int m_levelID;

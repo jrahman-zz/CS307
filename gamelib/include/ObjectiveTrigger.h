@@ -5,7 +5,7 @@
 
 #include "Trigger.h"
 
-class ObejctiveTrigger : public Trigger {
+class ObjectiveTrigger : public Trigger {
 public:
     ObjectiveTrigger(Json::Value value);
     virtual ~ObjectiveTrigger();
@@ -22,6 +22,6 @@ private:
     string m_prompt;
     string m_templateCode;
     int m_objectiveId;
-}
+};
 
 #endif

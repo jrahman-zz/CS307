@@ -21,6 +21,6 @@ bool ObjectiveTrigger::arriveImpl(Interactable& target, shared_ptr<GameState> st
     return true;
 }
 
-bool leaveImpl(Interactable& target, shared_ptr<GameState> state) {
+bool ObjectiveTrigger::leaveImpl(Interactable& target, shared_ptr<GameState> state) {
     return true;
 }
