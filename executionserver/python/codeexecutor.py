@@ -3,7 +3,7 @@ from RestrictedPython import compile_restricted
 import sys
 import traceback
 import re
-from importtools import joincontexts, findimports
+from executiontools import joincontexts, findimports
 
 def getexceptionmessage(exc):
     if exc == NameError:
