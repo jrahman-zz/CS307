@@ -3,6 +3,7 @@
 .PHONY: clean
 .PHONY: cleantest
 .PHONY: test
+.PHONY: levelcheck
 
 CXX	 	:= g++
 BASEFLAGS 	:= -Wall -std=c++11 -g
@@ -19,6 +20,8 @@ TESTS		:= $(shell find $(TESTDIR) -type f -name *.cpp)
 TESTBIN 	:= $(patsubst $(TESTDIR)/%,$(TBUILDDIR)/%,$(TESTS:.cpp=.out))
 BINDIR		:= bin
 TOOLDIR		:= tools
+TILEMAPDIR      := ../appserver/app/assets/images/tilemaps/
+TILEMAPS        := $(shell find $(TILEMAPDIR) -type f -name *.json | sort)
 
 INC := -I include
 LIBGAME_SHARED=libgame.so
@@ -56,11 +59,14 @@ $(LIBDIR)/$(LIBGAME_STATIC): $(OBJECTS)
 	mkdir -p $(LIBDIR)
 	ar rcs $@ $^
 
-tools: levelcheck
+tools: levelchecktool
 
-levelcheck: $(OBJECTS) $(TOOLDIR)/levelcheck.cpp
+levelchecktool: $(OBJECTS) $(TOOLDIR)/levelcheck.cpp
 	mkdir -p $(BINDIR)
 	$(CXX) $(CXXFLAGS) $(INC) -o $(BINDIR)/levelcheck $^
+
+levelcheck: levelchecktool
+	$(foreach tilemap, $(TILEMAPS), $(BINDIR)/levelcheck $(tilemap);)
 
 object:
 	echo "$(SOURCES):$(SOURCES:.cpp=.o)"

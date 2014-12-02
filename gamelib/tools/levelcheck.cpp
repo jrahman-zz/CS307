@@ -209,7 +209,7 @@ void validateLevelJson(Json::Value root) {
 
 int main(int argc, char **argv) {
     Json::Value levelJson;
-    string filename(argv[1]);
+    string filename;
 
     if (argc < 2) {
         cerr << argv[0] + string(" <filename>") << endl;
@@ -221,6 +221,7 @@ int main(int argc, char **argv) {
         }
 
         // Read JSON from file.
+        filename = string(argv[1]);
         ifstream in(filename);
         if (in) {
             in >> levelJson;
@@ -232,7 +233,7 @@ int main(int argc, char **argv) {
     }
 
     // Validate.
-    cout << "Validating..." << endl;
+    cout << "Validating level '" << filename << "'" << endl;
     try {
         validateLevelJson(levelJson);
     } catch (exception &e) {
