@@ -1,13 +1,13 @@
 #include "GameState.h"
 
 GameState::GameState(
-    unsigned int userID,
-    unsigned int levelID,
-    unsigned int nextLevelID,
-    unsigned int classID    
+    int userID,
+    int levelID,
+    int nextLevelID,
+    int classID    
     )
-    : m_levelOver(false)
-    , m_canMove(true)
+    : m_canMove(true)
+    , m_levelOver(false)
     , m_objectiveInProgress(false)
     , m_totalObjectives(0)
     , m_completedObjectives(0)
@@ -49,19 +49,19 @@ unsigned int GameState::getCompletedObjectives() const {
     return m_completedObjectives;
 }
 
-unsigned int GameState::getUserID() const {
+int GameState::getUserID() const {
     return m_userID;
 }
 
-unsigned int GameState::getLevelID() const {
+int GameState::getLevelID() const {
     return m_levelID;
 }
 
-unsigned int GameState::getNextLevelID() const {
+int GameState::getNextLevelID() const {
     return m_nextLevelID;
 }
 
-unsigned int GameState::getClassID() const {
+int GameState::getClassID() const {
     return m_classID;
 }
 
@@ -85,7 +85,7 @@ void GameState::setLevelOver(bool value) {
     m_levelOver = value;
 }
 
-void GameState::setNextLevel(unsigned int levelID) {
+void GameState::setNextLevel(int levelID) {
     m_nextLevelID = levelID;
 }
 

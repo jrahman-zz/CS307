@@ -10,7 +10,7 @@
 
 using namespace std;
 
-enum class TriggerType { DIALOGUE, LEVELEXIT, UNKNOWN };
+enum class TriggerType { DIALOGUE, LEVELEXIT, OBJECTIVE, UNKNOWN };
 
 class Trigger : public Positionable {
 public:
