@@ -22,8 +22,39 @@ def get_health():
     print(request.data)
     return jsonify({'response':'PONG'})
 
+@app.route('/objective/submit', methods=['POST'])
+def submit_objective():
+    global engine
+    global appcontext
+    loadedjson = request.get_json()
+    
+    # TODO, this needs to be updated based on the final format
+    code = loadedjson['codelines']
+    
+    try:
+        # Start objective
+        engine.startObjective()
+        success = run_objective(code)
+        engine.endObjective(success)
+
+        # TODO, does the game lib generate the entire response
+        # or do we try to partially create the response ourselves here??
+        partialResponse = engine.getResult()
+        return Response(response=partialResponse,
+                    status=200,
+                    mimetype="application/json")
+
+    # We need feedback provided here
+
+    except Exception as e:
+        print str(e) # TODO, better error handling
+        return Response(status = 500)
+
+def run_objective(code):
+    pass # TODO
+
 @app.route('/level/submit', methods=['POST'])
-def run_code():
+def submit_level():
     global engine
     global appcontext
     loadedjson = request.get_json()
@@ -75,7 +106,7 @@ def init_engine():
         return Response(status=500)
 
 @app.route('/level/prefix', methods=['POST'])
-def run_code():
+def setup_prefix():
     global prefix
     try:
         loadedjson = request.get_json()
@@ -90,7 +121,7 @@ def run_code():
             )
 
 @app.route('/level/suffix', methods=['POST'])
-def run_code():
+def setup_suffix():
     global suffix
     try:
         loadedjson = request.get_json()
