@@ -1,11 +1,15 @@
 #include "ObjectiveLogEntry.h"
 
 ObjectiveLogEntry::ObjectiveLogEntry(
-        int completed,
-        int total) 
+        string dialogue,
+        string prompt,
+        string templateCode,
+        int objectiveId) 
     : LogEntry()
-    , m_total(total)
-    , m_completed(completed)
+    , m_dialogue(dialogue)
+    , m_prompt(prompt)
+    , m_templateCode(templateCode)
+    , m_objectiveId(objectiveId)
 {
 }
 
@@ -14,8 +18,10 @@ ObjectiveLogEntry::~ObjectiveLogEntry() {
 
 Json::Value ObjectiveLogEntry::serialize() {
     Json::Value root(Json::objectValue);
-    root["completed"] = m_completed;
-    root["total"] = m_total;
+    root["dialogue"] = m_dialogue;
+    root["prompt"] = m_prompt;
+    root["templateCode"] = m_templateCode;
+    root["objectiveId"] = m_objectiveId;
 
     return root;
 }

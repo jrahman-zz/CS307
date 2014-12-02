@@ -7,6 +7,7 @@ Engine::Engine(string levelJson)
     , m_timekeeper(new TimeKeeper())
     , m_actionLog(new ActionLog(m_timekeeper))
     , m_gameState(nullptr)
+    , m_objectiveInProgress(false);
 {
     init(m_levelJson);    
 }

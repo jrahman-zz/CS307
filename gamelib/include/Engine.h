@@ -111,6 +111,8 @@ private:
     shared_ptr<TimeKeeper> m_timekeeper;
 
     shared_ptr<ActionLog> m_actionLog;
+
+    bool m_objectiveInProgress;
 };
 
 #endif // ENGINE_H
