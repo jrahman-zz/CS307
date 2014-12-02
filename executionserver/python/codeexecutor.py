@@ -3,7 +3,9 @@ from RestrictedPython import compile_restricted
 import sys
 import traceback
 import re
-from executiontools import joincontexts, findimports
+from executiontools import joincontexts, run_with_limited_time, run_in_context, findimports
+
+timeout_interval = 10 #timeout in seconds
 
 def getexceptionmessage(exc):
     if exc == NameError:
@@ -66,7 +68,11 @@ def execute(code, context, engine):
     returned_errors = {}
     restricted_globals = dict(__builtins__ = safe_builtins)
     execution_context = joincontexts(restricted_globals, context)
-    
+
+    imports = findimports(code)
+    if imports is not None:
+        return (execution_context, getimporterror(imports['lineno'], imports['line']))
+
     engine.startSubmission()
     try:
 
@@ -74,9 +80,10 @@ def execute(code, context, engine):
         #compiled_code = compile_restricted(code, '<string>', 'exec')
         compiled_code = code
 
-        importresults = findimports(code)
-        if importresults is not None:
-            return (execution_context, getimporterror(importresults[0], importresults[1]))
+        # importresults = findimports(code)
+        # if importresults is not None:
+        #     return (execution_context, getimporterror(importresults[0], importresults[1]))
+        run_with_limited_time(run_in_context, (compiled_code, execution_context), {})
         exec compiled_code in execution_context
 
     except Exception as e:
