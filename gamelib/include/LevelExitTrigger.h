@@ -21,7 +21,7 @@ protected:
     bool leaveImpl(Interactable& target, shared_ptr<GameState> state) override;
 
 private:
-    unsigned int m_nextLevelID;
+    int m_nextLevelID;
 };
 
 #endif
