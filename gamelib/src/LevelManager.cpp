@@ -174,7 +174,7 @@ void LevelManager::runTriggers(shared_ptr<Interactable> actor, Position old) {
     
     auto position = actor->getPosition();
     auto sorter = [](shared_ptr<Trigger> a, shared_ptr<Trigger> b) {
-        return a->getPriority() > b->getPriority();
+        return a->getPriority() < b->getPriority();
     };
 
     m_triggers[position].sort(sorter);
