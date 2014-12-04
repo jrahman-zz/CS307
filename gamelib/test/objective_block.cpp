@@ -9,7 +9,7 @@
 
 #include "test_data_a.h"
 
-string expected_log = R"({"classID":2,"completed":false,"levelID":1,"log":[],"nextLevel":-1,"userID":0}
+string expected_log = R"({"classID":2,"completed":false,"levelID":1,"log":[[],[{"data":{"completedobjectives":1,"totalobjectives":1},"type":"completedobjective"}]],"nextLevel":-1,"userID":0}
 )";
 
 START_TEST("objective_block");
