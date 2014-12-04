@@ -9,21 +9,20 @@
 using namespace std;
 
 class ObjectiveLogEntry : public LogEntry {
-    
 public:
-    /*
-     * Construct a new instance of the log entry
-     */
-    ObjectiveLogEntry(int completed, int total);
+    
+    ObjectiveLogEntry(string dialogue, string prompt, string templateCode, int objectiveId);
     ObjectiveLogEntry() = delete;
     virtual ~ObjectiveLogEntry();
 
 protected:
     Json::Value serialize() override;
-    string getType() override;
+    string getType();
 private:
-    int m_total;
-    int m_completed;
+    string m_dialogue; // Character dialogue to start the objective
+    string m_prompt; // Prompt info to display above the text box 
+    string m_templateCode; // Basic template code (optional), can be empty
+    int m_objectiveId; // Objective ID for database purposes
 };
 
 #endif

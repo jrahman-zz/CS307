@@ -3,7 +3,9 @@ from RestrictedPython import compile_restricted
 import sys
 import traceback
 import re
-from importtools import joincontexts, findimports
+from executiontools import joincontexts, run_with_limited_time, run_in_context, findimports
+
+timeout_interval = 5 #timeout in seconds
 
 def getexceptionmessage(exc):
     if exc == NameError:
@@ -50,14 +52,21 @@ def exceptiondetails(code):
     returned_info['message'] = getexceptionmessage(returned_info['exc_type'])
     return returned_info
 
+def gettimeouterror():
+    returned_info = {}
+    returned_info['exc_type'] = 'TimeoutError'
+    returned_info['exc_obj'] = None
+    returned_info['lineno'] = -1
+    returned_info['line'] = ''
+    returned_info['message'] = "Your code took too long to run. Check for loops that will never finish or calculations that are extremely large"
+    return returned_info
+
 def getimporterror(lineno, line):
     returned_info = {}
     returned_info['exc_type'] = 'ImportError'
     returned_info['exc_obj'] = None
     returned_info['lineno'] = lineno
     returned_info['line'] = line
-
-
     returned_info['message'] = "You tried to import a module, but importing is not allowed."
     return returned_info
 
@@ -66,7 +75,11 @@ def execute(code, context, engine):
     returned_errors = {}
     restricted_globals = dict(__builtins__ = safe_builtins)
     execution_context = joincontexts(restricted_globals, context)
-    
+
+    imports = findimports(code)
+    if imports is not None:
+        return (execution_context, getimporterror(imports['lineno'], imports['line']))
+
     engine.startSubmission()
     try:
 
@@ -74,10 +87,11 @@ def execute(code, context, engine):
         #compiled_code = compile_restricted(code, '<string>', 'exec')
         compiled_code = code
 
-        importresults = findimports(code)
-        if importresults is not None:
-            return (execution_context, getimporterror(importresults[0], importresults[1]))
-        exec compiled_code in execution_context
+        # importresults = findimports(code)
+        # if importresults is not None:
+        #     return (execution_context, getimporterror(importresults[0], importresults[1]))
+        if not run_with_limited_time(run_in_context, (compiled_code, execution_context), {}, timeout_interval):
+            return_errors = gettimeouterror()
 
     except Exception as e:
         returned_errors = exceptiondetails(code)

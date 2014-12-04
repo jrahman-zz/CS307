@@ -50,6 +50,16 @@ public:
     void endSubmission();
 
     /*
+     * Begin objective mode
+     */
+    void startObjective();
+
+    /*
+     * exit objective mode
+     */
+    void endObjective(bool success);
+
+    /*
      * Completely reset all game state
      */
     void resetEngine();

@@ -74,6 +74,23 @@ string testDataA = R"({
                      "width":64,
                      "x":896,
                      "y":0
+                    }, {
+                     "height":64,
+                     "name": "objective_test",
+                     "properties": {
+                        "dialog": "Hi, you have been challenged",
+                        "prompt": "Write an algorithm to solve the Traveling Salesman Problem",
+                        "templateCode":
+"def tsp(graph, starting_point):
+    # TODO, implement the traveling salesman problem solution here
+    pass
+",                      "objectiveId": "42"
+                     },
+                     "rotation": 0,
+                     "type": "objective",
+                     "width": 64,
+                     "x": 960,
+                     "y": 64   
                     }],
              "opacity":1,
              "type":"objectgroup",

@@ -9,11 +9,14 @@
 
 #include "test_data_b.h"
 
-string expected_log = R"({"classID":2,"completed":false,"levelID":1,"log":[[{"data":{"actorID":0,"rotation":270},"type":"rotate"}],[{"data":{"actorID":0,"rotation":180},"type":"rotate"}],[{"data":{"actorID":0,"position":{"x":8,"y":2}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}]],"nextLevel":4294967295,"userID":0}
+string expected_log = R"({"classID":2,"completed":false,"levelID":1,"log":[[{"data":{"actorID":0,"rotation":270},"type":"rotate"}],[{"data":{"actorID":0,"rotation":180},"type":"rotate"}],[{"data":{"actorID":0,"position":{"x":8,"y":2}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}]],"nextLevel":-1,"userID":0}
 )";
 
 START_TEST("actors");
     Engine engine(testDataA);
+    
+    engine.startSubmission();
+
     auto hero = engine.getHero();
     if (hero == nullptr) {
         cout << "Failed to return hero" << endl;
@@ -35,6 +38,8 @@ START_TEST("actors");
     if (!hero->moveUp()) {
         cout << "moveUp() failed, movement didn't occur when not blocked" << endl;
     }
+
+    engine.endSubmission();
 
     auto log = engine.getResult();
     auto comp = log.compare(expected_log);

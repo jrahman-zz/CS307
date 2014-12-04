@@ -2,6 +2,7 @@
 
 #include "DialogueTrigger.h"
 #include "LevelExitTrigger.h"
+#include "ObjectiveTrigger.h"
 
 #include "Moveable.h"
 
@@ -67,6 +68,9 @@ shared_ptr<Trigger> Trigger::createFromJson(TriggerType type, Json::Value value)
         case TriggerType::DIALOGUE:
             ptr = shared_ptr<DialogueTrigger>(new DialogueTrigger(value));
             break;
+        case TriggerType::OBJECTIVE:
+            ptr = shared_ptr<ObjectiveTrigger>(new ObjectiveTrigger(value));
+            break;
         default:
             throw invalid_argument("Unknown trigger type");
     }
@@ -74,12 +78,14 @@ shared_ptr<Trigger> Trigger::createFromJson(TriggerType type, Json::Value value)
 }
 
 TriggerType Trigger::typeFromString(string str) {
-  if (!str.compare("levelexit")) {
-    return TriggerType::LEVELEXIT;
-  } else if (!str.compare("dialogue")) {
-    return TriggerType::DIALOGUE;
-  }
+    if (!str.compare("levelexit")) {
+        return TriggerType::LEVELEXIT;
+    } else if (!str.compare("dialogue")) {
+        return TriggerType::DIALOGUE;
+    } else if (!str.compare("objective")) {
+        return TriggerType::OBJECTIVE;
+    }
 
-  return TriggerType::UNKNOWN;
+    return TriggerType::UNKNOWN;
 }
 

@@ -28,7 +28,9 @@ BOOST_PYTHON_MODULE(gamelib) {
 		.def("reset", &Engine::resetEngine)
 		.def("getResult", &Engine::getResult)
 		.def("startSubmission", &Engine::startSubmission)
-        .def ("endSubmission", &Engine::endSubmission); 
+        .def ("endSubmission", &Engine::endSubmission)
+        .def("startObjective", &Engine::startObjective)
+        .def("endObjective", &Engine::endObjective); 
 
     class_<HeroFascade, shared_ptr<HeroFascade>>("Hero", no_init)
 		.def("moveUp", &HeroFascade::moveUp, heroMoveUp())

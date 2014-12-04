@@ -166,6 +166,31 @@ shared_ptr<HeroFascade> Engine::getHero() const {
     return shared_ptr<HeroFascade>(new HeroFascade(m_hero, m_timekeeper));
 }
 
+void Engine::startObjective() {
+    if (!m_gameState->getObjectiveInProgress()) {
+        m_gameState->setObjectiveInProgress(true);
+    } else {
+        throw runtime_error("Cannot start another objective");
+    }
+}
+
+void Engine::endObjective(bool success) {
+    if (m_gameState->getObjectiveInProgress()) {
+        m_gameState->setObjectiveInProgress(false);
+
+        auto total_objectives = m_gameState->getTotalObjectives();
+        auto completed_objectives = m_gameState->getCompletedObjectives();
+
+        if (completed_objectives == total_objectives) {
+            throw runtime_error("Too many objectives finished, overacheiver");
+        }
+
+        m_gameState->setCompletedObjectives(completed_objectives + 1);
+    } else {
+        throw runtime_error("Start an objective first");
+    }
+}
+
 void Engine::resetEngine() {
 
     // Reset data structures

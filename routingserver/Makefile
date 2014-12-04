@@ -15,6 +15,7 @@ reload:
 
 clean:
 	cd server && sbt clean
+	cd server && rm -rf target
 
 test:
 	test/test.py

@@ -8,7 +8,7 @@
 class LevelExitTrigger : public Trigger {
 public:
     LevelExitTrigger(Json::Value value);
-    ~LevelExitTrigger();
+    virtual ~LevelExitTrigger();
 
 protected:
 
@@ -17,11 +17,11 @@ protected:
      */
     LevelExitTrigger() = delete;
 
-    virtual bool arriveImpl(Interactable& target, shared_ptr<GameState> state);
-    virtual bool leaveImpl(Interactable& target, shared_ptr<GameState> state);
+    bool arriveImpl(Interactable& target, shared_ptr<GameState> state) override;
+    bool leaveImpl(Interactable& target, shared_ptr<GameState> state) override;
 
 private:
-    unsigned int m_nextLevelID;
+    int m_nextLevelID;
 };
 
 #endif

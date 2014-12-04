@@ -1,13 +1,16 @@
 #include "GameState.h"
 
 GameState::GameState(
-    unsigned int userID,
-    unsigned int levelID,
-    unsigned int nextLevelID,
-    unsigned int classID    
+    int userID,
+    int levelID,
+    int nextLevelID,
+    int classID    
     )
-    : m_levelOver(false)
-    , m_canMove(true)
+    : m_canMove(true)
+    , m_levelOver(false)
+    , m_objectiveInProgress(false)
+    , m_totalObjectives(0)
+    , m_completedObjectives(0)
     , m_userID(userID)
     , m_levelID(levelID)
     , m_nextLevelID(nextLevelID)
@@ -27,27 +30,51 @@ Json::Value GameState::serialize() const {
 }
 
 bool GameState::canMove() const {
-    return m_canMove;
+    return m_canMove && !m_objectiveInProgress;
 }
 
 bool GameState::levelOver() const {
     return m_levelOver;
 }
 
-unsigned int GameState::getUserID() const {
+bool GameState::getObjectiveInProgress() const {
+    return m_objectiveInProgress;
+}
+
+unsigned int GameState::getTotalObjectives() const {
+    return m_totalObjectives;
+}
+
+unsigned int GameState::getCompletedObjectives() const {
+    return m_completedObjectives;
+}
+
+int GameState::getUserID() const {
     return m_userID;
 }
 
-unsigned int GameState::getLevelID() const {
+int GameState::getLevelID() const {
     return m_levelID;
 }
 
-unsigned int GameState::getNextLevelID() const {
+int GameState::getNextLevelID() const {
     return m_nextLevelID;
 }
 
-unsigned int GameState::getClassID() const {
+int GameState::getClassID() const {
     return m_classID;
+}
+
+void GameState::setObjectiveInProgress(bool value) {
+    m_objectiveInProgress = value;
+}
+
+void GameState::setTotalObjectives(unsigned int value) {
+    m_totalObjectives = value;
+}
+
+void GameState::setCompletedObjectives(unsigned int value) {
+    m_completedObjectives = value;
 }
 
 void GameState::setCanMove(bool value) {
@@ -58,7 +85,7 @@ void GameState::setLevelOver(bool value) {
     m_levelOver = value;
 }
 
-void GameState::setNextLevel(unsigned int levelID) {
+void GameState::setNextLevel(int levelID) {
     m_nextLevelID = levelID;
 }
 
