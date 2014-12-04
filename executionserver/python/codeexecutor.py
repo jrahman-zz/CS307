@@ -5,7 +5,7 @@ import traceback
 import re
 from executiontools import joincontexts, run_with_limited_time, run_in_context, findimports
 
-timeout_interval = 10 #timeout in seconds
+timeout_interval = 5 #timeout in seconds
 
 def getexceptionmessage(exc):
     if exc == NameError:
@@ -56,7 +56,7 @@ def gettimeouterror():
     returned_info = {}
     returned_info['exc_type'] = 'TimeoutError'
     returned_info['exc_obj'] = None
-    returned_info['lineno'] = 0
+    returned_info['lineno'] = -1
     returned_info['line'] = ''
     returned_info['message'] = "Your code took too long to run. Check for loops that will never finish or calculations that are extremely large"
     return returned_info
