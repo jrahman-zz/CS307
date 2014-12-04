@@ -1,6 +1,7 @@
 #include "Engine.h"
 
 #include "ObjectiveTrigger.h"
+#include "CompletedObjectiveLogEntry.h"
 
 Engine::Engine(string levelJson)
     : m_levelJson(levelJson)
@@ -189,14 +190,22 @@ void Engine::endObjective(bool success) {
     if (m_gameState->getObjectiveInProgress()) {
         m_gameState->setObjectiveInProgress(false);
 
-        auto total_objectives = m_gameState->getTotalObjectives();
-        auto completed_objectives = m_gameState->getCompletedObjectives();
+        auto total = m_gameState->getTotalObjectives();
+        auto completed = m_gameState->getCompletedObjectives();
 
-        if (completed_objectives == total_objectives) {
+        if (completed == total) {
             throw runtime_error("Too many objectives finished, over achiever");
         }
 
-        m_gameState->setCompletedObjectives(completed_objectives + 1);
+        if (success) {
+            m_gameState->setCompletedObjectives(completed + 1);
+            m_gameState->setObjectiveInProgress(false);
+            auto entry = shared_ptr<CompletedObjectiveLogEntry>(
+                    new CompletedObjectiveLogEntry(
+                        completed + 1,
+                        total));
+            m_actionLog->onLog(entry);
+        }
     } else {
         throw runtime_error("Start an objective first");
     }

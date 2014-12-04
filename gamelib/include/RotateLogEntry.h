@@ -17,8 +17,8 @@ public:
     ~RotateLogEntry();
 
 protected:
-    virtual Json::Value serialize();
-    virtual string getType();
+    Json::Value serialize() override;
+    string getType() override;
 
 private:
     unsigned int m_actorID;
