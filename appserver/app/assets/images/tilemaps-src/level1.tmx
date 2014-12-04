@@ -774,6 +774,7 @@ And if you forgot what a function is it is just special code that is designed to
   </object>
   <object name="NextLevelTrigger" type="levelexit" x="896" y="320" width="64" height="64">
    <properties>
+    <property name="nextLevel" value="1"/>
     <property name="repeatable" value="1"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>

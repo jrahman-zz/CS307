@@ -72,6 +72,7 @@
     <property name="nextLevel" value="4"/>
     <property name="repeatable" value="1"/>
     <property name="stopMove" value="0"/>
+    <property name="triggerTarget" value="0"/>
    </properties>
   </object>
   <object name="Wizard Dialog" type="dialogue" x="64" y="512" width="64" height="64">
@@ -117,7 +118,7 @@ So normally I want to sell my items if they offer me $23, but since I am such a 
     <property name="actor" value="2"/>
     <property name="dialogue" value="Heh? What do you want? "/>
     <property name="repeatable" value="0"/>
-    <property name="stopMove" value="true"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>

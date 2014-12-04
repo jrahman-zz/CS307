@@ -56,7 +56,7 @@
                  "properties":
                     {
                      "id":"0",
-                     "rotation":"0"
+                     "rotation":"90"
                     },
                  "rotation":0,
                  "type":"hero",
@@ -184,7 +184,7 @@
                      "actor":"3",
                      "dialogue":"Ahh yes, Tnana my rival! I believe he is hanging around somewhere in the beach area! Go talk to my wizard friend that is dancing around the pound he can transport you to the beach!",
                      "repeatable":"1",
-                     "stopMove":"0",
+                     "stopMove":"1",
                      "triggerTarget":"0"
                     },
                  "rotation":0,
@@ -202,7 +202,7 @@
                      "actor":"4",
                      "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
                      "repeatable":"1",
-                     "stopMove":"0",
+                     "stopMove":"1",
                      "triggerTarget":"0"
                     },
                  "rotation":0,
@@ -220,7 +220,7 @@
                      "actor":"4",
                      "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
                      "repeatable":"1",
-                     "stopMove":"0",
+                     "stopMove":"1",
                      "triggerTarget":"0"
                     },
                  "rotation":0,
@@ -256,8 +256,8 @@
                      "actor":"5",
                      "dialogue":"Hello Traveler!!! How can I help you?! \nOh? You want a ride from the ALMIGHTY WIZ?! \nWell It isn\u2019t free ya\u2019 kno\u2019?! If I transport you I will use up exactly 83,729 power strength. But, right now I have 912,378 power strength and I need enough energy to transfer me back home so I can recharge. I don\u2019t want to sleep here for the night ya\u2019 kno\u2019 buddy? So, for me to get home it will cost me 800,000 power strength. Can I make both the trips without getting too tired? Talk to me by using Hero.print(Yes) Or Hero.print(No)",
                      "repeatable":"0",
-                     "stopMove":"0",
-                     "triggerTarget":"0"
+                     "stopMove":"1",
+                     "triggerTarget":"1"
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -274,8 +274,8 @@
                      "actor":"5",
                      "dialogue":"Hello Traveler!!! How can I help you?! \nOh? You want a ride from the ALMIGHTY WIZ?! \nWell It isn\u2019t free ya\u2019 kno\u2019?!\u201d \n",
                      "repeatable":"0",
-                     "stopMove":"0",
-                     "triggerTarget":"0"
+                     "stopMove":"1",
+                     "triggerTarget":"1"
                     },
                  "rotation":0,
                  "type":"dialogue",
@@ -292,7 +292,7 @@
                      "actor":"4",
                      "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
                      "repeatable":"1",
-                     "stopMove":"0",
+                     "stopMove":"1",
                      "triggerTarget":"0"
                     },
                  "rotation":0,
@@ -304,11 +304,29 @@
                 }, 
                 {
                  "height":64,
-                 "name":"Wizard Obj Trig",
+                 "name":"NextLevelTrigger",
                  "properties":
                     {
-                     "id":"1",
-                     "priority":"10",
+                     "nextLevel":"2",
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"levelexit",
+                 "visible":true,
+                 "width":64,
+                 "x":1088,
+                 "y":384
+                }, 
+                {
+                 "height":64,
+                 "name":"Wizard Objective",
+                 "properties":
+                    {
+                     "actor":"1",
+                     "dialogue":"Hello young one. Since you graciously accepted to take on my quest I must teach you a few things so you can survive in the wilderness. First I will teach you how to do math with python. It is fairly easy. All you do is type in your equation and hit enter! Its that simple. So to help you practice I have a small problem for you to solve.",
+                     "priority":"5",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -317,7 +335,7 @@
                  "type":"objective",
                  "visible":true,
                  "width":64,
-                 "x":384,
+                 "x":320,
                  "y":384
                 }],
          "opacity":1,

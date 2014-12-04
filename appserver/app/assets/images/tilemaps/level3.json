@@ -164,7 +164,8 @@
                     {
                      "nextLevel":"4",
                      "repeatable":"1",
-                     "stopMove":"0"
+                     "stopMove":"0",
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"levelexit",
@@ -253,7 +254,7 @@
                      "actor":"2",
                      "dialogue":"Heh? What do you want? ",
                      "repeatable":"0",
-                     "stopMove":"true",
+                     "stopMove":"1",
                      "triggerTarget":"0"
                     },
                  "rotation":0,

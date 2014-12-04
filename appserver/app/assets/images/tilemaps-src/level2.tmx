@@ -27,7 +27,7 @@
   <object name="Hero" type="hero" x="192" y="384" width="64" height="64">
    <properties>
     <property name="id" value="0"/>
-    <property name="rotation" value="0"/>
+    <property name="rotation" value="90"/>
    </properties>
   </object>
   <object name="Koopa" type="npc" x="384" y="0" width="64" height="64">
@@ -82,7 +82,7 @@
     <property name="actor" value="3"/>
     <property name="dialogue" value="Ahh yes, Tnana my rival! I believe he is hanging around somewhere in the beach area! Go talk to my wizard friend that is dancing around the pound he can transport you to the beach!"/>
     <property name="repeatable" value="1"/>
-    <property name="stopMove" value="0"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -91,7 +91,7 @@
     <property name="actor" value="4"/>
     <property name="dialogue" value="I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you."/>
     <property name="repeatable" value="1"/>
-    <property name="stopMove" value="0"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -100,7 +100,7 @@
     <property name="actor" value="4"/>
     <property name="dialogue" value="I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you."/>
     <property name="repeatable" value="1"/>
-    <property name="stopMove" value="0"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
@@ -120,8 +120,8 @@
 Oh? You want a ride from the ALMIGHTY WIZ?! 
 Well It isn’t free ya’ kno’?! If I transport you I will use up exactly 83,729 power strength. But, right now I have 912,378 power strength and I need enough energy to transfer me back home so I can recharge. I don’t want to sleep here for the night ya’ kno’ buddy? So, for me to get home it will cost me 800,000 power strength. Can I make both the trips without getting too tired? Talk to me by using Hero.print(Yes) Or Hero.print(No)</property>
     <property name="repeatable" value="0"/>
-    <property name="stopMove" value="0"/>
-    <property name="triggerTarget" value="0"/>
+    <property name="stopMove" value="1"/>
+    <property name="triggerTarget" value="1"/>
    </properties>
   </object>
   <object name="DancinWiz Dialog" type="dialogue" x="1024" y="576" width="64" height="64">
@@ -132,8 +132,8 @@ Oh? You want a ride from the ALMIGHTY WIZ?!
 Well It isn’t free ya’ kno’?!” 
 </property>
     <property name="repeatable" value="0"/>
-    <property name="stopMove" value="0"/>
-    <property name="triggerTarget" value="0"/>
+    <property name="stopMove" value="1"/>
+    <property name="triggerTarget" value="1"/>
    </properties>
   </object>
   <object name="Peachy Dialog" type="dialogue" x="576" y="128" width="64" height="64">
@@ -141,14 +141,23 @@ Well It isn’t free ya’ kno’?!”
     <property name="actor" value="4"/>
     <property name="dialogue" value="I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you."/>
     <property name="repeatable" value="1"/>
-    <property name="stopMove" value="0"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
-  <object name="Wizard Obj Trig" type="objective" x="384" y="384" width="64" height="64">
+  <object name="NextLevelTrigger" type="levelexit" x="1088" y="384" width="64" height="64">
    <properties>
-    <property name="id" value="1"/>
-    <property name="priority" value="10"/>
+    <property name="nextLevel" value="2"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+  <object name="Wizard Objective" type="objective" x="320" y="384" width="64" height="64">
+   <properties>
+    <property name="actor" value="1"/>
+    <property name="dialogue" value="Hello young one. Since you graciously accepted to take on my quest I must teach you a few things so you can survive in the wilderness. First I will teach you how to do math with python. It is fairly easy. All you do is type in your equation and hit enter! Its that simple. So to help you practice I have a small problem for you to solve."/>
+    <property name="priority" value="5"/>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
