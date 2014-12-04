@@ -96,12 +96,23 @@ tilemap_promise.success(function (tilemap_str) {
     var response_json;
     if (index == 0) {
       response_json = {
-        "classID":2,
-        "levelID":1,
-        "error": "Syntax error! Get your life together, Carl!",
-        "error_line": 2 // TODO match actual return
+        "response": "Error running code",
+        "error_name": "NameError",
+        "error_obj": "<something something>",
+        "error_line_number": 2,
+        "error_line_text": "Bad line of code",
+        "error_message": "You tried to use a variable that you haven't defined yet. Check your spelling."
       };
     } else if (index == 1) {
+      response_json = {
+        "response": "Error running code",
+        "error_name": "KeyError",
+        "error_obj": "<something something>",
+        "error_line_number": -1,
+        "error_line_text": "",
+        "error_message": "You tried to access a dictionary entry which does not exist."
+      };
+    } else if (index == 2) {
       response_json = {
         "classID":2,
         "levelID":1,
@@ -128,21 +139,33 @@ tilemap_promise.success(function (tilemap_str) {
     }
     index++;
 
-    if ('error' in response_json) {
-      var error = response_json['error'];
-      var line = response_json['error_line'];
-
-      // Add marker in editor.
-      var marker = editor.session.addMarker(new Range(line, 0, line, Number.MAX_VALUE),
-          'ace_active-line', 'fullLine');
-      editorMarkers.push(marker);
-
-      // Set div text.
-      $('div.code-error').text(error);
-    } else {
+    function clearMarkers() {
       for (var i = 0; i < editorMarkers.length; i++) {
         editor.session.removeMarker(editorMarkers[i]);
       }
+    }
+
+    // Check for key that indicates error
+    if ('response' in response_json) {
+      var error_name = response_json['error_name'];
+      var error_message = response_json['error_message'];
+      var error_text = error_name + ': ' + error_message;
+      var line = response_json['error_line_number'];
+
+      // Add marker in editor.
+      // This is 1-index based. line should be -1 or positive.
+      if (line > 0) {
+        var marker = editor.session.addMarker(new Range(line, 0, line, Number.MAX_VALUE),
+            'ace_active-line', 'fullLine');
+        editorMarkers.push(marker);
+      } else {
+        clearMarkers();
+      }
+
+      // Set div text.
+      $('div.code-error').text(error_text);
+    } else {
+      clearMarkers();
       $('div.code-error').text('');
         
       game_state.process_response(response_json, function() {

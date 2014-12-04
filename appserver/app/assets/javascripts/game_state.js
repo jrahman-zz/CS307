@@ -26,9 +26,9 @@ HeroDirectionFrameMap[Direction.UP] = 0;
 HeroDirectionFrameMap[Direction.LEFT] = 9;
 HeroDirectionFrameMap[Direction.DOWN] = 18;
 
- /**
-  * Attempts to map rotation angle to Direction.
-  */
+/**
+ * Attempts to map rotation angle to Direction.
+ */
 function direction_from(rotation) {
   switch (rotation) {
     case 0: return Direction.RIGHT;
