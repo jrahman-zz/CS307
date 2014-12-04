@@ -22,7 +22,7 @@
       - @course.levels.each do |l|
         %li
           = link_to l.name, l
-          .pull-right.options
+          .pull-right
             = link_to 'Play', play_level_path(l)
 
   .col-md-7

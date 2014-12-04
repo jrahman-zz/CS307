@@ -41,7 +41,7 @@
         %li
           = s.name
           .pull-right.options
-            = link_to glyphicon('remove-circle'), enrollment_withdraw_path(@course, s), class: 'text-danger', method: :post
+            = link_to glyphicon('remove-circle'), enrollment_withdraw_path(@course, s), class: 'text-danger',:data => { :confirm => 'Are you sure?' }, method: :post
 
       - User.with_role(:pending_student, @course).each do |s|
         %li
@@ -49,4 +49,4 @@
           %span.side-note= 'Pending'
           .pull-right.options
             = link_to glyphicon('ok-circle'), enrollment_approve_path(@course, s), class: 'text-success', method: :post
-            = link_to glyphicon('remove-circle'), enrollment_withdraw_path(@course, s), class: 'text-danger', method: :post
+            = link_to glyphicon('remove-circle'), enrollment_withdraw_path(@course, s), class: 'text-danger',:data => { :confirm => 'Are you sure?' }, method: :post
