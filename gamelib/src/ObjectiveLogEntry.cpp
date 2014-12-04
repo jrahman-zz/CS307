@@ -10,8 +10,7 @@ ObjectiveLogEntry::ObjectiveLogEntry(
     , m_prompt(prompt)
     , m_templateCode(templateCode)
     , m_objectiveId(objectiveId)
-{
-}
+{}
 
 ObjectiveLogEntry::~ObjectiveLogEntry() {
 }
