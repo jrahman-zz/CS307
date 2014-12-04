@@ -11,9 +11,9 @@
          "width":18,
          "x":0,
          "y":0
-        },
+        }, 
         {
-         "data":[146, 146, 146, 146, 146, 146, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 146, 146, 146, 146, 146, 146, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 146, 146, 146, 146, 146, 146, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[146, 146, 146, 146, 146, 146, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 146, 146, 146, 146, 146, 146, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 146, 146, 146, 146, 146, 146, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 12, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 32, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 51, 52, 53, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
          "name":"Vendor Floor",
          "opacity":1,
@@ -22,7 +22,7 @@
          "width":18,
          "x":0,
          "y":0
-        },
+        }, 
         {
          "data":[189, 189, 250, 230, 230, 209, 189, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 229, 189, 250, 250, 0, 0, 189, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 247, 247, 247, 247, 247, 0, 189, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
@@ -33,20 +33,9 @@
          "width":18,
          "x":0,
          "y":0
-        },
+        }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 275, 0, 0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 267, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 271, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 275, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":10,
-         "name":"BOATS",
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":18,
-         "x":0,
-         "y":0
-        },
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0, 183, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 183, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 183, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 183, 183, 183, 183, 183, 0, 0, 0, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 185, 0, 185, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 201, 201, 0, 0, 185, 0, 0, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 221, 221, 0, 185, 0, 0, 0, 0, 185, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 0, 0, 185, 0, 181, 0, 0, 0, 0, 0, 0, 185, 185, 0, 0, 0, 0, 225, 0, 185, 185, 0, 181, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 183, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 183, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 183, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 183, 183, 183, 183, 183, 0, 0, 0, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 204, 0, 0, 0, 0, 0, 185, 185, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 224, 0, 0, 0, 185, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 201, 0, 0, 0, 0, 185, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 221, 0, 0, 0, 0, 185, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 185, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 185, 0, 185, 185, 185, 185, 225, 185, 0, 0, 0, 181, 0, 0, 0, 0, 0, 0],
          "height":10,
          "name":"Trees",
          "opacity":1,
@@ -55,18 +44,7 @@
          "width":18,
          "x":0,
          "y":0
-        },
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 276, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":10,
-         "name":"Boat Portal",
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":18,
-         "x":0,
-         "y":0
-        },
+        }, 
         {
          "draworder":"topdown",
          "height":0,
@@ -85,32 +63,16 @@
                  "type":"npc",
                  "visible":true,
                  "width":64,
-                 "x":320,
-                 "y":128
-                },
+                 "x":64,
+                 "y":576
+                }, 
                 {
                  "height":64,
                  "name":"Wiz",
                  "properties":
                     {
-                     "id":"2",
-                     "npc_id":"2",
-                     "rotation":"0"
-                    },
-                 "rotation":0,
-                 "type":"npc",
-                 "visible":true,
-                 "width":64,
-                 "x":640,
-                 "y":576
-                },
-                {
-                 "height":64,
-                 "name":"Link",
-                 "properties":
-                    {
-                     "id":"3",
-                     "npc_id":"3",
+                     "id":"5",
+                     "npc_id":"4",
                      "rotation":"0"
                     },
                  "rotation":0,
@@ -118,8 +80,24 @@
                  "visible":true,
                  "width":64,
                  "x":512,
-                 "y":0
-                },
+                 "y":384
+                }, 
+                {
+                 "height":64,
+                 "name":"Link",
+                 "properties":
+                    {
+                     "id":"4",
+                     "npc_id":"1",
+                     "rotation":"0"
+                    },
+                 "rotation":0,
+                 "type":"npc",
+                 "visible":true,
+                 "width":64,
+                 "x":512,
+                 "y":192
+                }, 
                 {
                  "height":64,
                  "name":"Hero",
@@ -132,24 +110,40 @@
                  "type":"hero",
                  "visible":true,
                  "width":64,
-                 "x":64,
+                 "x":0,
                  "y":256
-                },
+                }, 
                 {
                  "height":64,
                  "name":"Toad",
                  "properties":
                     {
-                     "id":"4",
-                     "npc_id":"4",
+                     "id":"2",
+                     "npc_id":"2",
                      "rotation":"0"
                     },
                  "rotation":0,
                  "type":"npc",
                  "visible":true,
                  "width":64,
-                 "x":192,
-                 "y":576
+                 "x":320,
+                 "y":128
+                }, 
+                {
+                 "height":64,
+                 "name":"Tnana",
+                 "properties":
+                    {
+                     "id":"3",
+                     "npc_id":"3",
+                     "rotation":"0"
+                    },
+                 "rotation":0,
+                 "type":"npc",
+                 "visible":true,
+                 "width":64,
+                 "x":320,
+                 "y":384
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -157,7 +151,7 @@
          "width":0,
          "x":0,
          "y":0
-        },
+        }, 
         {
          "draworder":"topdown",
          "height":0,
@@ -168,10 +162,9 @@
                  "name":"NextLevelTrigger",
                  "properties":
                     {
+                     "nextLevel":"4",
                      "repeatable":"1",
-                     "stopMove":"0",
-                     "triggerTarget":"0",
-                     "nextLevel": "2"
+                     "stopMove":"0"
                     },
                  "rotation":0,
                  "type":"levelexit",
@@ -179,14 +172,14 @@
                  "width":64,
                  "x":704,
                  "y":320
-                },
+                }, 
                 {
                  "height":64,
                  "name":"Wizard Dialog",
                  "properties":
                     {
                      "actor":"1",
-                     "dialogue":"Ahh you heard my brother was here too? Me too! But, while I was here I decided to check up on my little store center I have on the pier. But, it looks like my cash register has been acting up and has not been selling at the correct prices. Help me reprogram it young one! So to the left of your screen I have started the program function definition for you.",
+                     "dialogue":"Ahh you heard my brother was here too? Me too! But, while I was here I decided to check up on my little store center I have on the pier. But, it looks like my cash register has been acting up and has not been selling at the correct prices. Help me reprogram it young one! So to the left of your screen I have started the program function definition for you. So if you give the function a number in this case, it wants to figure out that number is within my price range.\nSo normally I want to sell my items if they offer me $23, but since I am such a nice guy I will not allow my customer be ripped off so I won\u2019t sell anything that is more than $80.\u201d\n\u201cTo help you with this problem you will need to remember how to use > and <. But, not only that you will need to know about the AND conditional.",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -195,9 +188,9 @@
                  "type":"dialogue",
                  "visible":true,
                  "width":64,
-                 "x":320,
-                 "y":192
-                },
+                 "x":64,
+                 "y":512
+                }, 
                 {
                  "height":64,
                  "name":"Link Dialog",
@@ -214,11 +207,11 @@
                  "visible":true,
                  "width":64,
                  "x":512,
-                 "y":64
-                },
+                 "y":256
+                }, 
                 {
                  "height":64,
-                 "name":"Link Dialog2",
+                 "name":"Link Dialog",
                  "properties":
                     {
                      "actor":"3",
@@ -231,81 +224,9 @@
                  "type":"dialogue",
                  "visible":true,
                  "width":64,
-                 "x":576,
-                 "y":0
-                },
-                {
-                 "height":64,
-                 "name":"Tnana Dialog",
-                 "properties":
-                    {
-                     "actor":"2",
-                     "dialogue":"Heh? What do you want? ",
-                     "repeatable":"0",
-                     "stopMove":"1",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"dialogue",
-                 "visible":true,
-                 "width":64,
-                 "x":384,
-                 "y":320
-                },
-                {
-                 "height":64,
-                 "name":"Tnana Dialog",
-                 "properties":
-                    {
-                     "actor":"2",
-                     "dialogue":"Heh? What do you want? ",
-                     "repeatable":"0",
-                     "stopMove":"1",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"dialogue",
-                 "visible":true,
-                 "width":64,
-                 "x":512,
-                 "y":384
-                },
-                {
-                 "height":64,
-                 "name":"Tnana Dialog",
-                 "properties":
-                    {
-                     "actor":"2",
-                     "dialogue":"Heh? What do you want? ",
-                     "repeatable":"0",
-                     "stopMove":"1",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"dialogue",
-                 "visible":true,
-                 "width":64,
-                 "x":512,
-                 "y":320
-                },
-                {
-                 "height":64,
-                 "name":"Tnana Dialog",
-                 "properties":
-                    {
-                     "actor":"2",
-                     "dialogue":"Heh? What do you want? ",
-                     "repeatable":"0",
-                     "stopMove":"1",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"dialogue",
-                 "visible":true,
-                 "width":64,
                  "x":448,
-                 "y":384
-                },
+                 "y":192
+                }, 
                 {
                  "height":64,
                  "name":"Tnana Dialog",
@@ -321,9 +242,9 @@
                  "type":"dialogue",
                  "visible":true,
                  "width":64,
-                 "x":384,
+                 "x":320,
                  "y":448
-                },
+                }, 
                 {
                  "height":64,
                  "name":"Tnana Dialog",
@@ -332,43 +253,7 @@
                      "actor":"2",
                      "dialogue":"Heh? What do you want? ",
                      "repeatable":"0",
-                     "stopMove":"1",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"dialogue",
-                 "visible":true,
-                 "width":64,
-                 "x":512,
-                 "y":448
-                },
-                {
-                 "height":64,
-                 "name":"Wiz Dialog",
-                 "properties":
-                    {
-                     "actor":"3",
-                     "dialogue":"\u201cMerh\u2026. That old wizard is making it hard for me to do business here in this corner shop. I heard you created a new software implementation for that old man. Can you help me out too? I am a lot less nice than that wizard guy. I will sell it to anyone if they offer me more than 792 gold or give me exactly 750 gold say SOLD. If it isnt then say NO DEAALIO!!!\u201d",
-                     "repeatable":"1",
-                     "stopMove":"0",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"dialogue",
-                 "visible":true,
-                 "width":64,
-                 "x":640,
-                 "y":512
-                },
-                {
-                 "height":64,
-                 "name":"Toad Dialog",
-                 "properties":
-                    {
-                     "actor":"4",
-                     "dialogue":"Hey there traveler! Can you help me with my problem? \n",
-                     "repeatable":"1",
-                     "stopMove":"0",
+                     "stopMove":"true",
                      "triggerTarget":"0"
                     },
                  "rotation":0,
@@ -376,17 +261,17 @@
                  "visible":true,
                  "width":64,
                  "x":192,
-                 "y":512
-                },
+                 "y":448
+                }, 
                 {
                  "height":64,
-                 "name":"Toad Dialog",
+                 "name":"Tnana Dialog",
                  "properties":
                     {
-                     "actor":"4",
-                     "dialogue":"Hey there traveler! Can you help me with my problem? \n",
-                     "repeatable":"1",
-                     "stopMove":"0",
+                     "actor":"2",
+                     "dialogue":"Heh? What do you want? ",
+                     "repeatable":"0",
+                     "stopMove":"1",
                      "triggerTarget":"0"
                     },
                  "rotation":0,
@@ -394,15 +279,15 @@
                  "visible":true,
                  "width":64,
                  "x":256,
-                 "y":576
-                },
+                 "y":448
+                }, 
                 {
                  "height":64,
-                 "name":"Toad Dialog",
+                 "name":"Wiz Dialog",
                  "properties":
                     {
-                     "actor":"4",
-                     "dialogue":"Hey there traveler! Can you help me with my problem? \n",
+                     "actor":"3",
+                     "dialogue":"Merh\u2026. That old wizard is making it hard for me to do business here in this corner shop. I heard you created a new software implementation for that old man. Can you help me out too? I am a lot less nice than that wizard guy. I will sell it to anyone if they offer me more than 792 gold or give me exactly 750 gold say SOLD. If it isnt then say NO DEAALIO!!!",
                      "repeatable":"1",
                      "stopMove":"0",
                      "triggerTarget":"0"
@@ -411,8 +296,26 @@
                  "type":"dialogue",
                  "visible":true,
                  "width":64,
-                 "x":128,
-                 "y":576
+                 "x":512,
+                 "y":320
+                }, 
+                {
+                 "height":64,
+                 "name":"Toad Dialog",
+                 "properties":
+                    {
+                     "actor":"4",
+                     "dialogue":"Hey there traveler! Can you help me with my problem? \nI can\u2019t figure out if I can buy a brand new racing kart for a race I am entering over in Mario Land. The brand new Deluxe Mushmellow, with slick new tire upgrades, plus a cloud so incase I drive off the edge will bring me back on to the course will cost me a lot of money! I need you to write me a program to figure out if this will be in my price range if not I can use it to figure out if i can buy other karts!\n\n\nSo if the Deluxe Mushmellow kart is 800, dollars the new tires is 125, and the cloud kite is 142 dollars how much is that going to cost total? Also, in Mario Land there is a 12.8% tax on final purchase. Then can you see if that number is less than my 1356 dollars that I have in my pocket?  If so, then you say \u201cYAY! I CAN BUY IT!\u201d and if not  \u201cI need more money!\u201d\nCan you write me a program to add 3 items and then adds on the tax and compares if i have enough money or not and outputs the correct response?\n",
+                     "repeatable":"1",
+                     "stopMove":"0",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"dialogue",
+                 "visible":true,
+                 "width":64,
+                 "x":320,
+                 "y":192
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -436,96 +339,6 @@
          "imagewidth":1280,
          "margin":0,
          "name":"RPGpack_sheet",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":64,
-         "tilewidth":64
-        },
-        {
-         "firstgid":261,
-         "image":"..\/assets\/spritesheets\/NPCs\/boat.png",
-         "imageheight":256,
-         "imagewidth":256,
-         "margin":0,
-         "name":"Boat",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":64,
-         "tilewidth":64
-        },
-        {
-         "firstgid":277,
-         "image":"..\/assets\/spritesheets\/NPCs\/Cropped Wizard.png",
-         "imageheight":64,
-         "imagewidth":64,
-         "margin":0,
-         "name":"Cropped Wizard",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":64,
-         "tilewidth":64
-        },
-        {
-         "firstgid":278,
-         "image":"..\/assets\/spritesheets\/NPCs\/Tnana1.png",
-         "imageheight":64,
-         "imagewidth":64,
-         "margin":0,
-         "name":"Tnana1",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":64,
-         "tilewidth":64
-        },
-        {
-         "firstgid":279,
-         "image":"..\/assets\/spritesheets\/NPCs\/LinkRight.png",
-         "imageheight":64,
-         "imagewidth":64,
-         "margin":0,
-         "name":"LinkRight",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":64,
-         "tilewidth":64
-        },
-        {
-         "firstgid":280,
-         "image":"..\/assets\/spritesheets\/NPCs\/Toad.png",
-         "imageheight":64,
-         "imagewidth":64,
-         "margin":0,
-         "name":"Toad",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":64,
-         "tilewidth":64
-        },
-        {
-         "firstgid":281,
-         "image":"..\/assets\/spritesheets\/NPCs\/SwagWiz.png",
-         "imageheight":64,
-         "imagewidth":64,
-         "margin":0,
-         "name":"SwagWiz",
          "properties":
             {
 

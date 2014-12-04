@@ -114,7 +114,7 @@
                  "properties":
                     {
                      "actor":"1",
-                     "dialogue":" sleeping beauty. You are like an old man sleeping for 12 hours straight! But, anyway you must be already getting super tired of typing in Hero.moveUp() a million times. So I heard there were something called arguments in functions! \\nAnd if you forgot what a function is it is just special code that is designed to do a set of instructions, but it conveniently lets you do it with 1 line of code! So try giving Hero.MoveRight() a number and see what happens!",
+                     "dialogue":"Hi there sleeping beauty. You are like an old man sleeping for 12 hours straight! But, anyway you must be already getting super tired of typing in Hero.moveUp() a million times.  I heard there were something called arguments in functions! \nAnd if you forgot what a function is it is just special code that is designed to do a set of instructions, but it conveniently lets you do it with 1 line of code! Try giving Hero.MoveRight() a number and see what happens!",
                      "repeatable":"1",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -133,8 +133,7 @@
                     {
                      "repeatable":"1",
                      "stopMove":"1",
-                     "triggerTarget":"0",
-                     "nextLevel": "2"
+                     "triggerTarget":"0"
                     },
                  "rotation":0,
                  "type":"levelexit",
@@ -158,8 +157,8 @@
                  "type":"dialogue",
                  "visible":true,
                  "width":64,
-                 "x":384,
-                 "y":64
+                 "x":256,
+                 "y":448
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -178,7 +177,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"assets\/spritesheets\/RPGpack_sheet.png",
+         "image":"..\/assets\/spritesheets\/RPGpack_sheet.png",
          "imageheight":832,
          "imagewidth":1280,
          "margin":0,

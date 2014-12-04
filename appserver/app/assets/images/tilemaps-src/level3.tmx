@@ -3,24 +3,6 @@
  <tileset firstgid="1" name="RPGpack_sheet" tilewidth="64" tileheight="64">
   <image source="assets/spritesheets/RPGpack_sheet.png" width="1280" height="832"/>
  </tileset>
- <tileset firstgid="261" name="Boat" tilewidth="64" tileheight="64">
-  <image source="assets/spritesheets/NPCs/boat.png" width="256" height="256"/>
- </tileset>
- <tileset firstgid="277" name="Cropped Wizard" tilewidth="64" tileheight="64">
-  <image source="assets/spritesheets/NPCs/Cropped Wizard.png" width="64" height="64"/>
- </tileset>
- <tileset firstgid="278" name="Tnana1" tilewidth="64" tileheight="64">
-  <image source="assets/spritesheets/NPCs/Tnana1.png" width="64" height="64"/>
- </tileset>
- <tileset firstgid="279" name="LinkRight" tilewidth="64" tileheight="64">
-  <image source="assets/spritesheets/NPCs/LinkRight.png" width="64" height="64"/>
- </tileset>
- <tileset firstgid="280" name="Toad" tilewidth="64" tileheight="64">
-  <image source="assets/spritesheets/NPCs/Toad.png" width="64" height="64"/>
- </tileset>
- <tileset firstgid="281" name="SwagWiz" tilewidth="64" tileheight="64">
-  <image source="assets/spritesheets/NPCs/SwagWiz.png" width="64" height="64"/>
- </tileset>
  <layer name="BackgroundLayer" width="18" height="10">
   <data encoding="base64" compression="zlib">
    eJzTZWBg0CUSiwGxPBArYMEweWQaHybGHHS7sYnjMweXH0hxDyG/IPsZX/jgMgddnBxzsIUNIXPQ1eEKX2LMwWc/seGDy15SzQEA8rwY9w==
@@ -28,7 +10,7 @@
  </layer>
  <layer name="Vendor Floor" width="18" height="10">
   <data encoding="base64" compression="zlib">
-   eJybxMDAMAkHJgXgMmOgzBkFIxMAAMWbC/s=
+   eJybxMDAMAkHJgXgMmOgzBkFlAFuIOYBYl4KzZEHYgUgVqTQHGMgNgFiUwLqAB1SDRs=
   </data>
  </layer>
  <layer name="Shop" width="18" height="10">
@@ -36,76 +18,74 @@
    eJzby8DAsBeIfwHxMyi+CBUjBTxFMucXkjip5nzHgskxZxSMTAAAKBUPsg==
   </data>
  </layer>
- <layer name="BOATS" width="18" height="10">
-  <data encoding="base64" compression="zlib">
-   eJxjYBg4IMyIYLMz4lZHb8A9iNwyGAE/heEjTMPwBQBpWwBN
-  </data>
- </layer>
  <layer name="Trees" width="18" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYMANtqPxt+JRiw8MhDnbsWBcgFz37ESjyTWHVHASitHdgQ4IuecuFOMygxJ/nSXRnJ043PAQizw+cwCsfxhK
-  </data>
- </layer>
- <layer name="Boat Portal" width="18" height="10">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFgxGIMA60C4YmAAAcZwAW
+   eJxjYMANtqPxt+JRiw8MhDnbsWBcgFj3nMEhvhOKiTXnARb9pIKTONyBDIhxz10qmYMOzpJozk4kGhk/JNEcAFGxGcI=
   </data>
  </layer>
  <objectgroup name="ActorLayer">
-  <object name="Wizard" type="npc" x="320" y="128" width="64" height="64">
+  <object name="Wizard" type="npc" x="64" y="576" width="64" height="64">
    <properties>
     <property name="id" value="1"/>
     <property name="npc_id" value="1"/>
     <property name="rotation" value="0"/>
    </properties>
   </object>
-  <object name="Wiz" type="npc" x="640" y="576" width="64" height="64">
+  <object name="Wiz" type="npc" x="512" y="384" width="64" height="64">
+   <properties>
+    <property name="id" value="5"/>
+    <property name="npc_id" value="4"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object name="Link" type="npc" x="512" y="192" width="64" height="64">
+   <properties>
+    <property name="id" value="4"/>
+    <property name="npc_id" value="1"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object name="Hero" type="hero" x="0" y="256" width="64" height="64">
+   <properties>
+    <property name="id" value="0"/>
+    <property name="rotation" value="90"/>
+   </properties>
+  </object>
+  <object name="Toad" type="npc" x="320" y="128" width="64" height="64">
    <properties>
     <property name="id" value="2"/>
     <property name="npc_id" value="2"/>
     <property name="rotation" value="0"/>
    </properties>
   </object>
-  <object name="Link" type="npc" x="512" y="0" width="64" height="64">
+  <object name="Tnana" type="npc" x="320" y="384" width="64" height="64">
    <properties>
     <property name="id" value="3"/>
     <property name="npc_id" value="3"/>
     <property name="rotation" value="0"/>
    </properties>
   </object>
-  <object name="Hero" type="hero" x="64" y="256" width="64" height="64">
-   <properties>
-    <property name="id" value="0"/>
-    <property name="rotation" value="90"/>
-   </properties>
-  </object>
-  <object name="Toad" type="npc" x="192" y="576" width="64" height="64">
-   <properties>
-    <property name="id" value="4"/>
-    <property name="npc_id" value="4"/>
-    <property name="rotation" value="0"/>
-   </properties>
-  </object>
  </objectgroup>
  <objectgroup name="TriggerLayer">
- <object name="NextLevelTrigger" type="levelexit" x="704" y="320" width="64" height="64">
+  <object name="NextLevelTrigger" type="levelexit" x="704" y="320" width="64" height="64">
    <properties>
+    <property name="nextLevel" value="4"/>
     <property name="repeatable" value="1"/>
     <property name="stopMove" value="0"/>
-    <property name="triggerTarget" value="0"/>
-    <property name="nextLevel" value="2" />
    </properties>
   </object>
-  <object name="Wizard Dialog" type="dialogue" x="320" y="192" width="64" height="64">
+  <object name="Wizard Dialog" type="dialogue" x="64" y="512" width="64" height="64">
    <properties>
     <property name="actor" value="1"/>
-    <property name="dialogue" value="Ahh you heard my brother was here too? Me too! But, while I was here I decided to check up on my little store center I have on the pier. But, it looks like my cash register has been acting up and has not been selling at the correct prices. Help me reprogram it young one! So to the left of your screen I have started the program function definition for you."/>
+    <property name="dialogue">Ahh you heard my brother was here too? Me too! But, while I was here I decided to check up on my little store center I have on the pier. But, it looks like my cash register has been acting up and has not been selling at the correct prices. Help me reprogram it young one! So to the left of your screen I have started the program function definition for you. So if you give the function a number in this case, it wants to figure out that number is within my price range.
+So normally I want to sell my items if they offer me $23, but since I am such a nice guy I will not allow my customer be ripped off so I won’t sell anything that is more than $80.”
+“To help you with this problem you will need to remember how to use &gt; and &lt;. But, not only that you will need to know about the AND conditional.</property>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
-  <object name="Link Dialog" type="dialogue" x="512" y="64" width="64" height="64">
+  <object name="Link Dialog" type="dialogue" x="512" y="256" width="64" height="64">
    <properties>
     <property name="actor" value="3"/>
     <property name="dialogue" value="What’s up! I heard that you were looking for Tnana. I heard he was going to traveling off to some secret island for a potion creation ceremony! I think thats his boat about to leave! You can probably sneak on! Go Hero Go!"/>
@@ -114,7 +94,7 @@
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
-  <object name="Link Dialog" type="dialogue" x="576" y="0" width="64" height="64">
+  <object name="Link Dialog" type="dialogue" x="448" y="192" width="64" height="64">
    <properties>
     <property name="actor" value="3"/>
     <property name="dialogue" value="What’s up! I heard that you were looking for Tnana. I heard he was going to traveling off to some secret island for a potion creation ceremony! I think thats his boat about to leave! You can probably sneak on! Go Hero Go!"/>
@@ -123,7 +103,7 @@
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
-  <object name="Tnana Dialog" type="dialogue" x="384" y="320" width="64" height="64">
+  <object name="Tnana Dialog" type="dialogue" x="320" y="448" width="64" height="64">
    <properties>
     <property name="actor" value="2"/>
     <property name="dialogue" value="Heh? What do you want? "/>
@@ -132,25 +112,7 @@
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
-  <object name="Tnana Dialog" type="dialogue" x="512" y="384" width="64" height="64">
-   <properties>
-    <property name="actor" value="2"/>
-    <property name="dialogue" value="Heh? What do you want? "/>
-    <property name="repeatable" value="0"/>
-    <property name="stopMove" value="1"/>
-    <property name="triggerTarget" value="0"/>
-   </properties>
-  </object>
-  <object name="Tnana Dialog" type="dialogue" x="512" y="320" width="64" height="64">
-   <properties>
-    <property name="actor" value="2"/>
-    <property name="dialogue" value="Heh? What do you want? "/>
-    <property name="repeatable" value="0"/>
-    <property name="stopMove" value="1"/>
-    <property name="triggerTarget" value="0"/>
-   </properties>
-  </object>
-  <object name="Tnana Dialog" type="dialogue" x="448" y="384" width="64" height="64">
+  <object name="Tnana Dialog" type="dialogue" x="192" y="448" width="64" height="64">
    <properties>
     <property name="actor" value="2"/>
     <property name="dialogue" value="Heh? What do you want? "/>
@@ -159,7 +121,7 @@
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
-  <object name="Tnana Dialog" type="dialogue" x="384" y="448" width="64" height="64">
+  <object name="Tnana Dialog" type="dialogue" x="256" y="448" width="64" height="64">
    <properties>
     <property name="actor" value="2"/>
     <property name="dialogue" value="Heh? What do you want? "/>
@@ -168,48 +130,24 @@
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
-  <object name="Tnana Dialog" type="dialogue" x="512" y="448" width="64" height="64">
-   <properties>
-    <property name="actor" value="2"/>
-    <property name="dialogue" value="Heh? What do you want? "/>
-    <property name="repeatable" value="0"/>
-    <property name="stopMove" value="1"/>
-    <property name="triggerTarget" value="0"/>
-   </properties>
-  </object>
-  <object name="Wiz Dialog" type="dialogue" x="640" y="512" width="64" height="64">
+  <object name="Wiz Dialog" type="dialogue" x="512" y="320" width="64" height="64">
    <properties>
     <property name="actor" value="3"/>
-    <property name="dialogue" value="“Merh…. That old wizard is making it hard for me to do business here in this corner shop. I heard you created a new software implementation for that old man. Can you help me out too? I am a lot less nice than that wizard guy. I will sell it to anyone if they offer me more than 792 gold or give me exactly 750 gold say SOLD. If it isnt then say NO DEAALIO!!!”"/>
+    <property name="dialogue" value="Merh…. That old wizard is making it hard for me to do business here in this corner shop. I heard you created a new software implementation for that old man. Can you help me out too? I am a lot less nice than that wizard guy. I will sell it to anyone if they offer me more than 792 gold or give me exactly 750 gold say SOLD. If it isnt then say NO DEAALIO!!!"/>
     <property name="repeatable" value="1"/>
     <property name="stopMove" value="0"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
-  <object name="Toad Dialog" type="dialogue" x="192" y="512" width="64" height="64">
+  <object name="Toad Dialog" type="dialogue" x="320" y="192" width="64" height="64">
    <properties>
     <property name="actor" value="4"/>
     <property name="dialogue">Hey there traveler! Can you help me with my problem? 
-</property>
-    <property name="repeatable" value="1"/>
-    <property name="stopMove" value="0"/>
-    <property name="triggerTarget" value="0"/>
-   </properties>
-  </object>
-  <object name="Toad Dialog" type="dialogue" x="256" y="576" width="64" height="64">
-   <properties>
-    <property name="actor" value="4"/>
-    <property name="dialogue">Hey there traveler! Can you help me with my problem? 
-</property>
-    <property name="repeatable" value="1"/>
-    <property name="stopMove" value="0"/>
-    <property name="triggerTarget" value="0"/>
-   </properties>
-  </object>
-  <object name="Toad Dialog" type="dialogue" x="128" y="576" width="64" height="64">
-   <properties>
-    <property name="actor" value="4"/>
-    <property name="dialogue">Hey there traveler! Can you help me with my problem? 
+I can’t figure out if I can buy a brand new racing kart for a race I am entering over in Mario Land. The brand new Deluxe Mushmellow, with slick new tire upgrades, plus a cloud so incase I drive off the edge will bring me back on to the course will cost me a lot of money! I need you to write me a program to figure out if this will be in my price range if not I can use it to figure out if i can buy other karts!
+
+
+So if the Deluxe Mushmellow kart is 800, dollars the new tires is 125, and the cloud kite is 142 dollars how much is that going to cost total? Also, in Mario Land there is a 12.8% tax on final purchase. Then can you see if that number is less than my 1356 dollars that I have in my pocket?  If so, then you say “YAY! I CAN BUY IT!” and if not  “I need more money!”
+Can you write me a program to add 3 items and then adds on the tax and compares if i have enough money or not and outputs the correct response?
 </property>
     <property name="repeatable" value="1"/>
     <property name="stopMove" value="0"/>

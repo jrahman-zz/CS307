@@ -10,7 +10,7 @@
  </layer>
  <layer name="BuildingsWalls" width="18" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYKANuATEz4hQ50QFu5yQMAw0AXEzmWYgm7UKiFeTYE4oEIch4XCoeDwQJ0DZF5EwLmAHxLZAnAWlHaDi3kDsA8TzSHATNuAGxJ4UmjEYAQAmJQ5r
+   eJxjYKANuATEz4hQ50QFu5yQMAw0AXEzmWYgm7UKiFeTYE4oEIch4XCoeDwQJ0DZF5EwLmAHxLZAnAWlHaDi3kDsA8TzSHATNuAGxJ5Eqv2JhgczAACsGxJP
   </data>
  </layer>
  <layer name="BuildingsRoofWindow" width="18" height="10">
@@ -20,7 +20,7 @@
  </layer>
  <layer name="TreeLayer" width="18" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYKA/OEslcx5SqP8Mhfq3A/FpIH4AxDsoMAek9z6SGZSYRS1wjkL9oDjeBcSPoDQ5AKTvIZTeSaQeAGEkD5s=
+   eJxjYKA/OEslcx5SqP8Mhfq3A/FpIH5AoTk7gPg+lGZAoskF1AjfcwyUhS/IDbuA+BGUJgfsgroBRO8kUg8Ar2QQkQ==
   </data>
  </layer>
  <objectgroup name="ActorLayer">
@@ -30,7 +30,7 @@
     <property name="rotation" value="0"/>
    </properties>
   </object>
-  <object name="Koopa" type="npc" x="192" y="64" width="64" height="64">
+  <object name="Koopa" type="npc" x="384" y="0" width="64" height="64">
    <properties>
     <property name="id" value="2"/>
     <property name="npc_id" value="2"/>
@@ -44,7 +44,7 @@
     <property name="rotation" value="0"/>
    </properties>
   </object>
-  <object name="Peachy" type="npc" x="640" y="128" width="64" height="64">
+  <object name="Peachy" type="npc" x="576" y="64" width="64" height="64">
    <properties>
     <property name="id" value="4"/>
     <property name="npc_id" value="4"/>
@@ -58,7 +58,7 @@
     <property name="rotation" value="0"/>
    </properties>
   </object>
-  <object name="Wizard" type="npc" x="320" y="384" width="64" height="64">
+  <object name="Wizard" type="npc" x="448" y="384" width="64" height="64">
    <properties>
     <property name="id" value="1"/>
     <property name="npc_id" value="1"/>
@@ -67,10 +67,11 @@
   </object>
  </objectgroup>
  <objectgroup name="TriggerLayer">
-  <object name="Wizard Dialog" type="dialogue" x="256" y="384" width="64" height="64">
+  <object name="Wizard Dialog" type="dialogue" x="384" y="384" width="64" height="64">
    <properties>
     <property name="actor" value="1"/>
     <property name="dialogue" value="Hello young one. Since you graciously accepted to take on my quest I must teach you a few things so you can survive in the wilderness. First I will teach you how to do math with python. It is fairly easy. All you do is type in your equation and hit enter! Its that simple. So to help you practice I have a small problem for you to solve."/>
+    <property name="priority" value="5"/>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
@@ -85,7 +86,7 @@
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
-  <object name="Peachy Dialog" type="dialogue" x="576" y="128" width="64" height="64">
+  <object name="Peachy Dialog" type="dialogue" x="640" y="128" width="64" height="64">
    <properties>
     <property name="actor" value="4"/>
     <property name="dialogue" value="I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you."/>
@@ -103,10 +104,10 @@
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
-  <object name="Koopa Dialog" type="dialogue" x="192" y="0" width="64" height="64">
+  <object name="Koopa Dialog" type="dialogue" x="384" y="64" width="64" height="64">
    <properties>
     <property name="actor" value="2"/>
-    <property name="dialogue" value="The bottle states there are 18 ozs in the bottle. But I need 1372 grams. Do I have enough? Hint:  I believe 1 oz is equal to 28.3 grams. "/>
+    <property name="dialogue" value="I don’t know anything about Tnana. But, maybe if you can help me figure out how many ounces are in a gram because the bottle of magic dust i bought is in ounces, but i’ve only used grams my entire life. The bottle states there are 18 ozs in the bottle. But I need 1372 grams. Do I have enough? Hint:  I believe 1 oz is equal to 28.3 grams."/>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
@@ -117,8 +118,7 @@
     <property name="actor" value="5"/>
     <property name="dialogue">Hello Traveler!!! How can I help you?! 
 Oh? You want a ride from the ALMIGHTY WIZ?! 
-Well It isn’t free ya’ kno’?!” 
-</property>
+Well It isn’t free ya’ kno’?! If I transport you I will use up exactly 83,729 power strength. But, right now I have 912,378 power strength and I need enough energy to transfer me back home so I can recharge. I don’t want to sleep here for the night ya’ kno’ buddy? So, for me to get home it will cost me 800,000 power strength. Can I make both the trips without getting too tired? Talk to me by using Hero.print(Yes) Or Hero.print(No)</property>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="0"/>
     <property name="triggerTarget" value="0"/>
@@ -133,6 +133,24 @@ Well It isn’t free ya’ kno’?!”
 </property>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="0"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+  <object name="Peachy Dialog" type="dialogue" x="576" y="128" width="64" height="64">
+   <properties>
+    <property name="actor" value="4"/>
+    <property name="dialogue" value="I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you."/>
+    <property name="repeatable" value="1"/>
+    <property name="stopMove" value="0"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+  <object name="Wizard Obj Trig" type="objective" x="384" y="384" width="64" height="64">
+   <properties>
+    <property name="id" value="1"/>
+    <property name="priority" value="10"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>

@@ -13,7 +13,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 210, 230, 0, 0, 0, 0, 0, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 0, 0, 130, 131, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 66, 66, 0, 170, 171, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 86, 86, 86, 87, 0, 95, 96, 0, 209, 209, 209, 0, 0, 0, 0, 0, 0, 62, 61, 106, 61, 64, 0, 75, 76, 158, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 70, 73, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 210, 230, 0, 0, 0, 0, 0, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 0, 0, 130, 131, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 66, 66, 0, 170, 171, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 86, 86, 86, 87, 0, 95, 96, 0, 209, 209, 209, 0, 0, 0, 0, 0, 0, 62, 61, 106, 61, 64, 0, 75, 76, 158, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 70, 73, 0, 0, 0, 0, 0, 0, 0, 0, 0, 249, 249, 249, 249, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
          "name":"BuildingsWalls",
          "opacity":1,
@@ -35,7 +35,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 225, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 204, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 183, 203, 224, 184, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 184, 223, 184, 0, 184, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 206, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 186, 226, 186, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 186, 225, 186, 185, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 225, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 204, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 183, 203, 224, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 184, 223, 184, 0, 184, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 206, 225, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 186, 226, 186, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 186, 225, 186, 185, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
          "name":"TreeLayer",
          "opacity":1,
@@ -78,8 +78,8 @@
                  "type":"npc",
                  "visible":true,
                  "width":64,
-                 "x":192,
-                 "y":64
+                 "x":384,
+                 "y":0
                 }, 
                 {
                  "height":64,
@@ -110,8 +110,8 @@
                  "type":"npc",
                  "visible":true,
                  "width":64,
-                 "x":640,
-                 "y":128
+                 "x":576,
+                 "y":64
                 }, 
                 {
                  "height":64,
@@ -142,7 +142,7 @@
                  "type":"npc",
                  "visible":true,
                  "width":64,
-                 "x":320,
+                 "x":448,
                  "y":384
                 }],
          "opacity":1,
@@ -164,6 +164,7 @@
                     {
                      "actor":"1",
                      "dialogue":"Hello young one. Since you graciously accepted to take on my quest I must teach you a few things so you can survive in the wilderness. First I will teach you how to do math with python. It is fairly easy. All you do is type in your equation and hit enter! Its that simple. So to help you practice I have a small problem for you to solve.",
+                     "priority":"5",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -172,7 +173,7 @@
                  "type":"dialogue",
                  "visible":true,
                  "width":64,
-                 "x":256,
+                 "x":384,
                  "y":384
                 }, 
                 {
@@ -208,7 +209,7 @@
                  "type":"dialogue",
                  "visible":true,
                  "width":64,
-                 "x":576,
+                 "x":640,
                  "y":128
                 }, 
                 {
@@ -235,7 +236,7 @@
                  "properties":
                     {
                      "actor":"2",
-                     "dialogue":"The bottle states there are 18 ozs in the bottle. But I need 1372 grams. Do I have enough? Hint:  I believe 1 oz is equal to 28.3 grams. ",
+                     "dialogue":"I don\u2019t know anything about Tnana. But, maybe if you can help me figure out how many ounces are in a gram because the bottle of magic dust i bought is in ounces, but i\u2019ve only used grams my entire life. The bottle states there are 18 ozs in the bottle. But I need 1372 grams. Do I have enough? Hint:  I believe 1 oz is equal to 28.3 grams.",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -244,8 +245,8 @@
                  "type":"dialogue",
                  "visible":true,
                  "width":64,
-                 "x":192,
-                 "y":0
+                 "x":384,
+                 "y":64
                 }, 
                 {
                  "height":64,
@@ -253,7 +254,7 @@
                  "properties":
                     {
                      "actor":"5",
-                     "dialogue":"Hello Traveler!!! How can I help you?! \nOh? You want a ride from the ALMIGHTY WIZ?! \nWell It isn\u2019t free ya\u2019 kno\u2019?!\u201d \n",
+                     "dialogue":"Hello Traveler!!! How can I help you?! \nOh? You want a ride from the ALMIGHTY WIZ?! \nWell It isn\u2019t free ya\u2019 kno\u2019?! If I transport you I will use up exactly 83,729 power strength. But, right now I have 912,378 power strength and I need enough energy to transfer me back home so I can recharge. I don\u2019t want to sleep here for the night ya\u2019 kno\u2019 buddy? So, for me to get home it will cost me 800,000 power strength. Can I make both the trips without getting too tired? Talk to me by using Hero.print(Yes) Or Hero.print(No)",
                      "repeatable":"0",
                      "stopMove":"0",
                      "triggerTarget":"0"
@@ -282,6 +283,42 @@
                  "width":64,
                  "x":1024,
                  "y":576
+                }, 
+                {
+                 "height":64,
+                 "name":"Peachy Dialog",
+                 "properties":
+                    {
+                     "actor":"4",
+                     "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
+                     "repeatable":"1",
+                     "stopMove":"0",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"dialogue",
+                 "visible":true,
+                 "width":64,
+                 "x":576,
+                 "y":128
+                }, 
+                {
+                 "height":64,
+                 "name":"Wizard Obj Trig",
+                 "properties":
+                    {
+                     "id":"1",
+                     "priority":"10",
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"objective",
+                 "visible":true,
+                 "width":64,
+                 "x":384,
+                 "y":384
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -300,7 +337,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"assets\/spritesheets\/RPGpack_sheet.png",
+         "image":"..\/assets\/spritesheets\/RPGpack_sheet.png",
          "imageheight":832,
          "imagewidth":1280,
          "margin":0,
