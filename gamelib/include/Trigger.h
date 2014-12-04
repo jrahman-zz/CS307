@@ -36,6 +36,8 @@ public:
 
     bool isTriggerable() const;
 
+    unsigned int getPriority() const;
+
     static TriggerType typeFromString(string str);
     
     static shared_ptr<Trigger> createFromJson(TriggerType type, Json::Value val);
@@ -75,6 +77,8 @@ private:
      * Has this trigger been activated, if repeatable, reset once the hero moves off
      */
     bool m_triggered;
+
+    unsigned int m_priority;
 };
 
 #endif

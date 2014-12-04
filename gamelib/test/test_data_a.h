@@ -84,7 +84,8 @@ string testDataA = R"({
 "def tsp(graph, starting_point):
     # TODO, implement the traveling salesman problem solution here
     pass
-",                      "objectiveId": "42"
+",                      "objectiveId": "42",
+                        "priority": "5"
                      },
                      "rotation": 0,
                      "type": "objective",

@@ -30,6 +30,7 @@ Json::Value ActionLog::getJsonLog() const {
         }
 
         Json::Value list(Json::ValueType::arrayValue);
+        // Sort by priority first
         for (auto it2 = actions.begin(); it2 != actions.end(); it2++) {
             auto entry = *it2;
             list.append(entry->toJson());
@@ -41,6 +42,5 @@ Json::Value ActionLog::getJsonLog() const {
 }
 
 void ActionLog::reset() {
-    cout << "Reseting action log" << endl;
     m_records.clear();
 }
