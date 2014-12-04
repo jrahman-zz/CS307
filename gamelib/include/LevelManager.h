@@ -2,6 +2,7 @@
 #define LEVEL_MANAGER_H
 
 #include <unordered_map>
+#include <list>
 #include <memory>
 #include <string>
 
@@ -68,7 +69,7 @@ protected:
     /*
      * Trigger resources
      */
-    unordered_map<Position, shared_ptr<Trigger>> m_triggers;
+    unordered_map<Position, list<shared_ptr<Trigger>>> m_triggers;
     unordered_map<string, shared_ptr<Trigger>> m_triggersName;
 
     shared_ptr<GameState> m_gameState;

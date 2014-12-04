@@ -40,7 +40,7 @@ bool LevelManager::removeActor(Position pos) {
 
 bool LevelManager::addTrigger(shared_ptr<Trigger> trigger) {
     if (m_triggersName.find(trigger->getName()) == m_triggersName.end()) {
-        m_triggers.emplace(trigger->getPosition(), trigger);
+        m_triggers[trigger->getPosition()].push_front(trigger);
         m_triggersName.emplace(trigger->getName(), trigger);
         return true;
     } else {
@@ -172,14 +172,18 @@ void LevelManager::onPostInteract(Interactable& src, Interactable& target) {
  */
 void LevelManager::runTriggers(shared_ptr<Interactable> actor, Position old) {
     
-    auto current = actor->getPosition();
-    auto it = m_triggers.find(current);
-    if (it != m_triggers.end()) {
-        m_triggers[current]->arrive(*actor, m_gameState);
+    auto position = actor->getPosition();
+    auto sorter = [](shared_ptr<Trigger> a, shared_ptr<Trigger> b) {
+        return a->getPriority() > b->getPriority();
+    };
+
+    m_triggers[position].sort(sorter);
+    for (auto trigger : m_triggers[position]) {
+        trigger->arrive(*actor, m_gameState);
     }
 
-    it = m_triggers.find(old);
-    if (it != m_triggers.end()) {
-        m_triggers[old]->leave(*actor, m_gameState);
+    m_triggers[old].sort(sorter);
+    for (auto trigger : m_triggers[old]) {
+        trigger->leave(*actor, m_gameState);
     }
 }

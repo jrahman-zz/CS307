@@ -1,5 +1,8 @@
 #include "Engine.h"
 
+#include "ObjectiveTrigger.h"
+#include "CompletedObjectiveLogEntry.h"
+
 Engine::Engine(string levelJson)
     : m_levelJson(levelJson)
     , m_isActive(true)
@@ -54,6 +57,15 @@ void Engine::addTriggers(vector<shared_ptr<Trigger>> triggers) {
      for (auto triggerIt = triggers.begin(); triggerIt != triggers.end(); triggerIt++) {
         auto trigger = *triggerIt;
         trigger->registerLogObserver(m_actionLog);
+
+        // Track and set the objective count
+        unsigned int objectiveCount = 0;
+        auto objective = dynamic_pointer_cast<ObjectiveTrigger>(trigger);
+        if (objective != nullptr) {
+            objectiveCount++;
+        }
+
+        m_gameState->setTotalObjectives(objectiveCount);
 
         if (!m_levelManager->addTrigger(*triggerIt)) {
             throw runtime_error("Failed to add trigger");
@@ -178,14 +190,22 @@ void Engine::endObjective(bool success) {
     if (m_gameState->getObjectiveInProgress()) {
         m_gameState->setObjectiveInProgress(false);
 
-        auto total_objectives = m_gameState->getTotalObjectives();
-        auto completed_objectives = m_gameState->getCompletedObjectives();
+        auto total = m_gameState->getTotalObjectives();
+        auto completed = m_gameState->getCompletedObjectives();
 
-        if (completed_objectives == total_objectives) {
-            throw runtime_error("Too many objectives finished, overacheiver");
+        if (completed == total) {
+            throw runtime_error("Too many objectives finished, over achiever");
         }
 
-        m_gameState->setCompletedObjectives(completed_objectives + 1);
+        if (success) {
+            m_gameState->setCompletedObjectives(completed + 1);
+            m_gameState->setObjectiveInProgress(false);
+            auto entry = shared_ptr<CompletedObjectiveLogEntry>(
+                    new CompletedObjectiveLogEntry(
+                        completed + 1,
+                        total));
+            m_actionLog->onLog(entry);
+        }
     } else {
         throw runtime_error("Start an objective first");
     }

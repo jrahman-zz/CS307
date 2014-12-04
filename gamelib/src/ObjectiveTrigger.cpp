@@ -9,7 +9,9 @@ ObjectiveTrigger::ObjectiveTrigger(Json::Value value)
     , m_templateCode(value["properties"].get("templateCode", "").asString())
     , m_objectiveId(stoi(value["properties"]["objectiveId"].asString()))
 {
-
+    if (isRepeatable()) {
+        throw runtime_error("Objective triggers not allowed to repeat");
+    }
 }
 
 ObjectiveTrigger::~ObjectiveTrigger() {}

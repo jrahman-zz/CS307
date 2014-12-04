@@ -14,6 +14,7 @@ Trigger::Trigger(Json::Value value)
     , m_stopMovement(stoi(value["properties"].get("stopMove", "1").asString()))
     , m_triggerTarget(stoi(value["properties"].get("triggerTarget", "-1").asString()))
     , m_triggered(false)
+    , m_priority(stoi(value["properties"].get("priority", "0").asString()))
 {}
 
 Trigger::~Trigger() {}
@@ -57,6 +58,10 @@ bool Trigger::isTriggered() const {
 
 bool Trigger::isRepeatable() const {
     return m_repeatable;
+}
+
+unsigned int Trigger::getPriority() const {
+    return m_priority;
 }
 
 shared_ptr<Trigger> Trigger::createFromJson(TriggerType type, Json::Value value) {
