@@ -48,6 +48,10 @@ void assertTrue(bool condition, const string &errMessage) {
     }
 }
 
+void assertFalse(bool condition, const string &errMessage) {
+    assertTrue(!condition, errMessage);
+}
+
 void validateLevelTileLayer(Json::Value tileLayer, int index, int tilesetMaxValue) {
     int width = tileLayer["width"].asInt();
     int height = tileLayer["height"].asInt();
@@ -86,7 +90,12 @@ void validateLevelObjectLayer(Json::Value objLayer, int index) {
                     string("Dialogue trigger without dialogue prop"));
             } else if (type == "levelexit") {
                 assertTrue(props.isMember("nextLevel"),
-                    string("Dialogue trigger without nextLevel prop"));
+                    string("Levelexit trigger without nextLevel prop"));
+            } else if (type == "objective") {
+                assertTrue(props.isMember("id"),
+                    string("Objective trigger without id prop"));
+                assertFalse(props["repeatable"].asBool(),
+                    string("Objective trigger should not be repeatable"));
             } else {
                 throw runtime_error(string("Invalid trigger type: ") + type);
             }
