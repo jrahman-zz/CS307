@@ -28,30 +28,45 @@ def submit_objective():
     global appcontext
     loadedjson = request.get_json()
     
-    # TODO, this needs to be updated based on the final format
     code = loadedjson['codelines']
+    validation = loadedjson['validationcode']
+    outname = loadedjson['outname']
+    objectiveid = loadedjson['objectiveid']
+
+    # TODO Probably should have some error checking for the various inputs
+    
+    code = code + "\n" + validation
     
     try:
         # Start objective
-        engine.startObjective()
-        success = run_objective(code)
+        engine.startObjective(objectiveid)
+        (success, message) = run_objective(code, outname)
         engine.endObjective(success)
+    except Exception as e:
+        print(str(e))
+        engine.endObjective(False)
+        return Response(status = 500)
 
-        # TODO, does the game lib generate the entire response
-        # or do we try to partially create the response ourselves here??
-        partialResponse = engine.getResult()
-        return Response(response=partialResponse,
+    if success:
+        return Response(response=engine.getResult(),
+                    status=200,
+                    mimetype="application/json")
+    else:
+        # TODO, create custom error message using message
+        return Response(response=TODO,
                     status=200,
                     mimetype="application/json")
 
-    # We need feedback provided here
+def run_objective(code, outname):
+    global appcontext
 
-    except Exception as e:
-        print str(e) # TODO, better error handling
-        return Response(status = 500)
-
-def run_objective(code):
-    pass # TODO
+    # Use empty dict for context since we don't want/need 
+    # context from the submission to carry over/carry in
+    context = {}
+    (context, status) = execute(code, appcontext)
+    if outname not in context:
+        raise Exception("Result variable not found")
+    return context[outname]
 
 @app.route('/level/submit', methods=['POST'])
 def submit_level():
@@ -61,11 +76,14 @@ def submit_level():
     code = loadedjson['codelines']
     code = prefix + code + suffix
     try:
-        (appcontext, status) = execute(code, appcontext, engine)
+        engine.startSubmission()
+        (appcontext, status) = execute(code, appcontext)
+        engine.endSubmission()
     except Exception as e:
         print str(e)
+        engine.endSubmission()
         return Response(status = 500)
-
+    
     print('status:' + str(status))
     if len(status) == 0:
         return Response(response=engine.getResult(),

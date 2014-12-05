@@ -70,8 +70,8 @@ def getimporterror(lineno, line):
     returned_info['message'] = "You tried to import a module, but importing is not allowed."
     return returned_info
 
-def execute(code, context, engine):
-    print("Executing code")
+def execute(code, context):
+    print("Executing")
     returned_errors = {}
     restricted_globals = dict(__builtins__ = safe_builtins)
     execution_context = joincontexts(restricted_globals, context)
@@ -80,7 +80,6 @@ def execute(code, context, engine):
     if imports is not None:
         return (execution_context, getimporterror(imports['lineno'], imports['line']))
 
-    engine.startSubmission()
     try:
 
         # Compile restricted is completely broken when interacting with libgame
@@ -96,6 +95,5 @@ def execute(code, context, engine):
     except Exception as e:
         returned_errors = exceptiondetails(code)
 
-    engine.endSubmission()
     print('returning errors' + str(returned_errors))
     return (execution_context, returned_errors)
