@@ -11,10 +11,11 @@ Position::Position(int x, int y)
 {}
 
 Position::Position() 
-    : m_xValid(false)
-    , m_yValid(false)
-    , m_x(0)
+    : m_x(0)
     , m_y(0)
+    , m_xValid(false)
+    , m_yValid(false)
+
 {}
 
 Position::Position(const Position& rhs)

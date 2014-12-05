@@ -4,12 +4,12 @@
 #include "CompletedObjectiveLogEntry.h"
 
 Engine::Engine(string levelJson)
-    : m_levelJson(levelJson)
+    : m_levelJson(levelJson) 
+    , m_levelManager(nullptr) 
     , m_isActive(true)
-    , m_levelManager(nullptr)
+    , m_gameState(nullptr)
     , m_timekeeper(new TimeKeeper())
     , m_actionLog(new ActionLog(m_timekeeper))
-    , m_gameState(nullptr)
 {
     init(m_levelJson);    
 }
