@@ -25,6 +25,7 @@ public:
     int getLevelID() const;
     int getNextLevelID() const;
     int getClassID() const;
+    int getCurrentObjectiveID() const;
 
     void setCanMove(bool val);
     void setLevelOver(bool val);
@@ -32,6 +33,7 @@ public:
     void setObjectiveInProgress(bool inProgress);
     void setCompletedObjectives(unsigned int objectives);
     void setTotalObjectives(unsigned int objectives);
+    void setCurrentObjectiveID(int objectiveID);
 protected:
 
     GameState() = delete;
@@ -43,6 +45,7 @@ protected:
 
     unsigned int m_totalObjectives;
     unsigned int m_completedObjectives;
+    int m_currentObjectiveID;
 
     int m_userID;
     int m_levelID;

@@ -52,7 +52,7 @@ public:
     /*
      * Begin objective mode
      */
-    void startObjective();
+    void startObjective(int objectiveID);
 
     /*
      * exit objective mode

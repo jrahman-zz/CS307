@@ -178,12 +178,18 @@ shared_ptr<HeroFascade> Engine::getHero() const {
     return shared_ptr<HeroFascade>(new HeroFascade(m_hero, m_timekeeper));
 }
 
-void Engine::startObjective() {
-    if (!m_gameState->getObjectiveInProgress()) {
-        m_gameState->setObjectiveInProgress(true);
-    } else {
-        throw runtime_error("Cannot start another objective");
+void Engine::startObjective(int objectiveID) {
+    
+    m_actionLog->reset();
+    
+    if (m_gameState->getObjectiveInProgress()) {
+        throw runtime_error("Cannot start another objective now");
     }
+
+    if (m_gameState->getCurrentObjectiveID() != objectiveID) {
+        throw runtime_error("Objective doesn't match expected value");
+    }
+    m_gameState->setObjectiveInProgress(true);
 }
 
 void Engine::endObjective(bool success) {

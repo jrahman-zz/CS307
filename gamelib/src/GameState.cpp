@@ -11,6 +11,7 @@ GameState::GameState(
     , m_objectiveInProgress(false)
     , m_totalObjectives(0)
     , m_completedObjectives(0)
+    , m_currentObjectiveID(-1)
     , m_userID(userID)
     , m_levelID(levelID)
     , m_nextLevelID(nextLevelID)
@@ -65,6 +66,10 @@ int GameState::getClassID() const {
     return m_classID;
 }
 
+int GameState::getCurrentObjectiveID() const {
+    return m_currentObjectiveID;
+}
+
 void GameState::setObjectiveInProgress(bool value) {
     m_objectiveInProgress = value;
 }
@@ -89,4 +94,7 @@ void GameState::setNextLevel(int levelID) {
     m_nextLevelID = levelID;
 }
 
+void GameState::setCurrentObjectiveID(int objectiveID) {
+    m_currentObjectiveID = objectiveID;
+}
 

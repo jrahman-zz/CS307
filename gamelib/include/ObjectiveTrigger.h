@@ -21,7 +21,7 @@ private:
     string m_dialogue;
     string m_prompt;
     string m_templateCode;
-    int m_objectiveId;
+    int m_objectiveID;
 };
 
 #endif
