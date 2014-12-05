@@ -29,7 +29,7 @@ START_TEST("objective_start");
         FAIL_TEST("objective_start");
     }
 
-    // Enemy in the way
+    // Blocked since we started the objective
     if (hero->moveLeft()) {
         cout << "moveLeft() failed, movement occured after starting objective" << endl;
         FAIL_TEST("objective_start");

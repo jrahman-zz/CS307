@@ -9,19 +9,28 @@
 
 #include "test_data_a.h"
 
-string expected_log = R"({"classID":2,"completed":false,"levelID":1,"log":[[],[{"data":{"completedobjectives":1,"totalobjectives":1},"type":"completedobjective"}]],"nextLevel":-1,"userID":0}
+string expected_log = R"({"classID":2,"completed":false,"levelID":1,"log":[[],[],[{"data":{"completedobjectives":1,"totalobjectives":1},"type":"completedobjective"}]],"nextLevel":-1,"userID":0}
 )";
 
 START_TEST("objective_block");
     Engine engine(testDataA);
-    
-    engine.startObjective();
 
     auto hero = engine.getHero();
     if (hero == nullptr) {
         cout << "Failed to return hero" << endl;
         FAIL_TEST("objective_block");
     }
+
+    // Move onto the objective to trigger it
+    engine.startSubmission();
+
+    if (!hero->moveRight()) {
+        cout << "Failed to move hero" << endl;
+        FAIL_TEST("objective_block");
+    }
+    engine.endSubmission();
+
+    engine.startObjective(42);
 
     // Should not be allowed to move
     if (hero->moveRight()) {
