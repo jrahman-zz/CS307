@@ -8,8 +8,13 @@ LevelExitTrigger::LevelExitTrigger(Json::Value value)
 LevelExitTrigger::~LevelExitTrigger() {}
 
 bool LevelExitTrigger::arriveImpl(Interactable& target, shared_ptr<GameState> state) {
-    state->setLevelOver(true);
-    state->setNextLevel(m_nextLevelID);
+    
+    auto completed = state->getCompletedObjectives();
+    auto total = state->getTotalObjectives();
+    if (completed == total) {
+        state->setLevelOver(true);
+        state->setNextLevel(m_nextLevelID);
+    }
 
     return true;
 }
