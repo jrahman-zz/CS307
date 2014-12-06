@@ -9,6 +9,11 @@ class Settings(config: Config, extendedSystem: ExtendedActorSystem) extends Exte
     val Interface = config.getString("server.http.interface")
   }
   
+  object Docker {
+    val Hostname  = config.getString("server.docker.hostname")
+    val Port      = config.getInt("server.docker.port")
+  }
+  
   object Container {
     val PingInterval      = config.getDouble("server.container.ping-interval")
     val ContainerBindPort = config.getInt("server.container.container-bind-port")
