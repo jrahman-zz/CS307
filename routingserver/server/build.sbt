@@ -2,7 +2,9 @@ name := "routingserver"
 
 version := "SNAPSHOT"
 
-scalaVersion := "2.10.4"
+scalaVersion := "2.11.2"
+
+resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 
 libraryDependencies ++= Seq(
     "com.typesafe.akka" %% "akka-actor" % "2.3.6"
@@ -15,12 +17,16 @@ libraryDependencies ++= Seq(
     "io.spray" %% "spray-json" % "1.3.0"
 )
 
-libraryDependencies += "com.typesafe" % "config" % "1.2.0"
+libraryDependencies += "com.typesafe" % "config" % "1.2.1"
 
 libraryDependencies ++= Seq(
     "org.slf4j" % "slf4j-api" % "1.7.7",
     "org.slf4j" % "slf4j-simple" % "1.7.7"
 )
+
+resolvers += Resolver.sonatypeRepo("snapshots")
+
+libraryDependencies += "org.almoehi" %% "reactive-docker" % "0.1-SNAPSHOT"
 
 resolvers += "softprops-maven" at "http://dl.bintray.com/content/softprops/maven"
 

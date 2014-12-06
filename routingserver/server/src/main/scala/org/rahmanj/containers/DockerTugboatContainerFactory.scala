@@ -31,7 +31,7 @@ import org.rahmanj.Settings
 /** [[ContainerFactory]] to create [[DockerContainer]] instances
  * 
  */
-class DockerContainerFactory extends ContainerFactory {
+class DockerTugboatContainerFactory extends ContainerFactory {
 
   implicit val system = ActorSystem()
   
