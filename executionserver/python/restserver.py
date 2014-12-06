@@ -52,8 +52,7 @@ def submit_objective():
                     status=200,
                     mimetype="application/json")
     else:
-        # TODO, create custom error message using message
-        return Response(response=TODO,
+        return Response(response=json.dumps({"errormessage":"Could not run objective. Failed with message: "+str(message)}),
                     status=200,
                     mimetype="application/json")
 
