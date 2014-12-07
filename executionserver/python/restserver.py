@@ -27,11 +27,19 @@ def submit_objective():
     global engine
     global appcontext
     loadedjson = request.get_json()
-    
-    code = loadedjson['codelines']
-    validation = loadedjson['validationcode']
-    outname = loadedjson['outname']
-    objectiveid = loadedjson['objectiveid']
+
+    try:
+        code = loadedjson['codelines']
+        validation = loadedjson['validationcode']
+        outname = loadedjson['outname']
+        objectiveid = loadedjson['objectiveid']
+    except KeyError:
+        return Response(status = 400)  #The json posted does not contain the keys we expected
+    except Exception:
+        return Response(status = 500)
+
+    if not code or not validation or not outname or not objectiveid:
+        return Response(status = 400)
 
     # TODO Probably should have some error checking for the various inputs
     
