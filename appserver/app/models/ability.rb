@@ -11,17 +11,21 @@ class Ability
     end
 
     # Instructor roles
-    Course.with_role(:instructor, user).each do |course|
-      can :manage, course
-      can :manage, course.levels
-      can :manage, Role, resource_id: course.id, resource_type: "Course"
+    if Role.find_by(name: 'instructor')
+      Course.with_role(:instructor, user).each do |course|
+        can :manage, course
+        can :manage, course.levels
+        can :manage, Role, resource_id: course.id, resource_type: "Course"
+      end
     end
 
 
     # Student roles
-    Course.with_role(:student, user).each do |course|
-      can [:read, :submit, :withdraw], course
-      can [:read, :play], course.levels
+    if Role.find_by(name: 'student')
+      Course.with_role(:student, user).each do |course|
+        can [:read, :submit, :withdraw], course
+        can [:read, :play], course.levels
+      end
     end
 
 

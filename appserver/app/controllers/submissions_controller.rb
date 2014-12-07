@@ -2,6 +2,8 @@ class SubmissionsController < ApplicationController
   # Allow submissions to be handled asynchronously
   include AsyncController
 
+  ROUTING_SERVER = 'http://klamath.dnsdynamic.com:8088'
+
   def show
     @submission = Submission.find(params[:id])
   end
@@ -10,7 +12,7 @@ class SubmissionsController < ApplicationController
   def init_server
     # Only allow submissions from users who are signed in
     if user_signed_in?
-      uri = 'http://klamath.dnsdynamic.com:8088/session/create'
+      uri = ROUTING_SERVER + '/session/create'
       http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: {
         levelID: params[:level_id],
         courseID: params[:course_id],
@@ -36,6 +38,8 @@ class SubmissionsController < ApplicationController
   end
 
   # POST /submissions/submit
+  # WILL BE:
+  # POST /submissions/submit/level
   def submit
     # Only allow submissions from users who are signed in
     if user_signed_in?
@@ -46,13 +50,13 @@ class SubmissionsController < ApplicationController
       # Explicitly set the user to avoid client side hijacking
       @info[:user_id] = current_user.id
 
-      uri = 'http://klamath.dnsdynamic.com:8088/level/submit/'
+      uri = ROUTING_SERVER + '/level/submit/'
       http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: { codelines: params[:code] }
 
       self.response_body = ''
       self.status = -1
 
-      puts '\n\n#### Sent a request to Jason ####\n\n'
+      puts '\n\n#### Sent a level grading request to Jason ####\n\n'
 
       http.callback do
         finish_request do
@@ -64,6 +68,52 @@ class SubmissionsController < ApplicationController
       @submission = Submission.find_or_create_by(@info)
       @submission.save
 
+
+      @attempt = Attempt.new
+      @attempt.submission_id = @submission.id
+      @attempt.code = params[:code]
+      @attempt.hint = nil
+      @attempt.submitted_at = Time.now
+
+      @attempt.save
+    else
+      render status: 403 # Forbidden
+    end
+
+    render json: @attempt
+  end
+
+  # POST /submissions/submit/challenge
+  def submit_challenge
+    if user_signed_in?
+      @info = submission_params
+      @info[:language_id] = 1
+      @info[:status_id] = 1
+      @info[:user_id] = current_user.id
+
+      @challenge = Challenge.find(params[:challenge_id])
+
+      uri = ROUTING_SERVER + '/challenge/submit/'
+      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: {
+        code: params[:code],
+        validationCode: @challenge.validation_code,
+        outname: @challenge.outname
+      }
+
+      self.reponse_body = ''
+      self.status = -1
+
+      puts '\n\n#### Sent an objective grading request to Jason ####\n\n'
+
+      http.callback do
+        finish_request do
+          puts '\n\n#### Routing Server response captured, returning to client ####\n\n'
+          render json: http.response
+        end
+      end
+
+      @submission = Submission.find_or_create_by(@info)
+      @submission.save
 
       @attempt = Attempt.new
       @attempt.submission_id = @submission.id
