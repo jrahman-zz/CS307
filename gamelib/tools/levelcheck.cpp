@@ -92,9 +92,9 @@ void validateLevelObjectLayer(Json::Value objLayer, int index) {
                 assertTrue(props.isMember("nextLevel"),
                     string("Levelexit trigger without nextLevel prop"));
             } else if (type == "objective") {
-                assertTrue(props.isMember("id"),
-                    string("Objective trigger without id prop"));
-                assertFalse(props["repeatable"].asBool(),
+                assertTrue(props.isMember("objectiveId"),
+                    string("Objective trigger objectiveId prop"));
+                assertFalse(std::stoi(props["repeatable"].asString()),
                     string("Objective trigger should not be repeatable"));
             } else {
                 throw runtime_error(string("Invalid trigger type: ") + type);

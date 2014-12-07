@@ -24,11 +24,6 @@ TileType Tile::tileTypeFromId(int id) {
   // This assumes we are parsing from the standard RPG_tilepack tileset.
   // TODO(josh) make these checks relative to each tileset.
   
-  // Just sank an hour tracing a bug down related to this
-  // Need to keep these IDs up to date
-  // Had to add a hack by increasing the building bound to 500
-  //
-  // ^ sorry Jason...
   if (id == 0) {
     return TileType::Blank;
   } else if ((1 <= id && id <= 10)

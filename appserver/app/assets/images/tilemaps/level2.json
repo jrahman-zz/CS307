@@ -326,6 +326,7 @@
                     {
                      "actor":"1",
                      "dialogue":"Hello young one. Since you graciously accepted to take on my quest I must teach you a few things so you can survive in the wilderness. First I will teach you how to do math with python. It is fairly easy. All you do is type in your equation and hit enter! Its that simple. So to help you practice I have a small problem for you to solve.",
+                     "objectiveId":"0",
                      "priority":"5",
                      "repeatable":"0",
                      "stopMove":"1",
