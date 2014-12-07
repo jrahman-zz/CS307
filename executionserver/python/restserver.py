@@ -52,14 +52,19 @@ def submit_objective():
                     status=200,
                     mimetype="application/json")
     else:
-        return Response(response=json.dumps({"errormessage":"Could not run objective. Failed with message: "+str(message)}),
+        return Response(response=json.dumps({'response':'Incorrect answer',
+                        'error_name':'IncorrectAnswer',
+                        'error_obj':None,
+                        'error_line_number':-1,
+                        'error_line_text':'',
+                        'error_message':message}),
                     status=200,
                     mimetype="application/json")
 
 def run_objective(code, outname):
     global appcontext
 
-    # Use empty dict for context since we don't want/need 
+    # Use empty dict for context since we don't want/need
     # context from the submission to carry over/carry in
     context = {}
     (context, status) = execute(code, appcontext)
@@ -73,7 +78,7 @@ def submit_level():
     global appcontext
     loadedjson = request.get_json()
     code = loadedjson['codelines']
-    code = prefix + code + suffix
+    code = prefix + '\n' + code + '\n' + suffix
     try:
         engine.startSubmission()
         (appcontext, status) = execute(code, appcontext)
