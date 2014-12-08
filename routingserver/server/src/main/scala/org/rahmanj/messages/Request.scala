@@ -23,7 +23,6 @@ case class SessionCreateRequest(
 }
 
 object SessionCreateRequest {
-  
   implicit val SessionCreateRequestMarshaller =
     Marshaller.of[SessionCreateRequest](`application/json`) { (value, contentType, ctx) =>
       ctx.marshalTo(HttpEntity(contentType, value.levelJson))
@@ -38,23 +37,25 @@ case class SessionDeleteRequest() extends Request {
   type RepsonseType = SessionDeleteResponse
 }
 
-
 /*
  * Likely will fill this out more later
  */
 case class ChallengeSubmissionRequest(
-  code: String,
-  timeout: Double
+  challengeJson: String
 ) extends Request {
   type ResponseType = ChallengeResultResponse
 }
 
-object ChallengeSubmissionRequestProtocol extends DefaultJsonProtocol {
-  implicit val challengeSubmissionRequestFormat = jsonFormat2(ChallengeSubmissionRequest)
+object ChallengeSubmissionRequest  {
+  implicit val ChallengeSubmissionRequestUnmarshaller =
+    Unmarshaller[ChallengeSubmissionRequest](`application/json`) {
+      case HttpEntity.NonEmpty(contentType, data) =>
+        ChallengeSubmissionRequest(data.asString)
+    }
   
   implicit val ChallengeSubmissionRequestMarshaller = 
     Marshaller.of[ChallengeSubmissionRequest](`application/json`) { (value, contentType, ctx) =>
-      ctx.marshalTo(HttpEntity(contentType, CompactPrinter(value.toJson)))
+      ctx.marshalTo(HttpEntity(contentType, value.challengeJson))
     }
 }
 

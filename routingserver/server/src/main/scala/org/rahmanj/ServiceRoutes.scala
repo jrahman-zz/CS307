@@ -59,7 +59,7 @@ trait ServiceRoutes extends HttpService {
         path("submit" / Segment) { sessionToken =>
           val token = sessionToken.toString
           post {
-            import ChallengeSubmissionRequestProtocol._
+            import ChallengeSubmissionRequest._
             entity(as[ChallengeSubmissionRequest]) { submission => {
                 ctx: RequestContext => 
                   sessionRouter ! RequestRoutable(token, RequestCtx(ctx, loginToken), Submission(ctx, submission))
