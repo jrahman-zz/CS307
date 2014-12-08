@@ -86,7 +86,6 @@ def submit_level():
     global appcontext
     loadedjson = request.get_json()
     code = loadedjson['codelines']
-    code = prefix + '\n' + code + '\n' + suffix
     try:
         engine.startSubmission()
         (appcontext, status) = execute(code, appcontext)
@@ -115,6 +114,7 @@ def submit_level():
                 mimetype = "application/json"
             )
 
+
 @app.route('/initialize', methods=['POST'])
 def init_engine():
     # Create game engine instance from the game library
@@ -135,35 +135,6 @@ def init_engine():
         print str(e)
         return Response(status=500)
 
-@app.route('/level/prefix', methods=['POST'])
-def setup_prefix():
-    global prefix
-    try:
-        loadedjson = request.get_json()
-        prefix = loadedjson['prefix']
-    except KeyError as e:
-        print str(e)
-        return Response(status=400)
-    return Response(
-                response = """{ "success": true}""",
-                status = 200,
-                mimetype = "application/json"
-            )
-
-@app.route('/level/suffix', methods=['POST'])
-def setup_suffix():
-    global suffix
-    try:
-        loadedjson = request.get_json()
-        suffix = loadedjson['suffix']
-    except KeyError as e:
-        print str(e)
-        return Response(status=400)
-    return Response(
-                response = """{ "success": true}""",
-                status = 200,
-                mimetype = "application/json"
-            )
 
 #retrieve a value from the context of this execution server
 #for unit testing purposes

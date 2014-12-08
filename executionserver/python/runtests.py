@@ -3,7 +3,7 @@ import urllib2
 import json
 import requests
 
-url = 'http://localhost:5000/level/1/submit'
+url = 'http://localhost:5000/level/submit'
 combined_data = {}
 
 combined_data['valid_context'] = {'jsondata':json.dumps({"codelines":["z=x+2",
