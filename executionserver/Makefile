@@ -5,6 +5,7 @@
 clean:
 	rm -r python/wrapper/build
 	rm python/wrapper/libgame.a
+	rm -r python/include
 
 test:
 
