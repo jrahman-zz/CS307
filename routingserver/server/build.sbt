@@ -36,4 +36,3 @@ resolvers += "RoundEights" at "http://maven.spikemark.net/roundeights"
 
 libraryDependencies += "com.roundeights" %% "hasher" % "1.0.0"
 
-net.virtualvoid.sbt.graph.Plugin.graphSettings
