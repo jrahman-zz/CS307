@@ -1,7 +1,7 @@
 .page-header
   %h1
     = @course.name
-    %small= "Instructor View"
+    %small= "Admin View"
     .pull-right.form-actions
       = link_to 'Back to Courses', courses_path, class: 'btn btn-primary btn-sm'
       = link_to 'Edit Course', edit_course_path(@course), class: 'btn btn-warning btn-sm'
@@ -27,7 +27,7 @@
         %li
           = s.name
           .pull-right.options
-            = link_to glyphicon('remove-circle'), enrollment_withdraw_path(@course, s), class: 'text-danger', method: :post
+            = link_to glyphicon('remove-circle'), enrollment_withdraw_path(@course, s), class: 'text-danger',:data => { :confirm => 'Are you sure?' }, method: :post
 
       - User.with_role(:pending_student, @course).each do |s|
         %li
