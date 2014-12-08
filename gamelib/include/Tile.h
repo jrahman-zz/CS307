@@ -8,6 +8,7 @@ enum class TileType {
     Terrain,
     Water,
     Building,
+    Indoor,
     Flora,
     Ladder,
     Gate,
