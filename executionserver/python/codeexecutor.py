@@ -70,7 +70,7 @@ def getimporterror(lineno, line):
     returned_info['message'] = "You tried to import a module, but importing is not allowed."
     return returned_info
 
-def execute(code, context, magicvar, targetvalue):
+def execute(code, context):
     print("Executing")
     returned_errors = {}
     restricted_globals = dict(__builtins__ = safe_builtins)
