@@ -1,7 +1,7 @@
 {
-"userID": "1",
-"classID": "2",
-"levelID": "3",
+"levelID": 2,
+"userID": 3,
+"classID": 4,
 "level": { "height":10,
  "layers":[
         {
@@ -103,7 +103,7 @@
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":0,
+         "width":12,
          "x":0,
          "y":0
         },
@@ -136,6 +136,7 @@
                  "properties":
                     {
                      "id":"2",
+		     "nextLevel": "1",
                      "repeatable":"1",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -168,7 +169,7 @@
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":0,
+         "width":12,
          "x":0,
          "y":0
         }],
@@ -194,40 +195,10 @@
          "spacing":0,
          "tileheight":64,
          "tilewidth":64
-        },
-        {
-         "firstgid":261,
-         "image":"..\/assets\/spritesheets\/NPCs\/PWizard2.png",
-         "imageheight":64,
-         "imagewidth":64,
-         "margin":0,
-         "name":"Wizard",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":64,
-         "tilewidth":64
-        },
-        {
-         "firstgid":262,
-         "image":"..\/assets\/spritesheets\/NPCs\/LinkRight.png",
-         "imageheight":64,
-         "imagewidth":64,
-         "margin":0,
-         "name":"LinkLeft",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":64,
-         "tilewidth":64
-        }],
+        }
+        ],
  "tilewidth":64,
  "version":1,
  "width":12
 }
 }
-
