@@ -143,6 +143,7 @@ Well It isn’t free ya’ kno’?!”
     <property name="name" value="Solve the Wizard's task (Arithmetic)"/>
     <property name="objectiveId" value="0"/>
     <property name="priority" value="10"/>
+    <property name="prompt" value="Question Lies Here"/>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
@@ -154,6 +155,7 @@ Well It isn’t free ya’ kno’?!”
     <property name="name" value="Solve the Koopa's task (Conditional)"/>
     <property name="objectiveId" value="1"/>
     <property name="priority" value="10"/>
+    <property name="prompt" value="Question Goes HEre"/>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
@@ -165,6 +167,7 @@ Well It isn’t free ya’ kno’?!”
     <property name="name" value="Solve the Peachy's task (While Loops)"/>
     <property name="objectiveId" value="3"/>
     <property name="priority" value="10"/>
+    <property name="prompt" value="Question Goes here"/>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
@@ -196,6 +199,7 @@ Well It isn’t free ya’ kno’?!”
     <property name="name" value="Solve the Peachy's task (While Loops)"/>
     <property name="objectiveId" value="3"/>
     <property name="priority" value="10"/>
+    <property name="prompt" value="Question Goes here"/>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
@@ -207,6 +211,7 @@ Well It isn’t free ya’ kno’?!”
     <property name="name" value="Solve the Peachy's task (While Loops)"/>
     <property name="objectiveId" value="3"/>
     <property name="priority" value="10"/>
+    <property name="prompt" value="Question Goes here"/>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
@@ -218,6 +223,7 @@ Well It isn’t free ya’ kno’?!”
     <property name="name" value="Solve the Trainer's task (For Loops)"/>
     <property name="objectiveId" value="2"/>
     <property name="priority" value="10"/>
+    <property name="prompt" value="question goes here"/>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
@@ -229,6 +235,7 @@ Well It isn’t free ya’ kno’?!”
     <property name="name" value="Solve the DancerWiz's task (Final Level Problem)"/>
     <property name="objectiveId" value="4"/>
     <property name="priority" value="10"/>
+    <property name="prompt" value="question goes here"/>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
@@ -240,6 +247,7 @@ Well It isn’t free ya’ kno’?!”
     <property name="name" value="Solve the DancerWiz's task (Final Level Problem)"/>
     <property name="objectiveId" value="4"/>
     <property name="priority" value="10"/>
+    <property name="prompt" value="question goes here"/>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>

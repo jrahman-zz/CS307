@@ -294,6 +294,7 @@
                      "name":"Solve the Wizard's task (Arithmetic)",
                      "objectiveId":"0",
                      "priority":"10",
+                     "prompt":"Question Lies Here",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -314,6 +315,7 @@
                      "name":"Solve the Koopa's task (Conditional)",
                      "objectiveId":"1",
                      "priority":"10",
+                     "prompt":"Question Goes HEre",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -334,6 +336,7 @@
                      "name":"Solve the Peachy's task (While Loops)",
                      "objectiveId":"3",
                      "priority":"10",
+                     "prompt":"Question Goes here",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -392,6 +395,7 @@
                      "name":"Solve the Peachy's task (While Loops)",
                      "objectiveId":"3",
                      "priority":"10",
+                     "prompt":"Question Goes here",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -412,6 +416,7 @@
                      "name":"Solve the Peachy's task (While Loops)",
                      "objectiveId":"3",
                      "priority":"10",
+                     "prompt":"Question Goes here",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -432,6 +437,7 @@
                      "name":"Solve the Trainer's task (For Loops)",
                      "objectiveId":"2",
                      "priority":"10",
+                     "prompt":"question goes here",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -452,6 +458,7 @@
                      "name":"Solve the DancerWiz's task (Final Level Problem)",
                      "objectiveId":"4",
                      "priority":"10",
+                     "prompt":"question goes here",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -472,6 +479,7 @@
                      "name":"Solve the DancerWiz's task (Final Level Problem)",
                      "objectiveId":"4",
                      "priority":"10",
+                     "prompt":"question goes here",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
