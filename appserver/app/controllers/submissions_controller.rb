@@ -11,19 +11,28 @@ class SubmissionsController < ApplicationController
 
         json = JSON.parse http.response
 
-        @submission = Submission.find_or_create_by(@info)
+        now = Time.now
 
+        @submission = Submission.find_or_initialize_by(@info)
+        # If the submission has just been created, say that the start time is now
+        if @submission.new_record?
+          @submission.started_at = now
+        end
+
+        # If the attempt was successful, store the date of completion
         if json.completed
-          @submission.completed_at = Time.now
+          @submission.completed_at = now
         end
 
         @submission.save
+
 
         @attempt = Attempt.new
         @attempt.submission_id = @submission.id
         @attempt.code = params[:code]
         @attempt.hint = nil
-        @attempt.submitted_at = Time.now
+        @attempt.submitted_at = now
+        @attempt.result_id = json.completed
 
         @attempt.save
 
@@ -90,7 +99,7 @@ class SubmissionsController < ApplicationController
       render status: 403 # Forbidden
     end
 
-    render json: @attempt
+    render nothing: true
   end
 
   # POST /submissions/submit/challenge
@@ -121,7 +130,7 @@ class SubmissionsController < ApplicationController
       render status: 403 # Forbidden
     end
 
-    render json: @attempt
+    render nothing: true
   end
 
 
