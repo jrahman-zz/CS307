@@ -96,6 +96,8 @@ void validateLevelObjectLayer(Json::Value objLayer, int index) {
                     string("Objective trigger without objectiveId prop"));
                 assertTrue(props.isMember("name"),
                     string("Objective trigger without name prop"));
+                assertTrue(props.isMember("prompt"),
+                    string("Objective trigger without prompt prop"));
                 assertFalse(std::stoi(props["repeatable"].asString()),
                     string("Objective trigger should not be repeatable"));
             } else {
