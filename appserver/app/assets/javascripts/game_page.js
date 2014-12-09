@@ -112,8 +112,8 @@ var CanvasTileWidth = 18;
 var CanvasTileHeight = 10;
 
 var Port = 3280;
-var ServerUrl = 'http://128.211.191.198' + Port;
-var SubmitEndpoint = '/submissions/submit';
+var ServerUrl = 'http://128.211.191.198:' + Port;
+var SubmitEndpoint = '/submissions/submit/level';
 var ChallengeSubmitEndpoint = '/submissions/submit/challenge';
 
 // Functions inserted by play.html.haml.
@@ -186,10 +186,11 @@ tilemap_promise.success(function (tilemap_str) {
       process_response(response_json);
     } else {
       var endpoint;
+      console.log('ids: ' + level_id + ', ' + course_id);
       var data = {
         'code': code,
-        'level_id': 1,
-        'course_id': 1,
+        'level_id': level_id,
+        'course_id': course_id,
         'session_id': session_id
       };
 
