@@ -233,24 +233,6 @@
                 }, 
                 {
                  "height":64,
-                 "name":"DancinWiz Dialog",
-                 "properties":
-                    {
-                     "actor":"5",
-                     "dialogue":"Hello Traveler!!! How can I help you?! \nOh? You want a ride from the ALMIGHTY WIZ?! \nWell It isn\u2019t free ya\u2019 kno\u2019?!\u201d \n",
-                     "repeatable":"0",
-                     "stopMove":"1",
-                     "triggerTarget":"1"
-                    },
-                 "rotation":0,
-                 "type":"dialogue",
-                 "visible":true,
-                 "width":64,
-                 "x":1024,
-                 "y":576
-                }, 
-                {
-                 "height":64,
                  "name":"Peachy Dialog",
                  "properties":
                     {
@@ -350,86 +332,6 @@
                 }, 
                 {
                  "height":64,
-                 "name":"Peachy Dialog",
-                 "properties":
-                    {
-                     "actor":"4",
-                     "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
-                     "priority":"0",
-                     "repeatable":"1",
-                     "stopMove":"1",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"dialogue",
-                 "visible":true,
-                 "width":64,
-                 "x":640,
-                 "y":128
-                }, 
-                {
-                 "height":64,
-                 "name":"Peachy Dialog",
-                 "properties":
-                    {
-                     "actor":"4",
-                     "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
-                     "priority":"0",
-                     "repeatable":"1",
-                     "stopMove":"1",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"dialogue",
-                 "visible":true,
-                 "width":64,
-                 "x":640,
-                 "y":64
-                }, 
-                {
-                 "height":64,
-                 "name":"Peachy Objective",
-                 "properties":
-                    {
-                     "actor":"4",
-                     "name":"Solve the Peachy's task (While Loops)",
-                     "objectiveId":"3",
-                     "priority":"10",
-                     "prompt":"Question Goes here",
-                     "repeatable":"0",
-                     "stopMove":"1",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"objective",
-                 "visible":true,
-                 "width":64,
-                 "x":640,
-                 "y":64
-                }, 
-                {
-                 "height":64,
-                 "name":"Peachy Objective",
-                 "properties":
-                    {
-                     "actor":"4",
-                     "name":"Solve the Peachy's task (While Loops)",
-                     "objectiveId":"3",
-                     "priority":"10",
-                     "prompt":"Question Goes here",
-                     "repeatable":"0",
-                     "stopMove":"1",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"objective",
-                 "visible":true,
-                 "width":64,
-                 "x":640,
-                 "y":128
-                }, 
-                {
-                 "height":64,
                  "name":"Trainer Objective",
                  "properties":
                     {
@@ -448,27 +350,6 @@
                  "width":64,
                  "x":896,
                  "y":384
-                }, 
-                {
-                 "height":64,
-                 "name":"DancingWiz Objective",
-                 "properties":
-                    {
-                     "actor":"5",
-                     "name":"Solve the DancerWiz's task (Final Level Problem)",
-                     "objectiveId":"4",
-                     "priority":"10",
-                     "prompt":"question goes here",
-                     "repeatable":"0",
-                     "stopMove":"1",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"objective",
-                 "visible":true,
-                 "width":64,
-                 "x":1024,
-                 "y":576
                 }, 
                 {
                  "height":64,

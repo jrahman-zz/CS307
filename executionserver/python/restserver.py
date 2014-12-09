@@ -49,26 +49,40 @@ def submit_objective():
         # Start objective
         engine.startObjective(objectiveid)
         print("started objective")
-        (success, message) = run_objective(code, outname)
+        ((success, message), status) = run_objective(code, outname)
         engine.endObjective(success)
     except Exception as e:
         print(str(e))
         engine.endObjective(False)
         return Response(status = 500)
 
-    if success:
-        return Response(response=engine.getResult(),
-                    status=200,
-                    mimetype="application/json")
+    if len(status) == 0:
+        if success:
+	    return Response(response=engine.getResult(),
+                  status=200,
+                  mimetype="application/json")
+	else:
+            response=json.dumps({'response':'Incorrect answer',
+                  'error_name':'IncorrectAnswer',
+                  'error_obj':None,
+                  'error_line_number':-1,
+                  'error_line_text':'',
+                  'error_message':message})
+
+            return Response(response=response,    
+		   status=200,
+                   mimetype="application/json")
     else:
-        return Response(response=json.dumps({'response':'Incorrect answer',
-                        'error_name':'IncorrectAnswer',
-                        'error_obj':None,
-                        'error_line_number':-1,
-                        'error_line_text':'',
-                        'error_message':message}),
-                    status=200,
-                    mimetype="application/json")
+	response = json.dumps({'response':'Error running code',
+                  'error_name':str(status['exc_type']),
+                  'error_obj':str(status['exc_obj']),
+                  'error_line_number':str(status['lineno']),
+                  'error_line_text':str(status['line']),
+                  'error_message':str(status['message'])})
+
+	return Response(response=response,
+		  status=200,
+                  mimetype="application/json")
 
 def run_objective(code, outname):
     global appcontext
@@ -77,9 +91,11 @@ def run_objective(code, outname):
     # context from the submission to carry over/carry in
     context = {}
     (context, status) = execute(code, appcontext)
+    if len(status) != 0:
+	return ((False, ""), status)
     if outname not in context:
         raise Exception("Result variable not found")
-    return context[outname]
+    return (context[outname], status)
 
 @app.route('/level/submit', methods=['POST'])
 def submit_level():
