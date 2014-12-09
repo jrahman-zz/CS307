@@ -110,7 +110,7 @@ class SubmissionsController < ApplicationController
       @info[:status_id] = 1
       @info[:user_id] = current_user.id
 
-      @challenge = Challenge.find(params[:challenge_id])
+      @challenge = Challenge.find_by(objective_id: params[:challenge_id])
 
       uri = ROUTING_SERVER + '/challenge/submit/'
       http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: {
