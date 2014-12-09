@@ -48,6 +48,7 @@ def submit_objective():
     try:
         # Start objective
         engine.startObjective(objectiveid)
+        print("started objective")
         (success, message) = run_objective(code, outname)
         engine.endObjective(success)
     except Exception as e:
