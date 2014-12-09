@@ -116,7 +116,7 @@ class SubmissionsController < ApplicationController
 
       @challenge = Challenge.find_by(objective_id: params[:challenge_id])
 
-      uri = ROUTING_SERVER + '/challenge/submit/'
+      uri = ROUTING_SERVER + '/challenge/submit/' + params[:session_id]
       http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: {
         code: params[:code],
         validationCode: @challenge.validation_code,
