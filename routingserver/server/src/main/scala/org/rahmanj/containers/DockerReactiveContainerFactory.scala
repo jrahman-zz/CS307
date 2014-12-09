@@ -47,7 +47,7 @@ class DockerReactiveContainerFactory extends ContainerFactory {
     val containerPort = Settings(system).Container.ContainerBindPort
     
     // TODO, update config with ports
-    val conf = ContainerConfig("python")
+    val conf = ContainerConfig("{}")
     
     for {
       (containerID, _) <- docker.containerCreate("python", conf, None)

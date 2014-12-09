@@ -180,7 +180,7 @@ class SessionActor(containerFactory: ContainerFactory, sessionID: SessionToken) 
     case challengeSubmission: ChallengeSubmissionRequest =>
       log.info(s"Session $sessionID received challenge submission")
 
-      import messages.ChallengeSubmissionRequestProtocol._
+      import messages.ChallengeSubmissionRequest._
       import messages.ChallengeResultResponse._
          
       val res = container.sendMessage(challengeSubmission, s"challenge/submit")

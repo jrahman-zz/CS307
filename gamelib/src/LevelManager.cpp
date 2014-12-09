@@ -118,6 +118,7 @@ bool LevelManager::onPreMove(Moveable& obj, Position next) {
             ret = false;
             break;
         case TileType::Terrain:
+        case TileType::Indoor:
             ret = true;
             break;
         default:

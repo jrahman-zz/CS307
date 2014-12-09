@@ -12,9 +12,13 @@
 
 .row
   .col-md-6
-    %h2= link_to "##{@from.id}", @from
+    %h2
+      = link_to "##{@from.id}", @from
+      %small= @from.completed ? "PASSED" : "FAILED"
     %pre<= @from.code
 
   .col-md-6
-    %h2= link_to "##{@to.id}", @to
+    %h2
+      = link_to "##{@to.id}", @to
+      %small= @from.completed ? "PASSED" : "FAILED"
     %pre<= @to.code
