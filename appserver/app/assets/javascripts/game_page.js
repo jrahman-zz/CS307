@@ -46,16 +46,11 @@ function update_objective_list(objectives) {
 
   var prompt = $('div.prompt-text');
   if (activeObjective) {
-    if (!prompt.hasClass('active')) {
-      savedPromptText = prompt.text();
-    }
+    savedPromptText = prompt.text();
     prompt.text(activeObjective.prompt).toggleClass('active', true);
-    // TODO utilize item.templateCode
+    // TODO insert item.templateCode
   } else {
-    if (savedPromptText) {
-      prompt.text(savedPromptText);
-      savedPromptText = null;
-    }
+    prompt.text(savedPromptText).toggleClass('active', false);
   }
 }
 
@@ -122,28 +117,62 @@ tilemap_promise.success(function (tilemap_str) {
 
   }
 
+  // TODO delete this
+  var index = 0;
+
   // Intercept click events on the submit button.
   $('#submit_button').click(function(event) {
     var code = editor.getValue();
 
-    var response_json = {
-      "classID":2,
-      "levelID":1,
-      "log":[
-        [
+    var response_json;
+    if (index == 0) {
+      response_json = {
+        "classID":2,
+        "levelID":1,
+        "log":[
+          [
+            {
+              "data": {
+              "prompt":"Test objective prompt",
+              "templateCode":"a = 4",
+              "objectiveID":0
+              },
+              "type":"objective"
+            }
+          ]
+        ],
+        "nextLevel":-1,
+        "userID":0
+      };
+    } else if (index == 1) {
+      response_json = {
+        "response": "Incorrect answer",
+        "error_name": "IncorrectAnswer",
+        "error_obj": null,
+        "error_line_number": -1,
+        "error_line_text": "",
+        "error_message": "Custom error message from Don!"
+      };
+    } else if (index == 2) {
+      response_json = {
+        "classID": 2,
+        "log": [[
           {
+            "type": "completedobjective", 
             "data": {
-            "prompt":"Test objective prompt",
-            "templateCode":"a = 4",
-            "objectiveID":0
-            },
-            "type":"objective"
+              "totalobjectives": 1,
+              "completedobjectives": 1
+            }
           }
-        ]
-      ],
-      "nextLevel":-1,
-      "userID":0
-    };
+        ]],
+        "completed": false,
+        "userID": 0,
+        "levelID": 1,
+        "nextLevel": 2
+      };
+    }
+    index++;
+
     /*$.ajax({
         type: 'POST',
         // make sure you respect the same origin policy with this url:
@@ -167,6 +196,11 @@ tilemap_promise.success(function (tilemap_str) {
     }
 
     // Check for key that indicates error
+    if (!response_json) {
+      console.log('ERROR: null response JSON');
+      return;
+    }
+
     if ('response' in response_json) {
       var error_name = response_json['error_name'];
       var error_message = response_json['error_message'];

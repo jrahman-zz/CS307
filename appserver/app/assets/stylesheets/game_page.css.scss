@@ -44,22 +44,28 @@ html, body {
   height: 100%;
 }
 
-#objective-list {
-  margin-bottom: 24px;
-  font-size: 22px;
-  font-family: Monaco, Courier, monospace;
-
-  .complete {
-    color: green;
+.objective-container {
+  h2 {
+    color: white;
   }
 
-  .incomplete {
-    color: red;
-  }
+  #objective-list {
+    margin-bottom: 24px;
+    font-size: 18px;
+    font-family: Monaco, Courier, monospace;
 
-  .active {
-    color: rgb(141, 213, 227);
-    font-weight: bold;
+    .complete {
+      color: rgb(52, 255, 41);
+    }
+
+    .incomplete {
+      color: red;
+    }
+
+    .active {
+      color: rgb(141, 213, 227);
+      font-weight: bold;
+    }
   }
 }
 
