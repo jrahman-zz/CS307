@@ -196,47 +196,12 @@
                 }, 
                 {
                  "height":64,
-                 "name":"Peachy Dialog",
-                 "properties":
-                    {
-                     "actor":"4",
-                     "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
-                     "repeatable":"1",
-                     "stopMove":"1",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"dialogue",
-                 "visible":true,
-                 "width":64,
-                 "x":640,
-                 "y":128
-                }, 
-                {
-                 "height":64,
-                 "name":"Peachy Dialog",
-                 "properties":
-                    {
-                     "actor":"4",
-                     "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
-                     "repeatable":"1",
-                     "stopMove":"1",
-                     "triggerTarget":"0"
-                    },
-                 "rotation":0,
-                 "type":"dialogue",
-                 "visible":true,
-                 "width":64,
-                 "x":640,
-                 "y":64
-                }, 
-                {
-                 "height":64,
                  "name":"Koopa Dialog",
                  "properties":
                     {
                      "actor":"2",
                      "dialogue":"I don\u2019t know anything about Tnana. But, maybe if you can help me figure out how many ounces are in a gram because the bottle of magic dust i bought is in ounces, but i\u2019ve only used grams my entire life. The bottle states there are 18 ozs in the bottle. But I need 1372 grams. Do I have enough? Hint:  I believe 1 oz is equal to 28.3 grams.",
+                     "priority":"0",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -291,6 +256,7 @@
                     {
                      "actor":"4",
                      "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
+                     "priority":"0",
                      "repeatable":"1",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -325,7 +291,7 @@
                  "properties":
                     {
                      "actor":"1",
-                     "name":"Solve the Wizard's task",
+                     "name":"Solve the Wizard's task (Arithmetic)",
                      "objectiveId":"0",
                      "priority":"10",
                      "repeatable":"0",
@@ -338,6 +304,184 @@
                  "width":64,
                  "x":384,
                  "y":384
+                }, 
+                {
+                 "height":64,
+                 "name":"Koopa Objective",
+                 "properties":
+                    {
+                     "actor":"2",
+                     "name":"Solve the Koopa's task (Conditional)",
+                     "objectiveId":"1",
+                     "priority":"10",
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"objective",
+                 "visible":true,
+                 "width":64,
+                 "x":384,
+                 "y":64
+                }, 
+                {
+                 "height":64,
+                 "name":"Peachy Objective",
+                 "properties":
+                    {
+                     "actor":"4",
+                     "name":"Solve the Peachy's task (While Loops)",
+                     "objectiveId":"3",
+                     "priority":"10",
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"objective",
+                 "visible":true,
+                 "width":64,
+                 "x":576,
+                 "y":128
+                }, 
+                {
+                 "height":64,
+                 "name":"Peachy Dialog",
+                 "properties":
+                    {
+                     "actor":"4",
+                     "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
+                     "priority":"0",
+                     "repeatable":"1",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"dialogue",
+                 "visible":true,
+                 "width":64,
+                 "x":640,
+                 "y":128
+                }, 
+                {
+                 "height":64,
+                 "name":"Peachy Dialog",
+                 "properties":
+                    {
+                     "actor":"4",
+                     "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
+                     "priority":"0",
+                     "repeatable":"1",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"dialogue",
+                 "visible":true,
+                 "width":64,
+                 "x":640,
+                 "y":64
+                }, 
+                {
+                 "height":64,
+                 "name":"Peachy Objective",
+                 "properties":
+                    {
+                     "actor":"4",
+                     "name":"Solve the Peachy's task (While Loops)",
+                     "objectiveId":"3",
+                     "priority":"10",
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"objective",
+                 "visible":true,
+                 "width":64,
+                 "x":640,
+                 "y":64
+                }, 
+                {
+                 "height":64,
+                 "name":"Peachy Objective",
+                 "properties":
+                    {
+                     "actor":"4",
+                     "name":"Solve the Peachy's task (While Loops)",
+                     "objectiveId":"3",
+                     "priority":"10",
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"objective",
+                 "visible":true,
+                 "width":64,
+                 "x":640,
+                 "y":128
+                }, 
+                {
+                 "height":64,
+                 "name":"Trainer Objective",
+                 "properties":
+                    {
+                     "actor":"3",
+                     "name":"Solve the Trainer's task (For Loops)",
+                     "objectiveId":"2",
+                     "priority":"10",
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"objective",
+                 "visible":true,
+                 "width":64,
+                 "x":896,
+                 "y":384
+                }, 
+                {
+                 "height":64,
+                 "name":"DancingWiz Objective",
+                 "properties":
+                    {
+                     "actor":"5",
+                     "name":"Solve the DancerWiz's task (Final Level Problem)",
+                     "objectiveId":"4",
+                     "priority":"10",
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"objective",
+                 "visible":true,
+                 "width":64,
+                 "x":1024,
+                 "y":576
+                }, 
+                {
+                 "height":64,
+                 "name":"DancingWiz Objective",
+                 "properties":
+                    {
+                     "actor":"5",
+                     "name":"Solve the DancerWiz's task (Final Level Problem)",
+                     "objectiveId":"4",
+                     "priority":"10",
+                     "repeatable":"0",
+                     "stopMove":"1",
+                     "triggerTarget":"0"
+                    },
+                 "rotation":0,
+                 "type":"objective",
+                 "visible":true,
+                 "width":64,
+                 "x":960,
+                 "y":512
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -356,7 +500,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"..\/assets\/spritesheets\/RPGpack_sheet.png",
+         "image":"..\/..\/assets\/spritesheets\/RPGpack_sheet.png",
          "imageheight":832,
          "imagewidth":1280,
          "margin":0,

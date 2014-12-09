@@ -84,7 +84,8 @@ jsonStr = """
                        {
                            "dialog": "Get back here you meddling kids!",
                            "prompt": "Help Scooby and the gang escape",
-                           "objectiveId": "4"
+                           "objectiveId": "4",
+			   "priority": "20"
                        },
                      "rotation": 0,
                      "type": "objective",
@@ -296,7 +297,7 @@ hero.moveLeft()
 x = 3
     """
     vcode = """
-out = x == 3
+out = (x == 3, "Hello world!")
     """
 
     submission = { "codelines": code, "validationcode": vcode, "outname": "out", "objectiveid": 4}

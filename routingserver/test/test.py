@@ -202,6 +202,7 @@ def run_test(connection):
 
     code = """
 hero.moveUp()
+hero.moveLeft()
     """
     
     submission = { "codelines": code }

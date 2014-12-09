@@ -23,4 +23,3 @@ else:
 
 	else:
 		ret = (False,"Your answer is not a interger(No decimals)!")
-
