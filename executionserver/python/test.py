@@ -297,7 +297,7 @@ hero.moveLeft()
 x = 3
     """
     vcode = """
-out = x == 3
+out = (x == 3, "Hello world!")
     """
 
     submission = { "codelines": code, "validationcode": vcode, "outname": "out", "objectiveid": 4}
