@@ -14,10 +14,8 @@ Rails.application.routes.draw do
   get  '/users/:id/admin_edit/:user_id' => 'users#admin_edit', as: :admin_edit
 
   # Submissions
-  # This will become:
-  # post '/submissions/submit/level' => 'submissions#submit_level', as: :grade_submission
-  post '/submissions/submit/' => 'submissions#submit', as: :grade_submission
-  # post '/submissions/submit/challenge' => 'submissions#submit_challenge', as: :grade_challenge
+  post '/submissions/submit/level' => 'submissions#submit_level', as: :grade_submission
+  post '/submissions/submit/challenge' => 'submissions#submit_challenge', as: :grade_challenge
   post '/submissions/init' => 'submissions#init_server', as: :init_grading_session
 
   # Attempts
