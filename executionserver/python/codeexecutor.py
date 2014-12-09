@@ -89,8 +89,10 @@ def execute(code, context):
         # importresults = findimports(code)
         # if importresults is not None:
         #     return (execution_context, getimporterror(importresults[0], importresults[1]))
-        if not run_with_limited_time(run_in_context, (compiled_code, execution_context), {}, timeout_interval):
-            return_errors = gettimeouterror()
+
+        #if not run_with_limited_time(run_in_context, (compiled_code, execution_context), {}, timeout_interval):
+        #    return_errors = gettimeouterror()
+        exec compiled_code in execution_context
 
     except Exception as e:
         returned_errors = exceptiondetails(code)
