@@ -181,7 +181,8 @@ shared_ptr<HeroFascade> Engine::getHero() const {
 void Engine::startObjective(int objectiveID) {
     
     m_actionLog->reset();
-    
+    m_timekeeper->reset();    
+ 
     if (m_gameState->getObjectiveInProgress()) {
         throw runtime_error("Cannot start another objective now");
     }
