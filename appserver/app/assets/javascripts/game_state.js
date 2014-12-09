@@ -40,6 +40,18 @@ function direction_from(rotation) {
 }
 
 /**
+ * Holds information about objectives (challenges).
+ */
+var Objective = function(id, name) {
+  this.id = id;
+  this.name = name;
+  this.prompt = null; // Set from event log.
+  this.templateCode = null; // Set from event log.
+  this.active = false;
+  this.completed = false;
+};
+
+/**
  * Holds information about in-game sprite.
  */
 var SpriteEntity = function(id, type, type_class, name, start_x, start_y, rotation) {
@@ -82,7 +94,8 @@ SpriteEntity.prototype.apply_direction = function(direction) {
 var EventType = {
   MOVE: 'move',
   ROTATE: 'rotate',
-  DIALOGUE: 'dialogue'
+  DIALOGUE: 'dialogue',
+  OBJECTIVE: 'objective'
 };
 
 var Event = function(type, data) {
@@ -125,6 +138,35 @@ Event.prototype.execute = function(game_state, callback) {
       var lines = segment_text(full_text, 78);
       game_state.animate_text(lines, callback);
       break;
+    case EventType.OBJECTIVE:
+      var id = this.data['objectiveID'];
+      var prompt = this.data['prompt'];
+      var templateCode = this.data['templateCode'];
+
+      // Set all objectives inactive.
+      for (var j = 0; j < game_state.objectives.length; j++) {
+        game_state.objectives[j].active = false;
+      }
+
+      // Find objective specified by id.
+      var objective;
+      for (var i = 0; i < game_state.objectives.length; i++) {
+        var o = game_state.objectives[i];
+        if (o.id == id) {
+          objective = o;
+          break;
+        }
+      }
+
+      if (objective) {
+        objective.prompt = prompt;
+        objective.templateCode = templateCode;
+        objective.active = true;
+      } else {
+        console.log('WARNING: unrecognized objective id: ' + id);
+      }
+      callback();
+      break;
     default:
       console.log('Unrecognized event type: ' + this.type);
       break;
@@ -160,6 +202,12 @@ var GameState = function(game, tile_size) {
   this.dialogue_curr = null;
   this.dialogue_char_index = 0;
   this.dialogue_callback = null;
+
+  // List of Objective objects.
+  this.objectives = [];
+  // -1 if in navigation context. Otherwise, index indicating current challenge
+  // in objectives array.
+  this.context = -1;
 };
 
 /**
@@ -204,6 +252,25 @@ GameState.prototype.parse_actor_objects = function(objects_json) {
 }
 
 /**
+ * Parses objective information from JSON.
+ */
+GameState.prototype.parse_trigger_objects = function(objects_json) {
+  for (var i = 0; i < objects_json.length; i++) {
+    var object_json = objects_json[i];
+    var props_json = object_json['properties'];
+    switch (object_json['type']) {
+      case 'objective':
+        var id = props_json['objectiveId'];
+        var objective = new Objective(id, props_json['name']);
+        this.objectives.push(objective);
+        break;
+      default: // Don't care about other triggers. Gamelib handles logic.
+        break;
+    }
+  }
+}
+
+/**
  * Call this within Phaser's preload function.
  */
 GameState.prototype.load = function(tilemap_json) {
@@ -237,7 +304,7 @@ GameState.prototype.load = function(tilemap_json) {
             this.parse_actor_objects(objects_json);
             break;
           case 'TriggerLayer':
-            // Do nothing. Game library implements logic.
+            this.parse_trigger_objects(objects_json);
             break;
           default:
             console.log('Unknown objectgroup layer name: ' + layer_name);
@@ -362,6 +429,14 @@ GameState.prototype.parse_response = function(response_json) {
           break;
         case 'levelexit':
           // TODO implement
+          break;
+        case 'objective':
+          var data = {
+            'objectiveID': data_json['objectiveID'],
+            'prompt': data_json['prompt'],
+            'templateCode': data_json['templateCode']
+          };
+          events.push(new Event(EventType.OBJECTIVE, data));
           break;
         default:
           console.log('Unknown log event type: ' + type);

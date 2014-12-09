@@ -5,13 +5,14 @@
 
       .prompt
         %h2= @level.name
-        =@level.prompt
+        .prompt-text
+          =@level.prompt
 
         .pull-right
           %button.btn.btn-sm.btn-danger{"data-content" => @level.hint, "data-toggle" => "popover", "data-trigger" => "focus", :href => "#", :type => "button", :tabindex => "0"} Hint
 
       .code-error
-      %div#code-editor
+      #code-editor
 
       = f.hidden_field :level_id, value: @level.id
       = f.hidden_field :course_id, value: @level.course.id
@@ -25,6 +26,7 @@
     .outer
       .middle
         .inner
+          #objective-list
           #canvas-container
 
 

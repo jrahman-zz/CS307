@@ -17,14 +17,47 @@ editor.setFontSize(18);
 editor.session.setMode('ace/mode/python');
 
 var editorDoc = editor.session.getDocument();
-// doc.insertLines(0, [ 'def test():', '  print "hallelujah"', '# comment']);
-
 var editorMarkers = [];
+
+var savedPromptText;
 
 // Enable popovers.
 $(function() {
   $('[data-toggle="popover"]').popover();
 });
+
+function update_objective_list(objectives) {
+  var activeObjective;
+  $('#objective-list').html(list_from_data(objectives, function(item) {
+    var html = '<div class="';
+    html += (item.active ? 'active': (item.complete ? 'complete' : 'incomplete'));
+    if (item.active) {
+      html += ' active';
+      activeObjective = item;
+    }
+    html += '">';
+    html += item.name;
+    if (item.active) {
+      html += ' [active]';
+    }
+    html += '</div>';
+    return html;
+  }));
+
+  var prompt = $('div.prompt-text');
+  if (activeObjective) {
+    if (!prompt.hasClass('active')) {
+      savedPromptText = prompt.text();
+    }
+    prompt.text(activeObjective.prompt).toggleClass('active', true);
+    // TODO utilize item.templateCode
+  } else {
+    if (savedPromptText) {
+      prompt.text(savedPromptText);
+      savedPromptText = null;
+    }
+  }
+}
 
 // Constants.
 var TileSize = 64;
@@ -71,6 +104,8 @@ tilemap_promise.success(function (tilemap_str) {
     game.stage.disableVisibilityChange = true;
 
     game_state.load(tilemap_json);
+
+    update_objective_list(game_state.objectives);
   }
 
   function create() {
@@ -87,57 +122,43 @@ tilemap_promise.success(function (tilemap_str) {
 
   }
 
-  var index = 0;
-
   // Intercept click events on the submit button.
   $('#submit_button').click(function(event) {
     var code = editor.getValue();
 
-    var response_json;
-    if (index == 0) {
-      response_json = {
-        "response": "Error running code",
-        "error_name": "NameError",
-        "error_obj": "<something something>",
-        "error_line_number": 2,
-        "error_line_text": "Bad line of code",
-        "error_message": "You tried to use a variable that you haven't defined yet. Check your spelling."
-      };
-    } else if (index == 1) {
-      response_json = {
-        "response": "Error running code",
-        "error_name": "KeyError",
-        "error_obj": "<something something>",
-        "error_line_number": -1,
-        "error_line_text": "",
-        "error_message": "You tried to access a dictionary entry which does not exist."
-      };
-    } else if (index == 2) {
-      response_json = {
-        "classID":2,
-        "levelID":1,
-        "log":[
-           [{"data":{"actorID":0,"position":{"x":4,"y":7}},"type":"move"}],
-           [{"data":{"actorID":0,"position":{"x":4,"y":6}},"type":"move"}],
-           [{"data":{"actorID":0,"position":{"x":4,"y":5}},"type":"move"}],
-           [{"data":{"actorID":0,"position":{"x":4,"y":4}},"type":"move"}],
-           [{"data":{"actorID":0,"position":{"x":4,"y":3}},"type":"move"}],
-           [{"data":{"actorID":0,"rotation":0},"type":"rotate"}, {"data":{"actorID":0,"position":{"x":5,"y":3}},"type":"move"}],
-          [{"data":{"actorID":0,"rotation":90},"type":"rotate"}, {"data":{"actorID":0,"position":{"x":5,"y":2}},"type":"move"}],
-          [{"data":{"actorID":0,"position":{"x":5,"y":1}},"type":"move"}, {"data":{"actorID":0,"rotation":180},"type":"rotate"}],
-
-           [{"data":{"actorID":1,"dialogue":"Sleeping beauty. You are like an old man sleeping for 12 hours straight! But, anyway you must be already getting super tired of typing in hero.moveUp() a million times. So I heard there were something called arguments in functions! And if you forgot what a function is it is just special code that is designed to do a set of instructions, but it conveniently lets you do it with 1 line of code! So try giving hero.moveRight() a number and see what happens!"},"type":"dialogue"}],
-           [{"data":{"actorID":0,"rotation":0},"type":"rotate"}, {"data":{"actorID":0,"position":{"x":6, "y":1}},"type":"move"}],
-           [{"data":{"actorID":0,"position":{"x":7, "y":1}},"type":"move"}],
-           [{"data":{"actorID":0,"position":{"x":8, "y":1}},"type":"move"}],
-           [{"data":{"actorID":0,"position":{"x":9, "y":1}},"type":"move"}],
-           [{"data":{"actorID":2,"dialogue":"Second dialogue of inspiration~"},"type":"dialogue"}]
-        ],
-        "nextLevel":-1,
-        "userID":0
-      };
-    }
-    index++;
+    var response_json = {
+      "classID":2,
+      "levelID":1,
+      "log":[
+        [
+          {
+            "data": {
+            "prompt":"Test objective prompt",
+            "templateCode":"a = 4",
+            "objectiveID":0
+            },
+            "type":"objective"
+          }
+        ]
+      ],
+      "nextLevel":-1,
+      "userID":0
+    };
+    /*$.ajax({
+        type: 'POST',
+        // make sure you respect the same origin policy with this url:
+        // http://en.wikipedia.org/wiki/Same_origin_policy
+        url: 'http://128.211.191.198:3900/submissions/submit',
+        data: {
+            'code': code,
+            'level_id': 1,
+            'course_id': 1,
+            'session_id': session_id
+        },
+        success: function(msg){
+            alert('wow: ' + msg);
+        }
+    });*/
 
     function clearMarkers() {
       for (var i = 0; i < editorMarkers.length; i++) {
@@ -169,23 +190,10 @@ tilemap_promise.success(function (tilemap_str) {
       $('div.code-error').text('');
         
       game_state.process_response(response_json, function() {
-        console.log('Done!');
+        update_objective_list(game_state.objectives);
+
+        // TODO re-enable UI
       });
     }
-    /*$.ajax({
-        type: 'POST',
-        // make sure you respect the same origin policy with this url:
-        // http://en.wikipedia.org/wiki/Same_origin_policy
-        url: 'http://128.211.191.198:3900/submissions/submit',
-        data: {
-            'code': code,
-            'level_id': 1,
-            'course_id': 1,
-            'session_id': session_id
-        },
-        success: function(msg){
-            alert('wow: ' + msg);
-        }
-    });*/
   });
 });

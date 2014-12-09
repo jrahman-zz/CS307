@@ -1,5 +1,16 @@
 // Generic utility functions.
 
+function list_from_data(data, html_func) {
+  var html = '<ul>';
+  for (var i = 0; i < data.length; i++) {
+    html += '<li>';
+    html += html_func(data[i]);
+    html += '</li>';
+  }
+  html += '</ul>';
+  return html;
+}
+
 function default_for(arg, defaultVal) {
   return (typeof arg === 'undefined' ? defaultVal : arg)
 }
