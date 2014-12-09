@@ -118,7 +118,10 @@ bool LevelManager::onPreMove(Moveable& obj, Position next) {
             ret = false;
             break;
         case TileType::Terrain:
+	case TileType::Door:
         case TileType::Indoor:
+	case TileType::Ladder:
+	case TileType::Staircase:
             ret = true;
             break;
         default:
