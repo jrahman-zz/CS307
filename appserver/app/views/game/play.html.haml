@@ -14,9 +14,6 @@
       .code-error
       #code-editor
 
-      = f.hidden_field :level_id, value: @level.id
-      = f.hidden_field :course_id, value: @level.course.id
-
       .form-actions
         .pull-right
           = link_to 'Back to Courses', courses_path, class: 'btn btn-default'
@@ -38,3 +35,6 @@
   function get_hero_gender() {
   = "\treturn 'girl';".html_safe
   }
+
+  = "var level_id = " + @level.id
+  = "var course_id = " + @level.course.id

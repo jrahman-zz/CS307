@@ -50,17 +50,13 @@ class SubmissionsController < ApplicationController
   def init_server
     # Only allow submissions from users who are signed in
     if user_signed_in?
-      # Super definitely make certain that the request is totally and completed un-escaped
-      level = JSON.parse(params[:level])
-      body = URI.unescape({
-        levelID: params[:level_id],
-        classID: params[:course_id],
-        userID: current_user.id,
-        level: level
-      }.to_json.to_s)
-
       uri = ROUTING_SERVER + '/session/create'
-      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id, "Content-Type" => 'application/json' }, body: body
+      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: {
+        levelID: params[:level_id],
+        courseID: params[:course_id],
+        userID: current_user.id,
+        level: params[:level]
+      }
 
       self.response_body = ''
       self.status = -1
@@ -69,7 +65,7 @@ class SubmissionsController < ApplicationController
 
       http.callback do
         finish_request do
-          puts '\n\n#### Session initialized, returning to client ####\n\n'
+          puts '\n\n#### Gameplay Session initialized ####\n\n'
           render json: http.response
         end
       end
@@ -116,7 +112,7 @@ class SubmissionsController < ApplicationController
 
       @challenge = Challenge.find_by(objective_id: params[:challenge_id])
 
-      uri = ROUTING_SERVER + '/challenge/submit/'
+      uri = ROUTING_SERVER + '/challenge/submit/' + params[:session_id]
       http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: {
         code: params[:code],
         validationCode: @challenge.validation_code,
