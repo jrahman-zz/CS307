@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post '/courses/:id/approve_enrollment/:user_id' => 'courses#approve_enrollment', as: :enrollment_approve
 
   # Users
-  get  '/users/:id/admin_edit/:user_id' => 'users#admin_edit', as: :admin_edit
+  get  '/users/:id/admin_edit/:user_id' => 'users#admin', as: :admin
 
   # Submissions
   post '/submissions/submit/level' => 'submissions#submit_level', as: :grade_submission
