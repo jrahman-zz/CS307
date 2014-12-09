@@ -84,7 +84,8 @@ jsonStr = """
                        {
                            "dialog": "Get back here you meddling kids!",
                            "prompt": "Help Scooby and the gang escape",
-                           "objectiveId": "4"
+                           "objectiveId": "4",
+			   "priority": "20"
                        },
                      "rotation": 0,
                      "type": "objective",
