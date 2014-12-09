@@ -5,38 +5,22 @@
 
 .row
   .col-md-12
-    %table.table.table-striped.vertical-aligned
-      %tr
-        %th Name
-        %th Start Date
-        %th Progress
+    %h2 Courses
 
-      - Course.with_role(:student, current_user).each do |course|
-        - progress = course_progress(course,current_user)
+    %table.table.table-striped.vertical-aligned
+      %thead
         %tr
-          %td= link_to course.name, course
-          %td= course.start_date.strftime('%h %d, %Y at %I:%M %p')
-          %td
-            - if progress < 25
-              .progress
-                .progress-bar.progress-bar-danger.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => progress * 100, :role => "progressbar", :style => "width: #{progress}%;"}
-                  %span= progress
-                  %span %
-            - elsif progress >= 25 && progress < 50
-              .progress
-                .progress-bar.progress-bar-warning.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => progress * 100, :role => "progressbar", :style => "width: #{progress}%;"}
-                  %span= progress
-                  %span %
-            - elsif progress >= 50 && progress < 75
-              .progress
-                .progress-bar.progress-bar-info.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => progress * 100, :role => "progressbar", :style => "width: #{progress}%;"}
-                  %span= progress
-                  %span %
-            - else
-              .progress
-                .progress-bar.progress-bar-success.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => progress * 100, :role => "progressbar", :style => "width: #{progress}%;"}
-                  %span= progress
-                  %span %
+          %th Name
+          %th Start Date
+          %th Progress
+
+      %tbody
+        - Course.with_role(:student, current_user).each do |course|
+          %tr
+            %td= link_to course.name, course
+            %td= course.start_date.strftime('%h %d, %Y at %I:%M %p')
+            %td
+              - course_progress(course, current_user)
 
 .form-actions
   = link_to 'Edit', edit_user_registration_path(@users), class: "btn btn-primary btn-sm"
