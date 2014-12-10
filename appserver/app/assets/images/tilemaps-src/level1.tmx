@@ -783,7 +783,7 @@ And if you forgot what a function is it is just special code that is designed to
   <object name="Wizard Dialog" type="dialogue" x="256" y="448" width="64" height="64">
    <properties>
     <property name="actor" value="2"/>
-    <property name="dialogue" value="HEY THERE! You are finally awake! Why dont you come towards me (wizard) and we can talk! Try walking by typing in Hero.moveUp()."/>
+    <property name="dialogue" value="HEY THERE! You are finally awake! Why dont you come towards me (wizard) and we can talk! Try walking by typing in hero.moveUp()."/>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>

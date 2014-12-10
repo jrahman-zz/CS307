@@ -90,7 +90,7 @@ function get_next_debug_response() {
       "classID": 2,
       "log": [[
         {
-          "type": "completedobjective", 
+          "type": "completedobjective",
           "data": {
             "totalobjectives": 1,
             "completedobjectives": 1
@@ -112,7 +112,7 @@ var CanvasTileWidth = 18;
 var CanvasTileHeight = 10;
 
 var Port = 3280;
-var ServerUrl = 'http://128.211.191.198:' + Port;
+var ServerUrl = SERVER_URI;
 var InitEndpoint = '/submissions/init';
 var SubmitEndpoint = '/submissions/submit/level';
 var ChallengeSubmitEndpoint = '/submissions/submit/challenge';
@@ -203,8 +203,10 @@ function create_game() {
       var endpoint;
       var data = {
         'code': code,
-        'submission[level_id]': level_id,
-        'submission[course_id]': course_id,
+        'submission': {
+          'level_id': level_id,
+          'course_id': course_id
+        },
         'session_id': session_id
       };
 
@@ -222,15 +224,15 @@ function create_game() {
           type: POST,
           url: ServerUrl + endpoint,
           data: data,
-          dataType: JSONDataType,
-          contentType: JSONContentType
+          dataType: JSONDataType
+          // contentType: JSONContentType
       }).done(function(data) {
-        console.log('data: ' + JSON.stringify(data)
-            + ', status: ' + textStatus);
-        // process_response(data);
+        // console.log('data: ' + JSON.stringify(data)
+        //     + ', status: ' + textStatus);
+        process_response(data);
       }).fail(function(jqXHR, textStatus) {
         console.log('Error status: ' + textStatus
-            + ', thrown: ' + errorThrown);
+            + ', thrown: ');
       });
     }
   });
@@ -269,7 +271,7 @@ function create_game() {
     } else {
       clearMarkers();
       $('div.code-error').text('');
-        
+
       game_state.process_response(response_json, function() {
         update_objective_list(game_state.objectives);
 
