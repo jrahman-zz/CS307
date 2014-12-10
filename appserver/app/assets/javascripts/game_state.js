@@ -42,10 +42,10 @@ function direction_from(rotation) {
 /**
  * Holds information about objectives (challenges).
  */
-var Objective = function(id, name) {
+var Objective = function(id, name, prompt) {
   this.id = id;
   this.name = name;
-  this.prompt = null; // Set from event log.
+  this.prompt = prompt;
   this.templateCode = null; // Set from event log.
   this.active = false;
   this.completed = false;
@@ -95,7 +95,8 @@ var EventType = {
   MOVE: 'move',
   ROTATE: 'rotate',
   DIALOGUE: 'dialogue',
-  OBJECTIVE: 'objective'
+  OBJECTIVE: 'objective',
+  OBJECTIVE_COMPLETE: 'objective-complete'
 };
 
 var Event = function(type, data) {
@@ -154,17 +155,25 @@ Event.prototype.execute = function(game_state, callback) {
         var o = game_state.objectives[i];
         if (o.id == id) {
           objective = o;
+          game_state.context = i;
           break;
         }
       }
 
       if (objective) {
-        objective.prompt = prompt;
         objective.templateCode = templateCode;
         objective.active = true;
       } else {
         console.log('WARNING: unrecognized objective id: ' + id);
       }
+      callback();
+      break;
+    case EventType.OBJECTIVE_COMPLETE:
+      // Mark active objective complete and set inactive.
+      var activeObjective = game_state.objectives[game_state.context];
+      activeObjective.active = false;
+      activeObjective.complete = true;
+      game_state.context = -1;
       callback();
       break;
     default:
@@ -261,7 +270,7 @@ GameState.prototype.parse_trigger_objects = function(objects_json) {
     switch (object_json['type']) {
       case 'objective':
         var id = props_json['objectiveId'];
-        var objective = new Objective(id, props_json['name']);
+        var objective = new Objective(id, props_json['name'], props_json['prompt']);
         this.objectives.push(objective);
         break;
       default: // Don't care about other triggers. Gamelib handles logic.
@@ -437,6 +446,9 @@ GameState.prototype.parse_response = function(response_json) {
             'templateCode': data_json['templateCode']
           };
           events.push(new Event(EventType.OBJECTIVE, data));
+          break;
+        case 'completedobjective':
+          events.push(new Event(EventType.OBJECTIVE_COMPLETE, null));
           break;
         default:
           console.log('Unknown log event type: ' + type);

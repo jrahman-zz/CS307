@@ -46,23 +46,76 @@ function update_objective_list(objectives) {
 
   var prompt = $('div.prompt-text');
   if (activeObjective) {
-    if (!prompt.hasClass('active')) {
-      savedPromptText = prompt.text();
-    }
+    savedPromptText = prompt.text();
     prompt.text(activeObjective.prompt).toggleClass('active', true);
-    // TODO utilize item.templateCode
+    // TODO insert item.templateCode
   } else {
-    if (savedPromptText) {
-      prompt.text(savedPromptText);
-      savedPromptText = null;
-    }
+    prompt.text(savedPromptText).toggleClass('active', false);
   }
+}
+
+// TODO temporary. delete later
+var index = 0;
+function get_next_debug_response() {
+  if (index == 0) {
+    response_json = {
+      "classID":2,
+      "levelID":1,
+      "log":[
+        [
+          {
+            "data": {
+            "prompt":"Test objective prompt",
+            "templateCode":"a = 4",
+            "objectiveID":0
+            },
+            "type":"objective"
+          }
+        ]
+      ],
+      "nextLevel":-1,
+      "userID":0
+    };
+  } else if (index == 1) {
+    response_json = {
+      "response": "Incorrect answer",
+      "error_name": "IncorrectAnswer",
+      "error_obj": null,
+      "error_line_number": -1,
+      "error_line_text": "",
+      "error_message": "Custom error message from Don!"
+    };
+  } else if (index == 2) {
+    response_json = {
+      "classID": 2,
+      "log": [[
+        {
+          "type": "completedobjective", 
+          "data": {
+            "totalobjectives": 1,
+            "completedobjectives": 1
+          }
+        }
+      ]],
+      "completed": false,
+      "userID": 0,
+      "levelID": 1,
+      "nextLevel": 2
+    };
+  }
+  index++;
 }
 
 // Constants.
 var TileSize = 64;
 var CanvasTileWidth = 18;
 var CanvasTileHeight = 10;
+
+var Port = 3280;
+var ServerUrl = 'http://128.211.191.198:' + Port;
+var InitEndpoint = '/submissions/init';
+var SubmitEndpoint = '/submissions/submit/level';
+var ChallengeSubmitEndpoint = '/submissions/submit/challenge';
 
 // Functions inserted by play.html.haml.
 var tilemap_url = get_level_tilemap();
@@ -78,18 +131,25 @@ tilemap_promise.success(function (tilemap_str) {
 
   // Initialize level session with Execution server.
   var tilemap_json = JSON.parse(tilemap_str);
- /* $.ajax({
-    url: '/submissions/init',
-    type: 'post',
+
+  $.ajax({
+    url: InitEndpoint,
+    type: 'POST',
     data: {
-      level_id: 1,
-      course_id: 1,
+      level_id: level_id,
+      course_id: course_id,
       level: tilemap_str
     }
   }).done(function(data) {
     session_id = data.sessionID;
-  });*/
+    create_game();
+  }).fail(function(jqXHR, textStatus) {
+    console.log('failed init: ' + textStatus);
+  });
+});
 
+function create_game() {
+  console.log('got session id: ' + session_id); 
   var game = new Phaser.Game(CanvasTileWidth * TileSize, CanvasTileHeight * TileSize,
     Phaser.AUTO, 'canvas-container',
     { preload: preload, create: create, update: update, render: render },
@@ -122,44 +182,51 @@ tilemap_promise.success(function (tilemap_str) {
 
   }
 
+  // TODO temporary! delete this later
+  var debug = false;
+
   // Intercept click events on the submit button.
   $('#submit_button').click(function(event) {
     var code = editor.getValue();
 
-    var response_json = {
-      "classID":2,
-      "levelID":1,
-      "log":[
-        [
-          {
-            "data": {
-            "prompt":"Test objective prompt",
-            "templateCode":"a = 4",
-            "objectiveID":0
-            },
-            "type":"objective"
-          }
-        ]
-      ],
-      "nextLevel":-1,
-      "userID":0
-    };
-    /*$.ajax({
-        type: 'POST',
-        // make sure you respect the same origin policy with this url:
-        // http://en.wikipedia.org/wiki/Same_origin_policy
-        url: 'http://128.211.191.198:3900/submissions/submit',
-        data: {
-            'code': code,
-            'level_id': 1,
-            'course_id': 1,
-            'session_id': session_id
-        },
-        success: function(msg){
-            alert('wow: ' + msg);
-        }
-    });*/
+    if (debug) {
+      var response_json = get_next_debug_response();
+      process_response(response_json);
+    } else {
+      var endpoint;
+      var data = {
+        'code': code,
+        'submission[level_id]': level_id,
+        'submission[course_id]': course_id,
+        'session_id': session_id
+      };
 
+      if (game_state.context == -1) {
+        // Navigation context.
+        endpoint = SubmitEndpoint;
+      } else {
+        // Challenge context.
+        endpoint = ChallengeSubmitEndpoint;
+        data['challenge_id'] = game_state.context;
+      }
+
+      // Post submission to application server.
+      $.ajax({
+          type: 'POST',
+          url: ServerUrl + endpoint,
+          data: data
+      }).done(function(data) {
+        console.log('data: ' + JSON.stringify(data)
+            + ', status: ' + textStatus);
+        // process_response(data);
+      }).fail(function(jqXHR, textStatus) {
+        console.log('Error status: ' + textStatus
+            + ', thrown: ' + errorThrown);
+      });
+    }
+  });
+
+  function process_response(response_json) {
     function clearMarkers() {
       for (var i = 0; i < editorMarkers.length; i++) {
         editor.session.removeMarker(editorMarkers[i]);
@@ -167,6 +234,11 @@ tilemap_promise.success(function (tilemap_str) {
     }
 
     // Check for key that indicates error
+    if (!response_json) {
+      console.log('ERROR: null response JSON');
+      return;
+    }
+
     if ('response' in response_json) {
       var error_name = response_json['error_name'];
       var error_message = response_json['error_message'];
@@ -195,5 +267,5 @@ tilemap_promise.success(function (tilemap_str) {
         // TODO re-enable UI
       });
     }
-  });
-});
+  }
+}
