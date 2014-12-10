@@ -40,4 +40,4 @@
 
   = "var level_id = " + @level.id.to_s
   = "var course_id = " + @level.course.id.to_s
-  = "var SERVER_URI = '" + @host_with_port + "'"
+  = raw("var SERVER_URI = \"http://" + @host_with_port + "\"")
