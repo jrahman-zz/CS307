@@ -60,23 +60,40 @@ class SubmissionsController < ApplicationController
         level: level
       }.to_json.to_s)
 
-      puts body
+      # http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id, 'Context-Type' => 'application/json' }, body: body
 
-      EM.run {
-        http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id, 'Context-Type' => 'application/json' }, body: body
+      puts '\n\n#### Sent a request to Jason ####\n\n'
 
-        puts '\n\n#### Sent a request to Jason ####\n\n'
+      # http.callback do
+      #   finish_request do
+      #     puts '\n\n#### Gameplay Session initialized ####\n\n'
+      #     render json: http.response
+      #   end
+      # end
 
-        http.callback do
-          finish_request do
-            puts '\n\n#### Gameplay Session initialized ####\n\n'
-            render json: http.response
-          end
-        end
-      }
+      url = URI.parse(uri)
+      http = Net::HTTP.new(url.host, url.port)
 
-      self.response_body = ''
-      self.status = 200
+      request = Net::HTTP::Post.new(url.request_uri)
+      request["user_token"] = current_user.id
+      request.body = body
+      request["Content-Type"] = 'application/json'
+
+
+      request.each_header do |key, value|
+        puts key + ": " + value
+      end
+
+      puts request.body
+
+      response = http.request(request)
+
+      self.response_body = response.body
+      self.status = response.code
+
+
+      # self.response_body = ''
+      # self.status = -1
 
     else
       render status: 403 # Forbidden
