@@ -17,5 +17,5 @@ echo "" # Print newline
 
 for TEST in ${FAILED_TESTS}; do
     echo "Failed ${TEST}"
-    cat "${TEST}.output"
+    cat ${TEST}.output
 done
