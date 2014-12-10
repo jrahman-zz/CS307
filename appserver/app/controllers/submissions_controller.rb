@@ -5,40 +5,34 @@ class SubmissionsController < ApplicationController
   ROUTING_SERVER = 'http://128.211.217.94:8089'
 
   def finish_submission http
-    http.callback do
-      finish_request do
-        puts '\n\n#### Routing Server response captured, returning to client ####\n\n'
+    json = JSON.parse http.response
 
-        json = JSON.parse http.response
+    now = Time.now
 
-        now = Time.now
-
-        @submission = Submission.find_or_initialize_by(@info)
-        # If the submission has just been created, say that the start time is now
-        if @submission.new_record?
-          @submission.started_at = now
-        end
-
-        # If the attempt was successful, store the date of completion
-        if json.completed
-          @submission.completed_at = now
-        end
-
-        @submission.save
-
-
-        @attempt = Attempt.new
-        @attempt.submission_id = @submission.id
-        @attempt.code = params[:code]
-        @attempt.hint = nil
-        @attempt.submitted_at = now
-        @attempt.result_id = json.completed
-
-        @attempt.save
-
-        render json: http.response
-      end
+    @submission = Submission.find_or_initialize_by(@info)
+    # If the submission has just been created, say that the start time is now
+    if @submission.new_record?
+      @submission.started_at = now
     end
+
+    # If the attempt was successful, store the date of completion
+    if json.completed
+      @submission.completed_at = now
+    end
+
+    @submission.save
+
+
+    @attempt = Attempt.new
+    @attempt.submission_id = @submission.id
+    @attempt.code = params[:code]
+    @attempt.hint = nil
+    @attempt.submitted_at = now
+    @attempt.result_id = json.completed
+
+    @attempt.save
+
+    render json: http.response
   end
 
 
@@ -60,16 +54,7 @@ class SubmissionsController < ApplicationController
         level: level
       }.to_json.to_s)
 
-      # http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id, 'Context-Type' => 'application/json' }, body: body
-
       puts '\n\n#### Sent a request to Jason ####\n\n'
-
-      # http.callback do
-      #   finish_request do
-      #     puts '\n\n#### Gameplay Session initialized ####\n\n'
-      #     render json: http.response
-      #   end
-      # end
 
       url = URI.parse(uri)
       http = Net::HTTP.new(url.host, url.port)
@@ -79,22 +64,10 @@ class SubmissionsController < ApplicationController
       request.body = body
       request["Content-Type"] = 'application/json'
 
-
-      request.each_header do |key, value|
-        puts key + ": " + value
-      end
-
-      puts request.body
-
       response = http.request(request)
 
       self.response_body = response.body
       self.status = response.code
-
-
-      # self.response_body = ''
-      # self.status = -1
-
     else
       render status: 403 # Forbidden
     end
@@ -117,15 +90,19 @@ class SubmissionsController < ApplicationController
       }.to_json.to_s)
 
       uri = ROUTING_SERVER + '/level/submit/' + params[:session_id]
-      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: body
 
+      url = URI.parse(uri)
+      http = Net::HTTP.new(url.host, url.port)
 
-      puts '\n\n#### Sent a level grading request to Jason ####\n\n'
+      request = Net::HTTP::Post.new(url.request_uri)
+      request["user_token"] = current_user.id
+      request.body = body
+      request["Content-Type"] = 'application/json'
 
-      finish_submission(http)
+      response = http.request(request)
 
-      self.response_body = ''
-      self.status = -1
+      self.response_body = response.body
+      self.status = response.code
     else
       render status: 403 # Forbidden
     end
@@ -149,14 +126,19 @@ class SubmissionsController < ApplicationController
       }.to_json.to_s)
 
       uri = ROUTING_SERVER + '/challenge/submit/' + params[:session_id]
-      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: body
 
-      puts '\n\n#### Sent an objective grading request to Jason ####\n\n'
+      url = URI.parse(uri)
+      http = Net::HTTP.new(url.host, url.port)
 
-      finish_submission(http)
+      request = Net::HTTP::Post.new(url.request_uri)
+      request["user_token"] = current_user.id
+      request.body = body
+      request["Content-Type"] = 'application/json'
 
-      self.reponse_body = ''
-      self.status = -1
+      response = http.request(request)
+
+      self.response_body = response.body
+      self.status = response.code
     else
       render status: 403 # Forbidden
     end

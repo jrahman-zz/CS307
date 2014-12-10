@@ -14,6 +14,7 @@ class LevelsController < ApplicationController
 
   # GET /levels/1/play
   def play
+    @host_with_port = request.host_with_port
     render 'game/play', layout: 'game_page'
   end
 
