@@ -117,29 +117,35 @@ var InitEndpoint = '/submissions/init';
 var SubmitEndpoint = '/submissions/submit/level';
 var ChallengeSubmitEndpoint = '/submissions/submit/challenge';
 
+var POST = 'POST';
+var JSONDataType = 'json';
+var JSONContentType = 'application/json; charset=utf-8';
+
 // Functions inserted by play.html.haml.
 var tilemap_url = get_level_tilemap();
 var hero_gender = get_hero_gender();
+
+var tilemap_str;
 
 // This is set by the session initialization request, then sent with every submission request.
 var session_id = null;
 
 // Load tilemap from file asynchronously.
 var tilemap_promise = ajax_request_async('/assets/tilemaps/' + tilemap_url);
-tilemap_promise.success(function (tilemap_str) {
-  "use strict";
+tilemap_promise.success(function (tilemap) {
+  tilemap_str = tilemap;
 
   // Initialize level session with Execution server.
-  var tilemap_json = JSON.parse(tilemap_str);
-
+  var data = {
+    level_id: level_id,
+    course_id: course_id,
+    level: tilemap_str
+  };
   $.ajax({
+    type: POST,
     url: InitEndpoint,
-    type: 'POST',
-    data: {
-      level_id: level_id,
-      course_id: course_id,
-      level: tilemap_str
-    }
+    data: data,
+    dataType: JSONDataType,
   }).done(function(data) {
     session_id = data.sessionID;
     create_game();
@@ -149,13 +155,14 @@ tilemap_promise.success(function (tilemap_str) {
 });
 
 function create_game() {
-  console.log('got session id: ' + session_id); 
   var game = new Phaser.Game(CanvasTileWidth * TileSize, CanvasTileHeight * TileSize,
     Phaser.AUTO, 'canvas-container',
     { preload: preload, create: create, update: update, render: render },
     false /* transparent */, true /* antialias */);
 
   var game_state = new GameState(game, TileSize);
+
+  var tilemap_json = JSON.parse(tilemap_str);
 
   function preload() {
     // Load world tilemap.
@@ -212,9 +219,11 @@ function create_game() {
 
       // Post submission to application server.
       $.ajax({
-          type: 'POST',
+          type: POST,
           url: ServerUrl + endpoint,
-          data: data
+          data: data,
+          dataType: JSONDataType,
+          contentType: JSONContentType
       }).done(function(data) {
         console.log('data: ' + JSON.stringify(data)
             + ', status: ' + textStatus);
