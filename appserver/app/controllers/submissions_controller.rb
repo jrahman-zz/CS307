@@ -51,24 +51,32 @@ class SubmissionsController < ApplicationController
     # Only allow submissions from users who are signed in
     if user_signed_in?
       uri = ROUTING_SERVER + '/session/create'
-      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: {
-        levelID: params[:level_id],
-        courseID: params[:course_id],
+
+      level = JSON.parse(params[:level])
+      body = URI.unescape({
+        levelID: params[:level_id].to_i,
+        classID: params[:course_id].to_i,
         userID: current_user.id,
-        level: params[:level]
+        level: level
+      }.to_json.to_s)
+
+      puts body
+
+      EM.run {
+        http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id, 'Context-Type' => 'application/json' }, body: body
+
+        puts '\n\n#### Sent a request to Jason ####\n\n'
+
+        http.callback do
+          finish_request do
+            puts '\n\n#### Gameplay Session initialized ####\n\n'
+            render json: http.response
+          end
+        end
       }
 
       self.response_body = ''
-      self.status = -1
-
-      puts '\n\n#### Sent a request to Jason ####\n\n'
-
-      http.callback do
-        finish_request do
-          puts '\n\n#### Gameplay Session initialized ####\n\n'
-          render json: http.response
-        end
-      end
+      self.status = 200
 
     else
       render status: 403 # Forbidden
@@ -86,15 +94,21 @@ class SubmissionsController < ApplicationController
       # Explicitly set the user to avoid client side hijacking
       @info[:user_id] = current_user.id
 
-      uri = ROUTING_SERVER + '/level/submit/' + params[:session_id]
-      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: { codelines: params[:code] }
 
-      self.response_body = ''
-      self.status = -1
+      body = URI.unescape({
+        codelines: params[:code]
+      }.to_json.to_s)
+
+      uri = ROUTING_SERVER + '/level/submit/' + params[:session_id]
+      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: body
+
 
       puts '\n\n#### Sent a level grading request to Jason ####\n\n'
 
       finish_submission(http)
+
+      self.response_body = ''
+      self.status = -1
     else
       render status: 403 # Forbidden
     end
@@ -110,20 +124,22 @@ class SubmissionsController < ApplicationController
 
       @challenge = Challenge.find_by(objective_id: params[:challenge_id])
 
-      uri = ROUTING_SERVER + '/challenge/submit/' + params[:session_id]
-      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: {
+      body = URI.unescape({
         code: params[:code],
         validationCode: @challenge.validation_code,
         outname: @challenge.outname,
         objectiveid: @challenge.objective_id
-      }
+      }.to_json.to_s)
 
-      self.reponse_body = ''
-      self.status = -1
+      uri = ROUTING_SERVER + '/challenge/submit/' + params[:session_id]
+      http = EM::HttpRequest.new(uri).post head: { user_token: current_user.id }, body: body
 
       puts '\n\n#### Sent an objective grading request to Jason ####\n\n'
 
       finish_submission(http)
+
+      self.reponse_body = ''
+      self.status = -1
     else
       render status: 403 # Forbidden
     end
