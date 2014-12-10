@@ -294,7 +294,7 @@ hero.moveLeft()
 #----------------------------------------------------------
 
     code = """
-x = 3
+x = y
     """
     vcode = """
 out = (x == 3, "Hello world!")
@@ -323,6 +323,41 @@ out = (x == 3, "Hello world!")
     data = json.loads(data)
     print "PASSED: Succesfully submitted challenge"
     print json.dumps(data)
+
+#----------------------------------------------------------
+#
+#----------------------------------------------------------
+    code = """
+x = y # This is bad
+    """
+    vcode = """
+out = (x == 3, "Hello world!")
+    """
+
+    submission = { "codelines": code, "validationcode": vcode, "outname": "out", "objectiveid": 4}
+
+    submit_params = { "Content-Type": "application/json" }
+    submit_params.update(default_params);
+
+    # Such challenge
+    print "Submitting challenge submission..."
+    connection.request(
+            method  = "POST",
+            url     = CHALLENGE_SUBMIT,
+            body    = json.dumps(submission),
+            headers = submit_params
+        )
+    response = connection.getresponse()
+    print response.status
+    if response.status != 200:
+        print "FAILED: Couldn't submit challenge"
+        return
+
+    data = response.read()
+    data = json.loads(data)
+    print "PASSED: Succesfully submitted second challenge"
+    print json.dumps(data)
+
 
 #----------------------------------------------------------
 # Deletion test
