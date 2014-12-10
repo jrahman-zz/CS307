@@ -163,7 +163,7 @@
                  "properties":
                     {
                      "actor":"1",
-                     "dialogue":"Hello young one. Since you graciously accepted to take on my quest I must teach you a few things so you can survive in the wilderness. First I will teach you how to do math with python. It is fairly easy. All you do is type in your equation and hit enter! Its that simple. So to help you practice I have a small problem for you to solve.",
+                     "dialogue":"Hello young one. Since you graciously accepted to take on my quest I must teach you a few things so you can survive in the wilderness. First, I will teach you how to do math with python.\u201d\nBut, first let me show you my simple adding calculator!\n\ndef add (a,b)\n\tanswer = a + b\n\nSo you see add is the name of my function! This function named \u201cadd\u201d takes in a and b which are numbers! \nThe next line you see there is an \"=\" which means that you have to do what is on the RIGHT side first. Then whatever answer you get on the RIGHT side will be put into a variable named on the LEFT side.\nFinally, it will store the answer to \u201canswer.\u201d So, if you wanted to divided answer by 2 you can use this code \u201canswer2 = answer\/2\"",
                      "priority":"0",
                      "repeatable":"0",
                      "stopMove":"1",
@@ -182,7 +182,7 @@
                  "properties":
                     {
                      "actor":"3",
-                     "dialogue":"Ahh yes, Tnana my rival! I believe he is hanging around somewhere in the beach area! Go talk to my wizard friend that is dancing around the pound he can transport you to the beach!",
+                     "dialogue":"Oh? So you think you are so smart by adding a bunch of even numbers? Try finding the sum of odd numbers! By using for loops! \nHere is the structure of a for loop. \nfor variable in condition\n\tlogic\n",
                      "repeatable":"1",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -200,7 +200,7 @@
                  "properties":
                     {
                      "actor":"2",
-                     "dialogue":"I don\u2019t know anything about Tnana. But, maybe if you can help me figure out how many ounces are in a gram because the bottle of magic dust i bought is in ounces, but i\u2019ve only used grams my entire life. The bottle states there are 18 ozs in the bottle. But I need 1372 grams. Do I have enough? Hint:  I believe 1 oz is equal to 28.3 grams.",
+                     "dialogue":"I decided to check up on my little store center I have on the pier. But, it looks like my cash register has been acting up and has not been selling at the correct prices. Help me reprogram it young one! First, I must teach you how to create an if statement!\nif expression: \n\tlogic\nelse: \n\tlogic",
                      "priority":"0",
                      "repeatable":"0",
                      "stopMove":"1",
@@ -219,7 +219,7 @@
                  "properties":
                     {
                      "actor":"5",
-                     "dialogue":"Hello Traveler!!! How can I help you?! \nOh? You want a ride from the ALMIGHTY WIZ?! \nWell It isn\u2019t free ya\u2019 kno\u2019?! If I transport you I will use up exactly 83,729 power strength. But, right now I have 912,378 power strength and I need enough energy to transfer me back home so I can recharge. I don\u2019t want to sleep here for the night ya\u2019 kno\u2019 buddy? So, for me to get home it will cost me 800,000 power strength. Can I make both the trips without getting too tired? Talk to me by using Hero.print(Yes) Or Hero.print(No)",
+                     "dialogue":"MEEK!!! I can\u2019t figure out if I can buy a brand new racing kart for a race I am entering over in Merio Land. The brand new Deluxe Mushmellow, with slick new tire upgrades, plus a cloud will cost me a lot of money! I need you to write me a program to figure out if this will be in my price range if not I can use it to figure out if i can buy other karts!\n",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"1"
@@ -237,7 +237,7 @@
                  "properties":
                     {
                      "actor":"4",
-                     "dialogue":"I have heard the name, but he made sure his name is kept on the down low. But, if you do me a favor I can help maybe help you.",
+                     "dialogue":"Did you ever wonder what the first 10 even digits were? Did you know you can use loops to make that process so much easier? Here try it with me! \nso if you write\n\nn = 0\nwhile n <= 10:\n\tprint n\n\tn = n + 2\nprint \u201cI Finished!\"\n\nthe output would be \n0\n2\n4\n6\n8\n10\nI Finished!\n",
                      "priority":"0",
                      "repeatable":"1",
                      "stopMove":"1",
@@ -276,7 +276,7 @@
                      "name":"Solve the Wizard's task (Arithmetic)",
                      "objectiveId":"0",
                      "priority":"10",
-                     "prompt":"Question Lies Here",
+                     "prompt":"So, I need you to help me build a special calculator to can help me figure out how many square inches are in a square yard!\nHere is the first part of your code! def sqYardToSqInch(x):",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -297,7 +297,7 @@
                      "name":"Solve the Koopa's task (Conditional)",
                      "objectiveId":"1",
                      "priority":"10",
-                     "prompt":"Question Goes HEre",
+                     "prompt":"So the function I want you to make for me is \"def sell(x):\" This program will help me decide if the haggler is within my price range.\nSo normally I want to sell my items if they offer me $23, but since I am such a nice guy I will not allow my customer be ripped off so I won\u2019t sell anything that is more than $80. Your function should be \"def sell(price): \"",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -318,7 +318,7 @@
                      "name":"Solve the Peachy's task (While Loops)",
                      "objectiveId":"3",
                      "priority":"10",
-                     "prompt":"Question Goes here",
+                     "prompt":"So your problem is find me the sum of the first 100 even digits!\nYour function should be \"def evenNumber():\"",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -339,7 +339,7 @@
                      "name":"Solve the Trainer's task (For Loops)",
                      "objectiveId":"2",
                      "priority":"10",
-                     "prompt":"question goes here",
+                     "prompt":"Try finding the sum of odd numbers! Your function definition should be \"def oddNumbers(): \"",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
@@ -360,7 +360,7 @@
                      "name":"Solve the DancerWiz's task (Final Level Problem)",
                      "objectiveId":"4",
                      "priority":"10",
-                     "prompt":"question goes here",
+                     "prompt":"So if the Deluxe Mushmellow kart is 800, dollars the new tires is 125, and the cloud kite is 142 dollars how much is that going to cost total? Also, in Mario Land there is a 12.8% tax on final purchase. Then can you see if that number is less than my 1356 dollars that I have in my pocket?  If so, then you say \u201cYAY! I CAN BUY IT!\u201d and if not  \u201cI need more money!\u201d\nCan you write me a program to add 3 items and then adds on the tax and compares if i have enough money or not and outputs the correct response? Your function should be \"def purchases(kart, wheels, kite): \" ",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"
