@@ -2,7 +2,7 @@ class SubmissionsController < ApplicationController
   # Allow submissions to be handled asynchronously
   include AsyncController
 
-  ROUTING_SERVER = 'http://klamath.dnsdynamic.com:8089'
+  ROUTING_SERVER = 'http://128.211.217.94:8089'
 
   def finish_submission http
     http.callback do
@@ -98,8 +98,6 @@ class SubmissionsController < ApplicationController
     else
       render status: 403 # Forbidden
     end
-
-    render nothing: true
   end
 
   # POST /submissions/submit/challenge
@@ -129,8 +127,6 @@ class SubmissionsController < ApplicationController
     else
       render status: 403 # Forbidden
     end
-
-    render nothing: true
   end
 
 

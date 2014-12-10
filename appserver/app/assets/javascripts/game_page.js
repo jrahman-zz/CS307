@@ -113,6 +113,7 @@ var CanvasTileHeight = 10;
 
 var Port = 3280;
 var ServerUrl = 'http://128.211.191.198:' + Port;
+var InitEndpoint = '/submissions/init';
 var SubmitEndpoint = '/submissions/submit/level';
 var ChallengeSubmitEndpoint = '/submissions/submit/challenge';
 
@@ -130,18 +131,25 @@ tilemap_promise.success(function (tilemap_str) {
 
   // Initialize level session with Execution server.
   var tilemap_json = JSON.parse(tilemap_str);
- /* $.ajax({
-    url: '/submissions/init',
-    type: 'post',
+
+  $.ajax({
+    url: InitEndpoint,
+    type: 'POST',
     data: {
-      level_id: 1,
-      course_id: 1,
+      level_id: level_id,
+      course_id: course_id,
       level: tilemap_str
     }
   }).done(function(data) {
     session_id = data.sessionID;
-  });*/
+    create_game();
+  }).fail(function(jqXHR, textStatus) {
+    console.log('failed init: ' + textStatus);
+  });
+});
 
+function create_game() {
+  console.log('got session id: ' + session_id); 
   var game = new Phaser.Game(CanvasTileWidth * TileSize, CanvasTileHeight * TileSize,
     Phaser.AUTO, 'canvas-container',
     { preload: preload, create: create, update: update, render: render },
@@ -186,11 +194,10 @@ tilemap_promise.success(function (tilemap_str) {
       process_response(response_json);
     } else {
       var endpoint;
-      console.log('ids: ' + level_id + ', ' + course_id);
       var data = {
         'code': code,
-        'level_id': level_id,
-        'course_id': course_id,
+        'submission[level_id]': level_id,
+        'submission[course_id]': course_id,
         'session_id': session_id
       };
 
@@ -207,18 +214,14 @@ tilemap_promise.success(function (tilemap_str) {
       $.ajax({
           type: 'POST',
           url: ServerUrl + endpoint,
-          data: data,
-          error: function(jqXHR, textStatus, errorThrown) {
-            console.log('Error: ' + JSON.stringify(jqXHR)
-                + ', status: ' + textStatus
-                + ', thrown: ' + errorThrown);
-          },
-          success: function(data, textStatus, jqXHR) {
-            console.log('data: ' + JSON.stringify(data)
-                + ', status: ' + textStatus
-                + ', xhr: ' + JSON.stringify(jqXHR));
-            // process_response(data);
-          }
+          data: data
+      }).done(function(data) {
+        console.log('data: ' + JSON.stringify(data)
+            + ', status: ' + textStatus);
+        // process_response(data);
+      }).fail(function(jqXHR, textStatus) {
+        console.log('Error status: ' + textStatus
+            + ', thrown: ' + errorThrown);
       });
     }
   });
@@ -265,4 +268,4 @@ tilemap_promise.success(function (tilemap_str) {
       });
     }
   }
-});
+}
