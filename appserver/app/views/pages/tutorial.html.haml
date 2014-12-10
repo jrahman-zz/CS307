@@ -1,44 +1,65 @@
 .container
-  .page-header
-    %h1
-      = "Tutorial"
-  .col-md-3
-  .col-md-9
-    %h2
-      User Management
-      %h3
-        Creating a New User
-      When accessing the site for the first time, you will need to create a new user for the site. To do so, click on the 'Sign Up' button on the top right corner of the page. You will then have to enter your Name, Email, Password and confirm your Password. After that you are officially a member of our game website!
-      %h3
-        Accessing Account Details
-      When you are logged in, if you wish to access your account details, click on the 'My Account' button on the top right corner of the page. A page displaying your Name, Email and Courses you are currently enrolled in will show up. The courses you are enrolled in will have basic information about the course such as the course name, the day you started that course and the current progress you have in the course.
-      %h3
-        Editing or Deleting Your Account
-      To Edit details of your account such as - Name, Email or Password, click on the 'My Account' button on the top right corner of the page followed by the 'Edit' button at the bottom left corner of the page that is displayed. You will be redirected to a page with the title 'Edit User'. From this page you can change your Display Name, Email Address or Password. If you wish to delete your account, you can click on the 'Cancel my account' button. (WARNING:- If you delete your account, all your data will also be deleted).
+  .row
+    .col-md-4.hidden-sm
+      = raw(sidebar_nav)
 
-    %h2
-      Courses Management
-      %h3
-        Creating a New Course
-      Only Administrators of the site can create courses. Instructors who wish to create a new course for their curriculum will need to contact site Administrators with specific details for their course in order to have it available for Students to enroll in.
-      %h3
-        Viewing a Course's Page
-      As a Student you can view any courses information. To do so, click on the 'Courses' button on the top left corner of the page. This will reroute you to a page which displays the different courses that currently exist on the site. To view details of a specific course, you can search for the course using the 'Search Courses' bar or you can scroll through the existing courses and then click on the courses name to read more about the course. 
-      %h3
-        Enrolling in or Withdrawing from a Course
-      As a Student you can Enroll in a course and Withdraw from a Course. If you are interested in enrolling in a course, go the the course's information(explained in 'Viewing Course Information'), and click on the 'Enroll in Course' button. If the course is an open course, you will automatically be added to the list of students enrolled in the course. However, if the course is a closed course, you will have to wait for an instructor of that course to approve your enrollment. To withdraw from a course you are enrolled in, just go to the course page and click on the 'Withdraw from Course' button. (WARNING:- If you withdraw from a course all your data associated with the course will be deleted).
-      %h3
-        Managing Users within a Course
-      Instructors of specific courses are allowed to manage which students are enrolled in the course. You have to be signed in as an instructor to do so. To see which students are currently enrolled in a specific course, you will have to go to the course's main page. Follow the instructions above on 'Viewing a Course's Page' to do so. Once on the course's page, you will be able to see basic course information and also the list of students currently enrolled in the course. If needed, you, as an instructor, can remove a student from a course by clicking on the small 'x' that pops up to right of the students' name when you have your cursor over the students' name. 
 
-    %h2
-      Gameplay
-      %h3
-        Playing A Level
-      To play a level and complete challenges for a course, you must first be enrolled in a course. Follow the above instructions on 'Enrolling in/Withdrawing from a Course' to do so. Once enrolled in a course, you should be at the course page and be able to view which levels are associated with the course. To actually play a level, you will need to float your cursor above the level's name and to its right the word 'Play' will appear. Click on the 'Play' button and you will be rerouted to the game page where you can start playing!
-      %h3
-        Testing Out Your Code
-      To do so you need to be on the game page for a specific level in a course. To do so, follow the above instructions on 'Playing A Level'. On the game page, you will notice a number of items. The title of the level will be at the top right along with a short explanantion of what the objective of the level is. You can type the code you want to run in the editor below the title and prompt and click on the 'Test' button to see if your code works. You will receive relevant feedback on whether the code you submitted works or not. Lines you have committed errors on will be highlighted accordingly.
-      
+    .col-md-8
+      %a.anchor#user_management
+      .page-header
+        %h1 User Management
 
-      
+      %a.anchor#creating_a_new_user
+      %h2 Creating a New User
+      %p
+        When accessing the site for the first time, you will need to create a new user for the site. To do so, click on the 'Sign Up' button on the top right corner of the page. You will then have to enter your Name, Email, Password and confirm your Password. After that you are officially a member of our game website!
+
+      %a.anchor#accessing_account_details
+      %h2 Accessing Account Details
+      %p
+        When you are logged in, if you wish to access your account details, click on the 'My Account' button on the top right corner of the page. A page displaying your Name, Email and Courses you are currently enrolled in will show up. The courses you are enrolled in will have basic information about the course such as the course name, the day you started that course and the current progress you have in the course.
+
+      %a.anchorediting_or_deleting_your_account
+      %h2 Editing or Deleting Your Account
+      %p
+        To Edit details of your account such as - Name, Email or Password, click on the 'My Account' button on the top right corner of the page followed by the 'Edit' button at the bottom left corner of the page that is displayed. You will be redirected to a page with the title 'Edit User'. From this page you can change your Display Name, Email Address or Password. If you wish to delete your account, you can click on the 'Cancel my account' button. (WARNING:- If you delete your account, all your data will also be deleted).
+
+      %a.anchor#course_management
+      .page-header
+        %h1 Courses Management
+
+      %a.anchor#creating_a_new_course
+      %h3 Creating a New Course
+      %pOnly Administrators of the site can create courses. Instructors who wish to create a new course for their curriculum will need to contact site Administrators with specific details for their course in order to have it available for Students to enroll in.
+
+      %a.anchor#viewing_a_courses_page
+      %h3 Viewing a Course's Page
+      %p
+        As a Student you can view any courses information. To do so, click on the 'Courses' button on the top left corner of the page. This will reroute you to a page which displays the different courses that currently exist on the site. To view details of a specific course, you can search for the course using the 'Search Courses' bar or you can scroll through the existing courses and then click on the courses name to read more about the course.
+
+      %a.anchor#enrolling_in_or_withdrawing_from_a_course
+      %h3 Enrolling in or Withdrawing from a Course
+      %p
+        As a Student you can Enroll in a course and Withdraw from a Course. If you are interested in enrolling in a course, go the the course's information(explained in 'Viewing Course Information'), and click on the 'Enroll in Course' button. If the course is an open course, you will automatically be added to the list of students enrolled in the course. However, if the course is a closed course, you will have to wait for an instructor of that course to approve your enrollment. To withdraw from a course you are enrolled in, just go to the course page and click on the 'Withdraw from Course' button. (WARNING:- If you withdraw from a course all your data associated with the course will be deleted).
+
+      %a.anchor#managing_users_within_a_course
+      %h3 Managing Users within a Course
+      %p
+        Instructors of specific courses are allowed to manage which students are enrolled in the course. You have to be signed in as an instructor to do so. To see which students are currently enrolled in a specific course, you will have to go to the course's main page. Follow the instructions above on 'Viewing a Course's Page' to do so. Once on the course's page, you will be able to see basic course information and also the list of students currently enrolled in the course. If needed, you, as an instructor, can remove a student from a course by clicking on the small 'x' that pops up to right of the students' name when you have your cursor over the students' name.
+
+      %a.anchor#gameplay
+      .page-header
+        %h1 Gameplay
+
+      %a.anchor#playing_a_level
+      %h3 Playing A Level
+      %p
+        To play a level and complete challenges for a course, you must first be enrolled in a course. Follow the above instructions on 'Enrolling in/Withdrawing from a Course' to do so. Once enrolled in a course, you should be at the course page and be able to view which levels are associated with the course. To actually play a level, you will need to float your cursor above the level's name and to its right the word 'Play' will appear. Click on the 'Play' button and you will be rerouted to the game page where you can start playing!
+
+      %a.anchor#testing_out_your_code
+      %h3 Testing Out Your Code
+      %p
+        To do so you need to be on the game page for a specific level in a course. To do so, follow the above instructions on 'Playing A Level'. On the game page, you will notice a number of items. The title of the level will be at the top right along with a short explanantion of what the objective of the level is. You can type the code you want to run in the editor below the title and prompt and click on the 'Test' button to see if your code works. You will receive relevant feedback on whether the code you submitted works or not. Lines you have committed errors on will be highlighted accordingly.
+
+
+

@@ -86,3 +86,36 @@ ul.member-list li {
   border-top: 1px solid #e7e7e7;
   width: 100%;
 }
+
+ul.sidebar_nav {
+  margin-top: 40px;
+  list-style-type: none;
+  color: $navbar-default-bg;
+
+  ul.sidebar_section_nav {
+    list-style-type: none;
+    padding-left: 30px;
+  }
+
+  li {
+    a {
+      color: $navbar-default-bg;
+      padding: 3px 0 3px 10px;
+      display: block;
+
+      &:hover, &:active {
+        padding-left: 8px;
+        border-left: 2px solid $navbar-default-bg;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+a.anchor {
+  display: block;
+  position: relative;
+  top: -80px;
+  visibility: hidden;
+}
+
