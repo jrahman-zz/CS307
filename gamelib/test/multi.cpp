@@ -9,10 +9,10 @@
 
 #include "test_data_a.h"
 
-string expected_log = R"({"classID":2,"completed":false,"levelID":1,"log":[[{"data":{"actorID":0,"position":{"x":14,"y":2}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}],[{"data":{"actorID":0,"position":{"x":14,"y":1}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}]],"nextLevel":-1,"userID":0}
+string expected_log = R"({"classID":2,"completed":false,"levelID":1,"log":[[{"data":{"actorID":0,"rotation":270},"type":"rotate"},{"data":{"actorID":0,"position":{"x":14,"y":2}},"type":"move"}],[{"data":{"actorID":0,"rotation":90},"type":"rotate"},{"data":{"actorID":0,"position":{"x":14,"y":1}},"type":"move"}]],"nextLevel":-1,"userID":0}
 )";
 
-string expected_log2 = R"({"classID":2,"completed":false,"levelID":1,"log":[[{"data":{"actorID":0,"position":{"x":14,"y":2}},"type":"move"},{"data":{"actorID":0,"rotation":270},"type":"rotate"}],[{"data":{"actorID":0,"position":{"x":14,"y":3}},"type":"move"}]],"nextLevel":-1,"userID":0}
+string expected_log2 = R"({"classID":2,"completed":false,"levelID":1,"log":[[{"data":{"actorID":0,"rotation":270},"type":"rotate"},{"data":{"actorID":0,"position":{"x":14,"y":2}},"type":"move"}],[{"data":{"actorID":0,"position":{"x":14,"y":3}},"type":"move"}]],"nextLevel":-1,"userID":0}
 )";
 
 START_TEST("multi");

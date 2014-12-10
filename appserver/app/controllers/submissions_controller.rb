@@ -4,8 +4,10 @@ class SubmissionsController < ApplicationController
 
   ROUTING_SERVER = 'http://128.211.217.94:8089'
 
-  def finish_submission http
-    json = JSON.parse http.response
+  def finish_submission response
+    json = JSON.parse response.body
+
+    puts json
 
     now = Time.now
 
@@ -16,7 +18,7 @@ class SubmissionsController < ApplicationController
     end
 
     # If the attempt was successful, store the date of completion
-    if json.completed
+    if json['completed']
       @submission.completed_at = now
     end
 
@@ -28,11 +30,11 @@ class SubmissionsController < ApplicationController
     @attempt.code = params[:code]
     @attempt.hint = nil
     @attempt.submitted_at = now
-    @attempt.result_id = json.completed
+    @attempt.result_id = json['completed']
 
     @attempt.save
 
-    render json: http.response
+    render json: json, status: response.code
   end
 
 
@@ -101,8 +103,7 @@ class SubmissionsController < ApplicationController
 
       response = http.request(request)
 
-      self.response_body = response.body
-      self.status = response.code
+      finish_submission response
     else
       render status: 403 # Forbidden
     end
@@ -137,8 +138,7 @@ class SubmissionsController < ApplicationController
 
       response = http.request(request)
 
-      self.response_body = response.body
-      self.status = response.code
+      finish_submission response
     else
       render status: 403 # Forbidden
     end

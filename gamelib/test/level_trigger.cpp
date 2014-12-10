@@ -9,7 +9,7 @@
 
 #include "test_data_b.h"
 
-string expected_log = R"({"classID":2,"completed":true,"levelID":1,"log":[[{"data":{"actorID":0,"position":{"x":8,"y":2}},"type":"move"},{"data":{"actorID":0,"rotation":90},"type":"rotate"}],[{"data":{"actorID":0,"position":{"x":8,"y":1}},"type":"move"}]],"nextLevel":1,"userID":0}
+string expected_log = R"({"classID":2,"completed":true,"levelID":1,"log":[[{"data":{"actorID":0,"rotation":90},"type":"rotate"},{"data":{"actorID":0,"position":{"x":8,"y":2}},"type":"move"}],[{"data":{"actorID":0,"position":{"x":8,"y":1}},"type":"move"}]],"nextLevel":1,"userID":0}
 )";
 
 START_TEST("LevelExitTrigger");

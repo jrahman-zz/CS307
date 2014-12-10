@@ -83,15 +83,18 @@ bool LevelManager::onPreMove(Moveable& obj, Position next) {
     
     auto current = obj.getPosition();
     if (m_actors.find(current) == m_actors.end()) {
+        cout << "No actor at current" << endl; // DEBUG
         return false;
     }
 
     if (obj.getID() != m_actors[current]->getID()) {
+        cout << "ID mismatch" << endl; // DEBUG
         return false; // Mismatch
     }
     
     // Check if the square is occupied
     if (m_actors.find(next) != m_actors.end()) {
+        cout << "Occupied" << endl; // DEBUG
         return false;
     }
 
@@ -100,13 +103,18 @@ bool LevelManager::onPreMove(Moveable& obj, Position next) {
     auto row = next.getY();
     auto col = next.getX();
     bool ret = true;
-    
+   
+    // DEBUG
+    cout << "Row: " << row << " Col: " << col << endl; 
+ 
     // Check for on/off the map
     if (next.getX() < 0 || next.getX() >= m_tilemap->getWidth()) {
+        cout << "Off left/right edge" << cout; // DEBUG
         return false;
     }
 
     if (next.getY() < 0 || next.getY() >= m_tilemap->getHeight()) {
+        cout << "Off bottom/edge edge" << cout; // DEBUG
         return false;
     }
 
@@ -128,11 +136,16 @@ bool LevelManager::onPreMove(Moveable& obj, Position next) {
             ret = false;
     }
 
+    if (ret == false) { // DEBUG
+        cout << "Terrain stopped movement" << endl;
+    }
+	
     // Check the move distance
     auto deltaX = current.getX() - next.getX();
     auto deltaY = current.getY() - next.getY();
     auto absdiff = abs(deltaX) + abs(deltaY);
     if (absdiff != 1) {
+        cout << "Abs move fail" << endl;
         ret = false;
     }
 
@@ -152,7 +165,9 @@ void LevelManager::onPostMove(Moveable& obj, Position old) {
 
     auto current = actor->getPosition();
     if (current != old) {
-        runTriggers(actor, old);
+        cout << "NewX: " << actor->getPosition().getX() << " NewY: " << actor->getPosition().getY() << endl;
+        cout << "OldX: " << old.getX() << " OldY: " << old.getY() << endl; // TODO
+	runTriggers(actor, old);
     }
 }
 

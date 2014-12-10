@@ -149,7 +149,7 @@
                  "properties":
                     {
                      "actor":"2",
-                     "dialogue":"HEY THERE! You are finally awake! Why dont you come towards me (wizard) and we can talk! Try walking by typing in Hero.moveUp().",
+                     "dialogue":"HEY THERE! You are finally awake! Why dont you come towards me (wizard) and we can talk! Try walking by typing in hero.moveUp().",
                      "repeatable":"0",
                      "stopMove":"1",
                      "triggerTarget":"0"

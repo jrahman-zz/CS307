@@ -12,7 +12,7 @@ bool ActionLog::onLog(shared_ptr<LogEntry> entry) {
 }
 
 void ActionLog::log(std::shared_ptr<LogEntry> entry) {
-    m_records[m_timekeeper->getTimestep()].push_front(entry);
+    m_records[m_timekeeper->getTimestep()].push_back(entry);
 }
 
 Json::Value ActionLog::getJsonLog() const {
