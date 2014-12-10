@@ -9,7 +9,7 @@
 
 #include "test_data_d.h"
 
-string expected_log = R"({"classID":2,"completed":false,"levelID":1,"log":[[{"data":{"actorID":1,"dialogue":"Hi first"},"type":"dialogue"},{"data":{"actorID":1,"dialogue":"Hi second"},"type":"dialogue"},{"data":{"dialogue":"","objectiveId":42,"prompt":"Write an algorithm to solve the Traveling Salesman Problem","templateCode":"def tsp(graph, starting_point):\n    # TODO, implement the traveling salesman problem solution here\n    pass\n"},"type":"objective"},{"data":{"actorID":0,"position":{"x":15,"y":1}},"type":"move"}]],"nextLevel":-1,"userID":0}
+string expected_log = R"({"classID":2,"completed":false,"levelID":1,"log":[[{"data":{"actorID":0,"position":{"x":15,"y":1}},"type":"move"},{"data":{"dialogue":"","objectiveId":42,"prompt":"Write an algorithm to solve the Traveling Salesman Problem","templateCode":"def tsp(graph, starting_point):\n    # TODO, implement the traveling salesman problem solution here\n    pass\n"},"type":"objective"},{"data":{"actorID":1,"dialogue":"Hi second"},"type":"dialogue"},{"data":{"actorID":1,"dialogue":"Hi first"},"type":"dialogue"}]],"nextLevel":-1,"userID":0}
 )";
 
 START_TEST("priority");

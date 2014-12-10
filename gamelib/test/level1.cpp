@@ -24,8 +24,8 @@ START_TEST("level1");
     }
 
     // Building in the way, should not move
-    if (!hero->moveDown()) {
-        cout << "moveDown() failed, movement failed to occur" << endl;
+    if (!hero->moveUp()) {
+        cout << "moveUp() failed, movement failed to occur" << endl;
         FAIL_TEST("level1");
     }
 
