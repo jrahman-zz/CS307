@@ -23,7 +23,7 @@ bool Trigger::arrive(Interactable& target, shared_ptr<GameState> state) {
     if ((m_triggerTarget < 0 || m_triggerTarget == target.getID()) && isTriggerable()) {
         m_triggered = arriveImpl(target, state);
         if (m_triggered && m_stopMovement) {
-            dynamic_cast<Moveable&>(target).setCanMove(false);
+            state->setCanMove(false);
         }
     } else {
         return false; // Didn't activate trigger
