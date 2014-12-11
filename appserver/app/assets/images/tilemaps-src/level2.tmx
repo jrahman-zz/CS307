@@ -157,7 +157,7 @@ I Finished!
     <property name="triggerTarget" value="0"/>
    </properties>
   </object>
-  <object name="Wizard Objective" type="objective" x="320" y="384" width="64" height="64">
+  <object name="Wizard Objective" type="objective" x="384" y="384" width="64" height="64">
    <properties>
     <property name="actor" value="1"/>
     <property name="name" value="Solve the Wizard's task (Arithmetic)"/>
