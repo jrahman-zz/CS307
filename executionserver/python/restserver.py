@@ -104,8 +104,10 @@ def submit_level():
     loadedjson = request.get_json()
     code = loadedjson['codelines']
     try:
-        engine.startSubmission()
-        (appcontext, status) = execute(code, appcontext)
+        if engine.startSubmission():
+            (appcontext, status) = execute(code, appcontext)
+        else:
+            return Reponse(status = 500)
         engine.endSubmission()
     except Exception as e:
         print str(e)

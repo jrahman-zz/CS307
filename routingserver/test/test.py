@@ -201,8 +201,8 @@ def run_test(connection):
     sessionID = json.loads(data)['sessionID']
 
     code = """
-hero.moveUp()
 hero.moveLeft()
+hero.moveUp()
     """
     
     submission = { "codelines": code }

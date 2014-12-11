@@ -127,6 +127,7 @@ shared_ptr<TileLayer> Engine::mergeLayers(vector<shared_ptr<TileLayer>> layers) 
     }
 
     for (auto layerIt = layers.begin(); layerIt != layers.end(); layerIt++) {
+        /* Merge all layers against BackgroundLayer */
         if ((*layerIt)->getName().compare("BackgroundLayer")) {
             backgroundLayer = backgroundLayer->merge(*layerIt);
         }
@@ -149,7 +150,6 @@ bool Engine::startSubmission() {
 }
 
 void Engine::endSubmission() {
-    // TODO
 }
 
 void Engine::checkInput(Json::Value root) {
