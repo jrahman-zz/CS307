@@ -33,16 +33,27 @@ def submit_objective():
         validation = loadedjson['validationcode']
         outname = loadedjson['outname']
         objectiveid = loadedjson['objectiveid']
-    except KeyError:
+    except KeyError as e:
+        print str(e)
         return Response(status = 400)  #The json posted does not contain the keys we expected
-    except Exception:
+    except Exception as e:
+        print str(e)
         return Response(status = 500)
 
-    if not code or not validation or not outname or not objectiveid:
+    if not code:
+        print "No code"
+        print code
+        return Response(status = 400)
+    if not validation:
+        print "No validation"
+        print validation
+        return Response(status = 400)
+    if not outname:
+        print "No outname"
+        print outname
         return Response(status = 400)
 
     # TODO Probably should have some error checking for the various inputs
-    
     code = code + "\n" + validation
     
     try:
