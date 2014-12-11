@@ -24,7 +24,7 @@
   </data>
  </layer>
  <objectgroup name="ActorLayer">
-  <object name="Hero" type="hero" x="192" y="384" width="64" height="64">
+  <object name="Hero" type="hero" x="320" y="384" width="64" height="64">
    <properties>
     <property name="id" value="0"/>
     <property name="rotation" value="90"/>
@@ -70,15 +70,14 @@
   <object name="Wizard Dialog" type="dialogue" x="384" y="384" width="64" height="64">
    <properties>
     <property name="actor" value="1"/>
-    <property name="dialogue">Hello young one. Since you graciously accepted to take on my quest I must teach you a few things so you can survive in the wilderness. First, I will teach you how to do math with python.”
-But, first let me show you my simple adding calculator!
+    <property name="dialogue">First, I will teach you how to do math with python. Here is a simple adding calculator!
 
 def add (a,b)
 	answer = a + b
 
 So you see add is the name of my function! This function named “add” takes in a and b which are numbers! 
 The next line you see there is an &quot;=&quot; which means that you have to do what is on the RIGHT side first. Then whatever answer you get on the RIGHT side will be put into a variable named on the LEFT side.
-Finally, it will store the answer to “answer.” So, if you wanted to divided answer by 2 you can use this code “answer2 = answer/2&quot;</property>
+Finally, it will store the answer to “answer.”</property>
     <property name="priority" value="0"/>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
@@ -163,8 +162,8 @@ I Finished!
     <property name="name" value="Solve the Wizard's task (Arithmetic)"/>
     <property name="objectiveId" value="0"/>
     <property name="priority" value="10"/>
-    <property name="prompt">So, I need you to help me build a special calculator to can help me figure out how many square inches are in a square yard!
-Here is the first part of your code! def sqYardToSqInch(x):</property>
+    <property name="prompt">So, I need you to help me build a special calculator so you can help me figure out how many square inches are in a square yard!
+Here is the first part of your code! def sqYardToSqInch(x): Hint: 1296 sq yards to sq inch </property>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>
@@ -177,7 +176,7 @@ Here is the first part of your code! def sqYardToSqInch(x):</property>
     <property name="objectiveId" value="1"/>
     <property name="priority" value="10"/>
     <property name="prompt">So the function I want you to make for me is &quot;def sell(x):&quot; This program will help me decide if the haggler is within my price range.
-So normally I want to sell my items if they offer me $23, but since I am such a nice guy I will not allow my customer be ripped off so I won’t sell anything that is more than $80. Your function should be &quot;def sell(price): &quot;</property>
+Normally I want to sell my items only if they offer me $23, but since I am such a nice guy I will not allow my customer be ripped off so I won’t sell anything that is more than $80. Your function should be &quot;def sell(price): &quot;</property>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>
     <property name="triggerTarget" value="0"/>

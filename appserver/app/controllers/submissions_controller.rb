@@ -120,8 +120,8 @@ class SubmissionsController < ApplicationController
       @challenge = Challenge.find_by(objective_id: params[:challenge_id])
 
       body = URI.unescape({
-        code: params[:code],
-        validationCode: @challenge.validation_code,
+        codelines: params[:code],
+        validationcode: @challenge.validation_code,
         outname: @challenge.outname,
         objectiveid: @challenge.objective_id
       }.to_json.to_s)

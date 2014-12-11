@@ -93,8 +93,8 @@
                  "type":"hero",
                  "visible":true,
                  "width":64,
-                 "x":256,
-                 "y":512
+                 "x":704,
+                 "y":256
                 }],
          "opacity":1,
          "type":"objectgroup",

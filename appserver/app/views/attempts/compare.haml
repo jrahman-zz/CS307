@@ -20,5 +20,5 @@
   .col-md-6
     %h2
       = link_to "##{@to.id}", @to
-      %small= @from.completed ? "PASSED" : "FAILED"
+      %small= @to.completed ? "PASSED" : "FAILED"
     %pre<= @to.code

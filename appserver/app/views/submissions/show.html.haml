@@ -37,7 +37,7 @@
         - @submission.attempts.order('submitted_at').each_with_index do |a, i|
           %tr
             %td= link_to a.id, a
-            %td= checkmark a.result_id == 'passed', color: true
+            %td= checkmark a.completed, color: true
             %td= checkmark a.hint, color: true
 
     .form-actions
