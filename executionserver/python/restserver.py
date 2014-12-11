@@ -22,7 +22,7 @@ def get_health():
     print(request.data)
     return jsonify({'response':'PONG'})
 
-@app.route('/objective/submit', methods=['POST'])
+@app.route('/challenge/submit', methods=['POST'])
 def submit_objective():
     global engine
     global appcontext

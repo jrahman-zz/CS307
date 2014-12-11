@@ -175,7 +175,7 @@ jsonStr = """
 BASE_URL = "localhost:5000"
 INITIALIZE_SESSION = "/initialize"
 LEVEL_SUBMIT = "/level/submit"
-CHALLENGE_SUBMIT = "/objective/submit"
+CHALLENGE_SUBMIT = "/challenge/submit"
 PING_SERVER = "/ping"
 
 def run_test(connection):
