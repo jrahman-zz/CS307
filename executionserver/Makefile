@@ -8,7 +8,7 @@ clean:
 	rm -r python/include
 
 test:
-	./test.py
+	./python/test.py
 
 python_container:
 	docker build -t python python/
