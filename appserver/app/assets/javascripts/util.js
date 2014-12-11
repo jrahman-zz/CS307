@@ -60,8 +60,12 @@ function segment_text(text, line_chars) {
     var last_space = null;
     var i = 0;
     while (i < text.length && i < line_chars) {
-      if (text.charAt(i) == ' ') {
+      var c = text.charAt(i);
+      if (c == ' ' || c == '\n') {
         last_space = i;
+        if (c == '\n') {
+          break;
+        }
       }
       i++;
     }
