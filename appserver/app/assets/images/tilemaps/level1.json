@@ -131,7 +131,7 @@
                  "name":"NextLevelTrigger",
                  "properties":
                     {
-                     "nextLevel":"1",
+                     "nextLevel":"2",
                      "repeatable":"1",
                      "stopMove":"1",
                      "triggerTarget":"0"
