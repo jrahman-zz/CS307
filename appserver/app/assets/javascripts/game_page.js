@@ -111,8 +111,8 @@ var TileSize = 64;
 var CanvasTileWidth = 18;
 var CanvasTileHeight = 10;
 
-var Port = 3280;
 var ServerUrl = SERVER_URI;
+var LevelsEndpoint = '/levels/#/play'
 var InitEndpoint = '/submissions/init';
 var SubmitEndpoint = '/submissions/submit/level';
 var ChallengeSubmitEndpoint = '/submissions/submit/challenge';
@@ -130,29 +130,31 @@ var tilemap_str;
 // This is set by the session initialization request, then sent with every submission request.
 var session_id = null;
 
-// Load tilemap from file asynchronously.
-var tilemap_promise = ajax_request_async('/assets/tilemaps/' + tilemap_url);
-tilemap_promise.success(function (tilemap) {
-  tilemap_str = tilemap;
+function initialize_level() {
+  // Load tilemap from file asynchronously.
+  var tilemap_promise = ajax_request_async('/assets/tilemaps/' + tilemap_url);
+  tilemap_promise.success(function (tilemap) {
+    tilemap_str = tilemap;
 
-  // Initialize level session with Execution server.
-  var data = {
-    level_id: level_id,
-    course_id: course_id,
-    level: tilemap_str
-  };
-  $.ajax({
-    type: POST,
-    url: InitEndpoint,
-    data: data,
-    dataType: JSONDataType,
-  }).done(function(data) {
-    session_id = data.sessionID;
-    create_game();
-  }).fail(function(jqXHR, textStatus) {
-    console.log('failed init: ' + textStatus);
+    // Initialize level session with Execution server.
+    var data = {
+      level_id: level_id,
+      course_id: course_id,
+      level: tilemap_str
+    };
+    $.ajax({
+      type: POST,
+      url: InitEndpoint,
+      data: data,
+      dataType: JSONDataType,
+    }).done(function(data) {
+      session_id = data.sessionID;
+      create_game();
+    }).fail(function(jqXHR, textStatus) {
+      console.log('failed init: ' + textStatus);
+    });
   });
-});
+}
 
 function create_game() {
   var game = new Phaser.Game(CanvasTileWidth * TileSize, CanvasTileHeight * TileSize,
@@ -194,6 +196,7 @@ function create_game() {
 
   // Intercept click events on the submit button.
   $('#submit_button').click(function(event) {
+    // TODO disable UI
     var code = editor.getValue();
 
     if (debug) {
@@ -203,10 +206,8 @@ function create_game() {
       var endpoint;
       var data = {
         'code': code,
-        'submission': {
-          'level_id': level_id,
-          'course_id': course_id
-        },
+        'submission[level_id]': level_id,
+        'submission[course_id]': course_id,
         'session_id': session_id
       };
 
@@ -224,15 +225,13 @@ function create_game() {
           type: POST,
           url: ServerUrl + endpoint,
           data: data,
-          dataType: JSONDataType
-          // contentType: JSONContentType
+          dataType: JSONDataType,
       }).done(function(data) {
-        // console.log('data: ' + JSON.stringify(data)
-        //     + ', status: ' + textStatus);
+        console.log('data: ' + JSON.stringify(data));
         process_response(data);
       }).fail(function(jqXHR, textStatus) {
         console.log('Error status: ' + textStatus
-            + ', thrown: ');
+            + ', thrown: ' + errorThrown);
       });
     }
   });
@@ -271,12 +270,34 @@ function create_game() {
     } else {
       clearMarkers();
       $('div.code-error').text('');
-
+        
       game_state.process_response(response_json, function() {
         update_objective_list(game_state.objectives);
+        if (game_state.next_level != -1) {
+          level_id = game_state.next_level;
+
+          // Reset and initialize with new level id.
+          // Post submission to application server.
+          /*$.ajax({
+              type: POST,
+              url: ServerUrl + endpoint,
+              data: data,
+              dataType: JSONDataType,
+          }).done(function(data) {
+            console.log('data: ' + JSON.stringify(data));
+            process_response(data);
+          }).fail(function(jqXHR, textStatus) {
+            console.log('Error status: ' + textStatus
+                + ', thrown: ' + errorThrown);
+          });*/
+          var nextLevelUrl = ServerUrl + LevelsEndpoint.replace('#', level_id);
+          window.location.href = nextLevelUrl;
+        }
 
         // TODO re-enable UI
       });
     }
   }
 }
+
+initialize_level();

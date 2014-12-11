@@ -96,7 +96,8 @@ var EventType = {
   ROTATE: 'rotate',
   DIALOGUE: 'dialogue',
   OBJECTIVE: 'objective',
-  OBJECTIVE_COMPLETE: 'objective-complete'
+  OBJECTIVE_COMPLETE: 'objective-complete',
+  LEVEL_EXIT: 'level-exit'
 };
 
 var Event = function(type, data) {
@@ -176,6 +177,10 @@ Event.prototype.execute = function(game_state, callback) {
       game_state.context = -1;
       callback();
       break;
+    case EventType.LEVEL_EXIT:
+      var nextLevel = this.data['nextLevel'];
+      game_state.next_level = nextLevel;
+      break;
     default:
       console.log('Unrecognized event type: ' + this.type);
       break;
@@ -217,6 +222,9 @@ var GameState = function(game, tile_size) {
   // -1 if in navigation context. Otherwise, index indicating current challenge
   // in objectives array.
   this.context = -1;
+
+  // If non-zero, indicates index of next level.
+  this.next_level = -1;
 };
 
 /**
@@ -380,6 +388,11 @@ GameState.prototype.create = function() {
  * Returns 2D array of form [timestep][animation_index]. Elements are type function(callback).
  */
 GameState.prototype.parse_response = function(response_json) {
+  var nextLevel = response_json['nextLevel'];
+  if (nextLevel != -1) {
+    this.next_level = nextLevel;
+  }
+
   var frames = [];
 
   var log_json = response_json['log'];
@@ -395,6 +408,7 @@ GameState.prototype.parse_response = function(response_json) {
       var type = event_json['type'];
       var data_json = event_json['data'];
 
+      var e;
       switch (type) {
         case 'move':
           var actor_id = data_json['actorID'];
@@ -419,40 +433,26 @@ GameState.prototype.parse_response = function(response_json) {
               Phaser.Easing.Linear.None, false /* autoStart */, delay);
           
           var data = { 'actorID': actor_id, 'anim': anim };
-          events.push(new Event(EventType.MOVE, data));
+          e = new Event(EventType.MOVE, data);
           break;
         case 'rotate':
-          var actor_id = data_json['actorID'];
-          var rotation = data_json['rotation'];
-
-          var entity = this.entity_map[actor_id];
-
-          var data = { 'actorID': actor_id, 'rotation': rotation };
-          events.push(new Event(EventType.ROTATE, data));
+          e = new Event(EventType.ROTATE, data_json);
           break;
         case 'dialogue':
-          var actor_id = data_json['actorID'];
-          var dialogue = data_json['dialogue'];
-          var data = { 'actorID': actor_id, 'dialogue': dialogue };
-          events.push(new Event(EventType.DIALOGUE, data));
-          break;
-        case 'levelexit':
-          // TODO implement
+          e = new Event(EventType.DIALOGUE, data_json);
           break;
         case 'objective':
-          var data = {
-            'objectiveID': data_json['objectiveID'],
-            'prompt': data_json['prompt'],
-            'templateCode': data_json['templateCode']
-          };
-          events.push(new Event(EventType.OBJECTIVE, data));
+          e = new Event(EventType.OBJECTIVE, data_json);
           break;
         case 'completedobjective':
-          events.push(new Event(EventType.OBJECTIVE_COMPLETE, null));
+          e = new Event(EventType.OBJECTIVE_COMPLETE, null);
           break;
         default:
           console.log('Unknown log event type: ' + type);
           break;
+      }
+      if (e) {
+        events.push(e);
       }
     }
 
@@ -464,7 +464,6 @@ GameState.prototype.parse_response = function(response_json) {
 
 /**
  * Process and play animations given from the response JSON.
- * Returns TODO indicate level switching
  */
 GameState.prototype.process_response = function(response_json, callback) {
   var frames = this.parse_response(response_json);
