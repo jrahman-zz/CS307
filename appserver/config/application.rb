@@ -26,5 +26,7 @@ module Appserver
 
     # This is necessary to ensure that thin can run as multiple threads in development mode.
     config.middleware.delete Rack::Lock
+
+    config.assets.paths << "#{Rails}/vendor/assets/fonts"
   end
 end

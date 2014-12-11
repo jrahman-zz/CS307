@@ -27,7 +27,12 @@ $brand-info:    #669999;
 $brand-warning: #D49A6A;
 $brand-danger:  #AA4839;
 
-// $body-bg: #105E27;
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url(asset_path('glyphicons-halflings-regular.eot'));
+  src: url(asset_path('glyphicons-halflings-regular.eot?#iefix')) format('embedded-opentype'), url(asset_path('glyphicons-halflings-regular.woff')) format('woff'), url(asset_path('glyphicons-halflings-regular.ttf')) format('truetype'), url(asset_path('glyphicons-halflings-regular.svg#glyphicons_halflingsregular')) format('svg');
+}
 
 /* Import the Bootstrap stylesheets */
 @import "bootstrap-sprockets";
