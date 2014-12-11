@@ -163,7 +163,7 @@
                  "properties":
                     {
                      "actor":"1",
-                     "dialogue":"Hello young one. Since you graciously accepted to take on my quest I must teach you a few things so you can survive in the wilderness. First, I will teach you how to do math with python.\nBut, first let me show you my simple adding calculator!\n\ndef add (a,b)\n\tanswer = a + b\n\nSo you see add is the name of my function! This function named \u201cadd\u201d takes in a and b which are numbers! \nThe next line you see there is an \"=\" which means that you have to do what is on the RIGHT side first. Then whatever answer you get on the RIGHT side will be put into a variable named on the LEFT side.\nFinally, it will store the answer to \u201canswer.\u201d So, if you wanted to divide the answer by 2 you can use this code \u201canswer2 = answer\/2\"",
+                     "dialogue":"First, I will teach you how to do math with python. Here is a simple adding calculator!\n\ndef add (a,b)\n\tanswer = a + b\n\nSo you see add is the name of my function! This function named \u201cadd\u201d takes in a and b which are numbers! \nThe next line you see there is an \"=\" which means that you have to do what is on the RIGHT side first. Then whatever answer you get on the RIGHT side will be put into a variable named on the LEFT side.\nFinally, it will store the answer to \u201canswer.\u201d",
                      "priority":"0",
                      "repeatable":"0",
                      "stopMove":"1",
