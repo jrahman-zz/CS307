@@ -339,10 +339,15 @@ GameState.prototype.load = function(tilemap_json) {
   this.game.load.spritesheet('hero0-spritesheet', hero_spritesheet_path, this.tile_size, this.tile_size);
 
   // Load NPC spritesheets.
-  // TODO make this dynamic.
-  // Should follow format '<type><type_class>-spritesheet'
-  this.game.load.spritesheet('npc1-spritesheet', '/assets/spritesheets/NPCs/LinkRight.png', this.tile_size, this.tile_size);
-  this.game.load.spritesheet('npc0-spritesheet', '/assets/spritesheets/NPCs/PWizard2.png', this.tile_size, this.tile_size);
+  for (var id in this.entity_map) {
+    var entity = this.entity_map[id];
+    if (entity.type == SpriteType.NPC) {
+      var npc_class = entity.type_class;
+      var sprite_key = 'npc' + npc_class + '-spritesheet';
+      var spritesheet_path = '/assets/spritesheets/NPCs/npc' + npc_class + '.png';
+      this.game.load.spritesheet(sprite_key, spritesheet_path);
+    }
+  }
 }
 
 /**
