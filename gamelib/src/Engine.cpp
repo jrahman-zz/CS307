@@ -92,6 +92,11 @@ void Engine::addActors(vector<shared_ptr<Interactable>> actors) {
             moveable->registerMoveObserver(m_levelManager);
         }           
 
+        auto rotatable = dynamic_pointer_cast<Rotatable>(actor);
+        if (rotatable != nullptr) {
+            rotatable->registerRotateObserver(m_levelManager);
+        }
+
         auto loggable = dynamic_pointer_cast<Loggable>(actor);
         if (loggable != nullptr) {
             loggable->registerLogObserver(m_actionLog);

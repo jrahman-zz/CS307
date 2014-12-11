@@ -65,9 +65,6 @@ bool Moveable::move(Direction direction) {
         return false;
     }
 
-    // DEBUG
-    cout << "DX: " << dx << "DY: " << dy << endl; 
-
     int x = m_position.getX() + dx;
     int y = m_position.getY() + dy;
 

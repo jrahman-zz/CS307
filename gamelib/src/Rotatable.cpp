@@ -8,8 +8,17 @@ Rotatable::Rotatable(Json::Value value)
 
 Rotatable::~Rotatable() {}
 
+void Rotatable::registerRotateObserver(weak_ptr<RotateObserver> observer) {
+    m_rotateObserver = observer;
+}
+
 bool Rotatable::rotate(Rotation newRotation) {
-    if (newRotation != Rotation::RUNKNOWN && m_canRotate) {
+    auto observer = m_rotateObserver.lock();
+    if (observer == nullptr) {
+        return false;
+    }
+
+    if (observer->onPreRotate(*this) && newRotation != Rotation::RUNKNOWN && m_canRotate) {
         if (m_rotation != newRotation) {
             shared_ptr<RotateLogEntry> entry(new RotateLogEntry(getID(), newRotation));
             log(entry);

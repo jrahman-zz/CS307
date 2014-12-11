@@ -6,12 +6,14 @@
 #include "json/json.h"
 #include "Interactable.h"
 #include "RotateLogEntry.h"
-
+#include "RotateObserver.h"
 
 class Rotatable : public Interactable {
 public:
 
     virtual ~Rotatable();
+
+    void registerRotateObserver(weak_ptr<RotateObserver> observer);
 
     bool rotate(Rotation newRotation);
 
@@ -34,8 +36,8 @@ protected:
 
 private:
     Rotation m_rotation;
-
     bool m_canRotate;
+    weak_ptr<RotateObserver> m_rotateObserver;
 };
 
 #endif

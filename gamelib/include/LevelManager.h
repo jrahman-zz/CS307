@@ -9,6 +9,7 @@
 #include "StateObserver.h"
 #include "MoveObserver.h"
 #include "InteractObserver.h"
+#include "RotateObserver.h"
 
 #include "GameState.h"
 
@@ -20,7 +21,7 @@
 
 using namespace std;
 
-class LevelManager : public StateObserver, public MoveObserver, public InteractObserver {
+class LevelManager : public StateObserver, public MoveObserver, public InteractObserver, public RotateObserver {
 public:
 
     explicit LevelManager(shared_ptr<TileLayer> tile, shared_ptr<GameState> state);
@@ -36,14 +37,16 @@ public:
     /*
      * Hooks for observer pattern
      */
-    virtual bool onPreStateChange(Interactable& obj, State next);
-    virtual void onPostStateChange(Interactable& obj, State old);
+    bool onPreStateChange(Interactable& obj, State next) override;
+    void onPostStateChange(Interactable& obj, State old) override;
+   
+    bool onPreRotate(Rotatable& obj) override;
 
-    virtual bool onPreMove(Moveable& obj, Position next);
-    virtual void onPostMove(Moveable& obj, Position old);
+    bool onPreMove(Moveable& obj, Position next) override;
+    void onPostMove(Moveable& obj, Position old) override;
 
-    virtual bool onPreInteract(Interactable& src, Interactable& target);
-    virtual void onPostInteract(Interactable& src, Interactable& target);
+    bool onPreInteract(Interactable& src, Interactable& target) override;
+    void onPostInteract(Interactable& src, Interactable& target) override;
 
 protected:
     

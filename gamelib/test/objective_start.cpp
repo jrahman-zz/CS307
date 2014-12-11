@@ -9,7 +9,7 @@
 
 #include "test_data_a.h"
 
-string expected_log = R"({"classID":2,"completed":false,"levelID":1,"log":[[{"data":{"actorID":0,"position":{"x":15,"y":1}},"type":"move"},{"data":{"dialogue":"","objectiveId":42,"prompt":"Write an algorithm to solve the Traveling Salesman Problem","templateCode":"def tsp(graph, starting_point):\n    # TODO, implement the traveling salesman problem solution here\n    pass\n"},"type":"objective"}],[{"data":{"actorID":0,"rotation":180},"type":"rotate"}]],"nextLevel":-1,"userID":0}
+string expected_log = R"({"classID":2,"completed":false,"levelID":1,"log":[[{"data":{"actorID":0,"position":{"x":15,"y":1}},"type":"move"},{"data":{"dialogue":"","objectiveId":42,"prompt":"Write an algorithm to solve the Traveling Salesman Problem","templateCode":"def tsp(graph, starting_point):\n    # TODO, implement the traveling salesman problem solution here\n    pass\n"},"type":"objective"}]],"nextLevel":-1,"userID":0}
 )";
 
 START_TEST("objective_start");
