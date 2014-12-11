@@ -60,10 +60,12 @@ class CoursesController < ApplicationController
   def enroll
     @user = User.find(params[:user_id])
 
-    if @course.open?
+    if @course.open
       @user.grant :student, @course
+      flash[:notice] = 'Successfully enrolled in ' + @course.name
     else
       @user.grant :pending_student, @course
+      flash[:notice] = 'Pending enrollment approval for ' + @course.name
     end
 
     redirect_to @course

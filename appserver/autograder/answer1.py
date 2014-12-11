@@ -5,9 +5,9 @@ ret = ""
 
 correctness = True
 
-student1 = sqYardTosqInch(18)
-student2 = sqYardTosqInch(0)
-student3 = sqYardTosqInch(21)
+student1 = sqYardToSqInch(18)
+student2 = sqYardToSqInch(0)
+student3 = sqYardToSqInch(21)
 
 if (student1 is None) or (student2 is None) or (student3 is None):
 	ret = (False,"You never returned your value!")

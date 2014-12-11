@@ -11,8 +11,8 @@
     .collapse.navbar-collapse#navbar-collapse
       %ul.nav.navbar-nav
         %li= link_to 'Courses', courses_path
-        %li= link_to 'Badges', root_path #TODO: Add badges model
-        %li= link_to 'Users', users_path
+        - if can? :manage, User
+          %li= link_to 'Users', users_path
         %li= link_to 'Tutorial', pages_tutorial_path
         %li= link_to 'Credits', pages_credit_path
 
