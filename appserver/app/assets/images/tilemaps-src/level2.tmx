@@ -72,12 +72,10 @@
     <property name="actor" value="1"/>
     <property name="dialogue">First, I will teach you how to do math with python. Here is a simple adding calculator!
 
-def add (a,b)
-	answer = a + b
+def add(a, b):
+  return a + b
 
-So you see add is the name of my function! This function named “add” takes in a and b which are numbers! 
-The next line you see there is an &quot;=&quot; which means that you have to do what is on the RIGHT side first. Then whatever answer you get on the RIGHT side will be put into a variable named on the LEFT side.
-Finally, it will store the answer to “answer.”</property>
+As you see, &quot;add&quot; is the name of my function. This function named takes &quot;a&quot; and &quot;b&quot; as arguments and returns their sum using the special keyword &quot;return&quot;.</property>
     <property name="priority" value="0"/>
     <property name="repeatable" value="0"/>
     <property name="stopMove" value="1"/>

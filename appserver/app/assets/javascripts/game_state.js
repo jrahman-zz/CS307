@@ -385,7 +385,8 @@ GameState.prototype.create = function() {
   var style = { font: '18pt Courier', fill: '#04750B', stroke: '#000000', strokeThickness: 2 };
   this.dialogue_texts = [
     this.game.add.text(24, 18, '', style),
-    this.game.add.text(24, 64, '', style)
+    this.game.add.text(24, 64, '', style),
+    this.game.add.text(24, 110, '', style)
   ];
 }
 
@@ -541,6 +542,10 @@ function animate_line() {
 
 function animate_line_tick() {
   if (this.dialogue_char_index == this.dialogue_line.length) {
+    // Check for empty line.
+    if (this.dialogue_char_index == 0) {
+      this.dialogue_texts[this.dialogue_text_index].setText('');
+    }
     this.dialogue_line_index++;
 
     this.game.time.events.add(500, animate_line, this);
