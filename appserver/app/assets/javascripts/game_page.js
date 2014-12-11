@@ -230,8 +230,7 @@ function create_game() {
         console.log('data: ' + JSON.stringify(data));
         process_response(data);
       }).fail(function(jqXHR, textStatus) {
-        console.log('Error status: ' + textStatus
-            + ', thrown: ' + errorThrown);
+        console.log('Error status: ' + textStatus);
       });
     }
   });

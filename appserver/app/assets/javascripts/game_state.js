@@ -141,7 +141,7 @@ Event.prototype.execute = function(game_state, callback) {
       game_state.animate_text(lines, callback);
       break;
     case EventType.OBJECTIVE:
-      var id = this.data['objectiveID'];
+      var id = this.data['objectiveId'];
       var prompt = this.data['prompt'];
       var templateCode = this.data['templateCode'];
 
