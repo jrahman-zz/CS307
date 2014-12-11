@@ -199,7 +199,7 @@ function create_game() {
 
   // Intercept click events on the submit button.
   $(SubmitButtonId).click(function(event) {
-    $(this).toggleClass('disabled');
+    $(this).toggleClass('disabled', true);
 
     var code = editor.getValue();
 
@@ -275,6 +275,8 @@ function create_game() {
 
       // Set div text.
       $('div.code-error').text(error_text);
+
+      $(SubmitButtonId).toggleClass('disabled', false);
     } else {
       clearMarkers();
       $('div.code-error').text('');
@@ -302,7 +304,7 @@ function create_game() {
           window.location.href = nextLevelUrl;
         }
 
-        $(SubmitButtonId).toggleClass('disabled');
+        $(SubmitButtonId).toggleClass('disabled', false);
       });
     }
   }
