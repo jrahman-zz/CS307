@@ -219,9 +219,10 @@ def run_test(connection):
             headers = create_params
         )
     response = connection.getresponse()
-    print response.status
     if response.status != 200:
         print "FAILED: Couldn't initialize session"
+        print "STATUS"
+        print response.status
         return
     print "PASSED: Initialized session"
 
@@ -255,9 +256,19 @@ if hero.moveUp():
         return
 
     data = response.read()
+    # Test for valid JSON
     data = json.loads(data)
+    data = json.dumps(data)
+    comp = """{"classID": 2, "log": [[{"type": "rotate", "data": {"rotation": 90, "actorID": 0}}]], "completed": false, "userID": 0, "levelID": 1, "nextLevel": -1}"""
+    if comp != data:
+        print "FAILED: Output did not match expected"
+        print "EXPECTED:"
+        print comp
+        print "FOUND:"
+        print data
+        return
+
     print "PASSED: Successfully submitted level" 
-    print json.dumps(data)
 
     code = """
 hero.moveDown(2)
@@ -286,15 +297,24 @@ hero.moveLeft()
 
     data = response.read()
     data = json.loads(data)
+    data = json.dumps(data)
+    comp = """{"classID": 2, "log": [[{"type": "move", "data": {"position": {"y": 2, "x": 14}, "actorID": 0}}, {"type": "rotate", "data": {"rotation": 270, "actorID": 0}}], [{"type": "move", "data": {"position": {"y": 3, "x": 14}, "actorID": 0}}], [{"type": "move", "data": {"position": {"y": 2, "x": 14}, "actorID": 0}}, {"type": "rotate", "data": {"rotation": 90, "actorID": 0}}], [{"type": "move", "data": {"position": {"y": 1, "x": 14}, "actorID": 0}}], [{"type": "objective", "data": {"objectiveId": 4, "dialogue": "", "prompt": "Help Scooby and the gang escape", "templateCode": ""}}, {"type": "move", "data": {"position": {"y": 1, "x": 13}, "actorID": 0}}, {"type": "rotate", "data": {"rotation": 180, "actorID": 0}}]], "completed": false, "userID": 0, "levelID": 1, "nextLevel": -1}"""
+    if comp != data:
+        print "FAILED: Output did not match expected"
+        print "EXPECTED"
+        print comp
+        print "FOUND"
+        print data
+        return
+
     print "PASSED: Successfully submitted another level" 
-    print json.dumps(data)
-     
+
 #----------------------------------------------------------
 # Challenge submission test
 #----------------------------------------------------------
 
     code = """
-x = y
+x = 3
     """
     vcode = """
 out = (x == 3, "Hello world!")
@@ -314,49 +334,23 @@ out = (x == 3, "Hello world!")
             headers = submit_params
         )
     response = connection.getresponse()
-    print response.status
     if response.status != 200:
         print "FAILED: Couldn't submit challenge"
         return
 
     data = response.read()
     data = json.loads(data)
+    data = json.dumps(data)
+    comp = """{"classID": 2, "log": [[], [], [], [], [], [{"type": "completedobjective", "data": {"totalobjectives": 1, "completedobjectives": 1}}]], "completed": false, "userID": 0, "levelID": 1, "nextLevel": -1}"""
+    if comp != data:
+        print "FAILED: Output did not match expected"
+        print "EXPECTED"
+        print comp
+        print "FOUND"
+        print data
+        return
+    
     print "PASSED: Succesfully submitted challenge"
-    print json.dumps(data)
-
-#----------------------------------------------------------
-#
-#----------------------------------------------------------
-    code = """
-x = y # This is bad
-    """
-    vcode = """
-out = (x == 3, "Hello world!")
-    """
-
-    submission = { "codelines": code, "validationcode": vcode, "outname": "out", "objectiveid": 4}
-
-    submit_params = { "Content-Type": "application/json" }
-    submit_params.update(default_params);
-
-    # Such challenge
-    print "Submitting challenge submission..."
-    connection.request(
-            method  = "POST",
-            url     = CHALLENGE_SUBMIT,
-            body    = json.dumps(submission),
-            headers = submit_params
-        )
-    response = connection.getresponse()
-    print response.status
-    if response.status != 200:
-        print "FAILED: Couldn't submit challenge"
-        return
-
-    data = response.read()
-    data = json.loads(data)
-    print "PASSED: Succesfully submitted second challenge"
-    print json.dumps(data)
 
 
 #----------------------------------------------------------
@@ -377,7 +371,7 @@ out = (x == 3, "Hello world!")
     response = connection.getresponse()
 
     print response.status
-    if response.status != 200:
+    if response.status != 500:
         print "FAILED: Couldn't delete session"
         return
     print "PASSED: Deleted session successfully"
