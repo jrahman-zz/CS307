@@ -61,7 +61,7 @@
   <object name="Wizard" type="npc" x="448" y="384" width="64" height="64">
    <properties>
     <property name="id" value="1"/>
-    <property name="npc_id" value="1"/>
+    <property name="npc_id" value="0"/>
     <property name="rotation" value="0"/>
    </properties>
   </object>

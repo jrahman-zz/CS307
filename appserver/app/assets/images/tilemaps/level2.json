@@ -135,7 +135,7 @@
                  "properties":
                     {
                      "id":"1",
-                     "npc_id":"1",
+                     "npc_id":"0",
                      "rotation":"0"
                     },
                  "rotation":0,
@@ -389,7 +389,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"..\/..\/assets\/spritesheets\/RPGpack_sheet.png",
+         "image":"..\/assets\/spritesheets\/RPGpack_sheet.png",
          "imageheight":832,
          "imagewidth":1280,
          "margin":0,
