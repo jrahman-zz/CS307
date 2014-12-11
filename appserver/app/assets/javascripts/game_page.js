@@ -121,6 +121,8 @@ var POST = 'POST';
 var JSONDataType = 'json';
 var JSONContentType = 'application/json; charset=utf-8';
 
+var SubmitButtonId = '#submit_button';
+
 // Functions inserted by play.html.haml.
 var tilemap_url = get_level_tilemap();
 var hero_gender = get_hero_gender();
@@ -152,6 +154,7 @@ function initialize_level() {
       create_game();
     }).fail(function(jqXHR, textStatus) {
       console.log('failed init: ' + textStatus);
+      alert('Failed to initialize game: ' + textStatus);
     });
   });
 }
@@ -195,8 +198,9 @@ function create_game() {
   var debug = false;
 
   // Intercept click events on the submit button.
-  $('#submit_button').click(function(event) {
-    // TODO disable UI
+  $(SubmitButtonId).click(function(event) {
+    $(this).toggleClass('disabled');
+
     var code = editor.getValue();
 
     if (debug) {
@@ -229,8 +233,13 @@ function create_game() {
       }).done(function(data) {
         console.log('data: ' + JSON.stringify(data));
         process_response(data);
+
+        // Submit button will be enabled after animations.
       }).fail(function(jqXHR, textStatus) {
         console.log('Error status: ' + textStatus);
+        alert('Failed submission request: ' + textStatus);
+
+        $(SubmitButtonId).toggleClass('disabled', false);
       });
     }
   });
@@ -293,7 +302,7 @@ function create_game() {
           window.location.href = nextLevelUrl;
         }
 
-        // TODO re-enable UI
+        $(SubmitButtonId).toggleClass('disabled');
       });
     }
   }
