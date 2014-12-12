@@ -1,0 +1,4 @@
+include
+wrapper/build
+wrapper/libgame.a
+*.pyc

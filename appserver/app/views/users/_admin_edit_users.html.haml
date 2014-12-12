@@ -1,0 +1,11 @@
+.page-header
+  %h1
+    Admin Edit
+
+= simple_form_for User.new do |u|
+  = u.error_notification
+  = u.input :password, label: "New password", required: true, autofocus: true
+  = u.input :password_confirmation, label: "Confirm your new password", required: true
+
+  .col-md-offset-3
+    = u.button :submit, "Reset", class: "btn btn-primary"

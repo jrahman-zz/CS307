@@ -1,0 +1,43 @@
+.row
+  .col-md-4
+    = simple_form_for Submission.new, url: grade_submission_path, class: 'submission-form', html: { onsubmit: "return injectCode('.code-editor')" } do |f|
+      = f.error_notification
+
+      .prompt
+        %h2= @level.name
+        .prompt-text
+          =@level.prompt
+
+        .pull-right
+          %button.btn.btn-sm.btn-danger{"data-content" => @level.hint, "data-toggle" => "popover", "data-trigger" => "focus", :href => "#", :type => "button", :tabindex => "0"} Hint
+
+      .code-error
+      #code-editor
+
+      .form-actions
+        .pull-right
+          = link_to 'Back to Courses', courses_path, class: 'btn btn-default'
+          %span#submit_button.btn.btn-primary Test
+
+  .col-md-8.canvas-outer
+    .outer
+      .middle
+        .inner
+          .objective-container
+            %h2 Objectives
+            #objective-list
+          #canvas-container
+
+
+%script{ type: 'text/javascript' }
+  function get_level_tilemap() {
+  = "\treturn '#{@level.tilemap}';".html_safe
+  }
+
+  function get_hero_gender() {
+  = "\treturn 'girl';".html_safe
+  }
+
+  = "var level_id = " + @level.id.to_s
+  = "var course_id = " + @level.course.id.to_s
+  = raw("var SERVER_URI = \"http://" + @host_with_port + "\"")

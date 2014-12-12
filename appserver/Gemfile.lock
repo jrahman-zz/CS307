@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    ace-rails-ap (3.0.1)
     actionmailer (4.1.6)
       actionpack (= 4.1.6)
       actionview (= 4.1.6)
@@ -29,6 +30,7 @@ GEM
       tzinfo (~> 1.1)
     acts_as_list (0.4.0)
       activerecord (>= 3.0)
+    addressable (2.3.6)
     arel (5.0.1.20140414130214)
     autoprefixer-rails (3.1.0.20140911)
       execjs
@@ -44,6 +46,7 @@ GEM
     builder (3.2.2)
     cancancan (1.9.2)
     coderay (1.1.0)
+    cookiejar (0.3.2)
     daemons (1.1.9)
     debug_inspector (0.0.2)
     devise (3.3.0)
@@ -53,6 +56,15 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    diffy (3.0.7)
+    em-http-request (1.1.2)
+      addressable (>= 2.3.4)
+      cookiejar
+      em-socksify (>= 0.3)
+      eventmachine (>= 1.0.3)
+      http_parser.rb (>= 0.6.0)
+    em-socksify (0.3.0)
+      eventmachine (>= 1.0.0.beta.4)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.2.1)
@@ -64,6 +76,7 @@ GEM
       haml (>= 3.1, < 5.0)
       railties (>= 4.0.1)
     hike (1.2.3)
+    http_parser.rb (0.6.0)
     i18n (0.6.11)
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
@@ -76,6 +89,8 @@ GEM
     multi_json (1.10.1)
     mysql2 (0.3.16)
     orm_adapter (0.5.0)
+    phaser-rails (2.1.1.0)
+      railties (~> 4.0)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
     rack (1.5.2)
@@ -154,6 +169,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ace-rails-ap
   acts_as_list
   autoprefixer-rails
   better_errors
@@ -161,9 +177,12 @@ DEPENDENCIES
   bootstrap-sass
   cancancan
   devise
+  diffy
+  em-http-request
   haml-rails
   jquery-rails
   mysql2
+  phaser-rails
   rails (= 4.1.6)
   ransack
   rolify

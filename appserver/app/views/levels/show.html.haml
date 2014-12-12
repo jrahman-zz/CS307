@@ -1,15 +1,18 @@
-%p#notice= notice
+.page-header
+  %h1
+    = @level.name
+    %small
+      Part of:
+      = @level.course.name
 
-%p
-  %b Name:
-  = @level.name
-%p
-  %b Course:
-  = @level.course_id
-%p
-  %b Tilemap:
-  = @level.tilemap
+.row
+  .col-md-4
+    %p Tile map omitted for brevity.
 
-= link_to 'Edit', edit_level_path(@level)
-\|
-= link_to 'Back', levels_path
+  .col-md-8
+    %h2 Prompt
+    = @level.prompt
+
+.form-actions
+  = link_to 'Edit', edit_level_path(@level), class: 'btn btn-warning'
+  = link_to 'Back', :back, class: 'btn btn-default'

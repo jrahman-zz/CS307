@@ -2,10 +2,10 @@
 
 one:
   name: MyString
-  course_id_id: 
+  course_id: 1
   tilemap: MyText
 
 two:
   name: MyString
-  course_id_id: 
+  course_id: 2
   tilemap: MyText

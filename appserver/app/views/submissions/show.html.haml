@@ -1,27 +1,54 @@
-%p#notice= notice
+.page-header
+  %h1
+    Submission
+    %small
+      Passed:
+      = checkmark @submission.completed_at, color: true
 
-%p
-  %b User:
-  = @submission.user_id
-%p
-  %b Course:
-  = @submission.course_id
-%p
-  %b Code:
-  = @submission.code
-%p
-  %b Passed:
-  = @submission.passed
-%p
-  %b Score:
-  = @submission.score
-%p
-  %b Score:
-  = @submission.score
-%p
-  %b Submitted at:
-  = @submission.submitted_at
+.row
+  .col-md-5
+    %p.lead
+      %b User:
+      = @submission.user.name
 
-= link_to 'Edit', edit_submission_path(@submission)
-\|
-= link_to 'Back', submissions_path
+    %p.lead
+      %b Course:
+      = @submission.course.name
+
+    %p.lead
+      %b Started at:
+      = @submission.started_at ? @submission.started_at.strftime('%Y-%m-%d %H:%m') : 'N/A'
+
+    %p.lead
+      %b Completed at:
+      = @submission.completed_at ? @submission.completed_at.strftime('%Y-%m-%d %H:%m') : 'N/A'
+
+  .col-md-7
+    %h2 Attempts
+
+    %table.table.table-condensed.table-striped
+      %thead
+        %tr
+          %th ID
+          %th Passed?
+          %th Hint Given?
+
+      %tbody
+        - @submission.attempts.order('submitted_at').each_with_index do |a, i|
+          %tr
+            %td= link_to a.id, a
+            %td= checkmark a.completed, color: true
+            %td= checkmark a.hint, color: true
+
+    .form-actions
+      = form_tag attempt_comparison_url, method: :get, class: 'form-inline' do
+        Compare attempt
+        = collection_select('attempts', 'from', @submission.attempts.all, :id, :id, {}, class: 'form-control input-sm')
+        to attempt
+        = collection_select('attempts', 'to', @submission.attempts.all, :id, :id, {}, class: 'form-control input-sm')
+
+        = submit_tag 'Go', class: 'btn btn-primary btn-sm'
+
+
+.form-actions
+  = link_to 'Back', :back, class: 'btn btn-default'

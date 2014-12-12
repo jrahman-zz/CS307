@@ -1,0 +1,36 @@
+html, body {
+  height: 100%;
+}
+
+.new_submission {
+  background-color: rgba(0,0,0,.7);
+  min-height: 100%;
+  width: 40%;
+
+  .submission-form {
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  .code-editor {
+    padding: 10px;
+    height: 100vh;
+    overflow: scroll;
+    color: #fff;
+    font-family: Monaco, Courier, monospace;
+    outline: none;
+    resize: none;
+    background: none;
+    border: none;
+    width: 100%;
+  }
+
+  .form-actions {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 40%;
+  }
+}
+

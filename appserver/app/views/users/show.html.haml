@@ -1,16 +1,27 @@
-%p#notice= notice
+.page-header
+  %h1
+    = @user.name
+    %small= @user.email
 
-%table.table.table-striped.vertical-aligned
-  %tr
-    %th Name 
-    %th Email Address
-    %th Last Sign in
+.row
+  .col-md-12
+    %h2 Courses
 
-    %tr
-      %td= @user.name
-      %td= @user.email
-      %td= @user.last_sign_in_at
+    %table.table.table-striped.vertical-aligned
+      %thead
+        %tr
+          %th Name
+          %th Start Date
+          %th Progress
 
-= link_to 'Edit', edit_user_path(@user)
-\|
-= link_to 'Back', users_path
+      %tbody
+        - Course.with_role(:student, current_user).each do |course|
+          %tr
+            %td= link_to course.name, course
+            %td= course.start_date.strftime('%h %d, %Y at %I:%M %p')
+            %td
+              - course_progress(course, current_user)
+
+.form-actions
+  = link_to 'Edit', edit_user_registration_path(@users), class: "btn btn-primary btn-sm"
+  = link_to 'Back', :back, class: "btn btn-warning btn-sm"
