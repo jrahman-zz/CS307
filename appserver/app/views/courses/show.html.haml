@@ -1,12 +1,10 @@
-%p#notice= notice
-
-%p
-  %b Name:
-  = @course.name
-%p
-  %b Start date:
-  = @course.start_date
-
-= link_to 'Edit', edit_course_path(@course)
-\|
-= link_to 'Back', courses_path
+- if !current_user
+  = render 'guest_show'
+- elsif current_user.has_role? :admin
+  = render 'admin_show'
+- elsif current_user.has_role? :instructor, @course
+  = render 'instructor_show'
+- elsif current_user.has_role? :student, @course
+  = render 'student_show'
+- else
+  = render 'guest_show'

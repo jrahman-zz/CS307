@@ -1,5 +1,7 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :enroll, :withdraw, :approve_enrollment]
+
+  authorize_resource
 
   # GET /courses
   def index
@@ -46,6 +48,38 @@ class CoursesController < ApplicationController
     redirect_to courses_url, notice: 'Course was successfully destroyed.'
   end
 
+  def withdraw
+    @user = User.find(params[:user_id])
+
+    @user.revoke :student, @course
+    @user.revoke :pending_student, @course
+
+    redirect_to @course, notice: 'You have successfully withdrawn!'
+  end
+
+  def enroll
+    @user = User.find(params[:user_id])
+
+    if @course.open
+      @user.grant :student, @course
+      flash[:notice] = 'Successfully enrolled in ' + @course.name
+    else
+      @user.grant :pending_student, @course
+      flash[:notice] = 'Pending enrollment approval for ' + @course.name
+    end
+
+    redirect_to @course
+  end
+
+  def approve_enrollment
+  	@user = User.find(params[:user_id])
+
+    @user.revoke :pending_student, @course
+ 	  @user.grant :student, @course
+
+    redirect_to @course
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course
@@ -54,6 +88,6 @@ class CoursesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def course_params
-      params.require(:course).permit(:name, :start_date)
+      params.require(:course).permit(:name, :start_date, :description, :open)
     end
 end

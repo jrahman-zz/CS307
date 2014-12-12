@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="18" height="10" tilewidth="64" tileheight="64" backgroundcolor="#000000">
+ <tileset firstgid="1" name="RPGpack_sheet" tilewidth="64" tileheight="64">
+  <image source="../assets/spritesheets/RPGpack_sheet.png" width="1280" height="832"/>
+ </tileset>
+ <layer name="BackgroundLayer" width="18" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYMKBmYGYEYglgViMABbFIycBNYMNiNmBmIMI80CYG4h5gJgXTVwPiPWB2IBIc+SBWAGIFYlUjwsbA7EJEJtSaM5IxbD4xBan5MQDtrgAALrED5M=
+  </data>
+ </layer>
+ <layer name="BuildingsWalls" width="18" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYKANuATEz4hQ50QFu5yQMAw0AXEzmWYgm7UKiFeTYE4oEIch4XCoeDwQJ0DZF5EwLmAHxLZAnAWlHaDi3kDsA8TzSHATNuAGxJ5Eqv2JhgczAACsGxJP
+  </data>
+ </layer>
+ <layer name="BuildingsRoofWindow" width="18" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAdVANxHRDXkKEX2Yx+IK4F4gkUmAUyYzGUvQRqFjkAZMYVKPsK1CxKwEEK9YPAPzQaBI5D8SjADgD0SA2p
+  </data>
+ </layer>
+ <layer name="TreeLayer" width="18" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYKA/OEslcx5SqP8Mhfq3A/FpIH5AoTk7gPg+lGZAoskF1AjfcwyUhS/IDbuA+BGUJgfsgroBRO8kUg8Ar2QQkQ==
+  </data>
+ </layer>
+ <objectgroup name="ActorLayer">
+  <object name="Hero" type="hero" x="320" y="384" width="64" height="64">
+   <properties>
+    <property name="id" value="0"/>
+    <property name="rotation" value="90"/>
+   </properties>
+  </object>
+  <object name="Koopa" type="npc" x="384" y="0" width="64" height="64">
+   <properties>
+    <property name="id" value="2"/>
+    <property name="npc_id" value="2"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object name="Trainer" type="npc" x="896" y="320" width="64" height="64">
+   <properties>
+    <property name="id" value="3"/>
+    <property name="npc_id" value="3"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object name="Peachy" type="npc" x="576" y="64" width="64" height="64">
+   <properties>
+    <property name="id" value="4"/>
+    <property name="npc_id" value="4"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object name="DancinWiz" type="npc" x="960" y="576" width="64" height="64">
+   <properties>
+    <property name="id" value="5"/>
+    <property name="npc_id" value="5"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object name="Wizard" type="npc" x="448" y="384" width="64" height="64">
+   <properties>
+    <property name="id" value="1"/>
+    <property name="npc_id" value="0"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="TriggerLayer">
+  <object name="Wizard Dialog" type="dialogue" x="384" y="384" width="64" height="64">
+   <properties>
+    <property name="actor" value="1"/>
+    <property name="dialogue">First, I will teach you how to do math with python. Here is a simple adding calculator!
+
+def add(a, b):
+  return a + b
+
+As you see, &quot;add&quot; is the name of my function. This function named takes &quot;a&quot; and &quot;b&quot; as arguments and returns their sum using the special keyword &quot;return&quot;.</property>
+    <property name="priority" value="0"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+  <object name="Trainer Dialog" type="dialogue" x="896" y="384" width="64" height="64">
+   <properties>
+    <property name="actor" value="3"/>
+    <property name="dialogue">Oh? So you think you are so smart by adding a bunch of even numbers? Try finding the sum of odd numbers! By using for loops! 
+Here is the structure of a for loop. 
+for variable in condition
+	logic
+</property>
+    <property name="repeatable" value="1"/>
+    <property name="stopMove" value="1"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+  <object name="Koopa Dialog" type="dialogue" x="384" y="64" width="64" height="64">
+   <properties>
+    <property name="actor" value="2"/>
+    <property name="dialogue">I decided to check up on my little store center I have on the pier. But, it looks like my cash register has been acting up and has not been selling at the correct prices. Help me reprogram it young one! First, I must teach you how to create an if statement!
+if expression: 
+	logic
+else: 
+	logic</property>
+    <property name="priority" value="0"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+  <object name="DancinWiz Dialog" type="dialogue" x="960" y="512" width="64" height="64">
+   <properties>
+    <property name="actor" value="5"/>
+    <property name="dialogue">MEEK!!! I can’t figure out if I can buy a brand new racing kart for a race I am entering over in Merio Land. The brand new Deluxe Mushmellow, with slick new tire upgrades, plus a cloud will cost me a lot of money! I need you to write me a program to figure out if this will be in my price range if not I can use it to figure out if i can buy other karts!
+</property>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
+    <property name="triggerTarget" value="1"/>
+   </properties>
+  </object>
+  <object name="Peachy Dialog" type="dialogue" x="576" y="128" width="64" height="64">
+   <properties>
+    <property name="actor" value="4"/>
+    <property name="dialogue">Did you ever wonder what the first 10 even digits were? Did you know you can use loops to make that process so much easier? Here try it with me! 
+so if you write
+
+n = 0
+while n &lt;= 10:
+	print n
+	n = n + 2
+print “I Finished!&quot;
+
+the output would be 
+0
+2
+4
+6
+8
+10
+I Finished!
+</property>
+    <property name="priority" value="0"/>
+    <property name="repeatable" value="1"/>
+    <property name="stopMove" value="1"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+  <object name="NextLevelTrigger" type="levelexit" x="1088" y="384" width="64" height="64">
+   <properties>
+    <property name="nextLevel" value="2"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+  <object name="Wizard Objective" type="objective" x="384" y="384" width="64" height="64">
+   <properties>
+    <property name="actor" value="1"/>
+    <property name="name" value="Solve the Wizard's task (Arithmetic)"/>
+    <property name="objectiveId" value="0"/>
+    <property name="priority" value="10"/>
+    <property name="prompt">So, I need you to help me build a special calculator so you can help me figure out how many square inches are in a square yard!
+Here is the first part of your code! def sqYardToSqInch(x): Hint: 1296 sq yards to sq inch </property>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+  <object name="Koopa Objective" type="objective" x="384" y="64" width="64" height="64">
+   <properties>
+    <property name="actor" value="2"/>
+    <property name="name" value="Solve the Koopa's task (Conditional)"/>
+    <property name="objectiveId" value="1"/>
+    <property name="priority" value="10"/>
+    <property name="prompt">So the function I want you to make for me is &quot;def sell(x):&quot; This program will help me decide if the haggler is within my price range.
+Normally I want to sell my items only if they offer me $23, but since I am such a nice guy I will not allow my customer be ripped off so I won’t sell anything that is more than $80. Your function should be &quot;def sell(price): &quot;</property>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+  <object name="Peachy Objective" type="objective" x="576" y="128" width="64" height="64">
+   <properties>
+    <property name="actor" value="4"/>
+    <property name="name" value="Solve the Peachy's task (While Loops)"/>
+    <property name="objectiveId" value="3"/>
+    <property name="priority" value="10"/>
+    <property name="prompt">So your problem is find me the sum of the first 100 even digits!
+Your function should be &quot;def evenNumber():&quot;</property>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+  <object name="Trainer Objective" type="objective" x="896" y="384" width="64" height="64">
+   <properties>
+    <property name="actor" value="3"/>
+    <property name="name" value="Solve the Trainer's task (For Loops)"/>
+    <property name="objectiveId" value="2"/>
+    <property name="priority" value="10"/>
+    <property name="prompt" value="Try finding the sum of odd numbers! Your function definition should be &quot;def oddNumbers(): &quot;"/>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+  <object name="DancingWiz Objective" type="objective" x="960" y="512" width="64" height="64">
+   <properties>
+    <property name="actor" value="5"/>
+    <property name="name" value="Solve the DancerWiz's task (Final Level Problem)"/>
+    <property name="objectiveId" value="4"/>
+    <property name="priority" value="10"/>
+    <property name="prompt">So if the Deluxe Mushmellow kart is 800, dollars the new tires is 125, and the cloud kite is 142 dollars how much is that going to cost total? Also, in Mario Land there is a 12.8% tax on final purchase. Then can you see if that number is less than my 1356 dollars that I have in my pocket?  If so, then you say “YAY! I CAN BUY IT!” and if not  “I need more money!”
+Can you write me a program to add 3 items and then adds on the tax and compares if i have enough money or not and outputs the correct response? Your function should be &quot;def purchases(kart, wheels, kite): &quot; </property>
+    <property name="repeatable" value="0"/>
+    <property name="stopMove" value="1"/>
+    <property name="triggerTarget" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

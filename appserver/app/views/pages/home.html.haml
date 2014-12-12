@@ -1,0 +1,15 @@
+.jumbotron
+  .container
+    .row
+      .col-md-7
+        %h1{contenteditable: true} HERO.play
+        %p This is an interesting game.
+
+      .col-md-5
+        = simple_form_for @user, url: session_path(@user) do |f|
+          = f.input :email, required: false, autofocus: true, placeholder: 'me@example.com'
+          = f.input :password, required: false, placeholder: 'password'
+          = f.input :remember_me, label: 'Remember?', as: :boolean
+
+          .col-sm-offset-3
+            = f.button :submit, "Sign in", class: 'btn btn-primary'

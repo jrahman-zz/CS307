@@ -1,7 +1,7 @@
-%h1 Editing course
+.page-header
+  %h1
+    Editing
+    = @course.name
 
 = render 'form'
-
-= link_to 'Show', @course
-\|
-= link_to 'Back', courses_path
+= link_to 'Back', courses_path, class: 'btn btn-danger'

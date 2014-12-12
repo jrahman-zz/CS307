@@ -1,0 +1,35 @@
+.page-header
+  %h1
+    = @course.name
+    / TODO: Implement languages
+    %small
+      in Python, starts
+      = @course.start_date.strftime('%h %d, %Y at %I:%M %p')
+
+.row
+  .col-md-5
+    %h2 Badges
+    %p This section will contain the badges that the student has earned in this course.
+
+    %h2 Instructors
+    %ul.list-unstyled.member-list
+      - User.with_role(:instructor, @course).each do |s|
+        %li
+          = s.name
+
+    %h2 Levels
+    %ul.list-unstyled.member-list
+      - @course.levels.each do |l|
+        %li
+          = link_to l.name, l
+          .pull-right
+            = link_to 'Play', play_level_path(l)
+
+  .col-md-7
+    %h2 Description
+    = @course.description
+
+.form-actions
+  = link_to 'Back to Courses', courses_path, class: 'btn btn-primary btn-sm'
+  - if current_user.has_any_role?({ name: :student, resource: @course }, { name: :pending_student, resource: @course })
+    = link_to 'Withdraw from Course', enrollment_withdraw_path(@course, current_user), class: 'btn btn-danger btn-sm', method: :post, :data => { :confirm => 'Are you sure?' }
