@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  authorize_resource
+
   # GET /users
   def index
     @users = User.all
@@ -43,6 +45,11 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     redirect_to users_url, notice: 'User was successfully destroyed.'
+  end
+
+  #Admin view for editing password reroutes
+  def admin
+    render '_admin_edit_users'
   end
 
   private

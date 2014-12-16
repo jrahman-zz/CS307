@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Game Resource Server</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" />
+    <style type="text/css">
+      body {
+        padding-top: 70px;
+      }
+
+      .table tbody tr td {
+        vertical-align: middle;
+      }
+
+      .table td .options {
+        float: right;
+      }
+
+      .btn-hover-danger {
+        color: #777;
+      }
+
+      .btn-hover-danger:hover {
+        background-color: #d9534f;
+        border-color: #d43f3a;
+        color: #fff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand">Resource Server</a>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="{{ url_for('resources_index') }}">Manage</a></li>
+            <li><a href="{{ url_for('resources_new') }}">Add</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <div class="page-header">
+        <h1>{% block header %}{% endblock %}</h1>
+      </div>
+
+      {% block body %}{% endblock %}
+    </div>
+  </body>
+</html>

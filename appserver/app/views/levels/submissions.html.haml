@@ -1,0 +1,25 @@
+.page-header
+  %h1
+    Submissions for
+    = @level.name
+    %small
+      Part of
+      = @level.course.name
+
+.row
+  .col-md-12
+    %table.table.table-striped.vertical-aligned
+      %thead
+        %tr
+          %th
+          %th User
+          %th # of Submissions
+          %th Completed?
+
+      %tbody
+        - @level.submissions.each do |s|
+          %tr
+            %td= link_to 'View', s, class: 'btn btn-default btn-xs'
+            %td= link_to s.user.name, s.user
+            %td= s.attempts.length
+            %td= s.completed_at ? 'Yes' : 'No'

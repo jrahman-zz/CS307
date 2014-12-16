@@ -1,10 +1,9 @@
 .page-header
-  .pull-right.col-md-4
-    = search_form_for @q do |f|
-      .input-group
-        = f.search_field :name_cont, placeholder: 'Search Courses', class: 'form-control'
-        .input-group-btn= f.submit 'Search', class: 'btn btn-default'
-  %h1 Courses
+  = search_form_for @q do |f|
+    .input-group.col-md-4.pull-right
+      = f.search_field :name_cont, placeholder: 'Search Courses', class: 'form-control'
+      .input-group-btn= f.submit 'Search', class: 'btn btn-default'
+    %h1 Courses
 
 %table.table.table-striped.vertical-aligned
   %thead
@@ -18,9 +17,10 @@
       %tr
         %td= link_to course.name, course
         %td= course.start_date
-        %td
-          = link_to 'Edit', edit_course_path(course), class: 'btn btn-default btn-sm'
-          = link_to 'Destroy', course, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-sm'
+        - if can? :manage, course
+          %td
+            = link_to 'Edit', edit_course_path(course), class: 'btn btn-warning btn-sm'
+            = link_to 'Destroy', course, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-sm'
 
 .form-actions
   = link_to 'New Course', new_course_path, class: 'btn btn-primary'

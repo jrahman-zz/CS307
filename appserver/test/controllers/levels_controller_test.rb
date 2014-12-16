@@ -18,7 +18,7 @@ class LevelsControllerTest < ActionController::TestCase
 
   test "should create level" do
     assert_difference('Level.count') do
-      post :create, level: { course_id_id: @level.course_id_id, name: @level.name, tilemap: @level.tilemap }
+      post :create, level: levels(:one)
     end
 
     assert_redirected_to level_path(assigns(:level))
@@ -35,7 +35,7 @@ class LevelsControllerTest < ActionController::TestCase
   end
 
   test "should update level" do
-    patch :update, id: @level, level: { course_id_id: @level.course_id_id, name: @level.name, tilemap: @level.tilemap }
+    patch :update, id: @level, level: levels(:one)
     assert_redirected_to level_path(assigns(:level))
   end
 
